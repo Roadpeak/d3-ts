@@ -1,3 +1,4 @@
+import FeaturedOffers from './components/FeaturedOffers';
 import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import StoresSection from './components/StoresSection';
@@ -8,6 +9,7 @@ function App() {
       <Navbar />
       <Hero />
       <StoresSection />
+      <FeaturedOffers />
     </div>
   );
 }
