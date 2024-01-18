@@ -1,7 +1,9 @@
 import FeaturedOffers from './components/FeaturedOffers';
+import Footer from './components/Footer';
 import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import StoresSection from './components/StoresSection';
+import TodaysDeals from './components/TodaysDeals';
 import TravelSection from './components/TravelSection';
 
 function App() {
@@ -12,6 +14,8 @@ function App() {
       <StoresSection />
       <FeaturedOffers />
       <TravelSection />
+      <TodaysDeals />
+      <Footer />
     </div>
   );
 }
