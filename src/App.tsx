@@ -2,6 +2,7 @@ import FeaturedOffers from './components/FeaturedOffers';
 import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import StoresSection from './components/StoresSection';
+import TravelSection from './components/TravelSection';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Hero />
       <StoresSection />
       <FeaturedOffers />
+      <TravelSection />
     </div>
   );
 }
