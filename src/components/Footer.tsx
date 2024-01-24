@@ -7,7 +7,6 @@ const Footer = () => {
     <footer className="bg-white border-t  text-black">
       <div className="px-[5%] mx-auto py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo and About Us */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <p className="text-[20px] font-medium uppercase border-b">
                 discoun3
@@ -17,7 +16,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="list-none">
@@ -29,7 +27,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Categories */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Categories</h4>
             <ul className="list-none">
@@ -41,7 +38,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
             <p className="mb-2">123 Street, City</p>
@@ -50,7 +46,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Social Media Links */}
         <div className="mt-8 flex justify-center">
           <a href="#" className="mr-4 text-gray-500 hover:text-black">
             <FaFacebookF />
@@ -67,7 +62,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="bg-white border-t py-4">
         <div className="container mx-auto text-center text-gray-900">
           <p>&copy; 2024 DISCOUN3. All rights reserved.</p>

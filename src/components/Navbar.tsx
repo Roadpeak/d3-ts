@@ -14,7 +14,8 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center  text-white gap-3 ">
-        <p className='px-3 py-2 bg-gray-600 rounded-md '>Cart / Bookings</p>
+        <p className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Cart</p>
+        <p className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Bookings</p>
         <div className="bg-white flex items-center justify-center text-gray-400 p-2 rounded-full">
             <FiUser size={20} />
         </div>

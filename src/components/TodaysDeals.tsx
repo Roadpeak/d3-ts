@@ -112,7 +112,7 @@ const TodaysDeals = () => {
             <img
               src={deal.image}
               alt={deal.title}
-              className="w-full w-[25%] rounded-md object-cover mb-2"
+              className="w-[25%] rounded-md object-cover mb-2"
             />
             <div className="w-full flex h-full items-center justify-between">
               <div className="flex flex-col">

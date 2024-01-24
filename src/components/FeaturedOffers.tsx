@@ -198,7 +198,7 @@ const FeaturedOffers = () => {
               </div>
             </div>
             <p className="text-black font-semibold mb-2">{item.name}</p>
-            <p className="text-gray-500">{item.description}</p>
+            <p className="text-[14px] text-primary">{item.description}</p>
           </div>
         ))}
       </div>

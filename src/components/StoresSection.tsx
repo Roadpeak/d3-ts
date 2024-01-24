@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface Store {
   id: number;
   name: string;
@@ -26,7 +24,6 @@ interface Store {
     { id: 15, name: 'Sarit Centre', image: 'https://d3itvsmwj0r86k.cloudfront.net/images/e5fa0ab0-e8c0-4f69-9096-191a9a4d811a.jpg', number: 28 },
     ];
 
-
 const StoresSection = () => {
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-50 pb-[2%]'>
@@ -35,7 +32,7 @@ const StoresSection = () => {
       </p>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {storeData.map((store) => (
-          <div key={store.id} className="bg-white flex flex-col items-center justify-center  p-4 shadow-md hover:shadow-xl cursor-pointer">
+          <div key={store.id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
             <img
               src={store.image}
               alt={store.name}
