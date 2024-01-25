@@ -163,7 +163,7 @@ const StoreView: React.FC = () => {
           {/* Map through the products and display them */}
           <div className="w-full grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 lg:grid-cols6">
             {products.map((product) => (
-            <Link to={`/`} key={product.id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
+            <Link to={`/products/${product.id}/see-details`} key={product.id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
               <img src={product.image} alt={product.title} className="w-full object-cover rounded-md" />
               <div className="flex flex-col">
                 <p className="text-[14px] text-gray-500">{product.storeName}</p>
