@@ -15,7 +15,7 @@ const Receipt: React.FC<ReceiptProps> = ({ orderNumber, productName, amountPaid 
     <>
         <Navbar />
         <div className="px-[5%] mx-auto w-full md:w-2/5 my-8 p-8 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg shadow-lg">
-            <h2 className="text-3xl font-semibold mb-4">Order Receipt</h2>
+            <h2 className="text-3xl font-semibold mb-4">Receipt & Info</h2>
             <div className="mb-6">
                 <p className="text-lg">
                 <span className="font-semibold">Order Number:</span> {orderNumber}
