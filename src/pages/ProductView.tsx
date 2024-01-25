@@ -47,7 +47,7 @@ const ProductView: React.FC = () => {
                                                     Ksh {(4300).toLocaleString('KES')}
                                                 </p>
                                             </div>
-                                            <button className="w-full py-2 bg-primary rounded-md text-white font-medium capitalize text-[17px] flex items-center justify-center mb-2">
+                                            <button onClick={() => navigate('/checkout')} className="w-full py-2 bg-primary rounded-md text-white font-medium capitalize text-[17px] flex items-center justify-center mb-2">
                                                 Get this discount
                                             </button>
                                             <div className="flex flex-col my-3.5">
@@ -109,40 +109,6 @@ const ProductView: React.FC = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="hidden md:flex p-4 md:w-1/3 flex-col border ">
-                                    <p className='flex items-center gap-2 text-[24px] font-medium border-b'>
-                                        <FaLock /> 
-                                        Secure payment options
-                                    </p>
-                                    <p className="text-[15px] font-light py-2">
-                                        With Naswasoko you are able to pay and on the delivery, Naswasoko keeps your payment information secure and our shops never receive your credit card information. If paying online your credit won't be charged until you confirm that you received your order.
-                                    </p>
-                                    <p className="border-t border-b text-[16px] font-normal py-1">
-                                        Delivery within Nairobi CBD from as low as KSH 110
-                                    </p>
-                                    <div className="">
-                                        <p className="text-[20px] font-medium">
-                                            Delivery fee depending on the area
-                                        </p>
-                                        <ul className="list-disc pl-6">
-                                            <li className="mb-2">Nairobi - Ksh. 350</li>
-                                            <li className="mb-2">Naivasha, Eldoret, Nakuru - Ksh. 500</li>
-                                            <li className="mb-2">Malaba - Ksh. 750</li>
-                                        </ul>
-                                    </div>
-                                    <p className='flex items-center gap-2 text-gray-700 text-[15px]'>
-                                        <IoMdTime />
-                                        Delivery in Nairobi: Same day (if ordered before 4pm)
-                                    </p>
-                                    <p className='flex items-center gap-2 text-gray-700 text-[15px]'>
-                                        <IoMdTime />
-                                        Delivery outside Nairobi: 1 -2 business days
-                                    </p>
-                                    <p className='flex items-center gap-2 text-gray-700 text-[15px]'>
-                                        <FaArrowsRotate />
-                                        Returns: Accepted within 48 hrs(after delivery)
-                                    </p>
-                                </div> */}
                             </div>
                     </div>
                 </div>

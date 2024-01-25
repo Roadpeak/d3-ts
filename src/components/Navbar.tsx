@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
     <div className='flex w-full py-2 px-[5%] items-center justify-between bg-primary '>
       <div className="flex items-center gap-[30px] ">
         <p className='text-white font-medium text-[24px]'>Discoun3</p>
-        <div className="flex items-center bg-white rounded-md w-[450px] gap-2 px-10">
+        <div className="hidden md:flex items-center bg-white rounded-md w-[450px] gap-2 px-10">
             <FaSearch size={20} className='text-gray-500' />
             <input type="text" placeholder='Search' className='outline-none py-2 w-full ' />
         </div>
