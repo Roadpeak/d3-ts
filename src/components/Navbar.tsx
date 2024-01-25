@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
     <div className="bg-secondary flex items-center justify-center gap-2 py-2 ">
         <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Home</Link>
         <Link to={`/stores`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Stores</Link>
-        <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Deals</Link>
+        <Link to={`/deals`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Deals</Link>
         <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer'>Big</Link>
     </div>
     </>

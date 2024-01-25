@@ -176,7 +176,7 @@ const featuredItems: FeaturedItem[] = [
 const FeaturedOffers = () => {
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-50 mb-[2%]'>
-      <p className="text-black font-semibold text-[24px]">
+      <p className="text-black font-medium text-[24px]">
         Featured Products & Services | 2024
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">

@@ -22,6 +22,7 @@ const ProductView: React.FC = () => {
                                         <div className="flex flex-col md:flex-row flex-wrap overflow-x-auto w-full md:w-1/2">
                                             <div className="px-[5%] w-full md:w-2/3 mt-4 md:mt-0">
                                                 <img 
+                                                    className='rounded-md'
                                                     alt='image'
                                                     src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHNob3BwaW5nfGVufDB8fDB8fHww" 
                                                 />
