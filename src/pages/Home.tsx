@@ -7,7 +7,7 @@ import TravelSection from '../components/TravelSection'
 import TodaysDeals from '../components/TodaysDeals'
 import Footer from '../components/Footer'
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div>
       <Navbar />

@@ -1,8 +1,9 @@
 import React from 'react'
 import { FaSearch } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <>
     <div className='flex w-full py-2 px-[5%] items-center justify-between bg-primary '>
@@ -22,10 +23,10 @@ const Navbar = () => {
       </div>
     </div>
     <div className="bg-secondary flex items-center justify-center gap-2 py-2 ">
-        <p className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Home</p>
-        <p className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Stores</p>
-        <p className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Deals</p>
-        <p className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Big discounts</p>
+        <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Home</Link>
+        <Link to={`/stores`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Stores</Link>
+        <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Deals</Link>
+        <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Big discounts</Link>
     </div>
     </>
   )

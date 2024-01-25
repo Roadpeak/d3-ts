@@ -100,7 +100,7 @@ const todayDeals: Deal[] = [
   },
 ];
 
-const TodaysDeals = () => {
+const TodaysDeals: React.FC = () => {
   return (
     <div className='w-full px-[5%] py-[2%] flex flex-col gap-[2%] '>
       <p className="text-black font-medium text-[24px]">
