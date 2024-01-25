@@ -214,7 +214,7 @@ const Checkout: React.FC = () => {
                 onClick={handleCheckout}
                 // disabled={!selectedProduct || !selectedGateway}
                 >
-                Proceed to Checkout
+                Complete
             </button>
         </div>
         </div>
