@@ -1,10 +1,8 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { FaAngleLeft, FaCartArrowDown, FaFacebookF, FaInstagram, FaLock, FaRegHeart, FaWhatsapp } from 'react-icons/fa'
-import { FaArrowsRotate, FaXTwitter } from 'react-icons/fa6'
-import { MdOutlineVerified } from 'react-icons/md'
-import { IoMdTime } from 'react-icons/io'
+import { FaAngleLeft, FaFacebookF, FaInstagram, FaRegHeart, FaWhatsapp } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
 
 const ProductView: React.FC = () => {

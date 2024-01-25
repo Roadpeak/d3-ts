@@ -1,9 +1,6 @@
-// CheckoutPage.tsx
 import React, { useState } from 'react';
-import { FaMobileAlt, FaCreditCard, FaPaypal } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import mpesa from '../assets/mpesa.png'
 import { useNavigate } from 'react-router-dom';
 
 interface Product {
