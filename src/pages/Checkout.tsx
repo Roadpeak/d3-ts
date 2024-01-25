@@ -4,6 +4,7 @@ import { FaMobileAlt, FaCreditCard, FaPaypal } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import mpesa from '../assets/mpesa.png'
+import { useNavigate } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -32,6 +33,8 @@ const Checkout: React.FC = () => {
   const [mpesaDetails, setMpesaDetails] = useState({ phoneNumber: '' });
   const [cardDetails, setCardDetails] = useState({ cardNumber: '', cvv: '', expiry: '' });
 
+  const navigate = useNavigate();
+
   const handleProductSelect = (product: Product) => {
     setSelectedProduct(product);
   };
@@ -55,6 +58,7 @@ const Checkout: React.FC = () => {
     // Add your checkout logic here
     console.log(`Product: ${selectedProduct?.title}, Gateway: ${selectedGateway}`);
     console.log('Details:', selectedGateway === 'mpesa' ? mpesaDetails : cardDetails);
+    navigate('/receipt/view')
   };
 
   return (
@@ -208,7 +212,7 @@ const Checkout: React.FC = () => {
             <button
                 className="mt-4 bg-primary text-white py-3 px-6 rounded-md"
                 onClick={handleCheckout}
-                disabled={!selectedProduct || !selectedGateway}
+                // disabled={!selectedProduct || !selectedGateway}
                 >
                 Proceed to Checkout
             </button>
