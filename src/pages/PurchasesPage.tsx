@@ -109,12 +109,12 @@ const services: Purchase[] = [
           <div className="w-full flex-col md:flex-row flex gap-[2%]">
             <div className='w-full flex flex-col gap-[2%]'>
               {products.map((product) => (
-                <div key={product.id} className="bg-white rounded-md flex gap-[2%] overflow-hidden shadow-md">
+                <div key={product.id} className="bg-white mb-2 md:mb-0 rounded-md flex gap-[2%] overflow-hidden shadow-md">
                   <div className="relative h-auto overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.productName}
-                      className="object-cover w-full h-[100px]"
+                      className="object-cover hidden md:flex     w-full h-[100px]"
                     />
                   </div>
                   <div className="">
@@ -144,7 +144,7 @@ const services: Purchase[] = [
                     <img
                       src={service.image}
                       alt={service.productName}
-                      className="object-cover w-full h-[100px]"
+                      className="object-cover hidden md:flex w-full h-[100px]"
                     />
                   </div>
                   <div className="">
