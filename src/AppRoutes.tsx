@@ -7,6 +7,7 @@ import ProductView from './pages/ProductView';
 import Checkout from './pages/Checkout';
 import Receipt from './pages/Receipt';
 import Deals from './pages/Deals';
+import PurchasesPage from './pages/PurchasesPage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const AppRoutes: React.FC = () => {
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/receipt/view' element={<Receipt orderNumber='KWi972Ji90' productName='Soul Soothing massage' amountPaid={1600} />} />
         <Route path='/deals' element={<Deals />} />
+        <Route path='/bought' element={<PurchasesPage />} />
     </Routes>
   );
 };
