@@ -9,6 +9,7 @@ import Receipt from './pages/Receipt';
 import Deals from './pages/Deals';
 import PurchasesPage from './pages/PurchasesPage';
 import UserProfileCard from './pages/Profile';
+import About from './index/About';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -32,6 +33,8 @@ const AppRoutes: React.FC = () => {
         <Route path='/deals' element={<Deals />} />
         <Route path='/bought' element={<PurchasesPage />} />
         <Route path='/profile' element={<UserProfileCard {...fakeUserData} />} /> 
+
+        <Route path='/about' element={<About />} />
     </Routes>
   );
 };
