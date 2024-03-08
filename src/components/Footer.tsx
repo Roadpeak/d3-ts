@@ -3,6 +3,13 @@ import { FaFacebookF, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
+  const handleMapClick = () => {
+    window.open('https://www.google.com/maps/search/?api=1&query=Britam+Towers+Upperhill+Nairobi', '_blank');
+  };
+
+  const handleEmailClick = () => {
+    window.open('mailto:info@dthree.com', '_blank');
+  };
   return (
     <footer className="bg-white border-t  text-black">
       <div className="px-[5%] mx-auto py-8">
@@ -40,9 +47,15 @@ const Footer = () => {
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <p className="mb-2">123 Street, City</p>
-            <p className="mb-2">Email: info@discountstore.com</p>
-            <p className="mb-2">Phone: +123 456 7890</p>
+            <p className="mb-2" onClick={handleMapClick} style={{ cursor: 'pointer' }}>
+              Britam Towers, Upperhill Nairobi
+            </p>
+            <p className="mb-2" onClick={handleEmailClick} style={{ cursor: 'pointer' }}>
+              Email: info@dthree.com
+            </p>
+            <p className="mb-2">
+              Phone: <a href="tel:+254113794219">+254 113 794219</a>
+            </p>
           </div>
         </div>
 
@@ -64,7 +77,7 @@ const Footer = () => {
 
       <div className="bg-white border-t py-4">
         <div className="container mx-auto text-center text-gray-900">
-          <p>&copy; 2024 DISCOUN3. All rights reserved.</p>
+          <p>&copy; 2024 D-THREE. All rights reserved.</p>
         </div>
       </div>
     </footer>
