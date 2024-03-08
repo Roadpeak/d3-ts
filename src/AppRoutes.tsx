@@ -10,6 +10,7 @@ import Deals from './pages/Deals';
 import PurchasesPage from './pages/PurchasesPage';
 import UserProfileCard from './pages/Profile';
 import About from './index/About';
+import TermsAndConditionsPage from './index/TermsCondtions';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -35,6 +36,7 @@ const AppRoutes: React.FC = () => {
         <Route path='/profile' element={<UserProfileCard {...fakeUserData} />} /> 
 
         <Route path='/about' element={<About />} />
+        <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
     </Routes>
   );
 };

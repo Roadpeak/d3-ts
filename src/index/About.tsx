@@ -6,8 +6,8 @@ const About: React.FC = () => {
   return (
    <>
    <Navbar />
-    <div className="bg-gray-100 min-h-screen py-12">
-      <div className="container mx-auto p-4">
+    <div className="bg-gray-100 min-h-screen px-[5%] py-12">
+      <div className="mx-auto py-4">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
           About Our Company
         </h1>
