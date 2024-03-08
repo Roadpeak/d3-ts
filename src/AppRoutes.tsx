@@ -12,6 +12,7 @@ import UserProfileCard from './pages/Profile';
 import About from './index/About';
 import TermsAndConditionsPage from './index/TermsCondtions';
 import PrivacyPolicyPage from './index/Privacypolicy';
+import ContactUsPage from './index/Contact';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -39,6 +40,7 @@ const AppRoutes: React.FC = () => {
         <Route path='/about' element={<About />} />
         <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
         <Route path='/privacy-policy' element={<PrivacyPolicyPage />} />
+        <Route path='/contact' element={<ContactUsPage />} />
     </Routes>
   );
 };
