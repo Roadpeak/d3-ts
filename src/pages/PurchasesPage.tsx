@@ -36,7 +36,7 @@ const PurchasesPage: React.FC = () => {
     image: 'https://placekitten.com/200/300?random=2',
   },
   {
-    id: 3,
+    id: 3,  
     productName: 'Sony 65-inch 4K TV',
     amountPaid: 85000,
     amountToStoreOwner: 80000,
@@ -99,81 +99,82 @@ const services: Purchase[] = [
     bookingDateTime: '2023-05-03 16:00',
   },
 ];
-
-  return (
+return (
     <div>
       <Navbar />
-      <div className="flex px-[5%] flex-col py-8 bg-gray-100 min-h-screen">
-        <div className="flex flex-col gap-4 items-start w-full mx-auto">
-          <h1 className="text-3xl font-semibold mb-4">Your Purchases</h1>
-          <div className="w-full flex-col md:flex-row flex gap-[2%]">
-            <div className='w-full flex flex-col gap-[2%]'>
-              {products.map((product) => (
-                <div key={product.id} className="bg-white mb-2 md:mb-0 rounded-md flex gap-[2%] overflow-hidden shadow-md">
-                  <div className="relative h-auto overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.productName}
-                      className="object-cover hidden md:flex     w-full h-[100px]"
-                    />
-                  </div>
-                  <div className="">
-                    <div className="flex items-center">
-                      <FaShoppingBag className="text-primary mr-2" />
-                      <p className="text-lg font-semibold">{product.productName}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="w-1/2">
-                        <p className="text-gray-500">Amount Paid: Ksh. {product.amountPaid.toLocaleString('en-US')}</p>
-                        <p className="text-gray-500">To Store Owner: Ksh. {product.amountToStoreOwner.toLocaleString('en-US')}</p>
-                      </div>
-                      <div className="w-1/2">
-                        <p className="text-gray-500">Discount Granted: {product.discount}%</p>
-                        <p className="text-gray-500">Coupon Code: {product.couponCode}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+      <div className="flex flex-col px-4 py-8 bg-gray-100 min-h-screen">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-3xl font-semibold mb-8">Your Purchases</h1>
+          <section className='w-full flex flex-col overflow-x-auto'>
+            <h2 className="text-xl font-semibold mb-4">Products</h2>
+            <div className="overflow-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="px-4 text-start py-2">#</th>
+                    <th className="px-4 text-start py-2">Product</th>
+                    <th className="px-4 text-start py-2">Amount Paid</th>
+                    <th className="px-4 text-start py-2">To Store Owner</th>
+                    <th className="px-4 text-start py-2">Discount</th>
+                    <th className="px-4 text-start py-2">Coupon Code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product, index) => (
+                    <PurchaseRow key={product.id} purchase={product} index={index + 1} />
+                  ))}
+                </tbody>
+              </table>
             </div>
-
-          <div className='w-full flex flex-col gap-[2%]'>
-              {services.map((service) => (
-                <div key={service.id} className="bg-white rounded-md mb-2 flex gap-[2%] overflow-hidden shadow-md">
-                  <div className="relative h-auto overflow-hidden">
-                    <img
-                      src={service.image}
-                      alt={service.productName}
-                      className="object-cover hidden md:flex w-full h-[100px]"
-                    />
-                  </div>
-                  <div className="">
-                    <div className="flex items-center">
-                      <FaShoppingBag className="text-primary mr-2" />
-                      <p className="text-lg font-semibold">{service.productName}</p>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="w-1/2">
-                        <p className="text-gray-500">Amount Paid: Ksh. {service.amountPaid.toLocaleString('en-US')}</p>
-                        <p className="text-gray-500">To Store Owner: Ksh. {service.amountToStoreOwner.toLocaleString('en-US')}</p>
-                      </div>
-                      <div className="w-1/2">
-                        <p className="text-gray-500">Discount Granted: {service.discount}%</p>
-                        <p className="text-gray-500">Coupon Code: {service.couponCode}</p>
-                        <p className="text-gray-500">Booking Date & Time: {service.bookingDateTime}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+          </section>
+          <section className="mt-8">
+            <h2 className="text-xl font-semibold mb-4">Services</h2>
+            <div className="overflow-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="px-4 text-start py-2">#</th>
+                    <th className="px-4 text-start py-2">Service</th>
+                    <th className="px-4 text-start py-2">Amount Paid</th>
+                    <th className="px-4 text-start py-2">To Store Owner</th>
+                    <th className="px-4 text-start py-2">Discount</th>
+                    <th className="px-4 text-start py-2">Coupon Code</th>
+                    <th className="px-4 text-start py-2">Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {services.map((service, index) => (
+                    <PurchaseRow key={service.id} purchase={service} index={index + 1} />
+                  ))}
+                </tbody>
+              </table>
             </div>
-          </div>
-         
+          </section>
         </div>
       </div>
       <Footer />
     </div>
   );
 };
+
+const PurchaseRow: React.FC<{ purchase: Purchase; index: number }> = ({ purchase, index }) => {
+  return (
+    <tr>
+      <td className="px-4 py-2 border-b">{index}</td>
+      <td className="px-4 py-2 border-b">
+        <div className="flex items-center">
+          <FaShoppingBag className="text-primary mr-2" />
+          <p className="text-lg font-medium">{purchase.productName}</p>
+        </div>
+      </td>
+      <td className="px-4 py-2 border-b">Ksh. {purchase.amountPaid.toLocaleString('en-US')}</td>
+      <td className="px-4 py-2 border-b">Ksh. {purchase.amountToStoreOwner.toLocaleString('en-US')}</td>
+      <td className="px-4 py-2 border-b">{purchase.discount}%</td>
+      <td className="px-4 py-2 border-b">{purchase.couponCode}</td>
+      <td className="px-4 py-2 border-b">{purchase.bookingDateTime || '-'}</td>
+    </tr>
+  );
+};
+
 
 export default PurchasesPage;
