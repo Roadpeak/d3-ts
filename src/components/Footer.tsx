@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const handleMapClick = () => {
@@ -16,7 +17,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <p className="text-[20px] font-medium uppercase border-b">
-                discoun3
+                d-three
             </p>
             <p className="text-black">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis lectus vel faucibus ultrices.
@@ -25,13 +26,13 @@ const Footer = () => {
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="list-none">
-              <li className="mb-2"><a href="#">Home</a></li>
-              <li className="mb-2"><a href="#">Shop</a></li>
-              <li className="mb-2"><a href="#">Categories</a></li>
-              <li className="mb-2"><a href="#">About Us</a></li>
-              <li className="mb-2"><a href="#">Contact</a></li>
-            </ul>
+            <div className="flex flex-col">
+              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Home</Link>
+              <Link to={`/about`} className="mb-2 text-gray-500 hover:text-black">About</Link>
+              <Link to={`/terms-and-conditions`} className="mb-2 text-gray-500 hover:text-black">Terms & Conditions</Link>
+              <Link to={`/privacy-policy`} className="mb-2 text-gray-500 hover:text-black">Privacy Policy</Link>
+              <Link to={`/contact`} className="mb-2 text-gray-500 hover:text-black">Contact</Link>
+            </div>
           </div>
 
           <div>
