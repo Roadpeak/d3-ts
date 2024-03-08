@@ -27,8 +27,9 @@ const ContactUsPage: React.FC = () => {
 
           <div className="mt-8">
             <h2 className="text-xl font-bold mb-4">Send Us a Message</h2>
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+            <form className="flex flex-col gap-4">
+              <div className="flex w-full flex-col gap-4 md:flex-row">
+                <div className='w-full'>
                 <label htmlFor="name" className="block mb-2 font-semibold">
                   Your Name
                 </label>
@@ -40,7 +41,7 @@ const ContactUsPage: React.FC = () => {
                   className="w-full border rounded-md outline-none px-4 py-2"
                 />
               </div>
-              <div>
+              <div className='w-full'>
                 <label htmlFor="email" className="block mb-2 font-semibold">
                   Your Email
                 </label>
@@ -51,6 +52,7 @@ const ContactUsPage: React.FC = () => {
                   placeholder="Enter your email"
                   className="w-full border rounded-md outline-none px-4 py-2"
                 />
+              </div>
               </div>
               <div className="col-span-2">
                 <label htmlFor="message" className="block mb-2 font-semibold">
