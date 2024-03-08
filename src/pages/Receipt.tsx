@@ -17,21 +17,21 @@ const Receipt: React.FC<ReceiptProps> = ({ orderNumber, productName, amountPaid 
         <div className="px-[5%] mx-auto w-full md:w-2/5 my-8 p-8 bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg shadow-lg">
             <h2 className="text-3xl font-semibold mb-4">Receipt & Info</h2>
             <div className="mb-6">
-                <p className="text-lg">
+                <p className="text-lg flex w-full items-center justify-between">
                 <span className="font-semibold">Order Number:</span> {orderNumber}
                 </p>
-                <p className="text-lg">
+                <p className="text-lg flex w-full items-center justify-between">
                 <span className="font-semibold">Product Name:</span> {productName}
                 </p>
-                <p className="text-lg">
+                <p className="text-lg flex w-full items-center justify-between">
                 <span className="font-semibold">Store Name:</span> LC Waikiki
                 </p>
-                <p className="text-lg">
-                <span className="font-semibold">Code:</span> QBF7R90MV
+                <p className="text-lg flex w-full items-center justify-between">
+                <span className="font-semibold">Coupon Code:</span> QBF7R90MV
                 </p>
             </div>
             <div className="mb-6">
-                <p className="text-lg">
+                <p className="text-lg flex w-full items-center justify-between">
                 <span className="font-semibold">Amount Paid:</span> Ksh. {amountPaid.toLocaleString("en-US")}
                 </p>
             </div>

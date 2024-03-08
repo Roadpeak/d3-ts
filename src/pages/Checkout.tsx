@@ -114,64 +114,56 @@ const Checkout: React.FC = () => {
                 </div>
                 </label>
 
-                <label
-                className={`cursor-pointer p-4 border rounded-md ${
-                    selectedGateway === 'card' ? 'bg-gray-50' : ''
-                }`}
-                >
-                <input
-                    type="radio"
-                    name="gateway"
-                    value="card"
-                    onChange={() => handleGatewaySelect('card')}
-                />
-                <div className="flex items-center gap-2">
-                    <img 
-                        src="https://imgs.search.brave.com/dXCE-WJuXRMQUkkb88Uh5dpDISHy1mc4Yc9_2hBqApI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91c2Eu/dmlzYS5jb20vZGFt/L1ZDT00vcmVnaW9u/YWwvdmUvcm9tYW5p/YS9ibG9ncy9oZXJv/LWltYWdlL3Zpc2Et/bG9nby04MDB4NDUw/LmpwZw" 
-                        className='w-[100px]' 
-                        alt=""
+               <label className={`cursor-pointer p-4 border rounded-md transition-colors duration-300 ${selectedGateway === 'card' ? 'bg-gray-50 border-gray-400' : 'border-gray-200 hover:bg-gray-50'}`}>
+                    <input
+                        type="radio"
+                        name="gateway"
+                        value="card"
+                        onChange={() => handleGatewaySelect('card')}
                     />
-                    <img 
-                        src="https://imgs.search.brave.com/FTbABrpr5DauchTd3jS5PmLhGIvA8oZY3csPRDwzIw0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuZnJlZWltYWdl/cy5jb20vdmhxL2lt/YWdlcy9wcmV2aWV3/cy82NDAvbWFzdGVy/Y2FyZC1sb2dvLTY3/OTMyLmpwZz9mbXQ" 
-                        alt="" 
-                        className="w-[100px]" 
-                    />
-                </div>
-                <div className="flex flex-col ">
-                    Visa/Mastercard
-                    {selectedGateway === 'card' && (
-                        <>
-                        <input
-                            type="text"
-                            name="cardNumber"
-                            placeholder="Card Number"
-                            className="border rounded-md outline-none p-2 mt-2"
-                            value={cardDetails.cardNumber}
-                            onChange={handleCardInputChange}
+                    <div className="flex items-center gap-4">
+                        <img 
+                            src="https://imgs.search.brave.com/dXCE-WJuXRMQUkkb88Uh5dpDISHy1mc4Yc9_2hBqApI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly91c2Eu/dmlzYS5jb20vZGFt/L1ZDT00vcmVnaW9u/YWwvdmUvcm9tYW5p/YS9ibG9ncy9oZXJv/LWltYWdlL3Zpc2Et/bG9nby04MDB4NDUw/LmpwZw" 
+                            className='w-[100px] h-auto' 
+                            alt="Visa/Mastercard Logo"
                         />
-                        <div className="flex items-center w-full gap-[2%]">
+                        <img 
+                            src="https://imgs.search.brave.com/FTbABrpr5DauchTd3jS5PmLhGIvA8oZY3csPRDwzIw0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuZnJlZWltYWdl/cy5jb20vdmhxL2lt/YWdlcy9wcmV2aWV3/cy82NDAvbWFzdGVy/Y2FyZC1sb2dvLTY3/OTMyLmpwZz9mbXQ" 
+                            alt="Visa/Mastercard Logo" 
+                            className="w-[100px] h-auto" 
+                        />
+                    </div>
+                    {selectedGateway === 'card' && (
+                        <div className="flex flex-col mt-4">
                             <input
                                 type="text"
-                                name="cvv"
-                                placeholder="CVV"
-                                className="border rounded-md outline-none w-full p-2 mt-2"
-                                value={cardDetails.cvv}
+                                name="cardNumber"
+                                placeholder="Card Number"
+                                className="border rounded-md outline-none p-3 text-gray-800 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
+                                value={cardDetails.cardNumber}
                                 onChange={handleCardInputChange}
                             />
-                            <input
-                                type="text"
-                                name="expiry"
-                                placeholder="Expiry Date"
-                                className="border rounded-md outline-none w-full p-2 mt-2"
-                                value={cardDetails.expiry}
-                                onChange={handleCardInputChange}
-                            />
+                            <div className="flex items-center gap-4 mt-3">
+                                <input
+                                    type="text"
+                                    name="cvv"
+                                    placeholder="CVV"
+                                    className="border rounded-md outline-none flex-1 p-3 text-gray-800 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
+                                    value={cardDetails.cvv}
+                                    onChange={handleCardInputChange}
+                                />
+                                <input
+                                    type="text"
+                                    name="expiry"
+                                    placeholder="Expiry Date"
+                                    className="border rounded-md outline-none flex-1 p-3 text-gray-800 placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500"
+                                    value={cardDetails.expiry}
+                                    onChange={handleCardInputChange}
+                                />
+                            </div>
                         </div>
-                        </>
                     )}
-                </div>
                 </label>
-
                 <label
                 className={`cursor-pointer p-4 border rounded-lg ${
                     selectedGateway === 'paypal' ? 'bg-blue-100' : ''
@@ -200,19 +192,21 @@ const Checkout: React.FC = () => {
                 <h3 className="text-xl font-semibold mb-4">Purchase Summary</h3>
                 <div className="bg-blue-100 p-4 rounded-lg">
                     <p className="text-lg font-semibold">{selectedProduct.title}</p>
-                    <p className="text-gray-500">Amount for discount: Ksh. {(0.2 * selectedProduct.price).toLocaleString("en-US")}</p>
-                    <p className="text-gray-500">Payment: <span className="uppercase">{selectedGateway}</span></p>
+                    <p className="text-gray-500">Amount for discount: <span className="font-medium">Ksh. {(0.2 * selectedProduct.price).toLocaleString("en-US")}</span></p>
+                    <p className="text-gray-500">Payment: <span className="uppercase font-medium">{selectedGateway}</span></p>
                 </div>
             </div>
             )}
 
-            <button
+            <div className="flex w-full items-center justify-end">
+                <button
                 className="mt-4 bg-primary text-white py-3 px-6 rounded-md"
                 onClick={handleCheckout}
                 // disabled={!selectedProduct || !selectedGateway}
                 >
                 Complete
             </button>
+            </div>
         </div>
         </div>
         <Footer />
