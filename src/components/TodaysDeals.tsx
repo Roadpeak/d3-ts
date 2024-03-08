@@ -1,4 +1,5 @@
 import { LiaExternalLinkAltSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
 
 interface Deal {
   id: number;
@@ -108,7 +109,7 @@ const TodaysDeals: React.FC = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {todayDeals.map((deal) => (
-          <div key={deal.id} className="bg-white gap-4 items-center rounded-md cursor-pointer hover:shadow-xl flex p-4 shadow-md">
+          <Link to={`/products/${deal.id}/see-details`} key={deal.id} className="bg-white gap-4 items-center rounded-md cursor-pointer hover:shadow-xl flex p-4 shadow-md">
             <img
               src={deal.image}
               alt={deal.title}
@@ -123,7 +124,7 @@ const TodaysDeals: React.FC = () => {
               <LiaExternalLinkAltSolid className="text-yellow-500" size={24} />
             </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

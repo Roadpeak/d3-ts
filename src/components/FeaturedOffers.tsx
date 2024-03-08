@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface FeaturedItem {
   id: number;
@@ -181,7 +182,7 @@ const FeaturedOffers = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {featuredItems.map((item) => (
-          <div key={item.id} className="bg-white rounded-md p-4 shadow-md">
+          <Link to={`/products/${item.id}/see-details`} key={item.id} className="bg-white rounded-md p-4 shadow-md">
             <div className="relative">
               <img
                 src={item.image}
@@ -199,7 +200,7 @@ const FeaturedOffers = () => {
             </div>
             <p className="text-black font-semibold mb-2">{item.name}</p>
             <p className="text-[14px] text-primary">{item.description}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
