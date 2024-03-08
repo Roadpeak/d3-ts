@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { FaAngleLeft, FaFacebookF, FaInstagram, FaRegHeart, FaWhatsapp } from 'react-icons/fa';
@@ -9,6 +9,7 @@ interface Review {
   id: number;
   user: string;
   comment: string;
+  dateTime: Date;
 }
 
 const ProductView: React.FC = () => {
@@ -19,19 +20,20 @@ const ProductView: React.FC = () => {
     comment: '',
   });
 
- const reviews: Review[] = [
-  { id: 1, user: 'Wanjiku Njoroge', comment: 'Impressive product! It exceeded my expectations.' },
-  { id: 2, user: 'Kipchoge Bett', comment: 'Fast and efficient delivery. Very satisfied with the service.' },
-  { id: 3, user: 'Amina Odhiambo', comment: 'Quality is top-notch. Will definitely buy again.' },
-  { id: 4, user: 'Muthoni Kamau', comment: 'Great customer service. They were very helpful.' },
-  { id: 5, user: 'Omondi Otieno', comment: 'The product arrived on time and in perfect condition.' },
-  { id: 6, user: 'Naisiae Letoluai', comment: 'Impressed with the packaging. Everything was well-protected.' },
-  { id: 7, user: 'Kagiso Maina', comment: 'I recommend this product to anyone looking for quality. Thumbs up!' },
-];
+  const reviews: Review[] = [
+    { id: 1, user: 'Wanjiku Njoroge', comment: 'Impressive product! It exceeded my expectations.', dateTime: new Date() },
+    { id: 2, user: 'Kipchoge Bett', comment: 'Fast and efficient delivery. Very satisfied with the service.', dateTime: new Date() },
+    { id: 3, user: 'Amina Odhiambo', comment: 'Quality is top-notch. Will definitely buy again.', dateTime: new Date() },
+    { id: 4, user: 'Muthoni Kamau', comment: 'Great customer service. They were very helpful.', dateTime: new Date() },
+    { id: 5, user: 'Omondi Otieno', comment: 'The product arrived on time and in perfect condition.', dateTime: new Date() },
+    { id: 6, user: 'Naisiae Letoluai', comment: 'Impressed with the packaging. Everything was well-protected.', dateTime: new Date() },
+    { id: 7, user: 'Kagiso Maina', comment: 'I recommend this product to anyone looking for quality. Thumbs up!', dateTime: new Date() },
+  ];
 
-const handlePostReview = () => {
+  const handlePostReview = () => {
     if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
-    //   setReviews([...reviews, { id: reviews.length + 1, ...newReview }]);
+      const dateTime = new Date(); // Add current date and time
+      // setReviews([...reviews, { id: reviews.length + 1, ...newReview, dateTime }]);
       setNewReview({ user: '', comment: '' });
     }
   };
@@ -164,6 +166,7 @@ const handlePostReview = () => {
                           <div key={review.id} className="border-b py-2">
                             <p className="font-medium">{review.user}</p>
                             <p className='text-gray-600'>{review.comment}</p>
+                            <p className="text-gray-500 text-sm">{review.dateTime.toLocaleString()}</p>
                           </div>
                         ))}
                       </div>
