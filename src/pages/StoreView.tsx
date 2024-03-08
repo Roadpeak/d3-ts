@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { LiaExternalLinkAltSolid } from 'react-icons/lia';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 interface Product {
   id: number;
@@ -144,26 +145,50 @@ const StoreView: React.FC = () => {
         <div className="w-full flex flex-col md:w-[20%] p-4">
           <img 
             src="https://images.unsplash.com/photo-1573855619003-97b4799dcd8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHNob3BwaW5nfGVufDB8fDB8fHww" 
-            alt="" 
-            className='w-[40%] rounded-md justify-center mx-auto flex items-center' 
-        />
+            alt="Store Image"
+            className="w-[40%] rounded-md justify-center mx-auto flex items-center" 
+          />
           <p className="text-center text-[20px] font-medium py-2">
-            The Hub Promo codes & cashbacks
+            The Hub <span className="text-gray-600"></span>
           </p>
           <div className="w-full flex gap-4 items-center">
             <button className="bg-primary rounded-md text-white font-medium w-full px-3 py-1.5">
               Start Shopping
             </button>
-            <Link to={`/`} className='bg-secondary rounded-md text-black p-2 flex items-center justify-center '>
-              <LiaExternalLinkAltSolid size={24} />
+            <Link to={`/`} className="bg-secondary rounded-md text-black p-2 flex items-center justify-center">
+              <FaExternalLinkAlt size={24} />
             </Link>
+          </div>
+          <div className="mt-4">
+            <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2 font-medium">Phone <span className="">+254 113 794219</span></p>
+            <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2 font-medium">Email <span className="">hub@gmail.com</span></p>
+            <p className="text-sm text-gray-800 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2 ">Stats <span className="">{products.length} discounts</span></p>
+            <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2">Stats <span className="">244 followers</span></p>
+            <div className="w-full flex gap-4 items-center">
+              <Link to={`/`} className="bg-secondary rounded-md text-black w-full p-2 flex items-center justify-center">
+                Contact
+              </Link>
+              <button className="bg-primary rounded-md text-white font-medium w-full px-3 py-1.5">
+                Follow
+              </button>
+            </div>
           </div>
         </div>
         <div className="w-full md:w-[80%] md:border md:p-4 rounded-md">
-          {/* Map through the products and display them */}
+          <div className="flex items-center w-full mb-2 justify-between">
+            <p className="capitalize text-gray-600 text-[20px] font-medium">
+              all
+            </p>
+            <input 
+              type="text" 
+              className='border rounded-md px-2 outline-none focus:outline-none text-gray-500 py-1'
+              placeholder='Search'
+              // value={''}
+            />
+          </div>
           <div className="w-full grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 lg:grid-cols6">
             {products.map((product) => (
-            <Link to={`/products/${product.id}/see-details`} key={product.id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
+            <Link to={`/products/${product.id}/see-details`} key={product.id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
               <img src={product.image} alt={product.title} className="w-full object-cover rounded-md" />
               <div className="flex flex-col">
                 <p className="text-[14px] text-gray-500">{product.storeName}</p>
