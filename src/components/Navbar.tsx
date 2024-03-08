@@ -15,8 +15,8 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <div className="flex items-center  text-white gap-3 ">
-        <Link to={`/bought`} className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Cart</Link>
-        <Link to={`/bought`} className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Bookings</Link>
+        <Link to={`/discounts/bought`} className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Cart</Link>
+        <Link to={`/discounts/bought`} className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Bookings</Link>
         <Link to={`/profile`} className="bg-white flex items-center justify-center text-gray-400 p-2 rounded-full">
             <FiUser size={20} />
         </Link>

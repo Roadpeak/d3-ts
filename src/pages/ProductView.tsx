@@ -80,9 +80,9 @@ const handlePostReview = () => {
                             </button>
                             <div className="flex flex-col my-3.5">
                                 <span className="font-medium text-[16px]">
-                                    Save this product for later
+                                    Save this for later
                                 </span>
-                                <button className='flex border border-gray-300 px-2 py-1.5 w-fit items-center gap-2'>
+                                <button className='flex border rounded-md border-gray-300 px-2 py-1.5 w-fit items-center gap-2'>
                                     <FaRegHeart />
                                     Favorite
                                 </button>
@@ -121,7 +121,7 @@ const handlePostReview = () => {
                         </div>
                     </div>
                     <div className="flex flex-col w-full mt-[2%] p-[2%] bg-gray-100">
-                    <div className="flex gap-2 items-center mb-2">
+                    <div className="flex gap-2 w-full justify-between items-center mb-2">
                       <p
                         className={`font-medium text-[18px] cursor-pointer ${
                           activeTab === 'details' ? 'text-primary border-b border-primary' : 'text-gray-600'
@@ -162,8 +162,8 @@ const handlePostReview = () => {
                       <div className="">
                         {reviews.map((review) => (
                           <div key={review.id} className="border-b py-2">
-                            <p className="text-gray-600">{review.user}</p>
-                            <p>{review.comment}</p>
+                            <p className="font-medium">{review.user}</p>
+                            <p className='text-gray-600'>{review.comment}</p>
                           </div>
                         ))}
                       </div>

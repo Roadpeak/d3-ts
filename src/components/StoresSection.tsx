@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface Store {
   id: number;
   name: string;
@@ -32,7 +34,7 @@ const StoresSection = () => {
       </p>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {storeData.map((store) => (
-          <div key={store.id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
+          <Link to={`/stores/${store.id}/view`} key={store.id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
             <img
               src={store.image}
               alt={store.name}
@@ -40,7 +42,7 @@ const StoresSection = () => {
             />
             <p className="text-black font-semibold">{store.name}</p>
             <p className="text-gray-500">mostly <span className='text-primary'>{store.number}% OFF</span></p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
