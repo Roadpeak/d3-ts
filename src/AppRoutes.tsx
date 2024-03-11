@@ -13,6 +13,10 @@ import About from './index/About';
 import TermsAndConditionsPage from './index/TermsCondtions';
 import PrivacyPolicyPage from './index/Privacypolicy';
 import ContactUsPage from './index/Contact';
+import SignUpPage from './pages/SignUp';
+import LoginPage from './pages/Login';
+import ForgotPasswordPage from './pages/ForgotPassword';
+import ResetPasswordPage from './pages/ResetPassword';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -41,6 +45,11 @@ const AppRoutes: React.FC = () => {
         <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
         <Route path='/privacy-policy' element={<PrivacyPolicyPage />} />
         <Route path='/contact' element={<ContactUsPage />} />
+
+        <Route path='/accounts/sign-up' element={<SignUpPage />} />
+        <Route path='/accounts/sign-in' element={<LoginPage/> } />
+        <Route path='/accounts/forgot-password' element={<ForgotPasswordPage />} /> 
+        <Route path='/accounts/reset=password' element={<ResetPasswordPage />} />
     </Routes>
   );
 };
