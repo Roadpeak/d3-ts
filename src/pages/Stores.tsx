@@ -70,7 +70,7 @@ const Stores: React.FC = () => {
               </div>
             </div>
             <p className="font-medium text-[18px] md:text-[25px]">
-              Double Cash Back Event Featured Stores | Jan 2024
+              Double Cash Back Event Featured Stores | Mar 2024
             </p>
             <div className="grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-6 gap-4">
                 {storeData.map((store) => (

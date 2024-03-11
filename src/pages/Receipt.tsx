@@ -65,7 +65,7 @@ const Receipt: React.FC<ReceiptProps> = ({ orderNumber, productName, amountPaid 
           <Link to="/" className="text-lg underline hover:text-gray-500">
             Back to Home
           </Link>
-          <button onClick={downloadReceipt} className="bg-[#F24E51] text-white px-6 py-2 rounded-full hover:bg-gray-100">
+          <button onClick={downloadReceipt} className="bg-[#F24E51] text-white px-6 py-2 rounded-full">
             Download Receipt
           </button>
         </div>
