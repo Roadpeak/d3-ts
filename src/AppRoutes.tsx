@@ -8,15 +8,15 @@ import Checkout from './pages/Checkout';
 import Receipt from './pages/Receipt';
 import Deals from './pages/Deals';
 import PurchasesPage from './pages/PurchasesPage';
-import UserProfileCard from './pages/Profile';
+import UserProfileCard from './pages/auth/Profile';
 import About from './index/About';
 import TermsAndConditionsPage from './index/TermsCondtions';
 import PrivacyPolicyPage from './index/Privacypolicy';
 import ContactUsPage from './index/Contact';
-import SignUpPage from './pages/SignUp';
-import LoginPage from './pages/Login';
-import ForgotPasswordPage from './pages/ForgotPassword';
-import ResetPasswordPage from './pages/ResetPassword';
+import SignUpPage from './pages/auth/SignUp';
+import LoginPage from './pages/auth/Login';
+import ForgotPasswordPage from './pages/auth/ForgotPassword';
+import ResetPasswordPage from './pages/auth/ResetPassword';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
