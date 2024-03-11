@@ -19,8 +19,8 @@ const Footer = () => {
             <p className="text-[20px] font-medium uppercase border-b">
                 d-three
             </p>
-            <p className="text-black">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam facilisis lectus vel faucibus ultrices.
+            <p className="text-gray-7007">
+              Experience exclusive discounts on top brands. Elevate your shopping game with our unbeatable deals. Don't miss out, shop now and save big!  
             </p>
           </div>
 
@@ -48,7 +48,7 @@ const Footer = () => {
 
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <p className="mb-2" onClick={handleMapClick} style={{ cursor: 'pointer' }}>
+            <p className="mb-2 hover:underline" onClick={handleMapClick} style={{ cursor: 'pointer' }}>
               Britam Towers, Upperhill Nairobi
             </p>
             <p className="mb-2" onClick={handleEmailClick} style={{ cursor: 'pointer' }}>

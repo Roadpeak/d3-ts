@@ -6,6 +6,7 @@ import FeaturedOffers from '../components/FeaturedOffers'
 import TravelSection from '../components/TravelSection'
 import TodaysDeals from '../components/TodaysDeals'
 import Footer from '../components/Footer'
+import ReviewsSection from '../components/Reviews'
 
 const Home: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
       <FeaturedOffers />
       <TravelSection />
       <TodaysDeals />
+      <ReviewsSection />
       <Footer />
     </div>
   )
