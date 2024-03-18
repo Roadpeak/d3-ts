@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import fintechLogo from './fintech-logo.png'; // Placeholder for fintech logo
@@ -5,11 +6,21 @@ import { Link } from 'react-router-dom';
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Here you can handle the login logic
-    console.log('Logging in with:', { email, password });
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/users/login', { email, password });
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      setError('');
+      // Optionally, you can redirect the user to another page after successful login
+      console.log('User logged in successfully:', response.data);
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setError('Invalid email or password');
+    }
   };
 
   return (
@@ -21,6 +32,7 @@ const LoginPage: React.FC = () => {
           <h1 className="text-2xl font-semibold text-black">Sign In</h1>
         </div>
         <form onSubmit={handleSubmit}>
+          {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-black">Email</label>
             <input
