@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SellerLayout from '../../utils/layouts/SellerLayout';
 import { CgProfile } from 'react-icons/cg';
 import { FaChevronDown } from 'react-icons/fa';
 import { IoMdAdd } from "react-icons/io";
 import { Spinner } from "@material-tailwind/react";
 import axios from 'axios';
-
-const fakeStoreData = [
-  { id: 1, name: 'Store 1', location: 'New York', imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RvcmV8ZW58MHx8MHx8fDA%3D' },
-  { id: 2, name: 'Store 2', location: 'Los Angeles', imageUrl: 'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3RvcmV8ZW58MHx8MHx8fDA%3D' },
-  { id: 3, name: 'Store 3', location: 'Chicago', imageUrl: 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3RvcmV8ZW58MHx8MHx8fDA%3D' },
-  { id: 4, name: 'Store 4', location: 'Houston', imageUrl: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c3RvcmV8ZW58MHx8MHx8fDA%3D' },
-];
 
 const SellerStores: React.FC = () => {
   const [isAddStoreOpen, setIsAddStoreOpen] = useState(false);
@@ -21,8 +14,26 @@ const SellerStores: React.FC = () => {
     location: '',
     storeType: ''
   });
+  const [stores, setStores] = useState([]); 
   const [isLoading, setIsLoading] = useState(false);
 
+  const fetchStores = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:4000/api/v1/stores', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setStores(response.data.stores);
+    } catch (error) {
+      console.error('Error fetching stores:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchStores();
+  }, []);
 
   const handleAddStoreClick = () => {
     setIsAddStoreOpen(true);
@@ -39,14 +50,12 @@ const SellerStores: React.FC = () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        // Upload image to Cloudinary
         const response = await axios.post('http://localhost:4000/api/v1/cloudinary/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
         });
 
-        // Retrieve the image URL from the response
         setImageUrl(response.data.imageUrl);
       } catch (error) {
         console.error('Error uploading image:', error);
@@ -70,7 +79,7 @@ const SellerStores: React.FC = () => {
       const token = localStorage.getItem('token');
       setIsLoading(true);
 
-      await axios.post('http://localhost:4000/api/v1/stores', {
+      await axios.post('http://localhost:4000/api/v1/stores/user/stores', {
         name: storeName,
         location,
         storeType,
@@ -88,12 +97,13 @@ const SellerStores: React.FC = () => {
       });
       setImageUrl('');
       setIsLoading(false);
+
+      fetchStores();
     } catch (error) {
       console.error('Error adding store:', error);
       setIsLoading(false);
     }
   };
-
 
   return (
     <SellerLayout>
@@ -114,16 +124,20 @@ const SellerStores: React.FC = () => {
           <table className="w-full">
             <thead>
               <tr className="bg-gray-200">
-                <th className="py-2 text-start px-4">ID</th>
+                <th className="py-2 text-start px-4">Logo</th>
                 <th className="py-2 text-start px-4">Name</th>
+                <th className="py-2 text-start px-4">Store Type</th>
                 <th className="py-2 text-start px-4">Location</th>
               </tr>
             </thead>
             <tbody>
-              {fakeStoreData.map((store) => (
-                <tr key={store.id} className="border-b">
-                  <td className="py-2 px-4">{store.id}</td>
+              {stores.map((store: any) => (
+                <tr key={store._id} className="border-b">
+                  <td className="py-2 px-4">
+                    <img src={store.imageUrl} className='w-[80px] rounded-md' alt="" />
+                  </td>
                   <td className="py-2 px-4">{store.name}</td>
+                  <td className="py-2 px-4 capitalize">{store.storeType}</td>
                   <td className="py-2 px-4">{store.location}</td>
                 </tr>
               ))}
