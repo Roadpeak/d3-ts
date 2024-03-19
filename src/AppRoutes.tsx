@@ -19,6 +19,8 @@ import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import ResetPasswordPage from './pages/auth/ResetPassword';
 import Dashboard from './components/seller/Dashboard';
 import NotFoundPage from './components/NotFoundPage'; // Import the NotFoundPage component
+import SellerStores from './components/seller/SellerStores';
+import Appointments from './components/seller/Appointments';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -54,6 +56,8 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/reset=password' element={<ResetPasswordPage />} />
 
       <Route path='/seller/home' element={<Dashboard />} />
+      <Route path='/seller/stores' element={<SellerStores />} />
+      <Route path='/seller/appointments' element={<Appointments />} />
 
       {/* Page Not Found route */}
       <Route path='*' element={<NotFoundPage />} />

@@ -8,6 +8,7 @@ const SignUp: React.FC = () => {
     last_name: '',
     email: '',
     phone: '',
+    role: 'seller',
     password: '',
   });
 
@@ -30,7 +31,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
       localStorage.setItem('token', token);
 
-      // Optionally, you can redirect the user to another page after sign-up
     } catch (error) {
       console.error('Error signing up:', error);
     }
@@ -39,7 +39,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-black to-white text-white">
-      <div className="max-w-md p-6 bg-white rounded-md shadow-md">
+      <div className="w-[25%] p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold text-center mb-4 text-red-400">Sign Up</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex text-gray-500 items-center border border-gray-300 rounded-md px-3 py-2">
