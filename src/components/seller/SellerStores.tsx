@@ -3,6 +3,8 @@ import SellerLayout from '../../utils/layouts/SellerLayout';
 import { CgProfile } from 'react-icons/cg';
 import { FaChevronDown } from 'react-icons/fa';
 import { IoMdAdd } from "react-icons/io";
+import { Spinner } from "@material-tailwind/react";
+import axios from 'axios';
 
 const fakeStoreData = [
   { id: 1, name: 'Store 1', location: 'New York', imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RvcmV8ZW58MHx8MHx8fDA%3D' },
@@ -13,6 +15,14 @@ const fakeStoreData = [
 
 const SellerStores: React.FC = () => {
   const [isAddStoreOpen, setIsAddStoreOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [storeData, setStoreData] = useState({
+    storeName: '',
+    location: '',
+    storeType: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const handleAddStoreClick = () => {
     setIsAddStoreOpen(true);
@@ -21,6 +31,69 @@ const SellerStores: React.FC = () => {
   const handleCloseAddStore = () => {
     setIsAddStoreOpen(false);
   };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        // Upload image to Cloudinary
+        const response = await axios.post('http://localhost:4000/api/v1/cloudinary/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        // Retrieve the image URL from the response
+        setImageUrl(response.data.imageUrl);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setStoreData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const { storeName, location, storeType } = storeData;
+
+      const token = localStorage.getItem('token');
+      setIsLoading(true);
+
+      await axios.post('http://localhost:4000/api/v1/stores', {
+        name: storeName,
+        location,
+        storeType,
+        imageUrl
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setStoreData({
+        storeName: '',
+        location: '',
+        storeType: ''
+      });
+      setImageUrl('');
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error adding store:', error);
+      setIsLoading(false);
+    }
+  };
+
 
   return (
     <SellerLayout>
@@ -62,15 +135,17 @@ const SellerStores: React.FC = () => {
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
             <h2 className="text-2xl font-semibold mb-6 text-gray-800">Add New Store</h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="storeName" className="block text-sm font-medium text-gray-700">Store Name</label>
                 <input
                   type="text"
                   id="storeName"
                   name="storeName"
+                  value={storeData.storeName}
                   placeholder='e.g. QBF Software Solutions'
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -79,18 +154,22 @@ const SellerStores: React.FC = () => {
                   type="text"
                   id="location"
                   name="location"
+                  value={storeData.location}
                   placeholder='e.g. Shiloh Residence, Kilimani'
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
-                <label htmlFor="store_type" className="block text-sm font-medium text-gray-700">Store Type</label>
+                <label htmlFor="storeType" className="block text-sm font-medium text-gray-700">Store Type</label>
                 <input
                   type="text"
-                  id="store_type"
-                  name="store_type"
+                  id="storeType"
+                  name="storeType"
+                  value={storeData.storeType}
                   placeholder='e.g. nail spa, make up. etc...'
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
@@ -100,8 +179,14 @@ const SellerStores: React.FC = () => {
                   id="image"
                   name="image"
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleImageChange}
                 />
               </div>
+              {imageUrl && (
+                <div>
+                  <img src={imageUrl} alt="Uploaded" className="mt-4 w-full rounded" />
+                </div>
+              )}
               <div className="flex justify-end">
                 <button
                   type="button"
@@ -114,7 +199,7 @@ const SellerStores: React.FC = () => {
                   type="submit"
                   className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80"
                 >
-                  Add Store
+                  {isLoading ? <Spinner /> : 'Add Store'}
                 </button>
               </div>
             </form>
