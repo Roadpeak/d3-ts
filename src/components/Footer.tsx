@@ -17,10 +17,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <p className="text-[20px] font-medium uppercase border-b">
-                d-three
+              d-three
             </p>
             <p className="text-gray-7007">
-              Experience exclusive discounts on top brands. Elevate your shopping game with our unbeatable deals. Don't miss out, shop now and save big!  
+              Experience exclusive discounts on top brands. Elevate your shopping game with our unbeatable deals. Don't miss out, shop now and save big!
             </p>
           </div>
 
@@ -71,7 +71,7 @@ const Footer = () => {
             <FaInstagram />
           </a>
           <a href="#" className="text-gray-500 hover:text-black">
-           <FaLinkedin />
+            <FaLinkedin />
           </a>
         </div>
       </div>

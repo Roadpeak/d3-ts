@@ -120,9 +120,9 @@ const TodaysDeals: React.FC = () => {
                 <p className="text-black font-semibold mb-2">{deal.title}</p>
                 <p className="text-primary text-[13px]">{deal.description}</p>
               </div>
-            <div className="h-full flex justify-end items-end text-end">
-              <LiaExternalLinkAltSolid className="text-yellow-500" size={24} />
-            </div>
+              <div className="h-full flex justify-end items-end text-end">
+                <LiaExternalLinkAltSolid className="text-yellow-500" size={24} />
+              </div>
             </div>
           </Link>
         ))}
