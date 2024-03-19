@@ -26,12 +26,12 @@ const SellerStores: React.FC = () => {
     <SellerLayout>
       <div className="">
         <div className="w-full flex justify-between p-4 shadow-md border-b px-[3%]">
-            <div className=""></div>
-            <div className="flex items-center gap-2 text-gray-500 ">
-                <CgProfile size={26} />
-                <p className="text-gray-500 ">Salvato Luis</p>
-                <FaChevronDown />
-            </div>
+          <div className=""></div>
+          <div className="flex items-center gap-2 text-gray-500 ">
+            <CgProfile size={26} />
+            <p className="text-gray-500 ">Salvato Luis</p>
+            <FaChevronDown />
+          </div>
         </div>
         <div className="container mx-auto py-8">
           <div className="flex w-full justify-between items-center mb-2">
@@ -83,7 +83,7 @@ const SellerStores: React.FC = () => {
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                 />
               </div>
-               <div>
+              <div>
                 <label htmlFor="store_type" className="block text-sm font-medium text-gray-700">Store Type</label>
                 <input
                   type="text"
