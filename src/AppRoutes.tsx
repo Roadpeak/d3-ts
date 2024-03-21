@@ -61,7 +61,6 @@ const AppRoutes: React.FC = () => {
       <Route path='/seller/appointments' element={<Appointments />} />
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
 
-      {/* Page Not Found route */}
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   );

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import SellerLayout from '../../utils/layouts/SellerLayout';
 import axios from 'axios';
 import { IoMdAdd } from 'react-icons/io';
+import { Spinner } from '@material-tailwind/react';
 
 interface Store {
     _id: string;
@@ -12,6 +13,7 @@ interface Store {
     };
     followers: string[];
     imageUrl: string;
+    location: string;
 }
 interface Product {
     id: number;
@@ -37,7 +39,19 @@ const products: Product[] = [
 const SellerSingleStore: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [store, setStore] = useState<Store | null>(null);
+    const [isAddDiscountOpen, setIsAddDiscountOpen] = useState(false);
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [imageUrl, setImageUrl] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        initialPrice: '',
+        discount: '',
+        expiryDate: '',
+        category: '',
+        serviceTime: '',
+        description: '',
+    });
 
     useEffect(() => {
         const fetchStore = async () => {
@@ -52,12 +66,90 @@ const SellerSingleStore: React.FC = () => {
         fetchStore();
     }, [id]);
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                const response = await axios.post('http://localhost:4000/api/v1/cloudinary/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+
+                setImageUrl(response.data.imageUrl);
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+    };
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const { name, initialPrice, discount, expiryDate, category, serviceTime, description } = formData;
+
+            const token = localStorage.getItem('token');
+            setIsLoading(true);
+
+            await axios.post('http://localhost:4000/api/v1/discounts', {
+                name,
+                initialPrice: parseInt(initialPrice),
+                discount: parseInt(discount),
+                expiryDate,
+                category,
+                serviceTime,
+                description,
+                imageUrl,
+                store: id,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            setFormData({
+                name: '',
+                initialPrice: '',
+                discount: '',
+                expiryDate: '',
+                category: '',
+                serviceTime: '',
+                description: '',
+            });
+            setImageUrl('');
+            setIsLoading(false);
+
+            // Handle any additional actions after successful submission, like refetching data
+        } catch (error) {
+            console.error('Error adding discount:', error);
+            setIsLoading(false);
+        }
+    };
+
     const handleFollowStore = () => {
         // Implement follow/unfollow functionality here
     };
 
     const openFollowersPopup = () => {
         // Implement followers popup functionality here
+    };
+
+    const handleAddDiscountClick = () => {
+        setIsAddDiscountOpen(true);
+    };
+
+    const handleCloseAddDiscount = () => {
+        setIsAddDiscountOpen(false);
     };
 
     return (
@@ -72,11 +164,11 @@ const SellerSingleStore: React.FC = () => {
                                     alt={store?.name}
                                     className="w-16 h-16 rounded-full object-cover"
                                 />
-                                <div className="flex flex-col">
+                                <div className="flex flex-col justify-center">
                                     <h2 className="text-xl font-semibold">{store?.name}</h2>
                                     <p
                                         onClick={openFollowersPopup}
-                                        className="text-[14px] cursor-pointer text-gray-400 hover:text-black py-4 rounded-md"
+                                        className="text-[14px] cursor-pointer text-gray-400 hover:text-black pb-4 rounded-md"
                                     >
                                         {store?.followers?.length} followers
                                     </p>
@@ -84,7 +176,11 @@ const SellerSingleStore: React.FC = () => {
                             </div>
                             <div className="flex items-center gap-4">
                                 <div className="hidden md:flex">
-                                    {/* <Reviews /> */}
+                                    <p
+                                        className="text-[14px] cursor-pointer text-gray-400 hover:text-black"
+                                    >
+                                        {store?.location}
+                                    </p>
                                 </div>
                                 <div className="h-[50px] w-[1px] bg-gray-400 text-gray-200">.</div>
                                 <button
@@ -98,7 +194,7 @@ const SellerSingleStore: React.FC = () => {
                         </div>
                         <div className="w-full md:border md:p-4 rounded-md">
                             <div className="flex items-center w-full mb-2 justify-between">
-                                <button className="bg-primary text-white px-4 py-2 flex gap-2 items-center rounded-md"><IoMdAdd /> Add Discount</button>
+                                <button onClick={handleAddDiscountClick} className="bg-primary text-white px-4 py-2 flex gap-2 items-center rounded-md"><IoMdAdd /> Add Discount</button>
                                 <input
                                     type="text"
                                     className='border rounded-md px-2 outline-none focus:outline-none text-gray-500 py-1'
@@ -123,6 +219,73 @@ const SellerSingleStore: React.FC = () => {
                                 ))}
                             </div>
                         </div>
+                    </div>
+                </div>
+            )}
+            {isAddDiscountOpen && (
+                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl">
+                        <p className="text-2xl font-semibold text-center mb-6 text-gray-800">Add New Discount</p>
+                        <form className='space-y-4' onSubmit={handleSubmit}>
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="initialPrice" className="block text-sm font-medium text-gray-700">Initial Price</label>
+                                <input type="number" id="initialPrice" name="initialPrice" value={formData.initialPrice} onChange={handleChange} className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="discount" className="block text-sm font-medium text-gray-700">Discount</label>
+                                <input type="number" id="discount" name="discount" value={formData.discount} onChange={handleChange} className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700">Expiry Date</label>
+                                <input type="date" id="expiryDate" name="expiryDate" value={formData.expiryDate} onChange={handleChange} className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+                                <input type="text" id="category" name="category" value={formData.category} onChange={handleChange} className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image</label>
+                                <input type="file" onChange={handleImageChange} id="imageUrl" name="imageUrl" accept="image/*" className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="serviceTime" className="block text-sm font-medium text-gray-700">Service Time</label>
+                                <input type="text" id="serviceTime" value={formData.serviceTime} onChange={handleChange} name="serviceTime" className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
+                            </div>
+                            <div>
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                    className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2 mb-4" />
+                            </div>
+                            {imageUrl && (
+                                <div className='border border-gray-300 p-2 rounded-md mb-1'>
+                                    <img src={imageUrl} alt="Uploaded" className="mt-4 w-[25%] rounded" />
+                                </div>
+                            )}
+                            <div className="flex justify-end">
+                                <button
+                                    type="button"
+                                    className="text-gray-600 mr-4"
+                                    onClick={handleCloseAddDiscount}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80"
+                                >
+                                    {isLoading ? <Spinner /> : 'Add Discount'}
+                                    {/* Add Discount */}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}
