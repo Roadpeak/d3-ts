@@ -6,6 +6,7 @@ import { IoMdAdd } from 'react-icons/io';
 import { Spinner } from '@material-tailwind/react';
 import { CgProfile } from 'react-icons/cg';
 import { FaChevronDown } from 'react-icons/fa';
+import { IoLocation } from "react-icons/io5";
 
 interface Store {
     _id: string;
@@ -25,7 +26,7 @@ interface Discount {
     discount: number;
     expiryDate: string;
     category: string;
-    store: string;
+    store: Store;
     serviceTime: string;
     description: string;
     imageUrl: string;
@@ -77,7 +78,7 @@ const SellerSingleStore: React.FC = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/v1/discounts/shop/${id}`);
                 setDiscounts(response.data.discounts);
-                console.log(response.data.discounts);
+                // console.log(response.data.discounts);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching discounts:', error);
@@ -220,9 +221,9 @@ const SellerSingleStore: React.FC = () => {
                             <div className="flex items-center gap-4">
                                 <div className="hidden md:flex">
                                     <p
-                                        className="text-[14px] cursor-pointer text-gray-400 hover:text-black"
+                                        className="text-[14px] cursor-pointer text-gray-400 flex items-center gap-2 hover:text-black"
                                     >
-                                        {store?.location}
+                                        {store?.location} <IoLocation size={24} />
                                     </p>
                                 </div>
                                 <div className="h-[50px] w-[1px] bg-gray-400 text-gray-200">.</div>
@@ -249,7 +250,7 @@ const SellerSingleStore: React.FC = () => {
                                     <Link to={`/products/${discount._id}/see-details`} key={discount._id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
                                         <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                                         <div className="flex flex-col">
-                                            <p className="text-[14px] text-gray-500 mt-4">{discount.store}</p>
+                                            <p className="text-[14px] text-gray-500 mt-4">{discount.store.name}</p>
                                             <p className="text-[17px] font-medium">{discount.name}</p>
                                             <p className="text-[14px] text-gray-500">{discount.description}</p>
                                             <div className="flex items-center">
