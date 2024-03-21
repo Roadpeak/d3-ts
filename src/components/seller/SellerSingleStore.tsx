@@ -4,6 +4,8 @@ import SellerLayout from '../../utils/layouts/SellerLayout';
 import axios from 'axios';
 import { IoMdAdd } from 'react-icons/io';
 import { Spinner } from '@material-tailwind/react';
+import { CgProfile } from 'react-icons/cg';
+import { FaChevronDown } from 'react-icons/fa';
 
 interface Store {
     _id: string;
@@ -15,6 +17,21 @@ interface Store {
     imageUrl: string;
     location: string;
 }
+
+interface Discount {
+    _id: string;
+    name: string;
+    initialPrice: number;
+    discount: number;
+    expiryDate: string;
+    category: string;
+    store: string;
+    serviceTime: string;
+    description: string;
+    imageUrl: string;
+    priceAfterDiscount: number;
+}
+
 interface Product {
     id: number;
     title: string;
@@ -40,6 +57,8 @@ const SellerSingleStore: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [store, setStore] = useState<Store | null>(null);
     const [isAddDiscountOpen, setIsAddDiscountOpen] = useState(false);
+    const [discounts, setDiscounts] = useState<Discount[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
@@ -52,6 +71,22 @@ const SellerSingleStore: React.FC = () => {
         serviceTime: '',
         description: '',
     });
+
+    useEffect(() => {
+        const fetchDiscountsByShop = async () => {
+            try {
+                const response = await axios.get(`http://localhost:4000/api/v1/discounts/shop/${id}`);
+                setDiscounts(response.data.discounts);
+                console.log(response.data.discounts);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching discounts:', error);
+                setLoading(false);
+            }
+        };
+
+        fetchDiscountsByShop();
+    }, [id]);
 
     useEffect(() => {
         const fetchStore = async () => {
@@ -156,6 +191,14 @@ const SellerSingleStore: React.FC = () => {
         <SellerLayout>
             {store && (
                 <div className="">
+                    <div className="w-full flex justify-between p-4 shadow-md border-b px-[3%]">
+                        <div className=""></div>
+                        <div className="flex items-center gap-2 text-gray-500 ">
+                            <CgProfile size={26} />
+                            <p className="text-gray-500 ">Salvato Luis</p>
+                            <FaChevronDown />
+                        </div>
+                    </div>
                     <div className="flex flex-col w-full px-[5%] py-[2%] bg-white text-black gap-[2%]">
                         <div className="flex items-center bg-gray-200 py-[10px] px-[5%] border-t border-b border-gray-300 justify-between">
                             <div className="flex items-center gap-[10px]">
@@ -202,16 +245,17 @@ const SellerSingleStore: React.FC = () => {
                                 />
                             </div>
                             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-cols-6">
-                                {products.map((product) => (
-                                    <Link to={`/products/${product.id}/see-details`} key={product.id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
-                                        <img src={product.image} alt={product.title} className="w-full object-cover rounded-md" />
+                                {discounts.map((discount) => (
+                                    <Link to={`/products/${discount._id}/see-details`} key={discount._id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
+                                        <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                                         <div className="flex flex-col">
-                                            <p className="text-[14px] text-gray-500">{product.storeName}</p>
-                                            <p className="text-[17px] font-medium">{product.title}</p>
+                                            <p className="text-[14px] text-gray-500 mt-4">{discount.store}</p>
+                                            <p className="text-[17px] font-medium">{discount.name}</p>
+                                            <p className="text-[14px] text-gray-500">{discount.description}</p>
                                             <div className="flex items-center">
-                                                <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${product.initialPrice.toLocaleString("KES")}`}</p>
+                                                <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initialPrice.toLocaleString("KES")}`}</p>
                                                 <p className="text-primary font-medium text-[14px] ml-2">
-                                                    {`Ksh. ${(product.initialPrice - (product.initialPrice * product.discount) / 100).toLocaleString("KES")}`}
+                                                    {`Ksh. ${discount.priceAfterDiscount.toLocaleString("KES")}`}
                                                 </p>
                                             </div>
                                         </div>
