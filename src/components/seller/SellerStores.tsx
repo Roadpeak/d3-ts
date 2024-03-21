@@ -5,6 +5,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import { IoMdAdd } from "react-icons/io";
 import { Spinner } from "@material-tailwind/react";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const SellerStores: React.FC = () => {
   const [isAddStoreOpen, setIsAddStoreOpen] = useState(false);
@@ -14,7 +15,7 @@ const SellerStores: React.FC = () => {
     location: '',
     storeType: ''
   });
-  const [stores, setStores] = useState([]); 
+  const [stores, setStores] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchStores = async () => {
@@ -134,13 +135,28 @@ const SellerStores: React.FC = () => {
               {stores.map((store: any) => (
                 <tr key={store._id} className="border-b">
                   <td className="py-2 px-4">
-                    <img src={store.imageUrl} className='w-[80px] rounded-md' alt="" />
+                    <a href={`/seller/stores/${store._id}`}>
+                      <img src={store.imageUrl} className='w-[80px] rounded-md' alt="" />
+                    </a>
                   </td>
-                  <td className="py-2 px-4">{store.name}</td>
-                  <td className="py-2 px-4 capitalize">{store.storeType}</td>
-                  <td className="py-2 px-4">{store.location}</td>
+                  <td className="py-2 px-4">
+                    <a href={`/seller/stores/${store._id}`}>
+                      {store.name}
+                    </a>
+                  </td>
+                  <td className="py-2 px-4 capitalize">
+                    <a href={`/seller/stores/${store._id}`}>
+                      {store.storeType}
+                    </a>
+                  </td>
+                  <td className="py-2 px-4">
+                    <a href={`/seller/stores/${store._id}`}>
+                      {store.location}
+                    </a>
+                  </td>
                 </tr>
               ))}
+
             </tbody>
           </table>
         </div>

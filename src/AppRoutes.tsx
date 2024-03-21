@@ -21,6 +21,7 @@ import Dashboard from './components/seller/Dashboard';
 import NotFoundPage from './components/NotFoundPage'; // Import the NotFoundPage component
 import SellerStores from './components/seller/SellerStores';
 import Appointments from './components/seller/Appointments';
+import SellerSingleStore from './components/seller/SellerSingleStore';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -58,6 +59,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/seller/home' element={<Dashboard />} />
       <Route path='/seller/stores' element={<SellerStores />} />
       <Route path='/seller/appointments' element={<Appointments />} />
+      <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
 
       {/* Page Not Found route */}
       <Route path='*' element={<NotFoundPage />} />

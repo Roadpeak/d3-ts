@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
-import { LiaExternalLinkAltSolid } from 'react-icons/lia';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 interface Product {
