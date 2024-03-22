@@ -201,7 +201,7 @@ const SellerSingleStore: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex flex-col w-full px-[5%] py-[2%] bg-white text-black gap-[2%]">
-                        <div className="flex items-center bg-gray-200 py-[10px] px-[5%] border-t border-b border-gray-300 justify-between">
+                        <div className="flex items-center bg-gray-100 py-[10px] px-[5%] rounded-b-md shadow mb-2 justify-between">
                             <div className="flex items-center gap-[10px]">
                                 <img
                                     src={store?.imageUrl}
@@ -247,7 +247,7 @@ const SellerSingleStore: React.FC = () => {
                             </div>
                             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-cols-6">
                                 {discounts.map((discount) => (
-                                    <Link to={`/products/${discount._id}/see-details`} key={discount._id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
+                                    <Link to={`/seller/products/${discount._id}/see-details`} key={discount._id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
                                         <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                                         <div className="flex flex-col">
                                             <p className="text-[14px] text-gray-500 mt-4">{discount.store.name}</p>

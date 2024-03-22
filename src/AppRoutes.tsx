@@ -22,6 +22,7 @@ import NotFoundPage from './components/NotFoundPage'; // Import the NotFoundPage
 import SellerStores from './components/seller/SellerStores';
 import Appointments from './components/seller/Appointments';
 import SellerSingleStore from './components/seller/SellerSingleStore';
+import DiscountDetails from './components/seller/DiscountDetails';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -60,6 +61,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/seller/stores' element={<SellerStores />} />
       <Route path='/seller/appointments' element={<Appointments />} />
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
+      <Route path='/seller/products/:id/see-details' element={<DiscountDetails />} />
 
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

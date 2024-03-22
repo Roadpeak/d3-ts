@@ -80,7 +80,7 @@ const SellerStores: React.FC = () => {
       const token = localStorage.getItem('token');
       setIsLoading(true);
 
-      await axios.post('http://localhost:4000/api/v1/stores/user/stores', {
+      await axios.post('http://localhost:4000/api/v1/stores', {
         name: storeName,
         location,
         storeType,
