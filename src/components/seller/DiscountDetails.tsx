@@ -4,6 +4,7 @@ import { CgProfile } from 'react-icons/cg';
 import { FaChevronDown, FaRegHeart } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import BookingSlotsList from './BookingSlotsList'
 
 interface Discount {
     _id: string;
@@ -102,6 +103,26 @@ const DiscountDetails: React.FC = () => {
         fetchDiscount();
     }, [id]);
 
+    useEffect(() => {
+        const fetchBookingSlots = async () => {
+            try {
+                const response = await axios.get<{ bookingSlots: BookingSlot[] }>(`http://localhost:4000/api/v1/discounts/${id}/booking-slots`);
+                setBookingSlots(response.data.bookingSlots);
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching booking slots:', error);
+            }
+        };
+
+        if (discount) {
+            fetchBookingSlots();
+        }
+    }, [discount, id]);
+
+    const handleBookSlot = (slot: BookingSlot) => {
+        // Add logic here to book the slot
+    };
+
     return (
         <SellerLayout>
             <div className="">
@@ -164,10 +185,7 @@ const DiscountDetails: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col">
-                            <p className="">Booking Slots</p>
-                            <button onClick={handleClickOpen}>Generate slots</button>
-                        </div>
+                        <BookingSlotsList bookingSlots={bookingSlots} handleClickOpen={handleClickOpen} handleBookSlot={handleBookSlot} />
                     </div>
                 )}
             </div>
@@ -188,14 +206,13 @@ const DiscountDetails: React.FC = () => {
                                 <label htmlFor="endTime" className="block text-sm font-medium text-gray-700">End Time</label>
                                 <input type="time" id="endTime" name="endTime" value={formData.endTime} onChange={handleChange} className="mt-1 border focus:outline-none px-2 focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-2" />
                             </div>
-                                <button type="submit" className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80">Submit</button>
+                            <button type="submit" className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80">Submit</button>
                         </form>
                     </div>
                 </div>
             )}
         </SellerLayout>
     );
-
 }
 
-export default DiscountDetails
+export default DiscountDetails;
