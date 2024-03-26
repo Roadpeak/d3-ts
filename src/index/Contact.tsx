@@ -1,6 +1,8 @@
 import React from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import { FaRegEnvelope } from 'react-icons/fa';
+import { MdAddCall } from "react-icons/md";
 
 const ContactUsPage: React.FC = () => {
   return (
@@ -9,7 +11,7 @@ const ContactUsPage: React.FC = () => {
       <div className="px-[5%] mx-auto bg-gray-100 py-8">
         <h1 className="text-3xl font-bold mb-4">Get in Touch</h1>
 
-        <div className="bg-white shadow-md p-8 rounded-lg">
+        <div className="">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-xl font-bold mb-4">Visit Us</h2>
@@ -21,9 +23,9 @@ const ContactUsPage: React.FC = () => {
               <h2 className="text-xl font-bold mb-4">Contact Information</h2>
               <p className="mb-2">Reach out to us for any inquiries:</p>
               <p className="mb-2">
-                Email: <a href="mailto:info@dthree.com">info@dthree.com</a>
+                <a className='flex items-center gap-2' href="mailto:info@dthree.com"><FaRegEnvelope /> info@dthree.com</a>
               </p>
-              <p className="mb-2">Phone: +254 113 794219</p>
+              <p className="mb-2 flex items-center gap-2"><MdAddCall /> +254 113 794219</p>
             </div>
           </div>
 
@@ -40,7 +42,7 @@ const ContactUsPage: React.FC = () => {
                     id="name"
                     name="name"
                     placeholder="Enter your name"
-                    className="w-full border rounded-md outline-none px-4 py-2"
+                    className="w-full border rounded-md bg-transparent outline-none px-4 py-2"
                   />
                 </div>
                 <div>
@@ -52,7 +54,7 @@ const ContactUsPage: React.FC = () => {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    className="w-full border rounded-md outline-none px-4 py-2"
+                    className="w-full border rounded-md bg-transparent outline-none px-4 py-2"
                   />
                 </div>
               </div>
@@ -65,7 +67,7 @@ const ContactUsPage: React.FC = () => {
                   name="message"
                   rows={5}
                   placeholder="Type your message here"
-                  className="w-full border rounded-md outline-none px-4 py-2"
+                  className="w-full border rounded-md bg-transparent outline-none px-4 py-2"
                 ></textarea>
               </div>
               <div>
