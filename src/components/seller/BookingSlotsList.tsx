@@ -15,10 +15,10 @@ interface Props {
 
 const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, handleBookSlot }) => {
     return (
-        <div className="flex flex-col w-full px-[3%] md:w-1/2 py-[2%]">
+        <div className="flex flex-col w-full px-[3%]">
             {bookingSlots ? (
                 <>
-                    <p className='text-[22px] font-medium'>Available Slots</p>
+                    <p className='text-[22px] font-medium'>Available Reservation Slots</p>
                     {Object.entries(
                         bookingSlots.reduce((acc: { [key: string]: BookingSlot[] }, slot) => {
                             const dateKey = new Date(slot.date).toLocaleDateString();

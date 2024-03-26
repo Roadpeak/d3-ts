@@ -8,7 +8,7 @@ const NotFoundPage: React.FC = () => {
         <p className="text-gray-600 mb-6">
           It seems like you've wandered off the path. The page you are looking for could not be found.
         </p>
-        <p className='mb-6 text-center font-semibold text-[124px] text-primary'>404</p>
+        <p className='mb-6 text-center font-semibold text-[124px] text-primary'>404!</p>
         <p className="text-gray-600 mb-4">
           Don't worry, let's get you back on track! You can go back to the
           <a href="/" className="text-primary hover:underline"> homepage</a>

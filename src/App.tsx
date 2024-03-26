@@ -1,10 +1,13 @@
 import AppRoutes from './AppRoutes';
+import { AuthProvider } from './utils/context/AuthContext';
 
 function App() {
   return (
-    <div className="font-montserrat bg-gray-50">
-      <AppRoutes />
-    </div>
+   <AuthProvider>
+      <div className="font-montserrat bg-gray-50">
+        <AppRoutes />
+      </div>
+   </AuthProvider>
   );
 }
 

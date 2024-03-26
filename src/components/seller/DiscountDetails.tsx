@@ -120,7 +120,6 @@ const DiscountDetails: React.FC = () => {
     }, [discount, id]);
 
     const handleBookSlot = (slot: BookingSlot) => {
-        // Add logic here to book the slot
     };
 
     return (
@@ -147,18 +146,18 @@ const DiscountDetails: React.FC = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="flex flex-col w-full md:pr-4">
+                                <div className="flex flex-col w-full md:p-2">
                                     <p className="font-medium text-[24px] ">{discount.name}</p>
                                     <div className="flex w-full items-center justify-between">
                                         <p className="">Percentage discount</p>
-                                        <span className="text-primary font-medium text-[17px]">
+                                        <span className="font-medium text-[17px]">
                                             {discount.percentageDiscount}%
                                         </span>
                                     </div>
                                     <div className="flex items-center justify-between ">
                                         <span className='font-light text-gray-600'>Discount</span>
                                         <p className="text-[17px]">
-                                            Ksh {discount.initialPrice.toLocaleString('KES')}
+                                            Ksh {discount.discount.toLocaleString('KES')}
                                         </p>
                                     </div>
                                     <div className="flex items-center justify-between ">
@@ -173,15 +172,24 @@ const DiscountDetails: React.FC = () => {
                                             Ksh {discount.priceAfterDiscount.toLocaleString('KES')}
                                         </p>
                                     </div>
-                                    <div className="flex flex-co">
-                                        <span className="font-medium text-[16px]">
-                                            Save this for later
-                                        </span>
-                                        <button className='flex border rounded-md border-gray-300 px-2 py-1.5 w-fit items-center gap-2'>
-                                            <FaRegHeart />
-                                            Favorite
-                                        </button>
+                                    <div className="flex items-center justify-between ">
+                                        <span className='font-light text-gray-600'>Service time</span>
+                                        <p className="text-[17px]">
+                                            {discount.serviceTime} hrs
+                                        </p>
                                     </div>
+                                    <div className="flex items-center justify-between ">
+                                        <span className='font-light text-gray-600'>Expires</span>
+                                        <p className="text-[17px]">
+                                            {new Date(discount.expiryDate).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                    {/* <div className="flex items-center justify-between ">
+                                        <span className='font-light text-gray-600'>Current price</span>
+                                        <p className="text-[17px]">
+                                            Ksh {discount.priceAfterDiscount.toLocaleString('KES')}
+                                        </p>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
