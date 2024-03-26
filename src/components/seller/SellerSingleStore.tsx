@@ -33,27 +33,6 @@ interface Discount {
     priceAfterDiscount: number;
 }
 
-interface Product {
-    id: number;
-    title: string;
-    storeName: string;
-    image: string;
-    initialPrice: number;
-    discount: number;
-}
-
-const products: Product[] = [
-    {
-        id: 1,
-        title: 'Eco-Friendly Handwoven Basket',
-        storeName: 'Maasai Crafts Emporium',
-        image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvcHBpbmd8ZW58MHx8MHx8fDA%3D',
-        initialPrice: 1200,
-        discount: 15,
-    }
-];
-
-
 const SellerSingleStore: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [store, setStore] = useState<Store | null>(null);
@@ -78,7 +57,6 @@ const SellerSingleStore: React.FC = () => {
             try {
                 const response = await axios.get(`http://localhost:4000/api/v1/discounts/shop/${id}`);
                 setDiscounts(response.data.discounts);
-                // console.log(response.data.discounts);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching discounts:', error);
