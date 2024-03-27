@@ -12,7 +12,8 @@ interface Store {
     _id: string;
     name: string;
     owner: {
-        username: string;
+        first_name: string;
+        last_name: string;
     };
     followers: string[];
     imageUrl: string;
@@ -190,10 +191,13 @@ const SellerSingleStore: React.FC = () => {
                                     <h2 className="text-xl font-semibold">{store?.name}</h2>
                                     <p
                                         onClick={openFollowersPopup}
-                                        className="text-[14px] cursor-pointer text-gray-400 hover:text-black pb-4 rounded-md"
+                                        className="text-[14px] cursor-pointer text-gray-400 hover:text-black rounded-md"
                                     >
-                                        {store?.followers?.length} followers
+                                        {Number(store?.followers) === 1 ?
+                                            `${store.followers} follower`
+                                            : `${store.followers} followers`}
                                     </p>
+                                    <p className="text-gray-400 font-medium">{store.owner.first_name} {store.owner.last_name}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">

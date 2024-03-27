@@ -8,11 +8,14 @@ import axios from 'axios';
 import BookingSlotsList from '../components/seller/BookingSlotsList';
 
 interface Review {
-  id: number;
-  user: string;
-  comment: string;
-  dateTime: Date;
+  _id: string;
+  entityType: string;
+  entityId: string;
+  reviewerName: string;
+  reviewDate: Date;
+  reviewText: string;
 }
+
 
 interface Discount {
   _id: string;
@@ -42,28 +45,41 @@ const ProductView: React.FC = () => {
   const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
   const [open, setOpen] = useState(false);
   const { id } = useParams();
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [newReview, setNewReview] = useState<{ user: string; comment: string }>({
     user: '',
     comment: '',
   });
 
-  const reviews: Review[] = [
-    { id: 1, user: 'Wanjiku Njoroge', comment: 'Impressive product! It exceeded my expectations.', dateTime: new Date() },
-    { id: 2, user: 'Kipchoge Bett', comment: 'Fast and efficient delivery. Very satisfied with the service.', dateTime: new Date() },
-    { id: 3, user: 'Amina Odhiambo', comment: 'Quality is top-notch. Will definitely buy again.', dateTime: new Date() },
-    { id: 4, user: 'Muthoni Kamau', comment: 'Great customer service. They were very helpful.', dateTime: new Date() },
-    { id: 5, user: 'Omondi Otieno', comment: 'The product arrived on time and in perfect condition.', dateTime: new Date() },
-    { id: 6, user: 'Naisiae Letoluai', comment: 'Impressed with the packaging. Everything was well-protected.', dateTime: new Date() },
-    { id: 7, user: 'Kagiso Maina', comment: 'I recommend this product to anyone looking for quality. Thumbs up!', dateTime: new Date() },
-  ];
-
-  const handlePostReview = () => {
-    if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
-      const dateTime = new Date(); // Add current date and time
-      // setReviews([...reviews, { id: reviews.length + 1, ...newReview, dateTime }]);
-      setNewReview({ user: '', comment: '' });
+  const handlePostReview = async () => {
+    try {
+      if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
+        const response = await axios.post('http://localhost:4000/api/v1/reviews', {
+          entityType: 'discount',
+          entityId: id,
+          reviewerName: newReview.user,
+          reviewText: newReview.comment
+        });
+        window.location.reload();
+        setNewReview({ user: '', comment: '' });
+      }
+    } catch (error) {
+      console.error('Error posting review:', error);
     }
   };
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get<{ reviews: Review[] }>(`http://localhost:4000/api/v1/reviews/entity/${id}`);
+        setReviews(response.data.reviews);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviews();
+  }, [id]);
 
   useEffect(() => {
     const fetchDiscount = async () => {
@@ -84,7 +100,6 @@ const ProductView: React.FC = () => {
       try {
         const response = await axios.get<{ bookingSlots: BookingSlot[] }>(`http://localhost:4000/api/v1/discounts/${id}/booking-slots`);
         setBookingSlots(response.data.bookingSlots);
-        // console.log(response.data);
       } catch (error) {
         console.error('Error fetching booking slots:', error);
       }
@@ -212,10 +227,10 @@ const ProductView: React.FC = () => {
                 ) : (
                   <div className="">
                     {reviews.map((review) => (
-                      <div key={review.id} className="border-b py-2">
-                        <p className="font-medium">{review.user}</p>
-                        <p className='text-gray-600'>{review.comment}</p>
-                        <p className="text-gray-500 text-sm">{review.dateTime.toLocaleString()}</p>
+                      <div key={review._id} className="border-b py-2">
+                        <p className="font-medium">{review.reviewerName}</p>
+                        <p className='text-gray-700'>{review.reviewText}</p>
+                        <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
                       </div>
                     ))}
                   </div>
