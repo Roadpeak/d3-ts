@@ -33,7 +33,7 @@ const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, hand
                                 {slots.map((slot, index) => (
                                     <div key={index} className={`flex ${slot.booked ? 'bg-red-300' : 'bg-green-200'} p-2 rounded-md items-start flex-col`}>
                                         <p>{slot.startTime} - {slot.endTime}</p>
-                                        <button className={`${!slot.booked && 'bg-green-400 py-1 rounded-md text-white px-2 '}`} onClick={() => handleBookSlot(slot)}>{!slot.booked ? 'Reserve' : 'Booked'}</button>
+                                        <button className={`${!slot.booked && 'bg-green-400 py-1 rounded-md text-white px-2 '}`} onClick={() => handleBookSlot(slot)}>{!slot.booked ? 'Available' : 'Booked'}</button>
                                     </div>
                                 ))}
                             </div>

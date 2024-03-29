@@ -78,7 +78,7 @@ const Deals: React.FC = () => {
             </p>
             <div className="w-full mb-4 grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-5 lg:grid-cols-6">
                 {discounts.map((discount) => (
-                  <Link to={`/products/${discount._id}/see-details`} key={discount._id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
+                  <Link to={`/discount/${discount._id}/see-details`} key={discount._id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
                     <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                 <div className="flex flex-col">
                       <p className="text-[14px] text-gray-500">{discount?.store.name}</p>

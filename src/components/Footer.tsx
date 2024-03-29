@@ -52,10 +52,10 @@ const Footer = () => {
               Britam Towers, Upperhill Nairobi
             </p>
             <p className="mb-2" onClick={handleEmailClick} style={{ cursor: 'pointer' }}>
-              Email: info@dthree.com
+              info@dthree.com
             </p>
             <p className="mb-2">
-              Phone: <a href="tel:+254113794219">+254 113 794219</a>
+              <a href="tel:+254113794219">+254 113 794219</a>
             </p>
           </div>
         </div>

@@ -182,7 +182,7 @@ const FeaturedOffers = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {featuredItems.map((item) => (
-          <Link to={`/products/${item.id}/see-details`} key={item.id} className="bg-white rounded-md p-4 shadow-md">
+          <Link to={`/discount/${item.id}/see-details`} key={item.id} className="bg-white rounded-md p-4 shadow-md">
             <div className="relative">
               <img
                 src={item.image}
