@@ -1,24 +1,28 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-// import fintechLogo from './fintech-logo.png'; // Placeholder for fintech logo
+import { Link, useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners'
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:4000/api/v1/users/login', { email, password });
       const token = response.data.token;
       localStorage.setItem('token', token);
       setError('');
-      // Optionally, you can redirect the user to another page after successful login
-      console.log('User logged in successfully:', response.data);
+      navigate('/')
+      setLoading(false);
     } catch (error) {
       console.error('Error logging in:', error);
+      setLoading(false);
       setError('Invalid email or password');
     }
   };
@@ -27,8 +31,7 @@ const LoginPage: React.FC = () => {
     <div className="bg-gradient-to-r from-black to-white min-h-screen flex justify-center items-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <div className="text-center mb-8">
-            <p className="">D-THREE</p>
-          {/* <img src={fintechLogo} alt="Fintech Logo" className="mx-auto h-16 mb-4" /> */}
+          <p className="">D-THREE</p>
           <h1 className="text-2xl font-semibold text-black">Sign In</h1>
         </div>
         <form onSubmit={handleSubmit}>
@@ -45,7 +48,7 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="">
             <label htmlFor="password" className="block text-sm font-medium text-black">Password</label>
             <input
               type="password"
@@ -57,9 +60,9 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
-          <p className="text-sm text-gray-700 text-start mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-red-500">Sign Up</Link></p>
+          <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-red-500">Sign Up</Link></p>
           <div className="mb-4">
-            <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">Log In</button>
+            <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">{loading ? <ClipLoader color="#fff" /> : 'Log in'}</button>
           </div>
         </form>
         <p className="text-sm text-gray-700 text-center">Forgot your password? <Link to='/accounts/forgot-password' className="text-red-500">Reset it here</Link></p>

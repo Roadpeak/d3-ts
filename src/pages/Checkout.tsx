@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { MdClose } from 'react-icons/md';
 
 interface Product {
     id: string;
