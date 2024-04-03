@@ -24,7 +24,7 @@ const Checkout: React.FC = () => {
     useEffect(() => {
         const fetchDiscount = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/v1/discounts/${id}`);
+                const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts/${id}`);
                 setDiscount(response.data.discount);
             } catch (error) {
                 console.error('Error fetching discount:', error);

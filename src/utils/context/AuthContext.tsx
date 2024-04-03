@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const response = await fetch('http://localhost:4000/api/v1/users/current-user', {
+                    const response = await fetch('https://d3-api.onrender.com/api/v1/users/current-user', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const login = async (email: string, password: string) => {
         try {
-            const response = await fetch('http://localhost:4000/api/v1/auth/login', {
+            const response = await fetch('https://d3-api.onrender.com/api/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             if (response.ok) {
                 const userData = await response.json();
                 setUser(userData);
-                localStorage.setItem('token', userData.token); // Save token to local storage
+                localStorage.setItem('token', userData.token); 
             } else {
                 throw new Error('Login failed');
             }
@@ -78,7 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem('token'); // Remove token from local storage
+        localStorage.removeItem('token');
         setUser(null);
     };
 

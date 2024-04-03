@@ -66,7 +66,7 @@ const DiscountDetails: React.FC = () => {
         }
 
         try {
-            const response = await axios.post<{ bookingSlots: BookingSlot[] }>('http://localhost:4000/api/v1/discounts/generate-booking-slots', {
+            const response = await axios.post<{ bookingSlots: BookingSlot[] }>('https://d3-api.onrender.com/api/v1/discounts/generate-booking-slots', {
                 discountId: id,
                 startDate,
                 expiryDate,
@@ -83,7 +83,7 @@ const DiscountDetails: React.FC = () => {
     useEffect(() => {
         const fetchDiscount = async () => {
             try {
-                const response = await axios.get<{ discount: Discount }>(`http://localhost:4000/api/v1/discounts/${id}`);
+                const response = await axios.get<{ discount: Discount }>(`https://d3-api.onrender.com/api/v1/discounts/${id}`);
                 const fetchedDiscount = response.data.discount;
                 if (fetchedDiscount && fetchedDiscount.expiryDate) {
                     setDiscount(fetchedDiscount);
@@ -106,7 +106,7 @@ const DiscountDetails: React.FC = () => {
     useEffect(() => {
         const fetchBookingSlots = async () => {
             try {
-                const response = await axios.get<{ bookingSlots: BookingSlot[] }>(`http://localhost:4000/api/v1/discounts/${id}/booking-slots`);
+                const response = await axios.get<{ bookingSlots: BookingSlot[] }>(`https://d3-api.onrender.com/api/v1/discounts/${id}/booking-slots`);
                 setBookingSlots(response.data.bookingSlots);
                 console.log(response.data);
             } catch (error) {

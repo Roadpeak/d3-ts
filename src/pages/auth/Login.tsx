@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/users/login', { email, password });
+      const response = await axios.post('https://d3-api.onrender.com/api/v1/users/login', { email, password });
       const token = response.data.token;
       localStorage.setItem('token', token);
       setError('');

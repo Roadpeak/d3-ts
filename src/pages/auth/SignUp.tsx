@@ -20,12 +20,12 @@ const SignUp: React.FC = () => {
     }));
   };
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/api/v1/users/register', formData);
+      const response = await axios.post('https://d3-api.onrender.com/api/v1/users/register', formData);
       console.log('User signed up successfully:', response.data);
-      
+
       // Extract the token from the response data
       const token = response.data.token;
 

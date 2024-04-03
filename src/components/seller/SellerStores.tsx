@@ -21,7 +21,7 @@ const SellerStores: React.FC = () => {
   const fetchStores = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:4000/api/v1/stores', {
+      const response = await axios.get('https://d3-api.onrender.com/api/v1/stores', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -51,7 +51,7 @@ const SellerStores: React.FC = () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axios.post('http://localhost:4000/api/v1/cloudinary/upload', formData, {
+        const response = await axios.post('https://d3-api.onrender.com/api/v1/cloudinary/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -80,7 +80,7 @@ const SellerStores: React.FC = () => {
       const token = localStorage.getItem('token');
       setIsLoading(true);
 
-      await axios.post('http://localhost:4000/api/v1/stores', {
+      await axios.post('https://d3-api.onrender.com/api/v1/stores', {
         name: storeName,
         location,
         storeType,

@@ -56,7 +56,7 @@ const SellerSingleStore: React.FC = () => {
     useEffect(() => {
         const fetchDiscountsByShop = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/v1/discounts/shop/${id}`);
+                const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts/shop/${id}`);
                 setDiscounts(response.data.discounts);
                 setLoading(false);
             } catch (error) {
@@ -71,7 +71,7 @@ const SellerSingleStore: React.FC = () => {
     useEffect(() => {
         const fetchStore = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/v1/stores/${id}`);
+                const response = await axios.get(`https://d3-api.onrender.com/api/v1/stores/${id}`);
                 setStore(response.data.store);
             } catch (error) {
                 console.error('Error fetching store:', error);
@@ -96,7 +96,7 @@ const SellerSingleStore: React.FC = () => {
                 const formData = new FormData();
                 formData.append('image', file);
 
-                const response = await axios.post('http://localhost:4000/api/v1/cloudinary/upload', formData, {
+                const response = await axios.post('https://d3-api.onrender.com/api/v1/cloudinary/upload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -116,7 +116,7 @@ const SellerSingleStore: React.FC = () => {
             const token = localStorage.getItem('token');
             setIsLoading(true);
 
-            await axios.post('http://localhost:4000/api/v1/discounts', {
+            await axios.post('https://d3-api.onrender.com/api/v1/discounts', {
                 name,
                 initialPrice: parseInt(initialPrice),
                 discount: parseInt(discount),

@@ -63,7 +63,7 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchStore = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/v1/stores/${id}`);
+        const response = await axios.get(`https://d3-api.onrender.com/api/v1/stores/${id}`);
         setStore(response.data.store);
         console.log(response.data.store);
       } catch (error) {
@@ -77,7 +77,7 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/v1/discounts/shop/${id}`);
+        const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts/shop/${id}`);
         setDiscounts(response.data.discounts);
         setLoading(false);
       } catch (error) {
@@ -91,7 +91,7 @@ const StoreView: React.FC = () => {
 
   const handleFollow = async () => {
     try {
-      await axios.post(`http://localhost:4000/api/v1/followers/follow`, {
+      await axios.post(`https://d3-api.onrender.com/api/v1/followers/follow`, {
         userId: user?.id,
         storeId: id
       },
@@ -109,7 +109,7 @@ const StoreView: React.FC = () => {
 
   const handleUnfollow = async () => {
     try {
-      await axios.post(`http://localhost:4000/api/v1/followers/unfollow`, {
+      await axios.post(`https://d3-api.onrender.com/api/v1/followers/unfollow`, {
         userId: user?.id,
         storeId: id
       },
@@ -128,7 +128,7 @@ const StoreView: React.FC = () => {
   const handlePostReview = async () => {
     try {
       if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
-        const response = await axios.post('http://localhost:4000/api/v1/reviews', {
+        const response = await axios.post('https://d3-api.onrender.com/api/v1/reviews', {
           entityType: 'discount',
           entityId: id,
           reviewerName: newReview.user,
@@ -145,7 +145,7 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get<{ reviews: Review[] }>(`http://localhost:4000/api/v1/reviews/entity/${id}`);
+        const response = await axios.get<{ reviews: Review[] }>(`https://d3-api.onrender.com/api/v1/reviews/entity/${id}`);
         setReviews(response.data.reviews);
       } catch (error) {
         console.error('Error fetching reviews:', error);

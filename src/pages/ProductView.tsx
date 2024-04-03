@@ -54,7 +54,7 @@ const ProductView: React.FC = () => {
   const handlePostReview = async () => {
     try {
       if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
-        const response = await axios.post('http://localhost:4000/api/v1/reviews', {
+        const response = await axios.post('https://d3-api.onrender.com/api/v1/reviews', {
           entityType: 'discount',
           entityId: id,
           reviewerName: newReview.user,
@@ -71,7 +71,7 @@ const ProductView: React.FC = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get<{ reviews: Review[] }>(`http://localhost:4000/api/v1/reviews/entity/${id}`);
+        const response = await axios.get<{ reviews: Review[] }>(`https://d3-api.onrender.com/api/v1/reviews/entity/${id}`);
         setReviews(response.data.reviews);
       } catch (error) {
         console.error('Error fetching reviews:', error);
@@ -84,7 +84,7 @@ const ProductView: React.FC = () => {
   useEffect(() => {
     const fetchDiscount = async () => {
       try {
-        const response = await axios.get<{ discount: Discount }>(`http://localhost:4000/api/v1/discounts/${id}`);
+        const response = await axios.get<{ discount: Discount }>(`https://d3-api.onrender.com/api/v1/discounts/${id}`);
         setDiscount(response.data.discount);
         console.log(discount);
       } catch (error) {
@@ -98,7 +98,7 @@ const ProductView: React.FC = () => {
   useEffect(() => {
     const fetchBookingSlots = async () => {
       try {
-        const response = await axios.get<{ bookingSlots: BookingSlot[] }>(`http://localhost:4000/api/v1/discounts/${id}/booking-slots`);
+        const response = await axios.get<{ bookingSlots: BookingSlot[] }>(`https://d3-api.onrender.com/api/v1/discounts/${id}/booking-slots`);
         setBookingSlots(response.data.bookingSlots);
       } catch (error) {
         console.error('Error fetching booking slots:', error);

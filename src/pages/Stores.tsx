@@ -17,7 +17,7 @@ const Stores: React.FC = () => {
   const fetchStores = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get<{ stores: Store[] }>('http://localhost:4000/api/v1/stores', {
+      const response = await axios.get<{ stores: Store[] }>('https://d3-api.onrender.com/api/v1/stores', {
         headers: {
           Authorization: `Bearer ${token}`
         }
