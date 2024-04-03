@@ -16,7 +16,7 @@ interface Props {
 const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, handleBookSlot }) => {
     return (
         <div className="flex flex-col w-full px-[3%]">
-            {bookingSlots ? (
+            {bookingSlots && bookingSlots.length > 0 ? (
                 <>
                     <p className='text-[22px] font-medium'>Available Reservation Slots</p>
                     {Object.entries(
@@ -41,8 +41,9 @@ const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, hand
                     ))}
                 </>
             ) : (
-                <button className='bg-primary text-white px-4 py-2 rounded-md' onClick={handleClickOpen}>Generate slots</button>
+                <button className='bg-primary flex w-fit mt-4  text-white px-4 py-2 rounded-md' onClick={handleClickOpen}>Generate slots</button>
             )}
+
         </div>
     );
 }

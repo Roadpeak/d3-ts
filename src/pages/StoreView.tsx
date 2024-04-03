@@ -206,7 +206,7 @@ const StoreView: React.FC = () => {
             </div>
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
               {discounts.map((discount) => (
-                <Link to={`/discount/${discount._id}/see-details`} key={discount._id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
+                <Link to={`/discount/${discount._id}/see-details`} key={discount._id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
                   <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                   <div className="flex flex-col">
                     <p className="text-[14px] text-gray-500">{discount.store.name}</p>

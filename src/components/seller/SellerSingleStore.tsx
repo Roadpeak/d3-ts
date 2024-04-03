@@ -309,7 +309,6 @@ const SellerSingleStore: React.FC = () => {
                                     className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80"
                                 >
                                     {isLoading ? <Spinner /> : 'Add Discount'}
-                                    {/* Add Discount */}
                                 </button>
                             </div>
                         </form>
