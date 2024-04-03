@@ -3,7 +3,7 @@ import React from 'react';
 const ReviewsSection: React.FC = () => {
   return (
     <div className="bg-gray-100 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">What are people saying?</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white rounded-lg shadow-md p-6">
