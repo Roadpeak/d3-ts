@@ -31,7 +31,7 @@ const blogPosts: BlogPost[] = [
 
 const Blog: React.FC = () => {
     return (
-        <div className="py-4 max-w-7xl mx-auto bg-gray-100">
+        <div className="py-4 max-w-7xl mx-auto bg-gray-100 px-[5%]">
             <div className="flex w-full justify-between items-center ">
                 <p className="text-center capitalize font-medium text-[28px] text-gray-800 py-4">
                     Latest News
