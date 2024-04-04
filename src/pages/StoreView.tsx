@@ -52,6 +52,7 @@ const StoreView: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [newReview, setNewReview] = useState<{ user: string; comment: string }>({
     user: '',
     comment: '',
@@ -156,6 +157,16 @@ const StoreView: React.FC = () => {
     fetchReviews();
   }, [id]);
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredDiscounts = discounts.filter(discount =>
+    discount.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    discount.store.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+
   return (
     <div className='w-full h-full scroll-smooth flex flex-col'>
       <Navbar />
@@ -201,12 +212,14 @@ const StoreView: React.FC = () => {
               </p>
               <input
                 type="text"
+                value={searchTerm}
+                onChange={handleSearchChange}
                 className='border rounded-md px-2 outline-none focus:outline-none text-gray-500 py-1'
                 placeholder='Search'
               />
             </div>
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
-              {discounts.map((discount) => (
+              {filteredDiscounts.map((discount) => (
                 <Link to={`/discount/${discount._id}/see-details`} key={discount._id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
                   <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                   <div className="flex flex-col">
@@ -258,14 +271,17 @@ const StoreView: React.FC = () => {
               </button>
             </form>
           </div>
-          <div className="w-full md:w-1/2">
-            {reviews.map((review) => (
-              <div key={review._id} className="border-b py-2">
-                <p className="font-medium">{review.reviewerName}</p>
-                <p className='text-gray-700'>{review.reviewText}</p>
-                <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
-              </div>
-            ))}
+          <div className="w-full md:w-1/2 flex flex-col gap-2">
+            <p className='font-semibold text-lg'>Shop Revews</p>
+            <div className="flex flex-col w-full">
+              {reviews.map((review) => (
+                <div key={review._id} className="border-b py-2">
+                  <p className="font-medium">{review.reviewerName}</p>
+                  <p className='text-gray-700'>{review.reviewText}</p>
+                  <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

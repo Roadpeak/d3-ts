@@ -32,7 +32,7 @@ const StoresSection = () => {
   useEffect(() => {
     fetchStores();
   }, []);
-  
+
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-50 pb-[2%]'>
       <p className="text-black font-semibold mb-[1%] text-[24px]">
@@ -54,7 +54,7 @@ const StoresSection = () => {
               <img
                 src={store.imageUrl}
                 alt={store.name}
-                className="w-[50%] rounded-md object-cover mb-2"
+                className="w-[70%] rounded-md object-cover mb-2"
               />
               <p className="text-black font-semibold">{store.name}</p>
               <p className="text-gray-500"><span className='text-primary'>see deals</span></p>
