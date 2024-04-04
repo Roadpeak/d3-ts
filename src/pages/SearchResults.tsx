@@ -44,7 +44,7 @@ const SearchResults: React.FC = () => {
     const fetchSearchResults = async (query: string) => {
         try {
             setLoading(true);
-            const response = await axios.get<{ discounts: Discount[], stores: Store[] }>(`http://localhost:4000/api/v1/search?q=${query}`);
+            const response = await axios.get<{ discounts: Discount[], stores: Store[] }>(`https://d3-api.onrender.com/api/v1/search?q=${query}`);
             setDiscounts(response.data.discounts);
             setStores(response.data.stores);
         } catch (error) {
