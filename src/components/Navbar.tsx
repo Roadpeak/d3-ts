@@ -1,18 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
-import { Link } from 'react-router-dom';
+import { FiUser } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate(`/search?q=${searchQuery}`);
+  };
+
   return (
     <>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-primary '>
         <div className="flex items-center gap-[30px] ">
           <p className='text-white font-medium text-[24px]'>D-THREE</p>
-          <div className="hidden md:flex items-center bg-white rounded-md w-[450px] gap-2 px-10">
+          <form onSubmit={handleSearch} className="hidden md:flex items-center bg-white rounded-md w-[450px] gap-2 px-10">
             <FaSearch size={20} className='text-gray-500' />
-            <input type="text" placeholder='Search' className='outline-none py-2 w-full ' />
-          </div>
+            <input
+              type="text"
+              placeholder='Search'
+              className='outline-none py-2 w-full'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </form>
         </div>
         <div className="flex items-center  text-white gap-3 ">
           <Link to={`/discounts/bought`} className='px-3 py-1.5 text-gray-500 bg-white rounded-md '>Cart</Link>
@@ -32,4 +46,4 @@ const Navbar: React.FC = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

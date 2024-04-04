@@ -23,6 +23,7 @@ import SellerStores from './components/seller/SellerStores';
 import Appointments from './components/seller/Appointments';
 import SellerSingleStore from './components/seller/SellerSingleStore';
 import DiscountDetails from './components/seller/DiscountDetails';
+import SearchResults from './pages/SearchResults';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -46,6 +47,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/deals' element={<Deals />} />
       <Route path='/discounts/bought' element={<PurchasesPage />} />
       <Route path='/profile' element={<UserProfileCard {...fakeUserData} />} />
+      <Route path="/search" element={<SearchResults />} />
 
       <Route path='/about' element={<About />} />
       <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
