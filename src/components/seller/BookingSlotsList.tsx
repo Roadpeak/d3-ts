@@ -17,8 +17,8 @@ const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, hand
     return (
         <div className="flex flex-col w-full px-[3%]">
             {bookingSlots && bookingSlots.length > 0 ? (
-                <>
-                    <p className='text-[22px] font-medium'>Available Reservation Slots</p>
+                <div className='flex flex-wrap gap-2 w-full'>
+
                     {Object.entries(
                         bookingSlots.reduce((acc: { [key: string]: BookingSlot[] }, slot) => {
                             const dateKey = new Date(slot.date).toLocaleDateString();
@@ -29,7 +29,7 @@ const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, hand
                     ).map(([date, slots]) => (
                         <div key={date}>
                             <p className="text-lg mt-4 font-semibold">{date}</p>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex w-full flex-wrap gap-2">
                                 {slots.map((slot, index) => (
                                     <div key={index} className={`flex ${slot.booked ? 'bg-red-300' : 'bg-green-200'} p-2 rounded-md items-start flex-col`}>
                                         <p>{slot.startTime} - {slot.endTime}</p>
@@ -39,7 +39,7 @@ const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, hand
                             </div>
                         </div>
                     ))}
-                </>
+                </div>
             ) : (
                 <button className='bg-primary flex w-fit mt-4  text-white px-4 py-2 rounded-md' onClick={handleClickOpen}>Generate slots</button>
             )}

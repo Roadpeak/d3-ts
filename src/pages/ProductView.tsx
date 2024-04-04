@@ -264,7 +264,7 @@ const ProductView: React.FC = () => {
                 </form>
               </div>
             </div>
-            <div className="">
+            <div className="w-full md:w-1/3">
               <BookingSlotsList bookingSlots={bookingSlots} handleClickOpen={handleClickOpen} handleBookSlot={handleBookSlot} />
             </div>
           </div>

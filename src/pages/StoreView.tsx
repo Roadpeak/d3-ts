@@ -59,6 +59,7 @@ const StoreView: React.FC = () => {
 
   const { user } = useAuth();
   const token = localStorage.getItem('token');
+  const maxLength = 100;
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -211,7 +212,12 @@ const StoreView: React.FC = () => {
                   <div className="flex flex-col">
                     <p className="text-[14px] text-gray-500">{discount.store.name}</p>
                     <p className="text-[17px] font-medium">{discount.name}</p>
-                    <p className="text-[14px] text-gray-500">{discount.description}</p>
+                    <p className="text-[14px] text-gray-500">
+                      {discount.description.length > maxLength ?
+                        `${discount.description.substring(0, maxLength)}...` :
+                        discount.description
+                      }
+                    </p>
                     <div className="flex items-center">
                       <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initialPrice.toLocaleString("KES")}`}</p>
                       <p className="text-primary font-medium text-[14px] ml-2">
