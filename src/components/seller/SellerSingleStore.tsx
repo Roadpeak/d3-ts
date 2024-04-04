@@ -7,13 +7,14 @@ import { Spinner } from '@material-tailwind/react';
 import { CgProfile } from 'react-icons/cg';
 import { FaChevronDown } from 'react-icons/fa';
 import { IoLocation } from "react-icons/io5";
+import { useAuth } from '../../utils/context/AuthContext';
 
 interface Store {
     _id: string;
     name: string;
     owner: {
-        first_name: string;
-        last_name: string;
+        firstName: string;
+        lastName: string;
     };
     followers: string[];
     imageUrl: string;
@@ -52,6 +53,8 @@ const SellerSingleStore: React.FC = () => {
         serviceTime: '',
         description: '',
     });
+    const maxLength = 100;
+    const { user } = useAuth();
 
     useEffect(() => {
         const fetchDiscountsByShop = async () => {
@@ -175,7 +178,7 @@ const SellerSingleStore: React.FC = () => {
                         <div className=""></div>
                         <div className="flex items-center gap-2 text-gray-500 ">
                             <CgProfile size={26} />
-                            <p className="text-gray-500 ">Salvato Luis</p>
+                            <p className="text-gray-500 ">{user?.firstName}</p>
                             <FaChevronDown />
                         </div>
                     </div>
@@ -197,7 +200,7 @@ const SellerSingleStore: React.FC = () => {
                                             `${store.followers} follower`
                                             : `${store.followers} followers`}
                                     </p>
-                                    <p className="text-gray-400 font-medium">{store.owner.first_name} {store.owner.last_name}</p>
+                                    <p className="text-gray-400 font-medium">{store.owner.firstName} {store.owner.lastName}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
@@ -229,12 +232,17 @@ const SellerSingleStore: React.FC = () => {
                             </div>
                             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-cols-6">
                                 {discounts.map((discount) => (
-                                    <Link to={`/seller/products/${discount._id}/see-details`} key={discount._id} className="shadow-md hover:shadow-xl hover:border flex flex-col justify-between rounded-md p-4">
+                                    <Link to={`/seller/products/${discount._id}/see-details`} key={discount._id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
                                         <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                                         <div className="flex flex-col">
                                             <p className="text-[14px] text-gray-500 mt-4">{discount.store.name}</p>
                                             <p className="text-[17px] font-medium">{discount.name}</p>
-                                            <p className="text-[14px] text-gray-500">{discount.description}</p>
+                                            <p className="text-[14px] text-gray-500">
+                                                {discount.description.length > maxLength ?
+                                                    `${discount.description.substring(0, maxLength)}...` :
+                                                    discount.description
+                                                }
+                                            </p>
                                             <div className="flex items-center">
                                                 <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initialPrice.toLocaleString("KES")}`}</p>
                                                 <p className="text-primary font-medium text-[14px] ml-2">
