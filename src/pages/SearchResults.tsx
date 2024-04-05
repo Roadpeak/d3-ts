@@ -86,9 +86,9 @@ const SearchResults: React.FC = () => {
                             ))
                         )}
                     </div>
-                ) : <>
-                    <p>No stores found.</p>
-                </>
+                ) : (
+                        <p>No stores found.</p>
+                )
                 }
 
                 <p className="text-black font-semibold mb-[1%] text-[24px]">

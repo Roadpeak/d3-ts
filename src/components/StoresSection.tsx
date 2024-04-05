@@ -54,10 +54,12 @@ const StoresSection = () => {
               <img
                 src={store.imageUrl}
                 alt={store.name}
-                className="w-[70%] rounded-md object-cover mb-2"
+                className="w-[60%] rounded-md object-cover mb-2"
               />
-              <p className="text-black font-semibold">{store.name}</p>
-              <p className="text-gray-500"><span className='text-primary'>see deals</span></p>
+              <div className="flex justify-center flex-col">
+                <p className="text-center text-black font-semibold">{store.name}</p>
+                <p className="text-center bg-rose-200 py-1 rounded-md text-gray-500"><span className='text-primary'>see deals</span></p>
+              </div>
             </Link>
           ))
         )}
