@@ -61,8 +61,18 @@ const SearchResults: React.FC = () => {
                 <p className="text-black font-semibold mb-[1%] text-[24px]">
                     Top Stores | Search Results
                 </p>
+                {loading && (
+                    <div className='grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-7 gap-4'>
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                        <SkeletonLoader />
+                    </div>
+                )}
                 {stores.length > 0 ? (
-                    <div className="grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-7 gap-4 my-[2%]">
+                    <div className="grid grid-cols-2 md:grid-cols-5 w-full lg:grid-cols-6 gap-4 my-[2%]">
                         {loading ? (
                             <>
                                 <SkeletonLoader />
@@ -87,7 +97,9 @@ const SearchResults: React.FC = () => {
                         )}
                     </div>
                 ) : (
-                        <p>No stores found.</p>
+                        <>
+                            {!loading && <p>No stores found.</p>}
+                        </>
                 )
                 }
 
