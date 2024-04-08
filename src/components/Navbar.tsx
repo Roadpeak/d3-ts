@@ -14,17 +14,17 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-    <div className="w-full flex bg-white py-2 justify-between px-[5%] ">
-      <div className="flex items-center gap-3">
-        <p className="text-[15px] text-gray-600">English</p>
-        <p className="text-[15px] text-gray-600">KES</p>
+      <div className="w-full flex bg-white py-2 justify-between px-[5%] ">
+        <div className="flex items-center gap-3">
+          <p className="text-[15px] text-gray-600">English</p>
+          <p className="text-[15px] text-gray-600">KES</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
+          <p className="">|</p>
+          <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
+        </div>
       </div>
-      <div className="flex items-center gap-3">
-        <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
-        <p className="">|</p>
-        <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
-      </div>
-    </div>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>
         <p className='text-primary font-medium text-[24px]'>D-THREE</p>
         <div className="flex items-center gap-[30px] ">
@@ -42,8 +42,8 @@ const Navbar: React.FC = () => {
           </form>
         </div>
         <div className="flex items-center  text-white gap-3 ">
-          <Link to={`/discounts/bought`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Cart</Link>
-          <Link to={`/discounts/bought`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Bookings</Link>
+          <Link to={`/accounts/sign-in`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</Link>
+          <Link to={`/accounts/sign-up`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Sign Up</Link>
           <Link to={`/profile`} className="bg-white flex items-center justify-center text-gray-400 p-2 rounded-full">
             <FiUser size={20} />
           </Link>

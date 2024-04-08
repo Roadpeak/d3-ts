@@ -18,7 +18,7 @@ import LoginPage from './pages/auth/Login';
 import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import ResetPasswordPage from './pages/auth/ResetPassword';
 import Dashboard from './components/seller/Dashboard';
-import NotFoundPage from './components/NotFoundPage'; // Import the NotFoundPage component
+import NotFoundPage from './components/NotFoundPage';
 import SellerStores from './components/seller/SellerStores';
 import Appointments from './components/seller/Appointments';
 import SellerSingleStore from './components/seller/SellerSingleStore';

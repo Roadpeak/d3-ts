@@ -248,15 +248,17 @@ const ProductView: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Your Name"
+                    required
                     value={newReview.user}
                     onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
-                    className="border p-2 rounded-md"
+                    className="border p-2 focus:border-primary outline-none rounded-md"
                   />
                   <textarea
                     placeholder="Your Comment"
                     value={newReview.comment}
+                    required
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    className="border p-2 rounded-md"
+                    className="border p-2 rounded-md focus:border-primary outline-none"
                   />
                   <button type="submit" className="bg-primary rounded-md text-white font-medium px-4 py-2">
                     Post Review
