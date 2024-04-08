@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
         <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
       </div>
     </div>
-      <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-100 '>
+      <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>
         <p className='text-primary font-medium text-[24px]'>D-THREE</p>
         <div className="flex items-center gap-[30px] ">
           <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
