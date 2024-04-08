@@ -257,14 +257,16 @@ const StoreView: React.FC = () => {
                 type="text"
                 placeholder="Your Name"
                 value={newReview.user}
+                required
                 onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
-                className="border p-2 rounded-md"
+                className="border p-2 rounded-md outline-none focus:border-primary"
               />
               <textarea
                 placeholder="Your Comment"
                 value={newReview.comment}
+                required
                 onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                className="border p-2 rounded-md"
+                className="border p-2 rounded-md outline-none focus:border-primary"
               />
               <button type="submit" className="bg-primary rounded-md text-white font-medium px-4 py-2">
                 Post Review
