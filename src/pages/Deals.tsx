@@ -5,15 +5,6 @@ import Footer from '../components/Footer'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-interface Product {
-  id: number;
-  title: string;
-  storeName: string;
-  image: string;
-  initialPrice: number;
-  discount: number;
-}
-
 interface Store {
   _id: string;
   name: string;
@@ -38,17 +29,6 @@ interface Discount {
   imageUrl: string;
   priceAfterDiscount: number;
 }
-
-const products: Product[] = [
-  {
-    id: 1,
-    title: 'Eco-Friendly Handwoven Basket',
-    storeName: 'Maasai Crafts Emporium',
-    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2hvcHBpbmd8ZW58MHx8MHx8fDA%3D',
-    initialPrice: 1200,
-    discount: 15,
-  }
-];
 
 const Deals: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
