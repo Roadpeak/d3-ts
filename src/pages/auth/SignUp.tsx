@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FiUser, FiMail, FiPhone, FiLock } from 'react-icons/fi';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,9 @@ const SignUp: React.FC = () => {
     role: 'seller',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,86 +27,98 @@ const SignUp: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post('https://d3-api.onrender.com/api/v1/users/register', formData);
-      console.log('User signed up successfully:', response.data);
-
-      // Extract the token from the response data
       const token = response.data.token;
-
       localStorage.setItem('token', token);
+      setError('');
+      navigate('/')
+      setLoading(false);
 
     } catch (error) {
-      console.error('Error signing up:', error);
+      console.error('Error logging in:', error);
+      setLoading(false);
+      setError('An error occurred');
     }
   };
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-black to-white text-white">
-      <div className="w-[25%] p-6 bg-white rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold text-center mb-4 text-red-400">Sign Up</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-black to-white">
+      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+        <div className="text-center mb-8">
+          <p className="">D-THREE</p>
+          <h1 className="text-2xl font-semibold text-black">Sign In</h1>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex text-gray-500 items-center border border-gray-300 rounded-md px-3 py-2">
-            <FiUser className="text-red-400" />
+          {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
+          <div className="mb-4">
+            <label htmlFor="first_name" className="block text-sm font-medium text-black">First Name</label>
             <input
               type="text"
+              id="first_name"
               name="first_name"
-              placeholder="First Name"
               value={formData.first_name}
               onChange={handleChange}
-              className="ml-2 w-full focus:outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+              required
             />
           </div>
-          <div className="flex text-gray-500 items-center border border-gray-300 rounded-md px-3 py-2">
-            <FiUser className="text-red-400" />
+          <div className="mb-4">
+            <label htmlFor="last_name" className="block text-sm font-medium text-black">Last name</label>
             <input
               type="text"
+              id="last_name"
               name="last_name"
-              placeholder="Last Name"
               value={formData.last_name}
               onChange={handleChange}
-              className="ml-2 w-full focus:outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+              required
             />
           </div>
-          <div className="flex items-center text-gray-500 border border-gray-300 rounded-md px-3 py-2">
-            <FiMail className="text-red-400" />
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-black">Email</label>
             <input
               type="email"
+              id="email"
               name="email"
-              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="ml-2 w-full focus:outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+              required
             />
           </div>
-          <div className="flex text-gray-500 items-center border border-gray-300 rounded-md px-3 py-2">
-            <FiPhone className="text-red-400" />
+          <div className="mb-4">
+            <label htmlFor="phone" className="block text-sm font-medium text-black">Phone</label>
             <input
-              type="tel"
+              type="number"
+              id="phone"
               name="phone"
-              placeholder="Phone"
               value={formData.phone}
               onChange={handleChange}
-              className="ml-2 w-full focus:outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+              required
             />
           </div>
-          <div className="flex items-center border border-gray-300 text-gray-400 rounded-md px-3 py-2">
-            <FiLock className="text-red-400" />
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium text-black">Password</label>
             <input
               type="password"
+              id="password"
               name="password"
-              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="ml-2 w-full focus:outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+              required
             />
           </div>
+          <p className="text-sm text-gray-700 text-start mt-4 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           <button
             type="submit"
             className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
           >
-            Sign Up
+            {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
           </button>
         </form>
       </div>

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { FiUser } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/context/AuthContext';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,8 +18,8 @@ const Navbar: React.FC = () => {
     <>
       <div className="w-full flex bg-white py-2 justify-between px-[5%] ">
         <div className="flex items-center gap-3">
-          <p className="text-[15px] text-gray-600">English</p>
-          <p className="text-[15px] text-gray-600">KES</p>
+          <p className="text-[15px] text-gray-600">info@d-three.com</p>
+          <p className="text-[15px] text-gray-600">+254 113 794219</p>
         </div>
         <div className="flex items-center gap-3">
           <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
@@ -41,12 +43,20 @@ const Navbar: React.FC = () => {
             </button>
           </form>
         </div>
-        <div className="flex items-center  text-white gap-3 ">
-          <Link to={`/accounts/sign-in`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</Link>
-          <Link to={`/accounts/sign-up`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Sign Up</Link>
-          <Link to={`/profile`} className="bg-white flex items-center justify-center text-gray-400 p-2 rounded-full">
+        <div className="">
+          {user ? (
+            <Link to='/accounts/profile' className="flex items-center gap-2 hover:text-primary cursor-pointer">
+              <p className="">Hi, {user?.firstName}</p> <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+            </Link>
+          ) : (
+              <div className="flex items-center  text-white gap-3">
+                <Link to={`/accounts/sign-in`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</Link>
+                <Link to={`/accounts/sign-up`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Sign Up</Link>
+            </div>
+          )}
+          {/* <Link to={`/profile`} className="bg-white flex items-center justify-center text-gray-400 p-2 rounded-full">
             <FiUser size={20} />
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="bg-white flex items-center justify-center gap-2 py-2 ">

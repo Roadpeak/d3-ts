@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
     } catch (error) {
       console.error('Error logging in:', error);
       setLoading(false);
-      setError('Invalid email or password');
+      setError('An error occurred');
     }
   };
 

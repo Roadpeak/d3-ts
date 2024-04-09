@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Define the shape of the user object
 interface User {
     id: string;
     email: string;
@@ -10,7 +9,6 @@ interface User {
     role: string;
 }
 
-// Define the shape of the context
 interface AuthContextType {
     user: User | null;
     login: (email: string, password: string) => Promise<void>;

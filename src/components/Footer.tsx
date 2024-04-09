@@ -1,9 +1,10 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
   const handleMapClick = () => {
     window.open('https://www.google.com/maps/search/?api=1&query=Britam+Towers+Upperhill+Nairobi', '_blank');
   };
@@ -11,6 +12,10 @@ const Footer = () => {
   const handleEmailClick = () => {
     window.open('mailto:info@dthree.com', '_blank');
   };
+  const handleCategoryClick = (category: string) => {
+    navigate(`/search?q=${category}`);
+  };
+
   return (
     <footer className="bg-white border-t  text-black">
       <div className="px-[5%] mx-auto py-8">
@@ -41,11 +46,27 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Categories</h4>
             <ul className="list-none">
-              <li className="mb-2"><a href="#">Electronics</a></li>
-              <li className="mb-2"><a href="#">Fashion</a></li>
-              <li className="mb-2"><a href="#">Home & Kitchen</a></li>
-              <li className="mb-2"><a href="#">Beauty & Health</a></li>
-              <li className="mb-2"><a href="#">Sports & Outdoors</a></li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Photography')}>
+                <span className="cursor-pointer">Photography</span>
+              </li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Beauty')}>
+                <span className="cursor-pointer">Beauty</span>
+              </li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Cleaning')}>
+                <span className="cursor-pointer">Cleaning</span>
+              </li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Videography')}>
+                <span className="cursor-pointer">Videography</span>
+              </li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Events')}>
+                <span className="cursor-pointer">Events</span>
+              </li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Hair and salon')}>
+                <span className="cursor-pointer">Hair and salon</span>
+              </li>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Spa')}>
+                <span className="cursor-pointer">Spa</span>
+              </li>
             </ul>
           </div>
 
@@ -53,10 +74,11 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Company</h4>
             <div className="flex flex-col">
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Careers</Link>
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Green Plan</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Press</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</Link>
+              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</Link>
+              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Fund</Link>
             </div>
           </div>
 

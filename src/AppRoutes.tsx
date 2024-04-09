@@ -46,7 +46,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/receipt/view' element={<Receipt orderNumber='KWi972Ji90' productName='Soul Soothing massage' amountPaid={1600} />} />
       <Route path='/deals' element={<Deals />} />
       <Route path='/discounts/bought' element={<PurchasesPage />} />
-      <Route path='/profile' element={<UserProfileCard {...fakeUserData} />} />
+      <Route path='/accounts/profile' element={<UserProfileCard {...fakeUserData} />} />
       <Route path="/search" element={<SearchResults />} />
 
       <Route path='/about' element={<About />} />
