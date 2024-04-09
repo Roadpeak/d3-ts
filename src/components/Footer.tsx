@@ -73,11 +73,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Company</h4>
             <div className="flex flex-col">
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Careers</Link>
+              <Link to={`/company/careers`} className="mb-2 text-gray-500 hover:text-black">Careers</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Press</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</Link>
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</Link>
+              <Link to={`/company/vision`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</Link>
               <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Fund</Link>
             </div>
           </div>
@@ -116,7 +116,7 @@ const Footer = () => {
         <div className="px-[5%] flex items-center justify-between text-gray-900">
           <p>&copy; 2024 D-THREE. All rights reserved.</p>
           <div className="flex items-center gap-4 text-gray-600 text-[16px] ">
-            <p className='hover:text-black cursor-pointer'>Services</p>
+            <p className='hover:text-black cursor-pointer'>Support</p>
             <p className='hover:text-black cursor-pointer'>Security</p>
             <p className='hover:text-black cursor-pointer'>Cookies</p>
           </div>
