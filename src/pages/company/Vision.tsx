@@ -23,7 +23,7 @@ const Vision: React.FC = () => {
                     <div className="w-full md:w-1/2">
                         <h2 className="text-xl font-semibold mb-4">Going Global</h2>
                         <p className="mb-4">
-                            While we are currently based in Kenya, our sights are set on much broader horizons. Over the next five years, we plan to expand our operations to at least 20 countries across Africa, Asia, Europe, and beyond. This ambitious expansion will allow us to reach millions of new customers and establish [Company Name] as a household name on a global scale.
+                            While we are currently based in Kenya, our sights are set on much broader horizons. Over the next five years, we plan to expand our operations to at least 20 countries across Africa, Asia, Europe, and beyond. This ambitious expansion will allow us to reach millions of new customers and establish D-THREE as a household name on a global scale.
                         </p>
                     </div>
                     <div className="">
