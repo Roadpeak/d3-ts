@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-3">
           <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
           <p className="">|</p>
-          <Link to={``} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
+          <Link to={`/accounts/seller/sign-up`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
         </div>
       </div>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>

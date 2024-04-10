@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { FiUser, FiMail, FiPhone, FiLock } from 'react-icons/fi';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
@@ -10,7 +9,7 @@ const SignUp: React.FC = () => {
     last_name: '',
     email: '',
     phone: '',
-    role: 'seller',
+    role: 'user',
     password: '',
   });
   const [loading, setLoading] = useState(false);
@@ -43,13 +42,12 @@ const SignUp: React.FC = () => {
     }
   };
 
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-black to-white">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <div className="text-center mb-8">
           <p className="">D-THREE</p>
-          <h1 className="text-2xl font-semibold text-black">Sign In</h1>
+          <h1 className="text-2xl font-semibold text-black">Sign Up</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
