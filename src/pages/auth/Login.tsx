@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 p-2 block w-full rounded border border-gray-300 outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
               required
             />
           </div>
@@ -57,7 +57,7 @@ const LoginPage: React.FC = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-2 block w-full rounded border border-gray-300 outline-none"
+              className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
               required
             />
           </div>

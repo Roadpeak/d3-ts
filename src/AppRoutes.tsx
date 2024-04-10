@@ -27,6 +27,7 @@ import SearchResults from './pages/SearchResults';
 import CareersPage from './pages/company/Careers';
 import Vision from './pages/company/Vision';
 import SellerSignUp from './pages/auth/SellerSignUp';
+import SellerSignIn from './pages/SellerSignIn';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -63,6 +64,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/reset=password' element={<ResetPasswordPage />} />
 
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
+      <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
       <Route path='/seller/home' element={<Dashboard />} />
       <Route path='/seller/stores' element={<SellerStores />} />
       <Route path='/seller/appointments' element={<Appointments />} />
