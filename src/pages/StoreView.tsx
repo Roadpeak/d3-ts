@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Link, useParams } from 'react-router-dom';
-import { FaExternalLinkAlt } from 'react-icons/fa';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 
@@ -11,8 +10,8 @@ interface Store {
   name: string;
   owner: {
     _id: string;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     email: string;
     phone: string;
   };
@@ -166,46 +165,42 @@ const StoreView: React.FC = () => {
     discount.store.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-
   return (
     <div className='w-full h-full scroll-smooth flex flex-col'>
       <Navbar />
       <div className="flex flex-col">
-        <div className="flex flex-col md:flex-row w-full px-[5%] py-[2%] bg-white text-black gap-[2%]">
-          <div className="w-full flex flex-col md:w-[20%] p-4">
-            <img
-              src={store?.imageUrl}
-              alt="Store Image"
-              className="w-[40%] rounded-md justify-center mx-auto flex items-center"
-            />
-            <p className="text-center text-[20px] font-medium py-2">
-              {store?.name} <span className="text-gray-600"></span>
-            </p>
-            <div className="w-full flex gap-4 items-center">
-              <button className="bg-primary rounded-md text-white font-medium w-full px-3 py-1.5">
-                Start Shopping
-              </button>
-              <Link to={`/`} className="bg-secondary rounded-md text-black p-2 flex items-center justify-center">
-                <FaExternalLinkAlt size={24} />
-              </Link>
-            </div>
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2 font-medium">Phone <span className="">{store?.owner?.phone}</span></p>
-              <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2 font-medium">Email <span className="">{store?.owner.email}</span></p>
-              <p className="text-sm text-gray-800 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2 ">Location <span className="">{store?.location}</span></p>
-              <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2">Type <span className="">{store?.storeType}</span></p>
-              <p className="text-sm text-gray-600 w-full flex items-center justify-between pb-1 border-b border-gray-300 mb-2">Followers <span className="">{store?.followers}</span></p>
-              <div className="w-full flex gap-4 items-center">
-                <Link to={`/`} className="bg-secondary rounded-md text-black w-full p-2 flex items-center justify-center">
-                  Contact
-                </Link>
-                <button onClick={isFollowing ? handleUnfollow : handleFollow} className={`bg-primary rounded-md text-white font-medium w-full px-3 py-1.5 ${isFollowing ? 'bg-red-500' : ''}`}>
-                  {isFollowing ? 'Unfollow' : 'Follow'}
-                </button>
+        <div className="flex flex-col w-full px-[5%] py-[2%] bg-white text-black gap-[2%]">
+          <div className="w-full flex bg-gray-200 h-[120px] justify-between p-2 rounded-md">
+            <div className="flex h-full items-center gap-4">
+              <img
+                src={store?.imageUrl}
+                alt="Store Image"
+                className="w-[100px] rounded-full h-full justify-center mx-auto flex items-center"
+              />
+              <div className="flex flex-col">
+                <p className="text-center text-[20px] font-medium">
+                  {store?.name} <span className="text-gray-600"></span>
+                </p>
+                <p className="lowercase text-gray-500">
+                  @{store?.owner.first_name}
+                  {store?.owner.last_name}
+                </p>
+                <p className="text-gray-600 font-medium cursor-pointer hover:text-primary">
+                  {Number(store?.followers) === 1 ?
+                    `${store?.followers} follower`
+                    : `${store?.followers} followers`}
+                </p>
               </div>
             </div>
+            <div className="flex gap-2 items-center ">
+              <p className="text-gray-500 h">{Number(reviews?.length) === 1 ?
+                `${reviews?.length} review`
+                : `${reviews?.length} reviews`}</p>
+              |
+              <button className="bg-primary px-4 py-1.5 text-white rounded-md">Follow</button>
+            </div>
           </div>
-          <div className="w-full md:w-[80%] md:border md:p-4 rounded-md">
+          <div className="w-full mt-4 rounded-md">
             <div className="flex items-center w-full mb-2 justify-between">
               <p className="capitalize text-gray-600 text-[20px] font-medium">
                 all

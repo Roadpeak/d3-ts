@@ -19,7 +19,7 @@ const Footer = () => {
   return (
     <footer className="bg-white border-t  text-black">
       <div className="px-[5%] mx-auto py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8"> 
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <p className="text-[20px] font-medium uppercase border-b">
               d-three
@@ -37,7 +37,7 @@ const Footer = () => {
               <Link to={`/terms-and-conditions`} className="mb-2 text-gray-500 hover:text-black">Terms & Conditions</Link>
               <Link to={`/privacy-policy`} className="mb-2 text-gray-500 hover:text-black">Privacy Policy</Link>
               <Link to={`/contact`} className="mb-2 text-gray-500 hover:text-black">Contact</Link>
-              <Link to={`/accounts/sign-up`} className="mb-2 text-gray-500 hover:text-black capitalize">Sign up as service provider</Link>
+              <Link to={`/accounts/seller/sign-up`} className="mb-2 text-gray-500 hover:text-black capitalize">Sign up as service provider</Link>
               <Link to={`/accounts/sign-in`} className="mb-2 text-gray-500 hover:text-black">Sign In</Link>
               <Link to={`/deals`} className="mb-2 text-gray-500 hover:text-black capitalize">Start getting discounts</Link>
             </div>
