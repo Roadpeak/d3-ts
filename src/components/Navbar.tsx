@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegHeart, FaRegUser, FaSearch } from "react-icons/fa";
 import { FiUser } from 'react-icons/fi';
 import { CiBookmarkPlus } from "react-icons/ci";
@@ -6,10 +6,12 @@ import { BiSolidDiscount } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
 import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
+import axios from 'axios';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
+  const [stores, setStores] = useState([])
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -17,6 +19,35 @@ const Navbar: React.FC = () => {
     event.preventDefault();
     navigate(`/search?q=${searchQuery}`);
   };
+  const userId = user?.id
+
+  const fetchStores = async (userId: string | undefined) => {
+    try {
+      if (!userId) return;
+
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      const response = await axios.get(`http://localhost:4000/api/v1/stores/user/${userId}/mystores`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setStores(response.data.stores);
+      console.log(stores);
+    } catch (error) {
+      console.error('Error fetching stores:', error);
+    }
+  };
+
+  useEffect(() => {
+    const userId = user?.id;
+    console.log(userId);
+    fetchStores(userId);
+  }, [user]);
+
+
+
 
   const logoutUser = () => {
     localStorage.removeItem('token');
@@ -30,10 +61,18 @@ const Navbar: React.FC = () => {
           <p className="text-[15px] text-gray-600">info@d-three.com</p>
           <p className="text-[15px] text-gray-600">+254 113 794219</p>
         </div>
-        <div className="flex items-center gap-3">
-          <Link to={`/accounts/seller/sign-in`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
-          <p className="">|</p>
-          <Link to={`/accounts/seller/sign-up`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
+        <div className="">
+          {user && user?.category === 'seller' ? (
+            <div className=''>
+              <button className="bg-primary px-4 py-1.5 rounded-md text-white ">Dashboard</button>
+            </div>
+          ) : (
+            <div className='flex items-center gap-3'>
+              <Link to={`/accounts/seller/sign-in`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
+              <p className="">|</p>
+              <Link to={`/accounts/seller/sign-up`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
+            </div>
+          )}
         </div>
       </div>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>

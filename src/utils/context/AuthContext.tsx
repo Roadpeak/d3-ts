@@ -6,7 +6,7 @@ interface User {
     firstName: string;
     lastName: string;
     phone: string;
-    role: string;
+    category: string;
 }
 
 interface AuthContextType {
@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const response = await fetch('https://d3-api.onrender.com/api/v1/users/current-user', {
+                    const response = await fetch('http://localhost:4000/api/v1/users/current-user', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
