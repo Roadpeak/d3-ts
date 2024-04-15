@@ -7,7 +7,7 @@ interface AdminLayoutProps {
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     return (
-        <div className='flex w-full'>
+        <div className='flex w-full h-[100vh] overflow-y-hidden'>
             <SideNav />
             <div className="w-[82%] bg-[#131415]">{children}</div>
         </div>

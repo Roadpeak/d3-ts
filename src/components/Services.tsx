@@ -1,13 +1,11 @@
 import React from 'react';
 
-// Define the type for a service
 interface Service {
     title: string;
     description: string;
     image: string;
 }
 
-// Array of services
 const services: Service[] = [
     {
         title: 'Electronics',
