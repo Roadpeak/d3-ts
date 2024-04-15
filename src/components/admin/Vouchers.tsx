@@ -26,7 +26,7 @@ const Vouchers: React.FC = () => {
             if (!token) {
                 throw new Error('Token not found');
             }
-            const response = await axios.get('http://localhost:4000/api/v1/vouchers', {
+            const response = await axios.get('https://d3-api.onrender.com/api/v1/vouchers', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
