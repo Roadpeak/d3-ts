@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             try {
                 const token = localStorage.getItem('token');
                 if (token) {
-                    const response = await fetch('http://localhost:4000/api/v1/users/current-user', {
+                    const response = await fetch('https://d3-api.onrender.com/api/v1/users/current-user', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             if (response.ok) {
                 const userData = await response.json();
                 setUser(userData);
-                localStorage.setItem('token', userData.token); 
+                localStorage.setItem('token', userData.token);
             } else {
                 throw new Error('Login failed');
             }
