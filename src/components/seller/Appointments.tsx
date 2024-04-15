@@ -17,7 +17,6 @@ const Appointments: React.FC = () => {
     };
 
     const handleSaveAsPDF = () => {
-        // Logic to save appointments as PDF
         console.log('Appointments saved as PDF');
     };
 
@@ -33,11 +32,13 @@ const Appointments: React.FC = () => {
                     </div>
                 </div>
                 <div className="container mx-auto py-8">
-                    <h1 className="text-3xl font-semibold mb-6">Appointments</h1>
-                    <div className="flex justify-end mb-4">
-                        <button className="bg-primary flex gap-1 items-center text-white px-4 py-2 rounded-md mr-2" onClick={() => setIsPopupOpen(true)}>
-                            <FaFilePdf className="" /> Save as PDF
-                        </button>
+                    <div className="flex w-full justify-between mb-4  items-center">
+                        <h1 className="text-3xl font-semibold">Appointments</h1>
+                        <div className="flex justify-end">
+                            <button className="bg-primary flex gap-1 items-center text-white px-4 py-2 rounded-md" onClick={() => setIsPopupOpen(true)}>
+                                <FaFilePdf className="" /> Save as PDF
+                            </button>
+                        </div>
                     </div>
                     <table className="w-full">
                         <thead>
