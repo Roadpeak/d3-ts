@@ -9,7 +9,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     return (
         <div className='flex w-full'>
             <SideNav />
-            <div className="w-[82%]">{children}</div>
+            <div className="w-[82%] bg-[#131415]">{children}</div>
         </div>
     )
 }
