@@ -54,7 +54,7 @@ const ManageStores: React.FC = () => {
                     <div className="">
                         <table className="w-full mt-4 border-collapse">
                             <thead>
-                                <tr className='bg-gray-600'>
+                                <tr className='bg-gray-600 uppercase'>
                                     <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">#</th>
                                     <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Name</th>
                                     <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Type</th>

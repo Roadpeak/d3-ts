@@ -18,14 +18,14 @@ const SideNav: React.FC = () => {
             </div>
             <div className="flex h-full flex-col">
                 <div className="flex flex-col mt-4 text-gray-400 gap-2">
-                    <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><IoHomeOutline /> Dashboard</Link>
+                    <Link to='/manage' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><IoHomeOutline /> Dashboard</Link>
                     <Link to='/manage/discounts' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><MdOutlineDiscount /> Discounts</Link>
                     <Link to='/manage/stores' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><AiTwotoneShopping /> Stores</Link>
-                    <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><BiSolidDiscount /> Vouchers</Link>
-                    <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><CiBookmarkRemove /> Appointments</Link>
-                    <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><MdPayment /> Payments</Link>
-                    <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><HiOutlineUsers /> Users</Link>
-                    <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><TbTicket />Tickets</Link>
+                    <Link to='/manage/vouchers' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><BiSolidDiscount /> Vouchers</Link>
+                    <Link to='/manage/appointments' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><CiBookmarkRemove /> Appointments</Link>
+                    <Link to='/manage/payments' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><MdPayment /> Payments</Link>
+                    <Link to='/manage/users' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><HiOutlineUsers /> Users</Link>
+                    <Link to='/manage/tickets' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><TbTicket />Tickets</Link>
                     <Link to='/' className='py-1.5 hover:bg-gray-700 px-2 hover:shadow-md rounded-md border flex items-center gap-2 border-fast hover:border-gray-600'><IoMdNotificationsOutline /> Notifications</Link>
                 </div>
                 <div className="flex flex-col gap-2 mt-[25%] text-gray-400">

@@ -31,6 +31,8 @@ import SellerSignIn from './pages/SellerSignIn';
 import AdminDash from './components/admin/AdminDash';
 import ManageStores from './components/admin/Stores';
 import ManageDiscounts from './components/admin/ManageDiscounts';
+import Vouchers from './components/admin/Vouchers';
+import Users from './components/admin/Users';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -78,6 +80,8 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage' element={<AdminDash />} />
       <Route path='/manage/stores' element={<ManageStores />} />
       <Route path='/manage/discounts' element={<ManageDiscounts />} />
+      <Route path='/manage/vouchers' element={<Vouchers />} />
+      <Route path='/manage/users' element={<Users />} />
 
       <Route path='/company/careers' element={<CareersPage />} />
       <Route path='/company/vision' element={<Vision />} />
