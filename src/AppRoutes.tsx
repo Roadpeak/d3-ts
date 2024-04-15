@@ -28,6 +28,8 @@ import CareersPage from './pages/company/Careers';
 import Vision from './pages/company/Vision';
 import SellerSignUp from './pages/auth/SellerSignUp';
 import SellerSignIn from './pages/SellerSignIn';
+import AdminDash from './components/admin/AdminDash';
+import ManageStores from './components/admin/Stores';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -71,6 +73,9 @@ const AppRoutes: React.FC = () => {
       <Route path='/seller/stores/:id/appointments' element={<Appointments />} />
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
       <Route path='/seller/products/:id/see-details' element={<DiscountDetails />} />
+
+      <Route path='/manage' element={<AdminDash />} />
+      <Route path='/manage/stores' element={<ManageStores />} />
 
       <Route path='/company/careers' element={<CareersPage />} />
       <Route path='/company/vision' element={<Vision />} />
