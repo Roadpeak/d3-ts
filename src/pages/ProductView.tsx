@@ -142,7 +142,7 @@ const ProductView: React.FC = () => {
                   <p className="text-gray-400 font-light text-[11px]">{discount?.category}</p>
                   <p className="font-medium text-[24px] ">{discount?.name}</p>
                   <span className="text-primary font-medium text-[17px]">
-                    {discount?.percentageDiscount}% OFF
+                    {discount?.percentageDiscount.toFixed(1)}% OFF
                   </span>
                   <div className="flex items-center gap-2 ">
                     <span className='font-light text-gray-600 '>was</span>

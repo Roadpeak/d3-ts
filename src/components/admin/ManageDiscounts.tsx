@@ -115,7 +115,7 @@ const ManageDiscounts: React.FC = () => {
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{discount.initialPrice.toLocaleString('KES')}</td>
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{discount.store.name}</td>
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{formatDate(discount.expiryDate)}</td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{discount?.percentageDiscount}%</td>
+                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{discount?.percentageDiscount.toFixed(1)}%</td>
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">
                                             <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">Flag</button>
                                         </td>

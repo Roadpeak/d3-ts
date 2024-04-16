@@ -151,7 +151,7 @@ const DiscountDetails: React.FC = () => {
                                     <div className="flex w-full items-center justify-between">
                                         <p className="">Percentage discount</p>
                                         <span className="font-medium text-[17px]">
-                                            {discount.percentageDiscount}%
+                                            {discount.percentageDiscount.toFixed(1)}%
                                         </span>
                                     </div>
                                     <div className="flex items-center justify-between ">
@@ -184,12 +184,6 @@ const DiscountDetails: React.FC = () => {
                                             {new Date(discount.expiryDate).toLocaleDateString()}
                                         </p>
                                     </div>
-                                    {/* <div className="flex items-center justify-between ">
-                                        <span className='font-light text-gray-600'>Current price</span>
-                                        <p className="text-[17px]">
-                                            Ksh {discount.priceAfterDiscount.toLocaleString('KES')}
-                                        </p>
-                                    </div> */}
                                 </div>
                             </div>
                         </div>

@@ -31,14 +31,13 @@ const blogPosts: BlogPost[] = [
 
 const Blog: React.FC = () => {
     return (
-        <div className="py-4 max-w-7xl mx-auto bg-gray-100 px-[5%] md:px-0">
-            <div className="flex w-full justify-between items-center ">
-                <p className="text-center capitalize font-medium text-[28px] text-gray-800 py-4">
+        <div className="py-4 px-[5%] bg-gray-100">
+            <div className="flex w-full justify-center items-center ">
+                <p className="text-center capitalize font-medium text-center text-[28px] text-gray-800 py-4">
                     Latest News
                 </p>
-                <p className="flex items-center gap-2 text-gray-700 cursor-pointer hover:text-primary">See All</p>
             </div>
-            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl mx-auto pb-4">
                 {blogPosts.map((post, index) => (
                     <div key={index} className="bg-white shadow-lg rounded-lg overflow-hidden">
                         <img className="w-full h-40 object-cover object-center" src={post.imageUrl} alt={post.title} />

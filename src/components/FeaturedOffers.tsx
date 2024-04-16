@@ -104,7 +104,7 @@ const FeaturedOffers: React.FC = () => {
                   {`Ksh. ${item.priceAfterDiscount.toLocaleString("KES")}`}
                 </p>
               </div>
-              <p className="text-primary font-medium bg-secondary px-2 py-1 rounded-md">{item.percentageDiscount}% OFF</p>
+              <p className="text-primary font-medium bg-secondary px-2 py-1 rounded-md">{item.percentageDiscount.toFixed(1)}% OFF</p>
             </div>
             <p className=""><span className='text-primary'>{formatExpiryDate(item.expiryDate)}</span></p>
             <div className="flex w-full gap-[2%]">

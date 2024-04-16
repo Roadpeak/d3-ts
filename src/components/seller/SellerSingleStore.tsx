@@ -145,6 +145,7 @@ const SellerSingleStore: React.FC = () => {
                 description: '',
             });
             setImageUrl('');
+            window.location.reload();
             setIsLoading(false);
 
             // Handle any additional actions after successful submission, like refetching data

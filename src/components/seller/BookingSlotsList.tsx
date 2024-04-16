@@ -15,7 +15,7 @@ interface Props {
 
 const BookingSlotsList: React.FC<Props> = ({ bookingSlots, handleClickOpen, handleBookSlot }) => {
     return (
-        <div className="flex flex-col w-full px-[3%]">
+        <div className="flex flex-col w-full px-[3%] overflow-y-auto">
             {bookingSlots && bookingSlots.length > 0 ? (
                 <div className='flex flex-wrap gap-2 w-full'>
 

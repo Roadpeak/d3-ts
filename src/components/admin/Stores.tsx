@@ -73,10 +73,10 @@ const ManageStores: React.FC = () => {
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{store?.location}</td>
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{store?.owner.first_name} {store?.owner.last_name}</td>
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">
-                                            <button className="bg-green-600 text-gray-300 px-4 rounded-md py-0.5">Active</button>
+                                            <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">Active</button>
                                         </td>
                                         <td className="border-b border-gray-600 text-gray-400 px-4 py-2">
-                                            <button className="bg-rose-800 text-gray-300 px-4 rounded-md py-0.5">Suspend</button>
+                                            <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">Suspend</button>
                                         </td>
                                     </tr>
                                 ))}
