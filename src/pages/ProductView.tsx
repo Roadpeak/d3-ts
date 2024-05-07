@@ -156,6 +156,9 @@ const ProductView: React.FC = () => {
                       Ksh {discount?.priceAfterDiscount.toLocaleString('KES')}
                     </p>
                   </div>
+                  <p className="text-third">
+                    You save <span className='font-medium'>Ksh. {discount?.discount.toLocaleString("KES")}</span>
+                  </p>
                   <button onClick={() => navigate(`/${discount?._id}/checkout`)} className="w-full py-2 bg-primary rounded-md text-white font-medium capitalize text-[17px] flex items-center justify-center mb-2">
                     Get this discount
                   </button>

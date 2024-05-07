@@ -133,7 +133,7 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* <div className="w-full hidden md:flex bg-white py-2 justify-between px-[5%] ">
+      <div className="w-full hidden md:flex bg-white py-2 justify-between px-[5%] ">
         <div className="flex items-center gap-3 ">
           <p className="hidden md:block text-[15px] text-gray-600"></p>
           <p className="text-[15px] text-gray-600"></p>
@@ -205,7 +205,7 @@ const Navbar: React.FC = () => {
             </div>
           )}
         </div>
-      </div> */}
+      </div>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>
         <p className='text-primary font-medium lowercase text-[24px]'>D-TREE</p>
         <div className="flex items-center gap-[30px] ">

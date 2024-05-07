@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SkeletonLoader from "../utils/elements/SkeletonLoader";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 interface Store {
   _id: string;
@@ -54,17 +55,21 @@ const StoresSection = () => {
           </>
         ) : (
           stores.map((store) => (
-            <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-between rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
-              <div className="">
-                <img
-                src={store.imageUrl}
-                alt={store.name}
-                className="w-full rounded-full object-cover mb-2"
-              />
+            <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-gray-50 border flex flex-col items-center justify-between rounded-md px-4 py-2 shadow-md hover:shadow-xl cursor-pointer">
+              <div className="flex flex-col justify-center mx-auto relative ">
+                <div className="bg-white shadow-xl mb-2  mx-auto  w-[30%]">
+                  <img
+                    src={store.imageUrl}
+                    alt={store.name}
+                    className="w-full mx-auto rounded-sm shadow-lg object-cover"
+                  />
+                </div>
                 <p className="text-center text-black font-semibold">{store.name}</p>
-                <p className="text-center text-[13px] text-gray-400">{store.storeType}</p>
+                <p className="text-center text-[13px] text-[#FF9021]">{store.storeType}</p>
+                <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
+                  <FaExternalLinkAlt />
+                </div>
               </div>
-                <p className="text-center bg-rose-200 py-1 px-4 rounded-md text-gray-500"><span className='text-black font-medium capitalize text-[17px]'>see deals</span></p>
             </Link>
           ))
         )}

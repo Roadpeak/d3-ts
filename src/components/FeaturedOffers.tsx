@@ -70,14 +70,14 @@ const FeaturedOffers: React.FC = () => {
       <p className="text-black font-medium text-[24px]">
         Featured Services | 2024
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
         {discounts.map((item) => (
           <div key={item._id} className="bg-white rounded-md p-4 shadow-md">
             <div className="relative">
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className="w-full h-full object-cover mb-2"
+                className="w-full object-cover mb-2"
                 style={{ filter: 'brightness(80%) blur(1px)' }}
               />
               <div className="absolute inset-0 flex items-center p-2">
@@ -91,27 +91,21 @@ const FeaturedOffers: React.FC = () => {
               </div>
             </div>
             <p className="text-black font-semibold mb-2">{item.name}</p>
-            {/* <p className="text-[14px] text-gray-500">
-              {item.description.length > maxLength ?
-                `${item.description.substring(0, maxLength)}...` :
-                item.description
-              }
-            </p> */}
             <div className="flex mt-2 items-center justify-between w-full">
               <div className="flex gap-1 items-center">
-                <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${item.initialPrice.toLocaleString("KES")}`}</p>
-                <p className="text-primary font-medium text-[14px] ml-2">
+                <p className="text-gray-500 text-[14px] line-through">{`${item.initialPrice.toLocaleString("KES")}`}</p>
+                <p className="text-primary font-semibold text-[14px] ml-2">
                   {`Ksh. ${item.priceAfterDiscount.toLocaleString("KES")}`}
                 </p>
               </div>
-              <p className="text-primary font-medium bg-secondary px-2 py-1 rounded-md">{item.percentageDiscount.toFixed(1)}% OFF</p>
+              <p className="text-primary font-medium bg-secondary px-2 py-1 rounded-md">save {item.percentageDiscount.toFixed(1)}%</p>
             </div>
-            <p className=""><span className='text-primary'>{formatExpiryDate(item.expiryDate)}</span></p>
+            <p className=""><span className=''>{formatExpiryDate(item.expiryDate)}</span></p>
             <div className="flex w-full gap-[2%]">
               {new Date(item.expiryDate) > new Date() ? (
                 <>
                   <button
-                    className="w-full rounded-md bg-secondary py-1"
+                    className="w-full rounded-md border border-third text-third py-1"
                     onClick={() => handleButtonClick(item._id)}
                     title="Get offer"
                   >
@@ -128,7 +122,7 @@ const FeaturedOffers: React.FC = () => {
               ) : (
                 <>
                   <button
-                    className="w-full rounded-md bg-secondary py-1"
+                    className="w-full rounded-md border border-third text-third py-1"
                     disabled
                     title="Expired"
                   >
