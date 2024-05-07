@@ -133,10 +133,10 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <div className="w-full flex bg-white py-2 justify-between px-[5%] ">
+      <div className="w-full hidden md:flex bg-white py-2 justify-between px-[5%] ">
         <div className="flex items-center gap-3 ">
-          <p className="hidden md:block text-[15px] text-gray-600">info@d-three.com</p>
-          <p className="text-[15px] text-gray-600">+254 113 794219</p>
+          <p className="hidden md:block text-[15px] text-gray-600"></p>
+          <p className="text-[15px] text-gray-600"></p>
         </div>
         <div className="relative">
           {user && user?.category === 'admin' ? (
@@ -199,8 +199,6 @@ const Navbar: React.FC = () => {
                 </div>
               ) : (
                 <div className='flex items-center gap-3'>
-                  <Link to={`/accounts/seller/sign-in`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Login</Link>
-                  <p className="">|</p>
                   <Link to={`/accounts/seller/sign-up`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
                 </div>
               )}
@@ -209,7 +207,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>
-        <p className='text-primary font-medium text-[24px]'>D-THREE</p>
+        <p className='text-primary font-medium lowercase text-[24px]'>D-TREE</p>
         <div className="flex items-center gap-[30px] ">
           <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
             <input
@@ -252,11 +250,11 @@ const Navbar: React.FC = () => {
           </>
         </div>
       </div>
-      <div className="bg-white flex items-center justify-center gap-2 py-2 ">
-        <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Home</Link>
-        <Link to={`/stores`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Stores</Link>
-        <Link to={`/deals`} className='text-gray-600 px-4 hover:text-primary cursor-pointer  '>Deals</Link>
-        <Link to={`/`} className='text-gray-600 px-4 hover:text-primary cursor-pointer'>Categories</Link>
+      <div className="bg-primary flex items-center justify-center gap-2 py-2 ">
+        <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Home</Link>
+        <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
+        <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Deals</Link>
+        <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer'>Categories</Link>
       </div>
       {openForm && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">

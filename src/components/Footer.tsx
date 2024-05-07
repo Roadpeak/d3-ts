@@ -24,9 +24,6 @@ const Footer = () => {
             <p className="text-[20px] font-medium uppercase border-b">
               d-three
             </p>
-            <p className="text-gray-7007">
-              Experience exclusive discounts on top brands. Elevate your shopping game with our unbeatable deals. Don't miss out, shop now and save big!
-            </p>
           </div>
 
           <div>

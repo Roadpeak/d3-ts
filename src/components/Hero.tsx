@@ -1,16 +1,18 @@
 import React from 'react'
-import one from '../assets/two.webp'
+import banner2 from '../assets/banner2 (1).jpg'
+import banner3 from '../assets/discount.jpg'
+import banner1 from '../assets/banner1.jpg'
 
 const Hero:React.FC = () => {
   return (
     <div className='flex w-full h-full gap-[2%] px-[5%] py-[2%] '>
-      <div className="w-full h-full flex gap-[2%]">
+      <div className="w-full h-full flex">
         <div className="w-full md:w-[70%]">
-          <img src="https://fatcoupon.com/_next/image?url=https%3A%2F%2Fd3itvsmwj0r86k.cloudfront.net%2Fimages%2F1f0cc785-d79d-4232-93db-016072562ded.webp&w=1920&q=75" className='h-full rounded-md' alt="" />
+          <img src={banner1} className='h-full rounded-md' alt="" />
         </div>
         <div className="hidden md:flex w-[30%] flex-col gap-[2%]">
-          <img className='h-[190px] mb-2 rounded-md' src='https://fatcoupon.com/_next/image?url=https%3A%2F%2Fd3itvsmwj0r86k.cloudfront.net%2Fimages%2F2049fca0-0c31-427b-a4d5-da3c4fc86be3.png&w=1920&q=75' alt="banner" />
-          <img className='h-[190px] rounded-md' src={one} alt="banner" />
+          <img className='h-ful] mb-2 rounded-md' src={banner3} alt="banner" />
+          {/* <img className='h-[190px] rounded-md' src={banner2} alt="banner" /> */}
         </div>
       </div>
     </div>

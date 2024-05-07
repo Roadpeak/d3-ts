@@ -19,11 +19,11 @@ const Home: React.FC = () => {
       <FeaturedOffers />
       <TravelSection />
       <TodaysDeals />
-      <ReviewsSection />
+      {/* <ReviewsSection />
       <Services />
       <div className="bg-gray-100">
         <Blog />    
-      </div>
+      </div> */}
       <Footer />
     </div>
   )

@@ -8,6 +8,7 @@ interface Store {
   name: string;
   imageUrl: string;
   number: number;
+  storeType: String;
 }
 
 const StoresSection = () => {
@@ -35,9 +36,12 @@ const StoresSection = () => {
 
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-50 pb-[2%]'>
-      <p className="text-black font-semibold mb-[1%] text-[24px]">
+      <div className="flex items-center justify-between">
+        <p className="text-black font-semibold mb-[1%] text-[24px]">
         Top Stores | 2024
       </p>
+      <Link className="text-primary" to={'/stores'}>More Stores</Link>
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-7 gap-4 my-[2%]">
         {loading ? (
           <>
@@ -50,16 +54,17 @@ const StoresSection = () => {
           </>
         ) : (
           stores.map((store) => (
-            <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
-              <img
+            <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-between rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
+              <div className="">
+                <img
                 src={store.imageUrl}
                 alt={store.name}
-                className="w-[60%] rounded-md object-cover mb-2"
+                className="w-full rounded-full object-cover mb-2"
               />
-              <div className="flex justify-center flex-col">
                 <p className="text-center text-black font-semibold">{store.name}</p>
-                <p className="text-center bg-rose-200 py-1 rounded-md text-gray-500"><span className='text-primary'>see deals</span></p>
+                <p className="text-center text-[13px] text-gray-400">{store.storeType}</p>
               </div>
+                <p className="text-center bg-rose-200 py-1 px-4 rounded-md text-gray-500"><span className='text-black font-medium capitalize text-[17px]'>see deals</span></p>
             </Link>
           ))
         )}

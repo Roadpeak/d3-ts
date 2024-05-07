@@ -77,7 +77,7 @@ const FeaturedOffers: React.FC = () => {
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className="w-full h-32 object-cover mb-2"
+                className="w-full h-full object-cover mb-2"
                 style={{ filter: 'brightness(80%) blur(1px)' }}
               />
               <div className="absolute inset-0 flex items-center p-2">
@@ -85,18 +85,18 @@ const FeaturedOffers: React.FC = () => {
                   <img
                     src={item.store.imageUrl}
                     alt={`${item.name} Store`}
-                    className="w-[25%] rounded-md shadow-md"
+                    className="w-[25%] rounded-full shadow-md"
                   />
                 </Link>
               </div>
             </div>
             <p className="text-black font-semibold mb-2">{item.name}</p>
-            <p className="text-[14px] text-gray-500">
+            {/* <p className="text-[14px] text-gray-500">
               {item.description.length > maxLength ?
                 `${item.description.substring(0, maxLength)}...` :
                 item.description
               }
-            </p>
+            </p> */}
             <div className="flex mt-2 items-center justify-between w-full">
               <div className="flex gap-1 items-center">
                 <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${item.initialPrice.toLocaleString("KES")}`}</p>
