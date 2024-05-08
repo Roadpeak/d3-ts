@@ -254,7 +254,6 @@ const Navbar: React.FC = () => {
         <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Home</Link>
         <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
         <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Deals</Link>
-        {/* <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer'>Categories</Link> */}
       </div>
       {openForm && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
