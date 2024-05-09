@@ -43,10 +43,10 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-black to-white">
+    <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <div className="text-center mb-8">
-          <Link to='/' className="">D-THREE</Link>
+          <Link to='/' className="text-primary">D-THREE</Link>
           <h1 className="text-2xl font-semibold text-black">Sign Up</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
