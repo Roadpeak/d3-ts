@@ -250,6 +250,20 @@ const Navbar: React.FC = () => {
           </>
         </div>
       </div>
+       <div className="flex items-center gap-[30px] px-4">
+          <form onSubmit={handleSearch} className="active:border-primary md:hidden mb-2  flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
+            <input
+              type="text"
+              placeholder='Search'
+              className='outline-none py-2 w-full bg-transparent'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="outline-none" type='submit'>
+              <FaSearch size={20} className='text-gray-500' />
+            </button>
+          </form>
+        </div>
       <div className="bg-primary flex items-center justify-center gap-2 py-2 ">
         <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Home</Link>
         <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
@@ -263,7 +277,7 @@ const Navbar: React.FC = () => {
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="storeName" className="block text-sm font-medium text-gray-700">Store Name</label>
-                <input
+                <input  
                   type="text"
                   id="storeName"
                   name="storeName"

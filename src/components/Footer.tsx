@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8"> 
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <p className="text-[20px] font-medium uppercase border-b">
-              d-three
+              d-tree
             </p>
           </div>
 
@@ -85,7 +85,7 @@ const Footer = () => {
               Britam Towers, Upperhill Nairobi
             </p>
             <p className="mb-2" onClick={handleEmailClick} style={{ cursor: 'pointer' }}>
-              info@dthree.com
+              info@discoun3.com
             </p>
             <p className="mb-2">
               <a href="tel:+254113794219">+254 743 007000</a>
@@ -111,7 +111,7 @@ const Footer = () => {
 
       <div className="bg-white border-t py-4">
         <div className="px-[5%] flex items-center justify-between text-gray-900">
-          <p>&copy; 2024 D-THREE. All rights reserved.</p>
+          <p>&copy; 2024 d-tree. All rights reserved.</p>
           <div className="flex items-center gap-4 text-gray-600 text-[16px] ">
             <p className='hover:text-black cursor-pointer'>Support</p>
             <p className='hover:text-black cursor-pointer'>Security</p>
