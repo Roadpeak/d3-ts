@@ -10,11 +10,13 @@ const Footer = () => {
   };
 
   const handleEmailClick = () => {
-    window.open('mailto:info@dthree.com', '_blank');
+    window.open('mailto:info@dtree.com', '_blank');
   };
   const handleCategoryClick = (category: string) => {
-    navigate(`/search?q=${category}`);
-  };
+    const searchUrl = `/search?q=${category}`;
+    
+    window.location.href = searchUrl;
+};
 
   return (
     <footer className="bg-white border-t  text-black">
@@ -29,14 +31,14 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <div className="flex flex-col">
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Home</Link>
-              <Link to={`/about`} className="mb-2 text-gray-500 hover:text-black">About</Link>
-              <Link to={`/terms-and-conditions`} className="mb-2 text-gray-500 hover:text-black">Terms & Conditions</Link>
-              <Link to={`/privacy-policy`} className="mb-2 text-gray-500 hover:text-black">Privacy Policy</Link>
-              <Link to={`/contact`} className="mb-2 text-gray-500 hover:text-black">Contact</Link>
-              <Link to={`/accounts/seller/sign-up`} className="mb-2 text-gray-500 hover:text-black capitalize">Sign up as service provider</Link>
-              <Link to={`/accounts/sign-in`} className="mb-2 text-gray-500 hover:text-black">Sign In</Link>
-              <Link to={`/deals`} className="mb-2 text-gray-500 hover:text-black capitalize">Start getting discounts</Link>
+              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Home</a>
+              <a href={`/about`} className="mb-2 text-gray-500 hover:text-black">About</a>
+              <a href={`/terms-and-conditions`} className="mb-2 text-gray-500 hover:text-black">Terms & Conditions</a>
+              <a href={`/privacy-policy`} className="mb-2 text-gray-500 hover:text-black">Privacy Policy</a>
+              <a href={`/contact`} className="mb-2 text-gray-500 hover:text-black">Contact</a>
+              <a href={`/accounts/seller/sign-up`} className="mb-2 text-gray-500 hover:text-black capitalize">Sign up as service provider</a>
+              <a href={`/accounts/sign-in`} className="mb-2 text-gray-500 hover:text-black">Sign In</a>
+              <a href={`/deals`} className="mb-2 text-gray-500 hover:text-black capitalize">Start getting discounts</a>
             </div>
           </div>
 
@@ -70,12 +72,12 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Company</h4>
             <div className="flex flex-col">
-              <Link to={`/company/careers`} className="mb-2 text-gray-500 hover:text-black">Careers</Link>
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Press</Link>
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</Link>
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</Link>
-              <Link to={`/company/vision`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</Link>
-              <Link to={`/`} className="mb-2 text-gray-500 hover:text-black">Fund</Link>
+              <a href={`/company/careers`} className="mb-2 text-gray-500 hover:text-black">Careers</a>
+              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Press</a>
+              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</a>
+              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</a>
+              <a href={`/company/vision`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</a>
+              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Fund</a>
             </div>
           </div>
 

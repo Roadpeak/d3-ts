@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
+import { ClipLoader } from 'react-spinners';
+import { CgWindows } from 'react-icons/cg';
 
 interface Store {
   _id: string;
@@ -44,11 +46,23 @@ interface Review {
   reviewText: string;
 }
 
+interface Follower {
+  _id: string;
+  user: {
+    _id: string;
+    first_name: string;
+    last_name: string;
+  };
+  store: string;
+}
+
+
 const StoreView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [store, setStore] = useState<Store | null>(null);
   const [discounts, setDiscounts] = useState<Discount[]>([]);
   const [loading, setLoading] = useState(false);
+  const [followers, setFollowers] = useState<Follower[]>([])
   const [isFollowing, setIsFollowing] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -58,6 +72,7 @@ const StoreView: React.FC = () => {
   });
 
   const { user } = useAuth();
+  const userId = user?.id;
   const token = localStorage.getItem('token');
   const maxLength = 100;
 
@@ -66,7 +81,19 @@ const StoreView: React.FC = () => {
       try {
         const response = await axios.get(`https://d3-api.onrender.com/api/v1/stores/${id}`);
         setStore(response.data.store);
-        console.log(response.data.store);
+      } catch (error) {
+        console.error('Error fetching store:', error);
+      }
+    };
+
+    fetchStore();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchStore = async () => {
+      try {
+        const response = await axios.get(`https://d3-api.onrender.com/api/v1/followers/${id}`);
+        setFollowers(response.data.followers);
       } catch (error) {
         console.error('Error fetching store:', error);
       }
@@ -103,8 +130,10 @@ const StoreView: React.FC = () => {
         }
       );
       setIsFollowing(true);
+      window.location.reload();
     } catch (error) {
       console.error('Error following store:', error);
+      window.location.reload();
     }
   };
 
@@ -121,8 +150,10 @@ const StoreView: React.FC = () => {
         }
       );
       setIsFollowing(false);
+      window.location.reload();
     } catch (error) {
       console.error('Error unfollowing store:', error);
+      window.location.reload();
     }
   };
 
@@ -156,6 +187,14 @@ const StoreView: React.FC = () => {
     fetchReviews();
   }, [id]);
 
+  useEffect(() => {
+    if (userId && followers.length > 0) {
+      const isUserFollowing = followers.some(follower => follower.user._id === userId);
+      setIsFollowing(isUserFollowing);
+    }
+  }, [userId, followers]);
+
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -177,7 +216,7 @@ const StoreView: React.FC = () => {
                 alt="Store Image"
                 className="w-[100px] rounded-full h-full justify-center mx-auto flex items-center"
               />
-              <div className="flex flex-col">
+              <div className="flex flex-col items-start justify-start">
                 <p className="text-center text-[20px] font-medium">
                   {store?.name} <span className="text-gray-600"></span>
                 </p>
@@ -193,11 +232,21 @@ const StoreView: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 items-center ">
-              <p className="text-gray-500 h">{Number(reviews?.length) === 1 ?
+              <p className="hidden md:text-gray-500 h">{Number(reviews?.length) === 1 ?
                 `${reviews?.length} review`
                 : `${reviews?.length} reviews`}</p>
-              |
-              <button className="bg-primary px-4 py-1.5 text-white rounded-md">Follow</button>
+              <span className="hidden md:block">|</span>
+              <div>
+                {isFollowing ? (
+                  <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
+                    Unfollow
+                  </button>
+                ) : (
+                  <button onClick={handleFollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
+                    Follow
+                  </button>
+                )}
+              </div>
             </div>
           </div>
           <div className="w-full mt-4 rounded-md">
@@ -264,12 +313,12 @@ const StoreView: React.FC = () => {
                 className="border p-2 rounded-md outline-none focus:border-primary"
               />
               <button type="submit" className="bg-primary rounded-md text-white font-medium px-4 py-2">
-                Post Review
+                {loading ? <ClipLoader color="#fff" /> : 'Post Review'}
               </button>
             </form>
           </div>
           <div className="w-full md:w-1/2 flex flex-col gap-2">
-            <p className='font-semibold text-lg'>Shop Revews</p>
+            <p className='font-semibold text-lg'>Shop Revews <span className="text-gray-500">({reviews?.length})</span></p>
             <div className="flex flex-col w-full">
               {reviews.map((review) => (
                 <div key={review._id} className="border-b py-2">

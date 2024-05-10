@@ -29,10 +29,11 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+    <div className="flex flex border items-center justify-center min-h-screen bg-white">
+      <div className="w-fit md:border border-primary md:shadow-md rounded-md flex flex-col md:flex-row">
+         <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
         <div className="text-center mb-8">
-          <Link to='/' className="text-primary">D-THREE</Link>
+          <Link to='/' className="text-primary text-[20px] font-medium lowercase">D-THREE</Link>
           <h1 className="text-2xl font-semibold text-black">Sign In</h1>
         </div>
         <form onSubmit={handleSubmit}>
@@ -43,6 +44,7 @@ const LoginPage: React.FC = () => {
               type="email"
               id="email"
               name="email"
+              placeholder='Enter email address'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
@@ -55,6 +57,7 @@ const LoginPage: React.FC = () => {
               type="password"
               id="password"
               name="password"
+              placeholder='Enter password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
@@ -68,6 +71,10 @@ const LoginPage: React.FC = () => {
         </form>
         <p className="text-sm text-gray-700 text-center">Forgot your password? <Link to='/accounts/forgot-password' className="text-red-500">Reset it here</Link></p>
       </div>
+      <div className="hidden md:flex justify-center items-center ">
+        <img src="https://imgs.search.brave.com/VikpyiN7OTH_xj6mfR6zYxy8_mHlGuCGveLv7wIAg14/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzUzLzMyLzc2/LzM2MF9GXzQ1MzMy/NzYyMF9mbExTaFJD/VU50cW9WTUszTnlm/SmRLSTFVblEzRHhC/eS5qcGc" alt="" />
+      </div>
+      </div>      
     </div>
   );
 };

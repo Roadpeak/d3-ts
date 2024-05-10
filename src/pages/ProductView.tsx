@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FaAngleLeft, FaFacebookF, FaInstagram, FaRegHeart, FaWhatsapp } from 'react-icons/fa';
+import { FaAngleLeft, FaFacebookF, FaInstagram, FaRegHeart, FaSlideshare, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import BookingSlotsList from '../components/seller/BookingSlotsList';
+import { ClipLoader } from 'react-spinners';
 
 interface Review {
   _id: string;
@@ -44,6 +45,7 @@ const ProductView: React.FC = () => {
   const [discount, setDiscount] = useState<Discount | null>(null);
   const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
   const { id } = useParams();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newReview, setNewReview] = useState<{ user: string; comment: string }>({
@@ -53,6 +55,7 @@ const ProductView: React.FC = () => {
 
   const handlePostReview = async () => {
     try {
+      setLoading(true)
       if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
         const response = await axios.post('https://d3-api.onrender.com/api/v1/reviews', {
           entityType: 'discount',
@@ -62,9 +65,11 @@ const ProductView: React.FC = () => {
         });
         window.location.reload();
         setNewReview({ user: '', comment: '' });
+        setLoading(false)
       }
     } catch (error) {
       console.error('Error posting review:', error);
+      setLoading(false)
     }
   };
 
@@ -213,13 +218,6 @@ const ProductView: React.FC = () => {
                   >
                     Details
                   </p>
-                  <p
-                    className={`font-medium text-[18px] cursor-pointer ${activeTab === 'reviews' ? 'text-primary border-b border-primary' : 'text-gray-600'
-                      }`}
-                    onClick={() => setActiveTab('reviews')}
-                  >
-                    Reviews ({reviews.length})
-                  </p>
                 </div>
                 {activeTab === 'details' ? (
                   <div className="">
@@ -228,15 +226,7 @@ const ProductView: React.FC = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="">
-                    {reviews.map((review) => (
-                      <div key={review._id} className="border-b py-2">
-                        <p className="font-medium">{review.reviewerName}</p>
-                        <p className='text-gray-700'>{review.reviewText}</p>
-                        <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
-                      </div>
-                    ))}
-                  </div>
+                  <></>
                 )}
               </div>
               <div className="mt-4 w-full">
@@ -264,13 +254,28 @@ const ProductView: React.FC = () => {
                     className="border p-2 rounded-md focus:border-primary outline-none"
                   />
                   <button type="submit" className="bg-primary rounded-md text-white font-medium px-4 py-2">
-                    Post Review
+                    {loading ? <ClipLoader color="#fff" /> : 'Post Review'}
                   </button>
                 </form>
               </div>
             </div>
             <div className="w-full md:w-1/3">
-              <BookingSlotsList bookingSlots={bookingSlots} handleClickOpen={handleClickOpen} handleBookSlot={handleBookSlot} />
+                  <p
+                    className={`font-medium text-[18px] cursor-pointer text-primary border-b border-primary`}
+                    onClick={() => setActiveTab('reviews')}
+                  >
+                    Reviews ({reviews.length})
+                  </p>
+              <div className="">
+                    {reviews.map((review) => (
+                      <div key={review._id} className="border-b py-2">
+                        <p className="font-medium">{review.reviewerName}</p>
+                        <p className='text-gray-700'>{review.reviewText}</p>
+                        <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
+                      </div>
+                    ))}
+                  </div>
+              {/* <BookingSlotsList bookingSlots={bookingSlots} handleClickOpen={handleClickOpen} handleBookSlot={handleBookSlot} /> */}
             </div>
           </div>
         </div>
