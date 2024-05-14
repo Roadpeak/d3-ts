@@ -8,6 +8,7 @@ import { useAuth } from '../utils/context/AuthContext';
 import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
 import axios from 'axios';
 import { Spinner } from '@material-tailwind/react';
+import logo from '../assets/logo1.png'
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -207,7 +208,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>
-        <p className='text-primary font-medium lowercase text-[24px]'>D-TREE</p>
+        <img className='w-[150px] pb-[10px]' src={logo} alt="" />
         <div className="flex items-center gap-[30px] ">
           <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
             <input
@@ -231,7 +232,7 @@ const Navbar: React.FC = () => {
             ) : (
               <div className="flex items-center  text-white gap-3">
                 <Link to={`/accounts/sign-in`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</Link>
-                <Link to={`/accounts/sign-up`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Sign Up</Link>
+                <Link to={`/accounts/sign-up`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Register</Link>
               </div>
             )}
             {open && (
