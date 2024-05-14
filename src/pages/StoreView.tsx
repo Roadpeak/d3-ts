@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 import { ClipLoader } from 'react-spinners';
@@ -264,7 +264,7 @@ const StoreView: React.FC = () => {
             </div>
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
               {filteredDiscounts.map((discount) => (
-                <Link to={`/discount/${discount._id}/see-details`} key={discount._id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
+                <a href={`/discount/${discount._id}/see-details`} key={discount._id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
                   <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                   <div className="flex flex-col">
                     <p className="text-[14px] text-gray-500">{discount.store.name}</p>
@@ -282,7 +282,7 @@ const StoreView: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                </Link>
+                </a>
               ))}
             </div>
           </div>

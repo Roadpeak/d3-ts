@@ -62,7 +62,7 @@ const Stores: React.FC = () => {
             </>
           ) : (
             stores.map((store) => (
-              <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
+              <a href={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
                 <img
                   src={store.imageUrl}
                   alt={store.name}
@@ -70,7 +70,7 @@ const Stores: React.FC = () => {
                 />
                 <p className="text-black font-semibold">{store.name}</p>
                 <p className="text-gray-500"><span className='text-primary'>see deals</span></p>
-              </Link>
+              </a>
             ))
           )}
         </div>

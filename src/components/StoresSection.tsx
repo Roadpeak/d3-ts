@@ -55,7 +55,7 @@ const StoresSection = () => {
           </>
         ) : (
           stores.map((store) => (
-            <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-gray-50 border flex flex-col items-center justify-between rounded-md px-4 py-2 shadow-md hover:shadow-xl cursor-pointer">
+            <a href={`/stores/${store?._id}/view`} key={store?._id} className="bg-gray-50 border flex flex-col items-center justify-between rounded-md px-4 py-2 shadow-md hover:shadow-xl cursor-pointer">
               <div className="flex flex-col justify-center mx-auto relative ">
                 <div className="bg-white shadow-xl mb-2  mx-auto  w-[30%]">
                   <img
@@ -70,7 +70,7 @@ const StoresSection = () => {
                   <FaExternalLinkAlt />
                 </div>
               </div>
-            </Link>
+            </a>
           ))
         )}
       </div>

@@ -81,13 +81,13 @@ const FeaturedOffers: React.FC = () => {
                 style={{ filter: 'brightness(80%) blur(1px)' }}
               />
               <div className="absolute inset-0 flex items-center p-2">
-                <Link to={`/stores/${item.store._id}/view`}>
+                <a href={`/stores/${item.store._id}/view`}>
                   <img
                     src={item.store.imageUrl}
                     alt={`${item.name} Store`}
                     className="w-[25%] rounded-full shadow-md"
                   />
-                </Link>
+                </a>
               </div>
             </div>
             <p className="text-black font-semibold mb-2">{item.name}</p>
