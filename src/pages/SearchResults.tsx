@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SkeletonLoader from '../utils/elements/SkeletonLoader';
-import { Link } from 'react-router-dom';
 
 interface Discount {
     _id: string;
@@ -84,7 +83,7 @@ const SearchResults: React.FC = () => {
                             </>
                         ) : (
                             stores.map((store) => (
-                                <Link to={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
+                                <a href={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
                                     <img
                                         src={store.imageUrl}
                                         alt={store.name}
@@ -92,7 +91,7 @@ const SearchResults: React.FC = () => {
                                     />
                                     <p className="text-black font-semibold">{store.name}</p>
                                     <p className="text-gray-500"><span className='text-primary'>see deals</span></p>
-                                </Link>
+                                </a>
                             ))
                         )}
                     </div>
@@ -109,7 +108,7 @@ const SearchResults: React.FC = () => {
                 {discounts.length > 0 ? (
                     <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-5 lg:grid-cols-6'>
                         {discounts.map((discount) => (
-                            <Link to={`/discount/${discount._id}/see-details`} key={discount._id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
+                            <a href={`/discount/${discount._id}/see-details`} key={discount._id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
                                 <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                                 <div className="flex flex-col">
                                     <p className="text-[14px] text-gray-500">{discount?.store.name}</p>
@@ -121,7 +120,7 @@ const SearchResults: React.FC = () => {
                                         </p>
                                     </div>
                                 </div>
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 ) : (

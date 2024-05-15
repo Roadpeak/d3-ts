@@ -1,13 +1,12 @@
 import React from 'react';
 import { FaFacebookF, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from "react-icons/fa6";
-import { Link, useNavigate } from 'react-router-dom';
 
-const Footer = () => {
-  const navigate = useNavigate();
+const Footer:React.FC = () => {
   const handleMapClick = () => {
     window.open('https://www.google.com/maps/search/?api=1&query=Britam+Towers+Upperhill+Nairobi', '_blank');
   };
+    const currentYear = new Date().getFullYear();
 
   const handleEmailClick = () => {
     window.open('mailto:info@dtree.com', '_blank');
@@ -113,7 +112,7 @@ const Footer = () => {
 
       <div className="bg-white border-t py-4">
         <div className="px-[5%] flex items-center justify-between text-gray-900">
-          <p>&copy; 2024 d-tree. All rights reserved.</p>
+          <p>&copy; {currentYear} discoun3. All rights reserved.</p>
           <div className="flex items-center gap-4 text-gray-600 text-[16px] ">
             <p className='hover:text-black cursor-pointer'>Support</p>
             <p className='hover:text-black cursor-pointer'>Security</p>
