@@ -34,6 +34,8 @@ import ManageDiscounts from './components/admin/ManageDiscounts';
 import Vouchers from './components/admin/Vouchers';
 import Users from './components/admin/Users';
 import Tickets from './components/admin/Tickets';
+import Sidenav from './elements/Sidenav';
+import SellerLayout from './elements/SellerLayout';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -48,7 +50,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Home />} />
+      <Route path='/' element={<SellerLayout />} />
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
       <Route path='/discount/:id/see-details' element={<ProductView />} />
