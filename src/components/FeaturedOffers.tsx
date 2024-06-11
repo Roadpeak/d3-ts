@@ -68,13 +68,13 @@ const FeaturedOffers: React.FC = () => {
   };
 
   return (
-    <div className='w-full px-[5%] flex flex-col bg-gray-50 mb-[2%]'>
+    <div className='w-full px-[5%] flex flex-col bg-gray-100 mb-[2%]'>
       <p className="text-black font-medium text-[24px]">
         Featured Services | 2024
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols5 gap-4">
         {discounts.map((item) => (
-          <div key={item.id} className="bg-white rounded-md p-4 shadow-md">
+          <div key={item.id} className="bg-white rounded-md p-4">
             {/* <div className="relative">
               <img
                 src={item.imageUrl}

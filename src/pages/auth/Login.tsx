@@ -19,10 +19,10 @@ const LoginPage: React.FC = () => {
       const response = await axios.post(endpoint, { email, password });
       console.log(response.data.access_token);
       const token = response.data.access_token;
-      localStorage.setItem('access', token);
+      localStorage.setItem('access_token', token);
       setError('');
       navigate('/');
-      window.location.reload();
+      // window.location.reload();
       setLoading(false);
     } catch (error) {
       console.error('Error logging in:', error);
