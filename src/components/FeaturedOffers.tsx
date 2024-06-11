@@ -14,18 +14,19 @@ interface Store {
 }
 
 interface Discount {
-  _id: string;
+  id: number;
   name: string;
-  initialPrice: number;
-  discount: number;
-  expiryDate: string;
+  initial_price: string;
+  price_after_discount: string;
+  percentage_discount: string; 
+  expiry_date: string;
+  slug: string;
+  image_url: string;
+  service_time_hours: number | null; 
   category: string;
-  store: Store;
-  serviceTime: string;
-  description: string;
-  imageUrl: string;
-  priceAfterDiscount: number;
-  percentageDiscount: number;
+  description: string | null;
+  verified: boolean;
+  shop_id: number;
 }
 
 const FeaturedOffers: React.FC = () => {
@@ -37,8 +38,9 @@ const FeaturedOffers: React.FC = () => {
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
       try {
-        const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts`);
-        setDiscounts(response.data.discounts);
+        const response = await axios.get(`http://127.0.0.1:8000/api/discounts`);
+        console.log(response.data)
+        setDiscounts(response.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching discounts:', error);
@@ -70,10 +72,10 @@ const FeaturedOffers: React.FC = () => {
       <p className="text-black font-medium text-[24px]">
         Featured Services | 2024
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols5 gap-4">
         {discounts.map((item) => (
-          <div key={item._id} className="bg-white rounded-md p-4 shadow-md">
-            <div className="relative">
+          <div key={item.id} className="bg-white rounded-md p-4 shadow-md">
+            {/* <div className="relative">
               <img
                 src={item.imageUrl}
                 alt={item.name}
@@ -89,31 +91,31 @@ const FeaturedOffers: React.FC = () => {
                   />
                 </a>
               </div>
-            </div>
+            </div> */}
             <p className="text-black font-semibold mb-2">{item.name}</p>
             <div className="flex mt-2 items-center justify-between w-full">
               <div className="flex gap-1 items-center">
-                <p className="text-gray-500 text-[14px] line-through">{`${item.initialPrice.toLocaleString("KES")}`}</p>
+                <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
                 <p className="text-primary font-semibold text-[14px] ml-2">
-                  {`Ksh. ${item.priceAfterDiscount.toLocaleString("KES")}`}
+                  {`Ksh. ${item.price_after_discount}`}
                 </p>
               </div>
-              <p className="text-primary font-medium bg-secondary px-2 py-1 rounded-md">save {item.percentageDiscount.toFixed(1)}%</p>
+              <p className="text-primary font-medium bg-secondary px-2 py-1 rounded-md">save {item.percentage_discount}%</p>
             </div>
-            <p className=""><span className=''>{formatExpiryDate(item.expiryDate)}</span></p>
+            <p className=""><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
             <div className="flex w-full gap-[2%]">
-              {new Date(item.expiryDate) > new Date() ? (
+              {new Date(item.expiry_date) > new Date() ? (
                 <>
                   <button
                     className="w-full rounded-md border border-third text-third py-1"
-                    onClick={() => handleButtonClick(item._id)}
+                    onClick={() => {}}
                     title="Get offer"
                   >
                     Get offer
                   </button>
                   <button
                     className="w-full rounded-md bg-primary text-white py-1"
-                    onClick={() => handleButtonClick(item._id)}
+                    onClick={() => {}}
                     title="See Details"
                   >
                     See Details

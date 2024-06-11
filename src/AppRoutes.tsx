@@ -50,7 +50,7 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<SellerLayout />} />
+      <Route path='/' element={<Home />} />
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
       <Route path='/discount/:id/see-details' element={<ProductView />} />

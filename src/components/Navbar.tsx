@@ -34,18 +34,15 @@ const Navbar: React.FC = () => {
 
   const fetchStores = async (userId: string | undefined) => {
     try {
-      if (!userId) return;
-
-      const token = localStorage.getItem('token');
-      if (!token) return;
-
-      const response = await axios.get(`https://d3-api.onrender.com/api/v1/stores/user/${userId}/mystores`, {
+      const token = '30|LOBQcH2IhX6imrRr2nrBCyqtCSNnRSfAjReUYmqr753c1345';
+      const response = await axios.get(`http://127.0.0.1:8000/api/user/shops`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setStores(response.data.stores);
-      // console.log(stores);
+      console.log(response.data);
+      setStores(response.data);
+      console.log(stores);
     } catch (error) {
       console.error('Error fetching stores:', error);
     }

@@ -17,7 +17,7 @@ interface Store {
 }
 
 interface Discount {
-  _id: string;
+  id: string;
   name: string;
   initialPrice: number;
   discount: number;
@@ -37,7 +37,7 @@ const Deals: React.FC = () => {
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
       try {
-        const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/discounts`);
         setDiscounts(response.data.discounts);
         setLoading(false);
       } catch (error) {

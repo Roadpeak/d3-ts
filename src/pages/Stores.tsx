@@ -6,28 +6,36 @@ import Footer from "../components/Footer";
 import SkeletonLoader from "../utils/elements/SkeletonLoader";
 
 interface Store {
-  _id: string;
+  id: number;
   name: string;
-  imageUrl: string;
-  number: number;
+  location: string;
+  image_url: string;
+  verified: boolean;
+  seller_id: number;
+  created_at: string;
+  updated_at: string;
+  store_type: string | null;
 }
 
-const Stores: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [stores, setStores] = useState<Store[]>([]);
 
-  const fetchStores = async () => {
+const Stores: React.FC = () => {
+  const [stores, setStores] = useState<Store[]>([]);
+  const [loading, setLoading] = useState(true);
+
+ const fetchStores = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get<{ stores: Store[] }>('https://d3-api.onrender.com/api/v1/stores', {
+      const response = await axios.get<Store[]>('http://127.0.0.1:8000/api/shops', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setStores(response.data.stores);
+      console.log(response.data);
+      setStores(response.data); 
       setLoading(false); 
     } catch (error) {
       console.error('Error fetching stores:', error);
+      setLoading(false);
     }
   };
 
@@ -62,9 +70,9 @@ const Stores: React.FC = () => {
             </>
           ) : (
             stores.map((store) => (
-              <a href={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
+              <a href={`/stores/${store?.id}/view`} key={store?.id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
                 <img
-                  src={store.imageUrl}
+                  src={store.image_url}
                   alt={store.name}
                   className="w-[50%] rounded-md object-cover mb-2"
                 />
