@@ -19,18 +19,23 @@ interface Review {
 
 
 interface Discount {
-  _id: string;
+  id: number;
   name: string;
-  initialPrice: number;
-  discount: number;
-  percentageDiscount: number;
-  serviceTime: string;
+  initial_price: string;
+  price_after_discount: string;
+  percentage_discount: string;
+  expiry_date: string;
+  slug: string;
+  image_url: string;
+  service_time_hours: number;
   category: string;
-  imageUrl: string;
-  priceAfterDiscount: number;
-  expiryDate: Date;
   description: string;
+  verified: boolean;
+  shop_id: number;
+  created_at: string;
+  updated_at: string;
 }
+
 
 interface BookingSlot {
   date: Date;
@@ -43,7 +48,7 @@ const ProductView: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'details' | 'reviews'>('details');
   const [discount, setDiscount] = useState<Discount | null>(null);
-  const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
+  const [error, setError] = useState('');  const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false)
   const { id } = useParams();
@@ -86,14 +91,15 @@ const ProductView: React.FC = () => {
     fetchReviews();
   }, [id]);
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchDiscount = async () => {
       try {
-        const response = await axios.get<{ discount: Discount }>(`https://d3-api.onrender.com/api/v1/discounts/${id}`);
-        setDiscount(response.data.discount);
-        console.log(discount);
+        const response = await axios.get<Discount>(`http://127.0.0.1:8000/api/discounts/${id}`);
+        setDiscount(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching discount:', error);
+        setError('An error occurred while fetching discount data.');
       }
     };
 
@@ -119,9 +125,6 @@ const ProductView: React.FC = () => {
     setOpen(true);
   };
 
-  const handleBookSlot = (slot: BookingSlot) => {
-  };
-
   return (
     <div>
       <Navbar />
@@ -139,7 +142,7 @@ const ProductView: React.FC = () => {
                     <img
                       className='rounded-md'
                       alt='image'
-                      src={discount?.imageUrl}
+                      src={discount?.image_url}
                     />
                   </div>
                 </div>
@@ -147,24 +150,24 @@ const ProductView: React.FC = () => {
                   <p className="text-gray-400 font-light text-[11px]">{discount?.category}</p>
                   <p className="font-medium text-[24px] ">{discount?.name}</p>
                   <span className="text-primary font-medium text-[17px]">
-                    {discount?.percentageDiscount.toFixed(1)}% OFF
+                    {discount?.percentage_discount}% OFF
                   </span>
                   <div className="flex items-center gap-2 ">
                     <span className='font-light text-gray-600 '>was</span>
                     <p className="text-[17px] line-through">
-                      Ksh {discount?.initialPrice.toLocaleString('KES')}
+                      Ksh {discount?.initial_price}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className='font-light text-gray-600'>now</span>
                     <p className="font-semibold text-[24px]">
-                      Ksh {discount?.priceAfterDiscount.toLocaleString('KES')}
+                      Ksh {discount?.price_after_discount}
                     </p>
                   </div>
                   <p className="text-third">
-                    You save <span className='font-medium'>Ksh. {discount?.discount.toLocaleString("KES")}</span>
+                    {/* You save <span className='font-medium'>Ksh. {discount?.discount.toLocaleString("KES")}</span> */}
                   </p>
-                  <button onClick={() => navigate(`/${discount?._id}/checkout`)} className="w-full py-2 bg-primary rounded-md text-white font-medium capitalize text-[17px] flex items-center justify-center mb-2">
+                  <button onClick={() => navigate(`/${discount?.id}/checkout`)} className="w-full py-2 bg-primary rounded-md text-white font-medium capitalize text-[17px] flex items-center justify-center mb-2">
                     Get this discount
                   </button>
                   <div className="flex flex-col my-3.5">
@@ -275,7 +278,6 @@ const ProductView: React.FC = () => {
                       </div>
                     ))}
                   </div>
-              {/* <BookingSlotsList bookingSlots={bookingSlots} handleClickOpen={handleClickOpen} handleBookSlot={handleBookSlot} /> */}
             </div>
           </div>
         </div>

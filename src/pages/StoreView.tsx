@@ -5,28 +5,23 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 import { ClipLoader } from 'react-spinners';
-import { CgWindows } from 'react-icons/cg';
 
 interface Store {
-  _id: string;
+  id: number;
   name: string;
-  owner: {
-    _id: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-  };
-  followers: string;
-  imageUrl: string;
   location: string;
-  storeType: string;
+  image_url: string;
+  verified: number;
+  seller_id: number;
+  created_at: string;
+  updated_at: string;
+  store_type: string | null;
 }
 
 interface Discount {
-  _id: string;
+  id: string;
   name: string;
-  initialPrice: number;
+  initial_price: number;
   discount: number;
   expiryDate: string;
   category: string;
@@ -34,16 +29,14 @@ interface Discount {
   serviceTime: string;
   description: string;
   imageUrl: string;
-  priceAfterDiscount: number;
+  price_after_discount: number;
 }
 
 interface Review {
-  _id: string;
-  entityType: string;
-  entityId: string;
-  reviewerName: string;
-  reviewDate: Date;
-  reviewText: string;
+  body: string;
+  created_at: string;
+  user_name: string;
+  reviewable_type: string;
 }
 
 interface Follower {
@@ -73,14 +66,14 @@ const StoreView: React.FC = () => {
 
   const { user } = useAuth();
   const userId = user?.id;
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('access_token');
   const maxLength = 100;
 
   useEffect(() => {
     const fetchStore = async () => {
       try {
-        const response = await axios.get(`https://d3-api.onrender.com/api/v1/stores/${id}`);
-        setStore(response.data.store);
+        const response = await axios.get(`http://127.0.0.1:8000/api/shops/${id}`);
+        setStore(response.data);
       } catch (error) {
         console.error('Error fetching store:', error);
       }
@@ -92,8 +85,8 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchStore = async () => {
       try {
-        const response = await axios.get(`https://d3-api.onrender.com/api/v1/followers/${id}`);
-        setFollowers(response.data.followers);
+        const response = await axios.get(`http://127.0.0.1:8000/api/followers/${id}`);
+        setFollowers(response.data);
       } catch (error) {
         console.error('Error fetching store:', error);
       }
@@ -105,8 +98,8 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
       try {
-        const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts/shop/${id}`);
-        setDiscounts(response.data.discounts);
+        const response = await axios.get(`http://127.0.0.1:8000/api/shops/${id}/discounts`);
+        setDiscounts(response.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching discounts:', error);
@@ -177,10 +170,11 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get<{ reviews: Review[] }>(`https://d3-api.onrender.com/api/v1/reviews/entity/${id}`);
-        setReviews(response.data.reviews);
+        const response = await axios.get<Review[]>(`http://127.0.0.1:8000/api/reviews/shop/${id}`);
+        setReviews(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error);
+        // setError('An error occurred while fetching reviews.');
       }
     };
 
@@ -199,11 +193,6 @@ const StoreView: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredDiscounts = discounts.filter(discount =>
-    discount.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    discount.store.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <div className='w-full h-full scroll-smooth flex flex-col'>
       <Navbar />
@@ -212,7 +201,7 @@ const StoreView: React.FC = () => {
           <div className="w-full flex bg-gray-200 h-[120px] justify-between p-2 rounded-md">
             <div className="flex h-full items-center gap-4">
               <img
-                src={store?.imageUrl}
+                src={store?.image_url}
                 alt="Store Image"
                 className="w-[100px] rounded-full h-full justify-center mx-auto flex items-center"
               />
@@ -220,7 +209,7 @@ const StoreView: React.FC = () => {
                 <p className="text-center text-[20px] font-medium">
                   {store?.name} <span className="text-gray-600"></span>
                 </p>
-                <p className="lowercase text-gray-500">
+                {/* <p className="lowercase text-gray-500">
                   @{store?.owner.first_name}
                   {store?.owner.last_name}
                 </p>
@@ -228,7 +217,7 @@ const StoreView: React.FC = () => {
                   {Number(store?.followers) === 1 ?
                     `${store?.followers} follower`
                     : `${store?.followers} followers`}
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="flex gap-2 items-center ">
@@ -263,11 +252,11 @@ const StoreView: React.FC = () => {
               />
             </div>
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
-              {filteredDiscounts.map((discount) => (
-                <a href={`/discount/${discount._id}/see-details`} key={discount._id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
+              {discounts.map((discount) => (
+                <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
                   <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
                   <div className="flex flex-col">
-                    <p className="text-[14px] text-gray-500">{discount.store.name}</p>
+                    {/* <p className="text-[14px] text-gray-500">{discount.store.name}</p> */}
                     <p className="text-[17px] font-medium">{discount.name}</p>
                     <p className="text-[14px] text-gray-500">
                       {discount.description.length > maxLength ?
@@ -276,9 +265,9 @@ const StoreView: React.FC = () => {
                       }
                     </p>
                     <div className="flex items-center">
-                      <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initialPrice.toLocaleString("KES")}`}</p>
+                      <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
                       <p className="text-primary font-medium text-[14px] ml-2">
-                        Ksh. {discount.priceAfterDiscount.toLocaleString("kes")}
+                        Ksh. {discount.price_after_discount}
                       </p>
                     </div>
                   </div>
@@ -320,11 +309,11 @@ const StoreView: React.FC = () => {
           <div className="w-full md:w-1/2 flex flex-col gap-2">
             <p className='font-semibold text-lg'>Shop Revews <span className="text-gray-500">({reviews?.length})</span></p>
             <div className="flex flex-col w-full">
-              {reviews.map((review) => (
-                <div key={review._id} className="border-b py-2">
-                  <p className="font-medium">{review.reviewerName}</p>
-                  <p className='text-gray-700'>{review.reviewText}</p>
-                  <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
+              {reviews.map((review, index) => (
+                <div key={index} className="border-b py-2">
+                  <p className="font-medium">{review.user_name}</p>
+                  <p className='text-gray-700'>{review.body}</p>
+                  <p className="text-gray-400 text-[13px]">{new Date(review.created_at).toLocaleString()}</p>
                 </div>
               ))}
             </div>
