@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
-    id: string;
+    id: number;
     email: string;
     firstName: string;
     lastName: string;
-    phone: string;
-    category: string;
+    phone: string | null;
+    userType: string;
+    active: boolean;
 }
 
 interface AuthContextType {
@@ -27,16 +28,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const token = localStorage.getItem('token');
+                const token = localStorage.getItem('access_token');
                 if (token) {
-                    const response = await fetch('https://d3-api.onrender.com/api/v1/users/current-user', {
+                    const response = await fetch('http://127.0.0.1:8000/api/profile', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     });
                     if (response.ok) {
                         const userData = await response.json();
-                        setUser(userData);
+                        const mappedUser: User = {
+                            id: userData.id,
+                            email: userData.email,
+                            firstName: userData.first_name,
+                            lastName: userData.last_name,
+                            phone: userData.phone,
+                            userType: userData.user_type,
+                            active: Boolean(userData.active),
+                        };
+                        setUser(mappedUser);
                     } else {
                         setUser(null);
                     }
@@ -54,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const login = async (email: string, password: string) => {
         try {
-            const response = await fetch('https://d3-api.onrender.com/api/v1/auth/login', {
+            const response = await fetch('http://127.0.0.1:8000/api/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,8 +73,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             });
             if (response.ok) {
                 const userData = await response.json();
-                setUser(userData);
-                localStorage.setItem('token', userData.token);
+                const mappedUser: User = {
+                    id: userData.id,
+                    email: userData.email,
+                    firstName: userData.first_name,
+                    lastName: userData.last_name,
+                    phone: userData.phone,
+                    userType: userData.user_type,
+                    active: Boolean(userData.active),
+                };
+                setUser(mappedUser);
+                localStorage.setItem('access_token', userData.token);
             } else {
                 throw new Error('Login failed');
             }
@@ -76,7 +95,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem('access_token');
         setUser(null);
     };
 

@@ -181,13 +181,12 @@ const StoreView: React.FC = () => {
     fetchReviews();
   }, [id]);
 
-  useEffect(() => {
-    if (userId && followers.length > 0) {
-      const isUserFollowing = followers.some(follower => follower.user._id === userId);
-      setIsFollowing(isUserFollowing);
-    }
-  }, [userId, followers]);
-
+  // useEffect(() => {
+  //   if (userId && followers.length > 0) {
+  //     const isUserFollowing = followers.some(follower => follower.user.id === userId);
+  //     setIsFollowing(isUserFollowing);
+  //   }
+  // }, [userId, followers]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);

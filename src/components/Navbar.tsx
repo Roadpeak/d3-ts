@@ -30,11 +30,10 @@ const Navbar: React.FC = () => {
     event.preventDefault();
     navigate(`/search?q=${searchQuery}`);
   };
-  const userId = user?.id
+  const token = localStorage.getItem('access_token');
 
-  const fetchStores = async (userId: string | undefined) => {
+  const fetchStores = async () => {
     try {
-      const token = '30|LOBQcH2IhX6imrRr2nrBCyqtCSNnRSfAjReUYmqr753c1345';
       const response = await axios.get(`http://127.0.0.1:8000/api/user/shops`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -50,12 +49,11 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const userId = user?.id;
-    // console.log(userId);
-    fetchStores(userId);
+    fetchStores();
   }, [user]);
 
   const logoutUser = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
     window.location.reload();
   };
 
@@ -76,38 +74,39 @@ const Navbar: React.FC = () => {
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      try {
-        const formData = new FormData();
-        formData.append('image', file);
+        const file = e.target.files && e.target.files[0];
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
 
-        const response = await axios.post('https://d3-api.onrender.com/api/v1/cloudinary/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
+                const response = await axios.post('http://127.0.0.1:8000/api/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
 
-        setImageUrl(response.data.imageUrl);
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
-    }
-  };
+                // Access the URL from response.data.url
+                setImageUrl(response.data.url);
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+    };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const { storeName, location, storeType } = storeData;
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('access_token');
       setIsLoading(true);
 
-      await axios.post('https://d3-api.onrender.com/api/v1/stores', {
+      await axios.post('http://127.0.0.1:8000/api/shops', {
         name: storeName,
         location,
-        storeType,
-        imageUrl
+        store_type : storeType,
+        image_url : imageUrl,
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -137,13 +136,13 @@ const Navbar: React.FC = () => {
           <p className="text-[15px] text-gray-600"></p>
         </div>
         <div className="relative">
-          {user && user?.category === 'admin' ? (
+          {user && user?.userType === 'admin' ? (
             <div className="">
               <Link to='/manage' className="bg-primary text-white px-4 py-2 rounded-md">Admin Dashboard</Link>
             </div>
           ) : (
             <div className="">
-              {user && user?.category === 'seller' ? (
+              {user && user?.userType === 'seller' ? (
                 <div className=''>
                     <button
                       onClick={() => {
@@ -157,43 +156,6 @@ const Navbar: React.FC = () => {
                     >
                       Dashboard
                     </button>
-                  {menu && (
-                    <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-                      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-                        <p className="text-center text-gray-600 font-medium text-[18px]">Select a store</p>
-                        <div className="">
-                          <table className="w-full">
-                            <thead>
-                              <tr className="bg-gray-200">
-                                <th className="py-2 text-start px-4">#</th>
-                                <th className="py-2 text-start px-4">Name</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {stores.map((store: any) => (
-                                <tr key={store._id} className="border-b">
-                                  <td className="py-2 px-4">
-                                    <a href={`/seller/stores/${store._id}`}>
-                                      <img src={store.imageUrl} className='w-[60px] rounded-md' alt="" />
-                                    </a>
-                                  </td>
-                                  <td className="py-2 px-4">
-                                    <a href={`/seller/stores/${store._id}`} className='hover:text-primary'>
-                                      {store.name}
-                                    </a>
-                                  </td>
-                                </tr>
-                              ))}
-
-                            </tbody>
-                          </table>
-                          <div className="flex mt-4 w-full items-center justify-end">
-                            <button onClick={() => setMenu(false)} className='bg-primary text-white px-4 py-1.5 rounded-md'>Cancel</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </div>
               ) : (
                 <div className='flex items-center gap-3'>
