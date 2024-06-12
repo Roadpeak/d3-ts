@@ -7,22 +7,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
 import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
 import axios from 'axios';
-import { Spinner } from '@material-tailwind/react';
 import logo from '../assets/logo1.png'
+
+interface Shop {
+  id: string;
+  name: string,
+  location: string,
+  store_type: string,
+}
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
-  const [menu, setMenu] = useState(false);
-  const [openForm, setOpenForm] = useState(false);
-  const [stores, setStores] = useState([])
-  const [imageUrl, setImageUrl] = useState('');
-  const [storeData, setStoreData] = useState({
-    storeName: '',
-    location: '',
-    storeType: ''
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const [stores, setStores] = useState<Shop[]>([]);
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -41,14 +38,12 @@ const Navbar: React.FC = () => {
       });
       console.log(response.data);
       setStores(response.data);
-      console.log(stores);
     } catch (error) {
       console.error('Error fetching stores:', error);
     }
   };
 
   useEffect(() => {
-    const userId = user?.id;
     fetchStores();
   }, [user]);
 
@@ -56,77 +51,6 @@ const Navbar: React.FC = () => {
     localStorage.removeItem('access_token');
     window.location.reload();
   };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setStoreData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleAddStoreClick = () => {
-    setOpenForm(true);
-  };
-
-  const handleCloseAddStore = () => {
-    setOpenForm(false);
-  };
-
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files && e.target.files[0];
-        if (file) {
-            try {
-                const formData = new FormData();
-                formData.append('image', file);
-
-                const response = await axios.post('http://127.0.0.1:8000/api/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-
-                // Access the URL from response.data.url
-                setImageUrl(response.data.url);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            }
-        }
-    };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const { storeName, location, storeType } = storeData;
-
-      const token = localStorage.getItem('access_token');
-      setIsLoading(true);
-
-      await axios.post('http://127.0.0.1:8000/api/shops', {
-        name: storeName,
-        location,
-        store_type : storeType,
-        image_url : imageUrl,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-
-      setStoreData({
-        storeName: '',
-        location: '',
-        storeType: ''
-      });
-      setImageUrl('');
-      window.location.reload();
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error adding store:', error);
-      setIsLoading(false);
-    }
-  };
-
 
   return (
     <>
@@ -136,27 +60,20 @@ const Navbar: React.FC = () => {
           <p className="text-[15px] text-gray-600"></p>
         </div>
         <div className="relative">
-          {user && user?.userType === 'admin' ? (
+          {user && user?.user_type === 'admin' ? (
             <div className="">
               <Link to='/manage' className="bg-primary text-white px-4 py-2 rounded-md">Admin Dashboard</Link>
             </div>
           ) : (
             <div className="">
-              {user && user?.userType === 'seller' ? (
-                <div className=''>
+              {user && user.user_type === 'seller' && stores.length !== 0 ? (
+                <a href={stores.length > 0 ? `/stores/${stores[0].id}/view` : '#'} className=''>
                     <button
-                      onClick={() => {
-                        if (stores.length === 0) {
-                          handleAddStoreClick();
-                        } else {
-                          setMenu(!menu);
-                        }
-                      }}
                       className="bg-primary px-4 py-1.5 rounded-md text-white"
                     >
                       Dashboard
                     </button>
-                </div>
+                </a>
               ) : (
                 <div className='flex items-center gap-3'>
                   <Link to={`/accounts/seller/sign-up`} className='text-gray-600 text-[16px] hover:text-primary'>Seller Signup</Link>
@@ -228,83 +145,7 @@ const Navbar: React.FC = () => {
         <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Home</Link>
         <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
         <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Deals</Link>
-      </div>
-      {openForm && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-            <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">Add New Store</h2>
-            <p className="text-center mb-6 text-gray-600 ">To proceed to your dashboard, you need to create atleast one store.</p>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="storeName" className="block text-sm font-medium text-gray-700">Store Name</label>
-                <input  
-                  type="text"
-                  id="storeName"
-                  name="storeName"
-                  value={storeData.storeName}
-                  placeholder='e.g. QBF Software Solutions'
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location</label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  value={storeData.location}
-                  placeholder='e.g. Shiloh Residence, Kilimani'
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="storeType" className="block text-sm font-medium text-gray-700">Store Type</label>
-                <input
-                  type="text"
-                  id="storeType"
-                  name="storeType"
-                  value={storeData.storeType}
-                  placeholder='e.g. nail spa, make up. etc...'
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Image</label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleImageChange}
-                />
-              </div>
-              {imageUrl && (
-                <div>
-                  <img src={imageUrl} alt="Uploaded" className="mt-4 w-full rounded" />
-                </div>
-              )}
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="text-gray-600 mr-4"
-                  onClick={handleCloseAddStore}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80"
-                >
-                  {isLoading ? <Spinner /> : 'Add Store'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      </div>     
     </>
   )
 }

@@ -6,7 +6,7 @@ interface User {
     firstName: string;
     lastName: string;
     phone: string | null;
-    userType: string;
+    user_type: string;
     active: boolean;
 }
 
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             firstName: userData.first_name,
                             lastName: userData.last_name,
                             phone: userData.phone,
-                            userType: userData.user_type,
+                            user_type: userData.user_type,
                             active: Boolean(userData.active),
                         };
                         setUser(mappedUser);
@@ -79,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     firstName: userData.first_name,
                     lastName: userData.last_name,
                     phone: userData.phone,
-                    userType: userData.user_type,
+                    user_type: userData.user_type,
                     active: Boolean(userData.active),
                 };
                 setUser(mappedUser);

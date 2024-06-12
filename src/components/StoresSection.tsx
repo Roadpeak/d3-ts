@@ -5,11 +5,11 @@ import SkeletonLoader from "../utils/elements/SkeletonLoader";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
 interface Store {
-  _id: string;
+  id: string;
   name: string;
-  imageUrl: string;
+  image_url: string;
   number: number;
-  storeType: String;
+  store_type: String;
 }
 
 const StoresSection = () => {
@@ -19,12 +19,12 @@ const StoresSection = () => {
   const fetchStores = async () => {
     try {
       const token = localStorage.getItem('access_token');
-      const response = await axios.get<{ stores: Store[] }>('https://d3-api.onrender.com/api/v1/stores', {
+      const response = await axios.get<Store[]>('http://127.0.0.1:8000/api/shops', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setStores(response.data.stores);
+      setStores(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching stores:', error);
@@ -35,10 +35,11 @@ const StoresSection = () => {
     fetchStores();
   }, []);
 
+
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 pb-[2%]'>
-      <div className="flex items-center justify-between">
-        <p className="text-black font-semibold mb-[1%] text-[24px]">
+      <div className="flex items-center justify-between mt-4">
+        <p className="text-black font-semibold mb-2 text-[24px]">
         Top Stores | 2024
       </p>
       <Link className="text-primary" to={'/stores'}>More Stores</Link>
@@ -55,17 +56,17 @@ const StoresSection = () => {
           </>
         ) : (
           stores.map((store) => (
-            <a href={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 hover:shadow-md cursor-pointer">
+            <a href={`/stores/${store?.id}/view`} key={store?.id} className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 hover:shadow-md cursor-pointer">
               <div className="flex flex-col justify-center mx-auto relative ">
-                <div className="bg-white shadow-xl mb-2  mx-auto  w-[30%]">
+                <div className="bg-white shadow-xl mb-2  mx-auto  w-[40%]">
                   <img
-                    src={store.imageUrl}
+                    src={store.image_url}
                     alt={store.name}
-                    className="w-full mx-auto rounded-sm shadow-lg object-cover"
+                    className="w-full mx-auto rounded-sm object-cover"
                   />
                 </div>
                 <p className="text-center text-black font-semibold">{store.name}</p>
-                <p className="text-center text-[13px] text-[#FF9021]">{store.storeType}</p>
+                <p className="text-center text-[13px] text-[#FF9021]">{store.store_type}</p>
                 <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                   <FaExternalLinkAlt />
                 </div>

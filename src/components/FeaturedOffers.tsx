@@ -1,17 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-
-interface Store {
-  _id: string;
-  name: string;
-  owner: {
-    username: string;
-  };
-  followers: string[];
-  imageUrl: string;
-  location: string;
-}
+import { useNavigate } from 'react-router-dom';
 
 interface Discount {
   id: number;
@@ -63,36 +52,15 @@ const FeaturedOffers: React.FC = () => {
     }
   };
 
-  const handleButtonClick = (id: string) => {
-    navigate(`/discount/${id}/see-details`);
-  };
-
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 mb-[2%]'>
-      <p className="text-black font-medium text-[24px]">
+      <p className="text-black font-medium mb-4 text-[24px]">
         Featured Services | 2024
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols5 gap-4">
         {discounts.map((item) => (
           <div key={item.id} className="bg-white rounded-md p-4">
-            {/* <div className="relative">
-              <img
-                src={item.imageUrl}
-                alt={item.name}
-                className="w-full object-cover mb-2"
-                style={{ filter: 'brightness(80%) blur(1px)' }}
-              />
-              <div className="absolute inset-0 flex items-center p-2">
-                <a href={`/stores/${item.store._id}/view`}>
-                  <img
-                    src={item.store.imageUrl}
-                    alt={`${item.name} Store`}
-                    className="w-[25%] rounded-full shadow-md"
-                  />
-                </a>
-              </div>
-            </div> */}
-            <p className="text-black font-semibold mb-2">{item.name}</p>
+            <p className="text-black mb-2">{item.name}</p>
             <div className="flex mt-2 items-center justify-between w-full">
               <div className="flex gap-1 items-center">
                 <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
