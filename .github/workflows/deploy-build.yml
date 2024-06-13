@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -25,11 +25,5 @@ jobs:
       run: npm run build
 
     - name: Deploy to DigitalOcean
-      uses: samos123/deploy-to-do@v1.1
-      with:
-        api-token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-        ssh-password: ${{ secrets.SSH_PASSWORD }}
-        ssh-host: ${{ secrets.SSH_HOST }}
-        ssh-user: ${{ secrets.SSH_USER }}
-        remote-dir: ${{ secrets.REMOTE_DIR }}
-        source-dir: 'build/'
+      run: |
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ./build/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.REMOTE_DIR }}
