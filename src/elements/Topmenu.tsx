@@ -4,10 +4,10 @@ const Topmenu:React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[#002A4D] w-full text-white px-[5%] h-[8vh] flex items-center tracking-wide">
+    <nav className="bg-white w-full text-white px-[5%] h-[8vh] flex items-center tracking-wide">
       <div className="flex w-full justify-between items-center">
-        <div className="text-white text-2xl font-bold">Discoun3</div>
-        <div className="hidden md:flex space-x-4">
+        <a href='/' className="text-black text-2xl font-bold">Discoun3</a>
+        <div className="hidden text-black md:flex space-x-4">
           <a href="#" className=" px-3 py-2 rounded">Home</a>
           <a href="#" className=" px-3 py-2 rounded">Discounts</a>
           <a href="#" className=" px-3 py-2 rounded">FAQs</a>

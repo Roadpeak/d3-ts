@@ -1,0 +1,35 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build project
+      run: npm run build
+
+    - name: Deploy to DigitalOcean
+      uses: samos123/deploy-to-do@v1.1
+      with:
+        api-token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        ssh-password: ${{ secrets.SSH_PASSWORD }}
+        ssh-host: ${{ secrets.SSH_HOST }}
+        ssh-user: ${{ secrets.SSH_USER }}
+        remote-dir: ${{ secrets.REMOTE_DIR }}
+        source-dir: 'build/'

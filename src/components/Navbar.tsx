@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
           ) : (
             <div className="">
               {user && user.user_type === 'seller' && stores.length !== 0 ? (
-                <a href={stores.length > 0 ? `/stores/${stores[0].id}/view` : '#'} className=''>
+                <a href={stores.length > 0 ? `/store/${stores[0].id}/home` : '#'} className=''>
                     <button
                       className="bg-primary px-4 py-1.5 rounded-md text-white"
                     >
