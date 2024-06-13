@@ -1,7 +1,7 @@
 import React from 'react'
 import SellerLayout from '../../elements/SellerLayout'
 
-const OwnerBookings = () => {
+const OwnerBookings:React.FC = () => {
   return (
     <SellerLayout>
         <div className="flex w-full">

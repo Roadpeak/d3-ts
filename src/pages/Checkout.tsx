@@ -6,7 +6,8 @@ import axios from 'axios';
 
 interface Product {
     id: string;
-    title: string;
+    name: string;
+    image_url: string;
     price: number;
 }
 
@@ -24,8 +25,8 @@ const Checkout: React.FC = () => {
     useEffect(() => {
         const fetchDiscount = async () => {
             try {
-                const response = await axios.get(`https://d3-api.onrender.com/api/v1/discounts/${id}`);
-                setDiscount(response.data.discount);
+                const response = await axios.get(`http://127.0.0.1:8000/api/discounts/${id}`);
+                setDiscount(response.data);
             } catch (error) {
                 console.error('Error fetching discount:', error);
             }
@@ -51,7 +52,7 @@ const Checkout: React.FC = () => {
     };
 
     const handleCheckout = () => {
-        console.log(`Product: ${selectedProduct?.title}, Gateway: ${selectedGateway}`);
+        console.log(`Product: ${selectedProduct?.name}, Gateway: ${selectedGateway}`);
         console.log('Details:', selectedGateway === 'mpesa' ? mpesaDetails : cardDetails);
         navigate('/receipt/view')
     };
@@ -65,23 +66,21 @@ const Checkout: React.FC = () => {
         <>
             <Navbar />
             <div className="px-[5%] mx-auto bg-white py-[2%]">
-                <h2 className="text-3xl font-semibold mb-4">Checkout</h2>
-
+                <h2 className="text-[18px] font-medium mb-4">Checkout</h2>
                 <div className="flex flex-col md:flex-row gap-8">
                     <div className="w-full md:w-1/2">
                         {discount && (
                             <div className='flex items-center gap-2 bg-gray-100 p-2 rounded-md'>
                                 <img src={discount.imageUrl} className='w-[110px] rounded-lg' alt="" />
                                 <div className="flex flex-col ">
-                                    <p className='font-medium text-[20px]'>{discount.name}</p>
-                                    <p className="text-gray-600">Voucher: <span className="font-medium">Ksh. {discount.discount * 0.2}</span></p>
-                                    <p className="capitalize text-gray-700">{discount.store.name}</p>
+                                    <p className='font-medium text-[20px]'>{discount?.name}</p>
+                                    <p className="text-gray-600">Voucher: <span className="font-medium">Ksh. {((discount.initial_price) - (discount.price_after_discount)) * 0.2}</span></p>
                                 </div>
                             </div>
                         )}
                     </div>
                     <div className="w-full md:w-1/2 ">
-                        <h3 className="text-xl font-semibold mb-2">Payment via</h3>
+                        <h3 className="text-[16px] font-medium text-black mb-2">Make payment Via</h3>
                         <div className="flex flex-col gap-4">
                             <label
                                 className={`cursor-pointer p-4 border rounded-md ${selectedGateway === 'mpesa' ? 'bg-gray-50' : ''
@@ -141,8 +140,8 @@ const Checkout: React.FC = () => {
                 </div>
 
                 {showPaymentPopup && (
-                    <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-                        <div className="bg-white p-8 rounded-lg">
+                    <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+                        <div className="bg-white p-8 w-[80%] md:w-1/3 rounded-lg">
 
                             {selectedGateway === 'mpesa' && (
                                 <div className="flex flex-col">
@@ -214,7 +213,7 @@ const Checkout: React.FC = () => {
                         <div>
                             <h3 className="text-xl font-semibold mb-4">Purchase Summary</h3>
                             <div className="bg-blue-100 p-4 rounded-lg">
-                                <p className="text-lg font-semibold">{selectedProduct.title}</p>
+                                <p className="text-lg font-semibold">{selectedProduct.name}</p>
                                 <p className="text-gray-500">Amount for discount: <span className="font-medium">Ksh. {(0.2 * selectedProduct.price).toLocaleString("en-US")}</span></p>
                                 <p className="text-gray-500">Payment: <span className="uppercase font-medium">{selectedGateway}</span></p>
                             </div>

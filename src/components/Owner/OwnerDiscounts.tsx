@@ -1,10 +1,17 @@
 import React from 'react'
 import SellerLayout from '../../elements/SellerLayout'
+import { IoMdAdd } from 'react-icons/io'
 
-const OwnerDiscounts = () => {
+const OwnerDiscounts:React.FC = () => {
   return (
     <SellerLayout>
-        <div className="flex w-full">
+        <div className="flex flex-col w-full">
+            <div className="flex justify-start w-[220px]">
+                <button className="bg-primary px-4 py-1.5 flex items-center gap-2 rounded-md text-white text-[14px] ">
+                    <IoMdAdd /> 
+                    Add New Discount
+                </button>
+            </div>
             <div className="w-full gap-2 flex flex-col py-8">
                 <div className="flex w-full justify-between items-center">
                     <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>

@@ -36,7 +36,6 @@ const Navbar: React.FC = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response.data);
       setStores(response.data);
     } catch (error) {
       console.error('Error fetching stores:', error);
