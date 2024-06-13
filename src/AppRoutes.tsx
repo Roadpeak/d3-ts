@@ -36,6 +36,9 @@ import Users from './components/admin/Users';
 import Tickets from './components/admin/Tickets';
 import Sidenav from './elements/Sidenav';
 import SellerLayout from './elements/SellerLayout';
+import OwnerHome from './components/Owner/OwnerHome';
+import OwnerDiscounts from './components/Owner/OwnerDiscounts';
+import OwnerBookings from './components/Owner/OwnerBookings';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -74,7 +77,9 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
       <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
 
-      <Route path='/store/:id/home' element={<SellerLayout />} />
+      <Route path='/store/:id/home' element={<OwnerHome />} />
+      <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />
+      <Route path='/store/:id/bookings' element={<OwnerBookings />} />
       <Route path='/seller/stores' element={<SellerStores />} />
       <Route path='/seller/stores/:id/appointments' element={<Appointments />} />
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />

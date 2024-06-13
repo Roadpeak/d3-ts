@@ -1,6 +1,8 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 const Sidenav:React.FC = () => {
+    const {id} = useParams();
   return (
      <div className='w-[15%] md:w-[20%] bg-[#fff] flex flex-col pl-[2%] md:pl-[5%] h-[92vh] py-3 md:py-8 pr-[1.5%]'>
         <p className="font-medium border-b hidden md:block tracking-wide pb-1.5">General</p>
@@ -12,7 +14,7 @@ const Sidenav:React.FC = () => {
             </span>
             <span className='hidden md:flex text-[#242220] text-[14px]'>Dashboard</span>
         </a>
-        <a href='/deposit' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+        <a href={`/store/${id}/discounts`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <span className="bg-white p-1 rounded-md text-primary group-hover:bg-primary group-hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
@@ -20,7 +22,7 @@ const Sidenav:React.FC = () => {
             </span>
             <span className='hidden md:flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Discounts</span>
         </a>
-        <a href='/orders' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+        <a href={`/store/${id}/bookings`}  className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <span className="bg-white p-1 rounded-md text-primary group-hover:bg-primary group-hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z" />
