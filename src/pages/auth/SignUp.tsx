@@ -30,7 +30,7 @@ const SignUp: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const endpoint = signupType === 'user' ? 'http://127.0.0.1:8000/api/user/register' : 'http://127.0.0.1:8000/api/seller/register';
+      const endpoint = signupType === 'user' ? 'https://api.discoun3ree.com/api/user/register' : 'https://api.discoun3ree.com/api/seller/register';
       const response = await axios.post(endpoint, formData);
       const token = response.data.token;
       localStorage.setItem('token', token);
