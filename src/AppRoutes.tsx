@@ -39,6 +39,7 @@ import SellerLayout from './elements/SellerLayout';
 import OwnerHome from './components/Owner/OwnerHome';
 import OwnerDiscounts from './components/Owner/OwnerDiscounts';
 import OwnerBookings from './components/Owner/OwnerBookings';
+import BookingPage from './pages/BookingPage';
 
 const AppRoutes: React.FC = () => {
   const fakeUserData = {
@@ -76,6 +77,8 @@ const AppRoutes: React.FC = () => {
 
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
       <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
+
+      <Route path='/discount/:id/booking' element={<BookingPage />} />
 
       <Route path='/store/:id/home' element={<OwnerHome />} />
       <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />

@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             try {
                 const token = localStorage.getItem('access_token');
                 if (token) {
-                    const response = await fetch('http://127.0.0.1:8000/api/profile', {
+                    const response = await fetch('https://api.discoun3ree.com/api/profile', {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const login = async (email: string, password: string) => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/v1/auth/login', {
+            const response = await fetch('https://api.discoun3ree.com/api/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

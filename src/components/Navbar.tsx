@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
 
   const fetchStores = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/user/shops`, {
+      const response = await axios.get(`https://api.discoun3ree.com/api/user/shops`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

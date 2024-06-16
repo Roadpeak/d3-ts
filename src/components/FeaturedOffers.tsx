@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ShimmerLoader from '../utils/elements/ShimmerLoader';
 
 interface Discount {
   id: number;
@@ -26,7 +27,7 @@ const FeaturedOffers: React.FC = () => {
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/discounts`);
+        const response = await axios.get(`https://api.discoun3ree.com/api/discounts`);
         setDiscounts(response.data);
         setLoading(false);
       } catch (error) {
@@ -67,11 +68,12 @@ const FeaturedOffers: React.FC = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols5 gap-4">
         {loading ? (
-          <p>Loading...</p>
+          <ShimmerLoader count={4} />
         ) : (
           discounts.map((item) => (
             <div key={item.id} className="bg-white rounded-md p-4">
-              <p className="text-black mb-2">{item.name}</p>
+              <img src={item.image_url} className='rounded-md' alt="" />
+              <p className="text-black my-2 font-medium text-[16px]">{item.name}</p>
               <div className="flex mt-2 items-center justify-between w-full">
                 <div className="flex gap-1 items-center">
                   <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>

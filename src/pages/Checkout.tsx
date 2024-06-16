@@ -3,6 +3,9 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../utils/context/AuthContext';
+import LoginModal from '../utils/context/LoginModal';
+import PaymentLoaderModal from '../utils/elements/PaymentLoaderModal';
 
 interface Product {
     id: string;
@@ -14,18 +17,37 @@ interface Product {
 const Checkout: React.FC = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [selectedGateway, setSelectedGateway] = useState<string | null>(null);
-    const [mpesaDetails, setMpesaDetails] = useState({ phoneNumber: '' });
+    const [mpesaDetails, setMpesaDetails] = useState({ phone: '' });
     const [cardDetails, setCardDetails] = useState({ cardNumber: '', cvv: '', expiry: '' });
     const [discount, setDiscount] = useState<any>(null);
     const [showPaymentPopup, setShowPaymentPopup] = useState<boolean>(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showPaymentLoaderModal, setShowPaymentLoaderModal] = useState(false);
+    const [paymentStatusResponse, setPaymentStatusResponse] = useState<any>(null);
+    const [paymentStatus, setPaymentStatus] = useState<string>('pending'); 
+    let userId = null;
 
     const navigate = useNavigate();
     const { id } = useParams();
+    const { user } = useAuth();
+    
+    if (user) {
+        userId = user.id;
+    }
+
+    const handleCloseLoginModal = () => {
+        setShowLoginModal(false);
+    };
+
+    const handleLoginSuccess = () => {
+        setShowLoginModal(false);
+        window.location.reload();
+    };
 
     useEffect(() => {
         const fetchDiscount = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/discounts/${id}`);
+                const response = await axios.get(`https://api.discoun3ree.com/api/discounts/${id}`);
                 setDiscount(response.data);
             } catch (error) {
                 console.error('Error fetching discount:', error);
@@ -37,13 +59,13 @@ const Checkout: React.FC = () => {
 
     const handleGatewaySelect = (gateway: string) => {
         setSelectedGateway(gateway);
-        setMpesaDetails({ phoneNumber: '' });
+        setMpesaDetails({ phone: '' });
         setCardDetails({ cardNumber: '', cvv: '', expiry: '' });
         setShowPaymentPopup(true);
     };
 
     const handleMpesaInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMpesaDetails({ phoneNumber: e.target.value });
+        setMpesaDetails({ phone: e.target.value });
     };
 
     const handleCardInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,10 +73,53 @@ const Checkout: React.FC = () => {
         setCardDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
     };
 
+    const handlePaymentInitiation = async () => {
+    setShowPaymentLoaderModal(true);
+    try {
+      const endpoint = 'https://api.discoun3ree.com/api/mpesa/payment';
+      const response = await axios.post(endpoint, {
+        phone: mpesaDetails.phone,
+        discount_id: id,
+        user_id: user?.id,
+      });
+      const { MerchantRequestID } = response.data.data;
+      setPaymentStatusResponse(response.data);
+      handleQueryPaymentStatus(MerchantRequestID);
+    } catch (error) {
+      console.error('Error initiating payment:', error);
+    }
+  };
+
+  const handleQueryPaymentStatus = async (MerchantRequestID: string) => {
+    const endpoint = `https://api.discoun3ree.com/api/payments/checkout/${MerchantRequestID}`;
+    try {
+      const response = await axios.get(endpoint);
+      setPaymentStatusResponse(response.data);
+
+      const paymentStatus = response.data.payment.status;
+      if (paymentStatus === 'pending') {
+        setTimeout(() => handleQueryPaymentStatus(MerchantRequestID), 4000);
+      } else if (paymentStatus === 'failed') {
+        setPaymentStatus('failed');
+        setShowPaymentLoaderModal(true);
+      } else if (paymentStatus === 'complete') {
+        setPaymentStatus('complete');
+        setShowPaymentLoaderModal(true);
+        setTimeout(() => navigate('/receipt/view'), 3000);
+      }
+    } catch (error) {
+      console.error('Error querying payment status:', error);
+      setPaymentStatus('failed');
+      setShowPaymentLoaderModal(true);
+    }
+  };
+
     const handleCheckout = () => {
-        console.log(`Product: ${selectedProduct?.name}, Gateway: ${selectedGateway}`);
-        console.log('Details:', selectedGateway === 'mpesa' ? mpesaDetails : cardDetails);
-        navigate('/receipt/view')
+        if (user) {
+        handlePaymentInitiation();
+        } else {
+        setShowLoginModal(true);
+        }
     };
 
     const handleClosePopup = () => {
@@ -71,10 +136,10 @@ const Checkout: React.FC = () => {
                     <div className="w-full md:w-1/2">
                         {discount && (
                             <div className='flex items-center gap-2 bg-gray-100 p-2 rounded-md'>
-                                <img src={discount.imageUrl} className='w-[110px] rounded-lg' alt="" />
+                                <img src={discount.image_url} className='w-[110px] rounded-lg' alt="" />
                                 <div className="flex flex-col ">
                                     <p className='font-medium text-[20px]'>{discount?.name}</p>
-                                    <p className="text-gray-600">Voucher: <span className="font-medium">Ksh. {((discount.initial_price) - (discount.price_after_discount)) * 0.2}</span></p>
+                                    <p className="text-gray-600">Voucher: <span className="font-medium">Ksh. {discount.amount}</span></p>
                                 </div>
                             </div>
                         )}
@@ -118,26 +183,24 @@ const Checkout: React.FC = () => {
                                     />
                                 </div>
                             </label>
-                            <label
-                                className={`cursor-pointer p-4 border rounded-lg ${selectedGateway === 'paypal' ? 'bg-blue-100' : ''
-                                    }`}
-                            >
-                                <input
-                                    type="radio"
-                                    name="gateway"
-                                    value="paypal"
-                                    onChange={() => handleGatewaySelect('paypal')}
-                                />
-                                <img
-                                    src="https://imgs.search.brave.com/1DfyBY-t63tkQ27ZvIctOXgJ8C56tK2ed3HvxVG3VlI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODBiNTdmY2Q5OTk2/ZTI0YmM0M2M1MzAu/cG5n"
-                                    alt=""
-                                    className="w-[120px]"
-                                />
-                                Paypal
-                            </label>
                         </div>
                     </div>
                 </div>
+
+                {showLoginModal && (
+                    <LoginModal
+                    onClose={handleCloseLoginModal}
+                    onLogin={handleLoginSuccess}
+                    />
+                )}
+
+                {showPaymentLoaderModal && (
+                    <PaymentLoaderModal
+                        onClose={() => setShowPaymentLoaderModal(false)}
+                        paymentStatusResponse={paymentStatusResponse}
+                        paymentStatus={paymentStatus}
+                    />
+                )}
 
                 {showPaymentPopup && (
                     <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
@@ -150,7 +213,7 @@ const Checkout: React.FC = () => {
                                         type="text"
                                         placeholder="Enter your phone number"
                                         className="border outline-none p-2 mt-2"
-                                        value={mpesaDetails.phoneNumber}
+                                        value={mpesaDetails.phone}
                                         onChange={handleMpesaInputChange}
                                     />
                                     <div className="flex w-full items-center justify-end">
