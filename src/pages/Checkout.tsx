@@ -135,11 +135,11 @@ const Checkout: React.FC = () => {
                 <div className="flex flex-col md:flex-row gap-8">
                     <div className="w-full md:w-1/2">
                         {discount && (
-                            <div className='flex items-center gap-2 bg-gray-100 p-2 rounded-md'>
+                            <div className='flex items-center gap-2 p-2 rounded-md'>
                                 <img src={discount.image_url} className='w-[110px] rounded-lg' alt="" />
                                 <div className="flex flex-col ">
-                                    <p className='font-medium text-[20px]'>{discount?.name}</p>
-                                    <p className="text-gray-600">Voucher: <span className="font-medium">Ksh. {discount.amount}</span></p>
+                                    <p className='font-medium text-[15px]'>{discount?.name}</p>
+                                    <p className="text-[13px] text-gray-600">Voucher: <span className="font-medium">Ksh. {discount.amount}</span></p>
                                 </div>
                             </div>
                         )}

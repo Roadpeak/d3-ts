@@ -15,7 +15,7 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const endpoint = loginType === 'user' ? 'http://127.0.0.1:8000/api/user/login' : 'http://127.0.0.1:8000/api/seller/login';
+      const endpoint = loginType === 'user' ? 'https://api.discoun3ree.com/api/user/login' : 'https://api.discoun3ree.com/api/seller/login';
       const response = await axios.post(endpoint, { email, password });
       console.log(response.data.access_token);
       const token = response.data.access_token;

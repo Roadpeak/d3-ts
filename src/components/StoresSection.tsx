@@ -19,7 +19,7 @@ const StoresSection = () => {
   const fetchStores = async () => {
     try {
       const token = localStorage.getItem('access_token');
-      const response = await axios.get<Store[]>('http://127.0.0.1:8000/api/shops', {
+      const response = await axios.get<Store[]>('https://api.discoun3ree.com/api/shops', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -39,12 +39,12 @@ const StoresSection = () => {
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 pb-[2%]'>
       <div className="flex items-center justify-between mt-4">
-        <p className="text-black font-semibold mb-2 text-[24px]">
+        <p className="text-gray-600 font-semibold mb-2 text-[20px]">
         Top Stores | 2024
       </p>
       <Link className="text-primary" to={'/stores'}>More Stores</Link>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-7 gap-4 my-[2%]">
+      <div className="grid grid-cols-2 md:grid-cols-5 w-full lg:grid-cols-7 gap-4 my-[2%]">
         {loading ? (
           <>
             <SkeletonLoader />
@@ -65,7 +65,7 @@ const StoresSection = () => {
                     className="w-full mx-auto rounded-sm object-cover"
                   />
                 </div>
-                <p className="text-center text-black font-semibold">{store.name}</p>
+                <p className="text-center text-gray-600 font-medium">{store.name}</p>
                 <p className="text-center text-[13px] text-[#FF9021]">{store.store_type}</p>
                 <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                   <FaExternalLinkAlt />

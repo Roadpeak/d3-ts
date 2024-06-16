@@ -6,17 +6,17 @@ import Footer from '../components/Footer';
 import SkeletonLoader from '../utils/elements/SkeletonLoader';
 
 interface Discount {
-    _id: string;
+    id: string;
     name: string;
-    initialPrice: number;
+    initial_price: number;
     discount: number;
     expiryDate: string;
     category: string;
     store: Store;
-    serviceTime: string;
+    service_time: string;
     description: string;
-    imageUrl: string;
-    priceAfterDiscount: number;
+    image_url: string;
+    price_after_discount: number;
 }
 
 interface Store {
@@ -34,7 +34,7 @@ const SearchResults: React.FC = () => {
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
-        const query = searchParams.get('q');
+        const query = searchParams.get('query');
         if (query) {
             fetchSearchResults(query);
         }
@@ -43,7 +43,7 @@ const SearchResults: React.FC = () => {
     const fetchSearchResults = async (query: string) => {
         try {
             setLoading(true);
-            const response = await axios.get<{ discounts: Discount[], stores: Store[] }>(`https://d3-api.onrender.com/api/v1/search?q=${query}`);
+            const response = await axios.get<{ discounts: Discount[], stores: Store[] }>(`https://api.discoun3ree.com/api/search?query=${query}`);
             setDiscounts(response.data.discounts);
             setStores(response.data.stores);
         } catch (error) {
@@ -56,9 +56,9 @@ const SearchResults: React.FC = () => {
     return (
         <div className="">
             <Navbar />
-            <div className='flex flex-col px-[5%]'>
-                <p className="text-black font-semibold mb-[1%] text-[24px]">
-                    Top Stores | Search Results
+            <div className='flex flex-col px-[5%] bg-gray-100'>
+                <p className="text-gray-600 font-meduim my-2 text-[18px]">
+                    Stores
                 </p>
                 {loading && (
                     <div className='grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-7 gap-4'>
@@ -70,7 +70,7 @@ const SearchResults: React.FC = () => {
                         <SkeletonLoader />
                     </div>
                 )}
-                {stores.length > 0 ? (
+                {stores?.length > 0 ? (
                     <div className="grid grid-cols-2 md:grid-cols-5 w-full lg:grid-cols-6 gap-4 my-[2%]">
                         {loading ? (
                             <>
@@ -85,11 +85,11 @@ const SearchResults: React.FC = () => {
                             stores.map((store) => (
                                 <a href={`/stores/${store?._id}/view`} key={store?._id} className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md hover:shadow-xl cursor-pointer">
                                     <img
-                                        src={store.imageUrl}
-                                        alt={store.name}
+                                        src={store?.imageUrl}
+                                        alt={store?.name}
                                         className="w-[70%] rounded-md object-cover mb-2"
                                     />
-                                    <p className="text-black font-semibold">{store.name}</p>
+                                    <p className="text-black font-semibold">{store?.name}</p>
                                     <p className="text-gray-500"><span className='text-primary'>see deals</span></p>
                                 </a>
                             ))
@@ -99,24 +99,24 @@ const SearchResults: React.FC = () => {
                         <>
                             {!loading && <p>No stores found.</p>}
                         </>
-                )
+                    )
                 }
 
-                <p className="text-black font-semibold mb-[1%] text-[24px]">
-                    Top Discounts | Search Results
+                <p className="text-gray-600 font-meduim my-2 text-[18px]">
+                    Discounts
                 </p>
                 {discounts.length > 0 ? (
-                    <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-5 gap-2 md:gap-5 lg:grid-cols-6'>
+                    <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5 lg:grid-cols-5'>
                         {discounts.map((discount) => (
-                            <a href={`/discount/${discount._id}/see-details`} key={discount._id} className="border flex flex-col bg-gray-50 justify-between rounded-md p-4">
-                                <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
+                            <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between rounded-md p-4">
+                                <img src={discount.image_url} alt={discount.name} className="w-full object-cover rounded-md" />
                                 <div className="flex flex-col">
-                                    <p className="text-[14px] text-gray-500">{discount?.store.name}</p>
-                                    <p className="text-[17px] font-medium">{discount.name}</p>
+                                    {/* <p className="text-[14px] text-gray-500">{discount?.store.name}</p> */}
+                                    <p className="text-[14px] text-gray-600">{discount.name}</p>
                                     <div className="flex items-center">
-                                        <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initialPrice.toLocaleString("KES")}`}</p>
-                                        <p className="text-primary font-medium text-[14px] ml-2">
-                                            {`Ksh. ${discount.priceAfterDiscount.toLocaleString("KES")}`}
+                                        <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
+                                        <p className="text-primary font-medium text-[15px] ml-2">
+                                            {`Ksh. ${discount.price_after_discount}`}
                                         </p>
                                     </div>
                                 </div>

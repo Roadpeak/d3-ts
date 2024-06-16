@@ -12,18 +12,18 @@ const Footer:React.FC = () => {
     window.open('mailto:info@dtree.com', '_blank');
   };
   const handleCategoryClick = (category: string) => {
-    const searchUrl = `/search?q=${category}`;
+    const searchUrl = `/search?query=${category}`;
     
     window.location.href = searchUrl;
 };
 
   return (
-    <footer className="bg-white border-t  text-black">
+    <footer className="bg-white text-black">
       <div className="px-[5%] mx-auto py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8"> 
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
             <p className="text-[20px] font-medium uppercase border-b">
-              d-tree
+              discoun3
             </p>
           </div>
 
