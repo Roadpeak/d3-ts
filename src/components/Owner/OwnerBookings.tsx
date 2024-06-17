@@ -1,43 +1,210 @@
-import React from 'react'
-import SellerLayout from '../../elements/SellerLayout'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import SellerLayout from '../../elements/SellerLayout';
+import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import { toast } from 'react-toastify';
 
-const OwnerBookings:React.FC = () => {
-  return (
-    <SellerLayout>
-        <div className="flex w-full">
-            <div className="w-full gap-2 flex flex-col py-8">
-                <div className="flex w-full justify-between items-center">
-                    <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>
-                    <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
-                </div>
-                <div className="w-full rounded-md mt-2 bg-white overflow-x-auto py-4">
-                    <div className="bg-light w-full rounded-lg">
-                        <table className="table-auto w-full rounded-md">
-                        <thead className=''>
-                            <tr className="bg-light border-b border-gray-100 text-[13px] text-[#002A4D] font-medium">
-                                <th className="px-4 text-start font-normal pb-2 pt-4">Discount name</th>
-                                <th className="px-4 text-start font-normal pb-2 pt-4">User name</th>
-                                <th className="px-4 text-start font-normal pb-2 pt-4">Time</th>
-                                <th className="px-4 text-start font-normal pb-2 pt-4">Status</th>
-                                <th className="px-4 text-start font-normal pb-2 pt-4">Details</th>
-                            </tr>
-                        </thead>
-                        <tbody className='text-gray-600 text-[12.04px] text-[#646882]'>
-                            <tr>
-                                <td className=" px-4 py-2">Phot Studio</td>
-                                <td className=" px-4 py-2">David Otieno</td>
-                                <td className=" px-4 py-2">10AM -12, 4th July 2024</td>
-                                <td className=" px-4 py-2">Approved</td>
-                                <td className=" px-4 py-2">Approve</td>
-                            </tr>
-                        </tbody>
-                    </table>
+interface Booking {
+    id: number;
+    discount: {
+        name: string;
+        discount: string; // Add more fields if needed
+        price_after_discount: string;
+    };
+    user: {
+        first_name: string;
+        last_name: string;
+        phone: string | null; // Add more fields if needed
+    };
+    time_slot: {
+        id: number;
+        date: string;
+        start_time: string;
+        end_time: string;
+    };
+    created_at: string;
+    approved: number;
+}
+
+const OwnerBookings: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const [bookings, setBookings] = useState<Booking[]>([]);
+    const [showDetailsModal, setShowDetailsModal] = useState<boolean>(false);
+    const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
+    const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+    const [approvalCode, setApprovalCode] = useState<string>('');
+
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const token = localStorage.getItem('access_token');
+                if (!token) {
+                    throw new Error('No access token found');
+                }
+
+                const response = await axios.get(`https://api.discoun3ree.com/api/bookings/shop/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                setBookings(response.data.data); 
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+                toast.error("An error occured!")
+            }
+        };
+
+        fetchBookings();
+    }, [id]); // Fetch bookings whenever id changes
+
+    const handleDetailsClick = (booking: Booking) => {
+        setSelectedBooking(booking);
+        setShowDetailsModal(true);
+    };
+
+    const handleApproveClick = (booking: Booking) => {
+        setSelectedBooking(booking);
+        setShowApproveModal(true);
+    };
+
+    const handleApprove = async () => {
+        if (!selectedBooking) return;
+
+        try {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                throw new Error('No access token found');
+            }
+
+            const response = await axios.post(`https://api.discoun3ree.com/bookings/${selectedBooking.id}/approve`, {
+                code: approvalCode
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 200) {
+                // Update the booking status locally
+                setBookings(bookings.map(booking => booking.id === selectedBooking.id ? { ...booking, approved: 1 } : booking));
+                setShowApproveModal(false);
+            } else {
+                throw new Error('Failed to approve booking');
+            }
+        } catch (error) {
+            console.error('Error approving booking:', error);
+            // Handle error as needed, e.g., show a message to the user
+        }
+    };
+
+    const formatDate = (date: string) => {
+        return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+    };
+
+    return (
+        <SellerLayout>
+            <div className="flex w-full">
+                <div className="w-full gap-2 flex flex-col py-8">
+                    <div className="flex w-full justify-between items-center">
+                        <p className="font-medium text-sm text-gray-700 tracking-wide">Latest Bookings</p>
+                        <input type="text" placeholder='Search here' className='bg-gray-100 w-52 focus:outline-none rounded-full py-2 px-3.5 text-sm text-gray-700' />
+                    </div>
+                    <div className="w-full rounded-md mt-4 bg-white overflow-x-auto">
+                        <table className="min-w-full leading-normal">
+                            <thead>
+                                <tr>
+                                    <th className="px-4 py-2 text-left text-sm font-normal text-gray-700">Discount Name</th>
+                                    <th className="px-4 py-2 text-left text-sm font-normal text-gray-700">User Name</th>
+                                    <th className="px-4 py-2 text-left text-sm font-normal text-gray-700">Time</th>
+                                    <th className="px-4 py-2 text-left text-sm font-normal text-gray-700">Status</th>
+                                    <th className="px-4 py-2 text-left text-sm font-normal text-gray-700">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {bookings.map(booking => (
+                                    <tr key={booking.id}>
+                                        <td className="px-4 py-2 text-sm">{booking.discount.name}</td>
+                                        <td className="px-4 py-2 text-sm">{`${booking.user.first_name} ${booking.user.last_name}`}</td>
+                                        <td className="px-4 py-2 text-sm">{formatDate(booking.created_at)}</td>
+                                        <td className="px-4 py-2 text-sm">{booking.approved === 1 ? 'Approved' : 'Pending'}</td>
+                                        <td className="px-4 py-2 text-sm">
+                                            <button 
+                                                className="text-blue-500 hover:underline mr-2 focus:outline-none"
+                                                onClick={() => handleDetailsClick(booking)}
+                                            >
+                                                Details
+                                            </button>
+                                            {booking.approved === 0 && (
+                                                <button 
+                                                    className="text-blue-500 hover:underline focus:outline-none"
+                                                    onClick={() => handleApproveClick(booking)}
+                                                >
+                                                    Approve
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </SellerLayout>
-  )
-}
+            {showDetailsModal && selectedBooking && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-md w-96">
+                        <h2 className="text-lg font-medium mb-4">Booking Details</h2>
+                        <p className="text-sm"><strong>User Name:</strong> {`${selectedBooking.user.first_name} ${selectedBooking.user.last_name}`}</p>
+                        <p className="text-sm"><strong>Discount Name:</strong> {selectedBooking.discount.name}</p>
+                        <p className="text-sm"><strong>Discount Amount:</strong> {selectedBooking.discount.discount}</p>
+                        <p className="text-sm"><strong>Price After Discount:</strong> {selectedBooking.discount.price_after_discount}</p>
+                        <p className="text-sm"><strong>Phone:</strong> {selectedBooking.user.phone || 'N/A'}</p>
+                        <p className="text-sm"><strong>Created At:</strong> {formatDate(selectedBooking.created_at)}</p>
+                        <p className="text-sm"><strong>Status:</strong> {selectedBooking.approved === 1 ? 'Approved' : 'Pending'}</p>
+                        <p className="text-sm"><strong>Time Slot:</strong> {moment(selectedBooking.time_slot.date).format('MMMM Do YYYY')}, {moment(selectedBooking.time_slot.start_time).format('h:mm A')} - {moment(selectedBooking.time_slot.end_time).format('h:mm A')}</p>
+                        <div className="flex justify-end mt-6">
+                            <button
+                                onClick={() => setShowDetailsModal(false)}
+                                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 focus:outline-none"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showApproveModal && selectedBooking && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg shadow-md w-96">
+                        <h2 className="text-lg font-medium mb-4">Enter Approval Code</h2>
+                        <input
+                            type="text"
+                            value={approvalCode}
+                            onChange={(e) => setApprovalCode(e.target.value)}
+                            className="border-gray-300 border p-2 w-full mb-4 rounded-md focus:outline-none"
+                        />
+                        <div className="flex justify-end">
+                            <button
+                                onClick={() => setShowApproveModal(false)}
+                                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 mr-2 focus:outline-none"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleApprove}
+                                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
+                            >
+                                Approve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </SellerLayout>
+    );
+};
 
-export default OwnerBookings
+export default OwnerBookings;

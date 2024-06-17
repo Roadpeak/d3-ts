@@ -22,10 +22,9 @@ const LoginPage: React.FC = () => {
       localStorage.setItem('access_token', token);
       setError('');
       navigate('/');
-      // window.location.reload();
+      window.location.reload();
       setLoading(false);
     } catch (error) {
-      console.error('Error logging in:', error);
       setLoading(false);
       setError('An error occurred');
     }
