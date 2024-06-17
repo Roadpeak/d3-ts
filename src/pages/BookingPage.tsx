@@ -1,11 +1,9 @@
-// pages/BookingPage.tsx
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import MiniCalendar from '../components/MiniCalendar';
-import { organizeTimeSlotsByDate } from '../utils/organizeTimeSlots';
 import { useAuth } from '../utils/context/AuthContext';
 import PaymentCodeModal from '../components/PaymentCodeModal';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -19,6 +17,7 @@ const BookingPage: React.FC = () => {
   const [showPaymentCodeModal, setShowPaymentCodeModal] = useState(false);
   const { user } = useAuth();
   const {id} = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTimeSlots = async () => {
@@ -80,6 +79,7 @@ const BookingPage: React.FC = () => {
       });
 
       toast('Booking Successfull!')
+      navigate('/my-bookings')
 
     } catch (error) {
       console.error('Error making booking:', error);
