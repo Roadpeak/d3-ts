@@ -23,7 +23,9 @@ const TimeSlotModal: React.FC<TimeSlotModalProps> = ({ date, timeSlots, onClose,
                 onClick={() => !slot.booked && onSelectSlot(slot)}
                 disabled={slot.booked}
               >
-                <div className="flex-grow">{slot.time_slot}</div>
+                <div className="flex justify-start">
+                  {format(new Date(slot.start_time), 'HH:mm')} - {format(new Date(slot.end_time), 'HH:mm')}
+                </div>
                 <div className="ml-2">{slot.booked ? 'Booked' : 'Available'}</div>
               </button>
             ))}

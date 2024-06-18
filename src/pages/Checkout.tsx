@@ -105,7 +105,7 @@ const Checkout: React.FC = () => {
       } else if (paymentStatus === 'complete') {
         setPaymentStatus('complete');
         setShowPaymentLoaderModal(true);
-        setTimeout(() => navigate(`/discount/${id}/bookings`), 3000);
+        setTimeout(() => navigate(`/discount/${id}/booking`), 3000);
       }
     } catch (error) {
       console.error('Error querying payment status:', error);

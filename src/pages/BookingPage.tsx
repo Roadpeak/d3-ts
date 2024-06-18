@@ -22,7 +22,7 @@ const BookingPage: React.FC = () => {
   useEffect(() => {
     const fetchTimeSlots = async () => {
       try {
-        const response = await axios.get(`https://api.discoun3ree.com/api/discounts/${id}/time-slots`);
+        const response = await axios.get(`https://api.discoun3ree.com/api/time-slots/discount/${id}`);
         setTimeSlots(response.data.time_slots);
         setLoading(false);
       } catch (err) {
@@ -35,9 +35,10 @@ const BookingPage: React.FC = () => {
         try {
             const accessToken = localStorage.getItem('access_token');
             if (!accessToken) {
-            console.error('Access token not found in localStorage');
+            // console.error('Access token not found in localStorage');
             return;
             }
+            console.log(user?.id);
 
             const response = await axios.get(`https://api.discoun3ree.com/api/payments/user/${user?.id}/discount/${id}`, {
             headers: {
@@ -53,7 +54,7 @@ const BookingPage: React.FC = () => {
 
     fetchTimeSlots();
     fetchPayments();
-  }, [id]);
+  }, [id, user?.id]);
 
 
   const handleBooking = async (paymentCode: string, slotId: number) => {
