@@ -22,7 +22,7 @@ const BookingPage: React.FC = () => {
   useEffect(() => {
     const fetchTimeSlots = async () => {
       try {
-        const response = await axios.get(`https://api.discoun3ree.com/api/time-slots/discount/${id}`);
+        const response = await axios.get(`https://api.discoun3ree.com/api/discounts/${id}/time-slots`);
         setTimeSlots(response.data.time_slots);
         setLoading(false);
       } catch (err) {
