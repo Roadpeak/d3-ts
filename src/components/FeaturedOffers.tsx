@@ -64,7 +64,7 @@ const FeaturedOffers: React.FC = () => {
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 pb-4'>
       <p className="text-gray-600 font-medium mb-2 text-[20px]">
-        Featured Services | 2024
+        Top Selling | 2024
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {loading ? (

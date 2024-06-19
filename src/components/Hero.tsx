@@ -1,13 +1,13 @@
-// src/components/Hero.tsx
 import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { fetchDiscounts } from '../services/discountService';
 import { Discount } from '../types';
+import { FaAngleLeft, FaChevronRight } from 'react-icons/fa';
 
 const Hero: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const slidesPerPage = 5;
-  const totalSlides = discounts.length;
 
   useEffect(() => {
     const fetchDiscountData = async () => {
@@ -22,48 +22,106 @@ const Hero: React.FC = () => {
     fetchDiscountData();
   }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex(prevIndex => (prevIndex === totalSlides - 1 ? 0 : prevIndex + 1));
+  const CustomNextArrow = (props: any) => (
+    <button {...props} className="slick-arrow next bg-primary text-white p-4 rounded-full shadow-md absolute right-0 top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
+      <FaChevronRight />
+    </button>
+  );
+
+  const CustomPrevArrow = (props: any) => (
+    <button {...props} className="slick-arrow prev bg-primary text-white p-4 rounded-full shadow-md absolute left-0 top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
+      <FaAngleLeft />
+    </button>
+  );
+
+  const getSlidesToShow = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1280) {
+      return 5;
+    } else if (screenWidth >= 1024) {
+      return 4;
+    } else if (screenWidth >= 768) {
+      return 3;
+    } else if (screenWidth >= 640) {
+      return 2;
+    } else {
+      return 1;
+    }
   };
 
-  const prevSlide = () => {
-    setCurrentIndex(prevIndex => (prevIndex === 0 ? totalSlides - 1 : prevIndex - 1));
+  const settings = {
+    dots: false, 
+    infinite: true,
+    speed: 500,
+    slidesToShow: getSlidesToShow(),
+    slidesToScroll: 1,
+    centerMode: true,
+    arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
+
+  const getCurrentMonthAndYear = () => {
+    const date = new Date();
+    const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
   };
 
   return (
-    <div className='p-4'>
-      <h1 className='text-3xl font-bold mb-4'>Featured Discounts</h1>
-      <div className='relative overflow-hidden'>
-        <div className='flex w-full transition-transform duration-500 ease-in-out' style={{ transform: `translateX(-${currentIndex * (100 / slidesPerPage)}%)` }}>
-          {discounts.concat(discounts).map((discount, index) => (
-            <div key={index} className='w-full md:w-1/5 px-2'>
-              <div className='max-w-sm rounded overflow-hidden shadow-lg'>
-                <img src={discount.image_url} alt={discount.name} className='w-full h-64 object-cover' />
-                <div className='px-6 py-4'>
-                  <div className='font-bold text-xl mb-2'>{discount.name}</div>
-                  <p className='text-gray-700 text-base'>{discount.description}</p>
-                </div>
-                <div className='px-6 pt-4 pb-2'>
-                  <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2'>
-                    Category: {discount.category}
-                  </span>
-                </div>
-                <div className='px-6 pt-4 pb-2'>
-                  <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2'>
-                    Price after discount: ${discount.price_after_discount}
-                  </span>
-                </div>
+    <div className='py-4 px-[5%] bg-gray-100'>
+      <p className='text-gray-600 font-medium mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
+      <Slider {...settings}>
+        {discounts.slice(0, 10).map((discount, index) => (
+          <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2'>
+            <div className='max-w-sm rounded overflow-hidden bg-white'>
+              <img src={discount.image_url} alt={discount.name} className='w-fit p-2 rounded-lg object-cover' />
+              <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
+              <div className='flex flex-col gap-2 justify-between w-full p-2'>
+                <span className='text-[13px] text-gray-600 font-light'>
+                  in {discount.category}
+                </span>
+                <span className='text-primary font-medium text-[16px]'>
+                  ksh. {discount.price_after_discount}
+                </span>
               </div>
             </div>
-          ))}
-        </div>
-        <button className='absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-md' onClick={prevSlide}>
-          &#10094;
-        </button>
-        <button className='absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-md' onClick={nextSlide}>
-          &#10095;
-        </button>
-      </div>
+          </a>
+        ))}
+      </Slider>
     </div>
   );
 };
