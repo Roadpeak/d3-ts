@@ -39,12 +39,12 @@ const StoresSection = () => {
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 pb-[2%]'>
       <div className="flex items-center justify-between mt-4">
-        <p className="text-gray-600 font-medium mb-2 text-[20px]">
+        <p className="text-gray-600 font-medium text-[20px]">
         Top Stores | 2024
       </p>
       <Link className="text-primary" to={'/stores'}>More Stores</Link>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-5 w-full lg:grid-cols-7 gap-4 my-[2%]">
+      <div className="grid grid-cols-2 md:grid-cols-5 w-full lg:grid-cols-7 gap-4 mb-4 mt-2">
         {loading ? (
           <>
             <SkeletonLoader />

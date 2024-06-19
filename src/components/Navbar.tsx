@@ -58,33 +58,33 @@ const Navbar: React.FC = () => {
         <img className='w-[150px] hidden md:flex pb-[10px]' src={logo} alt="" />
         <p className="text-[18px] flex md:hidden font-medium italic">D3</p>
         <div className="flex items-center gap-[30px] px-4">
-          <form onSubmit={handleSearch} className="active:border-primary md:hidden  flex items-center bg-transparent rounded-full border border-gray-300 w-full gap-2 pl-10 pr-4">
+          <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-10 pr-4">
             <input
               type="text"
-              placeholder='Search'
+              placeholder='Search value'
               className='outline-none py-1 w-fit bg-transparent'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="outline-none" type='submit'>
-              <FaSearch size={20} className='text-gray-500' />
+              <FaSearch size={20} className='text-gray-600 font-light text-[15px]' />
             </button>
           </form>
         </div>
-        <div className="flex items-center gap-[30px] ">
-          <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
-            <input
-              type="text"
-              placeholder='Search'
-              className='outline-none py-2 w-full bg-transparent'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="outline-none" type='submit'>
-              <FaSearch size={20} className='text-gray-500' />
-            </button>
-          </form>
-        </div>
+          <div className="flex items-center gap-[30px] ">
+            <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
+              <input
+                type="text"
+                placeholder='Search'
+                className='outline-none py-2 w-full bg-transparent'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="outline-none" type='submit'>
+                <FaSearch size={20} className='text-gray-500' />
+              </button>
+            </form>
+          </div>
         <div className="relative">
           <>
             {user ? (
@@ -108,7 +108,7 @@ const Navbar: React.FC = () => {
               </>
             )}
             {open && (
-              <div className="absolute top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
+              <div className="absolute z-20 top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
                 <a href='/accounts/profile' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegUser /> Account</a>
                 <a href='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineAddShoppingCart /> Cart</a>

@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { fetchDiscounts } from '../services/discountService';
 import { Discount } from '../types';
 import { FaAngleLeft, FaChevronRight } from 'react-icons/fa';
+import CategorySlider from '../utils/elements/CategorySlider';
 
 const Hero: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
@@ -103,25 +104,32 @@ const Hero: React.FC = () => {
 
   return (
     <div className='py-4 px-[5%] bg-gray-100'>
+      <img className='rounded-md mb-4' src="https://fatcoupon.com/_next/image?url=https%3A%2F%2Fd3itvsmwj0r86k.cloudfront.net%2Fimages%2F6b20c18a-443d-4957-b09e-830cc2766398.webp&w=1920&q=75" alt="" />
       <p className='text-gray-600 font-medium mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
-      <Slider {...settings}>
-        {discounts.slice(0, 10).map((discount, index) => (
-          <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2'>
-            <div className='max-w-sm rounded overflow-hidden bg-white'>
-              <img src={discount.image_url} alt={discount.name} className='w-fit p-2 rounded-lg object-cover' />
-              <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
-              <div className='flex flex-col gap-2 justify-between w-full p-2'>
-                <span className='text-[13px] text-gray-600 font-light'>
-                  in {discount.category}
-                </span>
-                <span className='text-primary font-medium text-[16px]'>
-                  ksh. {discount.price_after_discount}
-                </span>
+      <div className="border border-gray-200 rounded-md p-2">
+        <Slider {...settings}>
+          {discounts.slice(0, 10).map((discount, index) => (
+            <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2'>
+              <div className='max-w-sm rounded overflow-hidden bg-white'>
+                <img src={discount.image_url} alt={discount.name} className='w-fit p-2 object-cover' />
+                <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
+                <div className='flex flex-col gap-2 justify-between w-full p-2'>
+                  <span className='text-[13px] text-gray-600 font-light'>
+                    in {discount.category}
+                  </span>
+                  <span className='text-primary font-medium text-[16px]'>
+                    ksh. {discount.price_after_discount}
+                  </span>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
-      </Slider>
+            </a>
+          ))}
+        </Slider>
+      </div>
+      <div className="flex mt-3 flex-col">
+        <p className='text-gray-600 mb-2 font-medium text-[20px]'>People have searched</p>
+        <CategorySlider />
+      </div>
     </div>
   );
 };
