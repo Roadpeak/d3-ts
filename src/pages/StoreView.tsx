@@ -72,7 +72,7 @@ const StoreView: React.FC = () => {
   useEffect(() => {
     const fetchStore = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/shops/${id}`);
+        const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}`);
         setStore(response.data);
       } catch (error) {
         console.error('Error fetching store:', error);
@@ -193,10 +193,10 @@ const StoreView: React.FC = () => {
   };
 
   return (
-    <div className='w-full h-full scroll-smooth flex flex-col'>
+    <div className='w-full h-full scroll-smooth flex bg-gray-100 flex-col'>
       <Navbar />
-      <div className="flex flex-col">
-        <div className="flex flex-col w-full px-[5%] py-[2%] bg-white text-black gap-[2%]">
+      <div className="flex flex-col bg-gray-100">
+        <div className="flex flex-col w-full px-[5%] py-[2%] text-black gap-[2%]">
           <div className="w-full flex bg-gray-200 h-[120px] justify-between p-2 rounded-md">
             <div className="flex h-full items-center gap-4">
               <img
@@ -275,7 +275,7 @@ const StoreView: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="px-[5%] flex w-full gap-[2%] pb-4 flex-col md:flex-row bg-white ">
+        <div className="px-[5%] flex w-full gap-[2%] pb-4 flex-col md:flex-row ">
           <div className="mt-4 w-full md:w-1/2">
             <p className="font-medium text-[16px] mb-2">Post Your Review</p>
             <form

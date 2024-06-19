@@ -127,7 +127,7 @@ const Hero: React.FC = () => {
         </Slider>
       </div>
       <div className="flex mt-3 flex-col">
-        <p className='text-gray-600 mb-2 font-medium text-[20px]'>People have searched</p>
+        <p className='text-gray-600 mb-2 font-medium text-[20px]'>Top Categories</p>
         <CategorySlider />
       </div>
     </div>
