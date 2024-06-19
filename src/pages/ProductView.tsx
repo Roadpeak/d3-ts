@@ -48,8 +48,7 @@ const ProductView: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'details' | 'reviews'>('details');
   const [discount, setDiscount] = useState<Discount | null>(null);
-  const [error, setError] = useState('');  const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
-  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(''); const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
   const [loading, setLoading] = useState(false)
   const { id } = useParams();
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -91,7 +90,7 @@ const ProductView: React.FC = () => {
     fetchReviews();
   }, [id]);
 
- useEffect(() => {
+  useEffect(() => {
     const fetchDiscount = async () => {
       setLoading(true)
       try {
@@ -169,7 +168,7 @@ const ProductView: React.FC = () => {
                 ) : (
                   <div className="border p-4 flex flex-col md:flex-row w-full">
                     <div className="flex flex-col md:flex-row flex-wrap overflow-x-auto w-full md:w-1/2">
-                      <div className="px-[5%] w-full md:w-2/3 mt-4 md:mt-0">
+                      <div className="w-full md:w-2/3 mt-4 md:mt-0">
                         <img
                           className='rounded-md'
                           alt='image'
@@ -256,7 +255,7 @@ const ProductView: React.FC = () => {
                 </div>
                 {activeTab === 'details' ? (
                   <div className="">
-                    <p className="text-[14px] font-light text-[14px] text-gray-500">
+                    <p className="text-[14px] font-light text-[14px] text-gray-600">
                       {discount?.description}
                     </p>
                   </div>
@@ -279,37 +278,37 @@ const ProductView: React.FC = () => {
                     required
                     value={newReview.user}
                     onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
-                    className="border p-2 focus:border-primary outline-none rounded-md"
+                    className="p-2 outline-none rounded-md"
                   />
                   <textarea
                     placeholder="Your Comment"
                     value={newReview.comment}
                     required
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    className="border p-2 rounded-md focus:border-primary outline-none"
+                    className="p-2 rounded-md outline-none"
                   />
-                  <button type="submit" className="bg-primary rounded-md text-white font-medium px-4 py-2">
+                  <button type="submit" className="bg-primary rounded-md text-white font-medium mt-2 px-4 py-2">
                     {loading ? <ClipLoader color="#fff" /> : 'Post Review'}
                   </button>
                 </form>
               </div>
             </div>
             <div className="w-full md:w-1/3">
-                  <p
-                    className={`font-medium text-[18px] cursor-pointer text-primary border-b border-primary`}
-                    onClick={() => setActiveTab('reviews')}
-                  >
-                    Reviews ({reviews.length})
-                  </p>
+              <p
+                className={`font-medium text-[18px] cursor-pointer text-primary border-b border-primary`}
+                onClick={() => setActiveTab('reviews')}
+              >
+                Reviews ({reviews.length})
+              </p>
               <div className="">
-                    {reviews.map((review) => (
-                      <div key={review._id} className="border-b py-2">
-                        <p className="font-medium">{review.reviewerName}</p>
-                        <p className='text-gray-700'>{review.reviewText}</p>
-                        <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
-                      </div>
-                    ))}
+                {reviews.map((review) => (
+                  <div key={review._id} className="border-b py-2">
+                    <p className="font-medium">{review.reviewerName}</p>
+                    <p className='text-gray-700'>{review.reviewText}</p>
+                    <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
                   </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

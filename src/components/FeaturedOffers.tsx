@@ -66,61 +66,63 @@ const FeaturedOffers: React.FC = () => {
       <p className="text-gray-600 font-medium mb-2 text-[20px]">
         Featured Services | 2024
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {loading ? (
           <ShimmerLoader count={4} />
         ) : (
           discounts.map((item) => (
-            <div key={item.id} className="bg-white rounded-md p-4">
+            <div key={item.id} className="bg-white flex flex-col justify-between rounded-md p-4">
               <img src={item.image_url} className='rounded-md' alt="" />
-              <p className="text-black my-2 font-medium text-[16px]">{item.name}</p>
-              <div className="flex mt-2 items-center justify-between w-full">
-                <div className="flex gap-1 items-center">
-                  <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
-                  <p className="text-primary font-semibold text-[14px] ml-2">
-                    {`Ksh. ${item.price_after_discount}`}
-                  </p>
+              <div className="flex flex-col">
+                <p className="text-black my-2 font-medium text-[16px]">{item.name}</p>
+                <div className="flex mt-2 items-center justify-between w-full">
+                  <div className="flex gap-1 items-center">
+                    <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
+                    <p className="text-primary font-semibold text-[14px] ml-2">
+                      {`Ksh. ${item.price_after_discount}`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <p className=""><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
-              <div className="flex w-full gap-[2%]">
-                {new Date(item.expiry_date) > new Date() ? (
-                  <>
-                    <a
-                      href={`/${item.id}/checkout`}
-                      className="w-full rounded-md text-center border border-third text-third py-1"
-                      onClick={() => handleGetOffer(item)}
-                      title="Get offer"
-                    >
-                      Get offer
-                    </a>
-                    <a
-                      href={`/discount/${item.id}/see-details`}
-                      className="w-full rounded-md text-center bg-primary text-white py-1"
-                      onClick={() => handleSeeDetails(item)}
-                      title="See Details"
-                    >
-                      See Details
-                    </a>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className="w-full rounded-md border border-third text-third py-1"
-                      disabled
-                      title="Expired"
-                    >
-                      Expired
-                    </button>
-                    <button
-                      className="w-full rounded-md bg-primary text-white py-1"
-                      disabled
-                      title="Expired"
-                    >
-                      Expired
-                    </button>
-                  </>
-                )}
+                <p className=""><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
+                <div className="flex w-full gap-[2%]">
+                  {new Date(item.expiry_date) > new Date() ? (
+                    <>
+                      <a
+                        href={`/${item.id}/checkout`}
+                        className="w-full rounded-md text-center border border-third text-third py-1"
+                        onClick={() => handleGetOffer(item)}
+                        title="Get offer"
+                      >
+                        Get offer
+                      </a>
+                      <a
+                        href={`/discount/${item.id}/see-details`}
+                        className="w-full rounded-md text-center bg-primary text-white py-1"
+                        onClick={() => handleSeeDetails(item)}
+                        title="See Details"
+                      >
+                        See Details
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="w-full rounded-md border border-third text-third py-1"
+                        disabled
+                        title="Expired"
+                      >
+                        Expired
+                      </button>
+                      <button
+                        className="w-full rounded-md bg-primary text-white py-1"
+                        disabled
+                        title="Expired"
+                      >
+                        Expired
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           ))

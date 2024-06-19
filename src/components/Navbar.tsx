@@ -8,6 +8,7 @@ import { useAuth } from '../utils/context/AuthContext';
 import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
 import axios from 'axios';
 import logo from '../assets/logo1.png'
+import { IoIosMenu } from 'react-icons/io';
 
 interface Shop {
   id: string;
@@ -53,8 +54,23 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <div className='flex w-full py-2 px-[5%] items-center justify-between bg-gray-50 '>
-        <img className='w-[150px] pb-[10px]' src={logo} alt="" />
+      <div className='flex w-full py-2 px-[5%] items-center justify-between items-center bg-gray-50 '>
+        <img className='w-[150px] hidden md:flex pb-[10px]' src={logo} alt="" />
+        <p className="text-[18px] flex md:hidden font-medium italic">D3</p>
+        <div className="flex items-center gap-[30px] px-4">
+          <form onSubmit={handleSearch} className="active:border-primary md:hidden  flex items-center bg-transparent rounded-full border border-gray-300 w-full gap-2 pl-10 pr-4">
+            <input
+              type="text"
+              placeholder='Search'
+              className='outline-none py-1 w-fit bg-transparent'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="outline-none" type='submit'>
+              <FaSearch size={20} className='text-gray-500' />
+            </button>
+          </form>
+        </div>
         <div className="flex items-center gap-[30px] ">
           <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
             <input
@@ -73,13 +89,23 @@ const Navbar: React.FC = () => {
           <>
             {user ? (
               <button onClick={() => setOpen(!open)} className="flex items-center gap-2 hover:text-primary cursor-pointer">
-                <p className="">Hi, {user?.firstName}</p> <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+                <p className="hidden md:flex">Hi, {user?.firstName}</p> <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
               </button>
             ) : (
-              <div className="flex items-center  text-white gap-3">
-                <a href={`/accounts/sign-in`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</a>
-                <a href={`/accounts/sign-up`} className='px-4 py-1.5 text-gray-500 bg-transparent border  border-gray-300 rounded-full hover:text-primary hover:border-primary'>Register</a>
-              </div>
+              <>
+                <div className="flex flex-col items-center relative text-white">
+                  {/* <span>
+                    
+                  </span> */}
+                  <div className="flex relative w-full">
+                    <a href='/accounts/sign-in' className="flex text-black md:hidden">
+                      <IoIosMenu size={24} />
+                    </a>
+                    <a href={`/accounts/sign-in`} className='px-4 py-1 text-gray-500 mr-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</a>
+                    <a href={`/accounts/sign-up`} className='px-4 py-1 text-gray-500 ml-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Register</a>
+                  </div>
+                </div>
+              </>
             )}
             {open && (
               <div className="absolute top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
@@ -90,17 +116,17 @@ const Navbar: React.FC = () => {
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineDiscount /> Coupons</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BiSolidDiscount /> Vouchers</a>
                 {user && user.user_type === 'seller' && stores.length !== 0 ? (
-                <a href={stores.length > 0 ? `/store/${stores[0]?.id}/home` : '#'} className=''>
+                  <a href={stores.length > 0 ? `/store/${stores[0]?.id}/home` : '#'} className=''>
                     <button
                       className=""
                     >
                       Dashboard
                     </button>
-                </a>
-              ) : (
-                <div>
-                </div>
-              )}
+                  </a>
+                ) : (
+                  <div>
+                  </div>
+                )}
                 <button className="bg-primary text-white rounded-md py-1.5" onClick={logoutUser}>
                   Log Out
                 </button>
@@ -109,25 +135,11 @@ const Navbar: React.FC = () => {
           </>
         </div>
       </div>
-       <div className="flex items-center gap-[30px] px-4">
-          <form onSubmit={handleSearch} className="active:border-primary md:hidden mb-2  flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
-            <input
-              type="text"
-              placeholder='Search'
-              className='outline-none py-2 w-full bg-transparent'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="outline-none" type='submit'>
-              <FaSearch size={20} className='text-gray-500' />
-            </button>
-          </form>
-        </div>
       <div className="bg-primary flex items-center justify-center gap-2 py-2 ">
         <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Home</Link>
         <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
         <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Deals</Link>
-      </div>     
+      </div>
     </>
   )
 }
