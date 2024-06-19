@@ -27,8 +27,8 @@ const Banner: React.FC = () => {
     <div className='w-full'>
       <Slider {...settings}>
         {banners.map((banner, index) => (
-          <div key={index} className="w-full h-[400px]">
-            <img src={banner} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" /> {/* Adjust the height of the image */}
+          <div key={index} className="w-fit md:w-full h-auto md:h-[400px]">
+            <img src={banner} alt={`Banner ${index + 1}`} className="w-full h-full object-cover" />
           </div>
         ))}
       </Slider>
