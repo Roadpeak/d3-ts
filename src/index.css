@@ -39,3 +39,46 @@
 .animate-shimmer {
     animation: shimmer 1.5s infinite linear;
 }
+/* src/styles/slider.css */
+
+.slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    flex: 0 0 auto;
+    padding: 0 8px;
+    /* Adjust spacing between slides */
+    width: 100%;
+    /* Ensure each slide takes full width of container */
+    box-sizing: border-box;
+    /* Ensure padding does not affect width */
+}
+
+.prev-btn,
+.next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
