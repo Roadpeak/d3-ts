@@ -15,13 +15,13 @@ const CategorySlider: React.FC = () => {
   ];
 
   const CustomNextArrow = (props: any) => (
-    <button {...props} className="slick-arrow next bg-primary text-white p-4 rounded-full shadow-md absolute right-[-25px] top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
+    <button {...props} className="slick-arrow next bg-opacity-50 text-primary p-4 rounded-full shadow-md absolute right-[-25px] top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
       <FaChevronRight />
     </button>
   );
 
   const CustomPrevArrow = (props: any) => (
-    <button {...props} className="slick-arrow prev bg-primary text-white p-4 rounded-full shadow-md absolute left-[-25px] top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
+    <button {...props} className="slick-arrow prev bg-opacity-50 text-primary p-4 rounded-full shadow-md absolute left-[-25px] top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
       <FaAngleLeft />
     </button>
   );
