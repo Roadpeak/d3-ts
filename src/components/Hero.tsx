@@ -6,6 +6,7 @@ import { fetchDiscounts } from '../services/discountService';
 import { Discount } from '../types';
 import { FaAngleLeft, FaChevronRight } from 'react-icons/fa';
 import CategorySlider from '../utils/elements/CategorySlider';
+import Banner from '../utils/elements/Banner';
 
 const Hero: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
@@ -104,7 +105,7 @@ const Hero: React.FC = () => {
 
   return (
     <div className='py-4 px-[5%] bg-gray-100'>
-      <img className='rounded-md mb-4' src="https://fatcoupon.com/_next/image?url=https%3A%2F%2Fd3itvsmwj0r86k.cloudfront.net%2Fimages%2F6b20c18a-443d-4957-b09e-830cc2766398.webp&w=1920&q=75" alt="" />
+      <Banner />
       <p className='text-gray-600 font-medium mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
       <div className="border border-gray-200 rounded-md p-2">
         <Slider {...settings}>
