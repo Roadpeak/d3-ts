@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
   return (
     <div className='py-4 px-[5%] bg-gray-100'>
       <Banner />
-      <p className='text-gray-600 font-medium mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
+      <p className='text-gray-600 font-medium mt-4 mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
       <div className="border border-gray-200 rounded-md p-2">
         <Slider {...settings}>
           {discounts.slice(0, 10).map((discount, index) => (

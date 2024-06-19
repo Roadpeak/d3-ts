@@ -7,8 +7,6 @@ import TravelSection from '../components/TravelSection'
 import Footer from '../components/Footer'
 
 const Home: React.FC = () => {
-  const sender = '65f94b151102771a08a6dce6'; 
-  const recipient = '6614d3855219f9ce39db1af8';
   return (
     <div>
       <Navbar />

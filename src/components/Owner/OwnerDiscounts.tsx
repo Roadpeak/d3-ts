@@ -3,6 +3,7 @@ import SellerLayout from '../../elements/SellerLayout';
 import { IoMdAdd } from 'react-icons/io';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { FaSpinner } from 'react-icons/fa';
 
 interface DiscountData {
     id: number;
@@ -37,6 +38,7 @@ const OwnerDiscounts: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedDiscount, setSelectedDiscount] = useState<DiscountData | null>(null);
     const [showPopup, setShowPopup] = useState(false);
+      const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchDiscounts = async () => {
@@ -71,19 +73,22 @@ const OwnerDiscounts: React.FC = () => {
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
-            try {
-                const formData = new FormData();
-                formData.append('image', file);
+        setLoading(true); // Start loading
+        try {
+            const formData = new FormData();
+            formData.append('image', file);
 
-                const response = await axios.post('https://api.discoun3ree.com/api/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                setImageUrl(response.data.url);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            }
+            const response = await axios.post('https://api.discoun3ree.com/api/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            });
+            setImageUrl(response.data.url);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        } finally {
+            setLoading(false); // End loading
+        }
         }
     };
 
@@ -274,7 +279,9 @@ const OwnerDiscounts: React.FC = () => {
                                 />
                             </div>
                             <div>
-                                <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Image</label>
+                                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                                    Upload Image
+                                </label>
                                 <input
                                     type="file"
                                     id="image"
@@ -282,12 +289,17 @@ const OwnerDiscounts: React.FC = () => {
                                     className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                                     onChange={handleImageChange}
                                 />
-                            </div>
-                            {imageUrl && (
-                                <div>
+                                {loading && (
+                                    <div className="flex justify-center items-center mt-4">
+                                    <FaSpinner className="animate-spin text-primary text-2xl" />
+                                    </div>
+                                )}
+                                {imageUrl && (
+                                    <div>
                                     <img src={imageUrl} alt="Uploaded" className="mt-4 w-full h-[100px] rounded" />
+                                    </div>
+                                )}
                                 </div>
-                            )}
                             <div className="flex justify-end">
                                 <button
                                     type="button"
