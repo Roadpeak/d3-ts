@@ -20,9 +20,10 @@ interface Shop {
 }
 
 interface StoreData {
-  storeName: string;
+  name: string;
   location: string;
-  storeType: string;
+  store_type: string;
+  image_url: string;
 }
 
 const Navbar: React.FC = () => {
@@ -35,9 +36,10 @@ const Navbar: React.FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [storeData, setStoreData] = useState<StoreData>({
-    storeName: '',
+    name: '',
     location: '',
-    storeType: ''
+    store_type: '',
+    image_url: ''
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -178,12 +180,12 @@ const Navbar: React.FC = () => {
             <p className="text-center mb-6 text-gray-600">To proceed to your dashboard, you need to create at least one store.</p>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="storeName" className="block text-sm font-medium text-gray-700">Store Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Store Name</label>
                 <input  
                   type="text"
-                  id="storeName"
-                  name="storeName"
-                  value={storeData.storeName}
+                  id="name"
+                  name="name"
+                  value={storeData.name}
                   placeholder='e.g. QBF Software Solutions'
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                   onChange={handleInputChange}
@@ -202,12 +204,12 @@ const Navbar: React.FC = () => {
                 />
               </div>
               <div>
-                <label htmlFor="storeType" className="block text-sm font-medium text-gray-700">Store Type</label>
+                <label htmlFor="store_type" className="block text-sm font-medium text-gray-700">Store Type</label>
                 <input
                   type="text"
-                  id="storeType"
-                  name="storeType"
-                  value={storeData.storeType}
+                  id="store_type"
+                  name="store_type"
+                  value={storeData.store_type}
                   placeholder='e.g. nail spa, make up. etc...'
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                   onChange={handleInputChange}
