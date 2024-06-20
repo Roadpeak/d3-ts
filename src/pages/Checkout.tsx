@@ -205,9 +205,9 @@ const Checkout: React.FC = () => {
 
                 {showLoginModal && (
                     <LoginModal
-                    onClose={handleCloseLoginModal}
-                    onLogin={handleLoginSuccess}
-                    />
+                        onClose={handleCloseLoginModal}
+                        onLogin={handleLoginSuccess}
+                        />
                 )}
 
                 {showPaymentLoaderModal && (

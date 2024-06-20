@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import BookingSlotsList from '../components/seller/BookingSlotsList';
 import { ClipLoader } from 'react-spinners';
+import ReviewComponent from '../components/ReviewComponent';
 
 interface Review {
   _id: string;
@@ -51,44 +52,7 @@ const ProductView: React.FC = () => {
   const [error, setError] = useState(''); const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
   const [loading, setLoading] = useState(false)
   const { id } = useParams();
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [newReview, setNewReview] = useState<{ user: string; comment: string }>({
-    user: '',
-    comment: '',
-  });
-
-  const handlePostReview = async () => {
-    try {
-      setLoading(true)
-      if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
-        const response = await axios.post('https://d3-api.onrender.com/api/v1/reviews', {
-          entityType: 'discount',
-          entityId: id,
-          reviewerName: newReview.user,
-          reviewText: newReview.comment
-        });
-        window.location.reload();
-        setNewReview({ user: '', comment: '' });
-        setLoading(false)
-      }
-    } catch (error) {
-      console.error('Error posting review:', error);
-      setLoading(false)
-    }
-  };
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get<{ reviews: Review[] }>(`https://d3-api.onrender.com/api/v1/reviews/entity/${id}`);
-        setReviews(response.data.reviews);
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
-      }
-    };
-
-    fetchReviews();
-  }, [id]);
+  const discounId = id ? parseInt(id, 10) : 0;
 
   useEffect(() => {
     const fetchDiscount = async () => {
@@ -110,7 +74,7 @@ const ProductView: React.FC = () => {
     <div>
       <Navbar />
       <div className="flex px-[5%] flex-col py-[2%]">
-        <div className="flex flex-col gap-2 items-start ">
+        <div className="flex w-full flex-col gap-2 items-start ">
           <button onClick={() => navigate(-1)} className="flex text-gray-600 font-light text-[15px] items-center gap-2">
             <FaAngleLeft />
             <span>Go back</span>
@@ -243,27 +207,7 @@ const ProductView: React.FC = () => {
                   </div>
                 )
               }
-              <div className="flex flex-col w-full mt-[2%] p-[2%] bg-gray-100">
-                <div className="flex gap-2 w-full justify-between items-center mb-2">
-                  <p
-                    className={`font-medium text-[18px] cursor-pointer ${activeTab === 'details' ? 'text-primary border-b border-primary' : 'text-gray-600'
-                      }`}
-                    onClick={() => setActiveTab('details')}
-                  >
-                    Details
-                  </p>
-                </div>
-                {activeTab === 'details' ? (
-                  <div className="">
-                    <p className="text-[14px] font-light text-[14px] text-gray-600">
-                      {discount?.description}
-                    </p>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="mt-4 w-full">
+              {/* <div className="mt-4 w-full">
                 <p className="font-medium text-[16px] mb-2">Post Your Review</p>
                 <form
                   onSubmit={(e) => {
@@ -291,25 +235,31 @@ const ProductView: React.FC = () => {
                     {loading ? <ClipLoader color="#fff" /> : 'Post Review'}
                   </button>
                 </form>
-              </div>
+              </div> */}
             </div>
             <div className="w-full md:w-1/3">
-              <p
-                className={`font-medium text-[18px] cursor-pointer text-primary border-b border-primary`}
-                onClick={() => setActiveTab('reviews')}
-              >
-                Reviews ({reviews.length})
-              </p>
-              <div className="">
-                {reviews.map((review) => (
-                  <div key={review._id} className="border-b py-2">
-                    <p className="font-medium">{review.reviewerName}</p>
-                    <p className='text-gray-700'>{review.reviewText}</p>
-                    <p className="text-gray-400 text-[13px]">{new Date(review.reviewDate).toLocaleString()}</p>
+              <div className="flex gap-2 w-full justify-between items-center mb-2">
+                  <p
+                    className={`font-medium text-[18px] cursor-pointer ${activeTab === 'details' ? 'text-primary border-b border-primary' : 'text-gray-600'
+                      }`}
+                    onClick={() => setActiveTab('details')}
+                  >
+                    Details
+                  </p>
+                </div>
+                {activeTab === 'details' ? (
+                  <div className="">
+                    <p className="text-[14px] font-light text-[14px] text-gray-600">
+                      {discount?.description}
+                    </p>
                   </div>
-                ))}
-              </div>
+                ) : (
+                  <></>
+                )}
             </div>
+          </div>
+          <div className="w-full p-4 mt-4 bg-white rounded-md">
+             <ReviewComponent reviewableType="discount" reviewableId={discounId} />
           </div>
         </div>
       </div>

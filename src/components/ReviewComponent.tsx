@@ -3,6 +3,7 @@ import { manageReview, getReviewsByReviewable } from '../services/apiService';
 import { Spinner } from '@material-tailwind/react';
 import { useAuth } from '../utils/context/AuthContext';
 import Modal from '../utils/elements/Modal';
+import LoginModal from '../utils/context/LoginModal';
 
 interface Review {
   id: number;
@@ -24,6 +25,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [editReview, setEditReview] = useState<Review | null>(null);
   const [deleteReview, setDeleteReview] = useState<Review | null>(null);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const fetchReviews = async () => {
     setIsLoading(true);
@@ -47,6 +49,11 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
+
     if (!newReview.trim()) return;
 
     setIsLoading(true);
@@ -97,6 +104,15 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
     }
   };
 
+  const handleLoginSuccess = () => {
+    setShowLoginModal(false);
+    // Optionally, you may refresh the reviews or perform other actions after login
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
   return (
     <div className="w-full border borde-gray-200 rounded-md p-4">
       <div className="flex w-full flex-col gap-4 md:flex-row">
@@ -106,7 +122,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
             value={newReview}
             onChange={handleInputChange}
             placeholder="Write your review..."
-            className="w-full p-2 bg-white outline-none text-[14px] border-gray-300 rounded-lg"
+            className="w-full p-2 bg-white outline-none border text-[14px] border-gray-300 rounded-lg"
           />
           <button
             type="submit"
@@ -117,6 +133,10 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
           </button>
         </form>
 
+        {showLoginModal && (
+          <LoginModal onClose={handleCloseLoginModal} onLogin={handleLoginSuccess} />
+        )}
+
         {isLoading ? (
           <div className="w-full md:w-1/2 flex justify-center items-center">
             <Spinner />
@@ -124,7 +144,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
         ) : (
           <div className="w-full md:w-1/2 mt-4">
             {reviews.length === 0 ? (
-              <p>No reviews yet.</p>
+              <p className='text-gray-600 text-[14px] font-light'>No reviews yet.</p>
             ) : (
               reviews.slice(0, 4).map((review) => (
                 <div key={review.id} className="w-full border-b py-2">
@@ -156,7 +176,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
         )}
       </div>
 
-     {editReview && (
+      {editReview && (
         <Modal isOpen={Boolean(editReview)} onClose={() => setEditReview(null)}>
           <p className="text-[18px] text-gray-700 font-medium mb-2">Edit Review</p>
           <textarea
@@ -182,7 +202,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
         </Modal>
       )}
 
-      {/* Delete Review Confirmation Modal */}
       {deleteReview && (
         <Modal isOpen={Boolean(deleteReview)} onClose={() => setDeleteReview(null)}>
           <h2 className="text-lg font-semibold mb-2">Delete Review</h2>

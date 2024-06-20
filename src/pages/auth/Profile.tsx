@@ -25,7 +25,6 @@ const UserProfileCard: React.FC = () => {
       <Navbar />
       <div className="max-w-sm my-[5%] mx-auto bg-white rounded-md overflow-hidden">
         <div className="relative">
-          {/* <img className="w-full h-56 object-cover" src={avatar} alt={`${first_name} ${last_name}`} /> */}
           <div className="absolute bottom-0 left-0 bg-primary text-white py-1 px-2 rounded-tr-md">
             ID: {id}
           </div>
