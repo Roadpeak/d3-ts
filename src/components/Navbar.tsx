@@ -76,8 +76,7 @@ const Navbar: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // await addStore(storeData, setLoading, handleCloseAddStore);
-    console.log(storeData);
+    await addStore(storeData, setLoading, handleCloseAddStore);
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
