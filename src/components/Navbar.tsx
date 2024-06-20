@@ -11,6 +11,7 @@ import { IoIosMenu, IoMdAdd } from 'react-icons/io';
 import addStore from '../services/addStore';
 import handleImageChange from '../services/handleImageChange';
 import fetchOwnerStores from '../services/fetchownerStores';
+import { Spinner } from '@material-tailwind/react';
 
 interface Shop {
   id: string;
@@ -57,7 +58,7 @@ const Navbar: React.FC = () => {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
-      await handleImageChange(file, setImageUrl);
+      await handleImageChange(file, setImageUrl, setLoading);
     }
   };
 
@@ -233,6 +234,12 @@ const Navbar: React.FC = () => {
                   onChange={handleImageUpload}
                 />
               </div>
+              {isLoading && (
+                <div className="flex items-center justify-center mt-2">
+                  <Spinner />
+                  <span className="ml-2">Uploading...</span>
+                </div>
+              )}
               {imageUrl && (
                 <div>
                   <img src={imageUrl} alt="Uploaded" className="mt-4 w-full rounded" />
