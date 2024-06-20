@@ -57,8 +57,8 @@ const Navbar: React.FC = () => {
       <div className='flex w-full py-2 px-[5%] items-center justify-between items-center bg-gray-50 '>
         <img className='w-[150px] hidden md:flex pb-[10px]' src={logo} alt="" />
         <p className="text-[18px] flex md:hidden font-medium italic">D3</p>
-        <div className="flex items-center gap-[30px] px-4">
-          <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-10 pr-4">
+        <div className="flex items-center gap-[30px] w-fit px-4">
+          <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input
               type="text"
               placeholder='Search value'
