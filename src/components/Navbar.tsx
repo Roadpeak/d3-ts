@@ -12,6 +12,7 @@ import addStore from '../services/addStore';
 import handleImageChange from '../services/handleImageChange';
 import fetchOwnerStores from '../services/fetchownerStores';
 import { Spinner } from '@material-tailwind/react';
+import { toast } from 'react-toastify';
 
 interface Shop {
   id: string;
@@ -67,7 +68,7 @@ const Navbar: React.FC = () => {
         }));
         console.log("image: ", imageUrl);
       } catch (error) {
-        console.error('Error handling image upload:', error);
+        toast.error("Error uploading Image");
       } finally {
         setLoading(false);
       }
@@ -138,9 +139,6 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <div className="flex flex-col items-center relative text-white">
-                  {/* <span>
-                    
-                  </span> */}
                   <div className="flex relative w-full">
                     <a href='/accounts/sign-in' className="flex text-black md:hidden">
                       <IoIosMenu size={24} />

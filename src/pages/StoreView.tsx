@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 import { ClipLoader } from 'react-spinners';
+import ReviewComponent from '../components/ReviewComponent';
+import { followShop, getShopById, getShopFollowers, unfollowShop } from '../services/apiService';
 
 interface Store {
   id: number;
@@ -28,7 +30,7 @@ interface Discount {
   store: Store;
   serviceTime: string;
   description: string;
-  imageUrl: string;
+  image_url: string;
   price_after_discount: number;
 }
 
@@ -40,42 +42,41 @@ interface Review {
 }
 
 interface Follower {
-  _id: string;
-  user: {
-    _id: string;
-    first_name: string;
-    last_name: string;
-  };
-  store: string;
+  follower_id: number;
+  shop_name: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  user: any; // Assuming user can be any type, adjust as per your actual data
 }
 
 
 const StoreView: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
   const [store, setStore] = useState<Store | null>(null);
   const [discounts, setDiscounts] = useState<Discount[]>([]);
   const [loading, setLoading] = useState(false);
-  const [followers, setFollowers] = useState<Follower[]>([])
+  const [followers, setFollowers] = useState<Follower[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [newReview, setNewReview] = useState<{ user: string; comment: string }>({
-    user: '',
-    comment: '',
-  });
 
   const { user } = useAuth();
-  const userId = user?.id;
+  const { id } = useParams<{ id: string }>();
   const token = localStorage.getItem('access_token');
-  const maxLength = 100;
+  const maxLength = 27;
+  const shopId = id ? parseInt(id, 10) : 0;
 
   useEffect(() => {
     const fetchStore = async () => {
       try {
-        const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}`);
-        setStore(response.data);
+        const storeData = await getShopById(shopId);
+        setStore(storeData);
       } catch (error) {
         console.error('Error fetching store:', error);
+      } finally {
+        
       }
     };
 
@@ -83,22 +84,55 @@ const StoreView: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-    const fetchStore = async () => {
-      try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/followers/${id}`);
-        setFollowers(response.data);
-      } catch (error) {
-        console.error('Error fetching store:', error);
-      }
-    };
+  const fetchFollowers = async () => {
+    setIsLoading(true);
+    try {
+      const data = await getShopFollowers(shopId);
+      setFollowers(data);
+      
+      const isCurrentUserFollowing = data.some((follower: Follower) => follower.phone === user?.phone);
+      setIsFollowing(isCurrentUserFollowing);
+    } catch (error) {
+      console.error('Error fetching followers:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchStore();
-  }, [id]);
+  if (user) {
+    fetchFollowers();
+  }
+}, [shopId, user]);
+
+
+  const handleFollow = async () => {
+    setIsLoading(true);
+    try {
+      await followShop(shopId);
+      setIsFollowing(true);
+    } catch (error) {
+      console.error('Error following shop:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    setIsLoading(true);
+    try {
+      await unfollowShop(shopId);
+      setIsFollowing(false);
+    } catch (error) {
+      console.error('Error unfollowing shop:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/shops/${id}/discounts`);
+        const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/discounts`);
         setDiscounts(response.data);
         setLoading(false);
       } catch (error) {
@@ -109,84 +143,6 @@ const StoreView: React.FC = () => {
 
     fetchDiscountsByShop();
   }, [id]);
-
-  const handleFollow = async () => {
-    try {
-      await axios.post(`https://d3-api.onrender.com/api/v1/followers/follow`, {
-        userId: user?.id,
-        storeId: id
-      },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      setIsFollowing(true);
-      window.location.reload();
-    } catch (error) {
-      console.error('Error following store:', error);
-      window.location.reload();
-    }
-  };
-
-  const handleUnfollow = async () => {
-    try {
-      await axios.post(`https://d3-api.onrender.com/api/v1/followers/unfollow`, {
-        userId: user?.id,
-        storeId: id
-      },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      setIsFollowing(false);
-      window.location.reload();
-    } catch (error) {
-      console.error('Error unfollowing store:', error);
-      window.location.reload();
-    }
-  };
-
-  const handlePostReview = async () => {
-    try {
-      if (newReview.user.trim() !== '' && newReview.comment.trim() !== '') {
-        const response = await axios.post('https://d3-api.onrender.com/api/v1/reviews', {
-          entityType: 'discount',
-          entityId: id,
-          reviewerName: newReview.user,
-          reviewText: newReview.comment
-        });
-        window.location.reload();
-        setNewReview({ user: '', comment: '' });
-      }
-    } catch (error) {
-      console.error('Error posting review:', error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get<Review[]>(`http://127.0.0.1:8000/api/reviews/shop/${id}`);
-        setReviews(response.data);
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
-        // setError('An error occurred while fetching reviews.');
-      }
-    };
-
-    fetchReviews();
-  }, [id]);
-
-  // useEffect(() => {
-  //   if (userId && followers.length > 0) {
-  //     const isUserFollowing = followers.some(follower => follower.user.id === userId);
-  //     setIsFollowing(isUserFollowing);
-  //   }
-  // }, [userId, followers]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -208,15 +164,6 @@ const StoreView: React.FC = () => {
                 <p className="text-center text-[20px] font-medium">
                   {store?.name} <span className="text-gray-600"></span>
                 </p>
-                {/* <p className="lowercase text-gray-500">
-                  @{store?.owner.first_name}
-                  {store?.owner.last_name}
-                </p>
-                <p className="text-gray-600 font-medium cursor-pointer hover:text-primary">
-                  {Number(store?.followers) === 1 ?
-                    `${store?.followers} follower`
-                    : `${store?.followers} followers`}
-                </p> */}
               </div>
             </div>
             <div className="flex gap-2 items-center ">
@@ -252,10 +199,9 @@ const StoreView: React.FC = () => {
             </div>
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
               {discounts.map((discount) => (
-                <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md border flex flex-col justify-between rounded-md p-4">
-                  <img src={discount.imageUrl} alt={discount.name} className="w-full object-cover rounded-md" />
+                <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md bg-white flex flex-col justify-between rounded-md p-4">
+                  <img src={discount.image_url} alt={discount.name} className="w-full object-cover rounded-md" />
                   <div className="flex flex-col">
-                    {/* <p className="text-[14px] text-gray-500">{discount.store.name}</p> */}
                     <p className="text-[17px] font-medium">{discount.name}</p>
                     <p className="text-[14px] text-gray-500">
                       {discount.description.length > maxLength ?
@@ -276,47 +222,7 @@ const StoreView: React.FC = () => {
           </div>
         </div>
         <div className="px-[5%] flex w-full gap-[2%] pb-4 flex-col md:flex-row ">
-          <div className="mt-4 w-full md:w-1/2">
-            <p className="font-medium text-[16px] mb-2">Post Your Review</p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handlePostReview();
-              }}
-              className="flex flex-col gap-2"
-            >
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={newReview.user}
-                required
-                onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
-                className="border p-2 rounded-md outline-none focus:border-primary"
-              />
-              <textarea
-                placeholder="Your Comment"
-                value={newReview.comment}
-                required
-                onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                className="border p-2 rounded-md outline-none focus:border-primary"
-              />
-              <button type="submit" className="bg-primary rounded-md text-white font-medium px-4 py-2">
-                {loading ? <ClipLoader color="#fff" /> : 'Post Review'}
-              </button>
-            </form>
-          </div>
-          <div className="w-full md:w-1/2 flex flex-col gap-2">
-            <p className='font-semibold text-lg'>Shop Revews <span className="text-gray-500">({reviews?.length})</span></p>
-            <div className="flex flex-col w-full">
-              {reviews.map((review, index) => (
-                <div key={index} className="border-b py-2">
-                  <p className="font-medium">{review.user_name}</p>
-                  <p className='text-gray-700'>{review.body}</p>
-                  <p className="text-gray-400 text-[13px]">{new Date(review.created_at).toLocaleString()}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <ReviewComponent reviewableType="shop" reviewableId={shopId} />
         </div>
       </div>
       <Footer />
