@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -64,8 +64,19 @@ const Checkout: React.FC = () => {
         setShowPaymentPopup(true);
     };
 
-    const handleMpesaInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMpesaDetails({ phone: e.target.value });
+    const handleMpesaInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target;
+        setMpesaDetails((prevDetails) => ({ ...prevDetails, phone: value }));
+    };
+
+    const validateAndFormatPhoneNumber = (phone: string): string => {
+        let formattedPhone = '';
+        if (/^07\d{8}$/.test(phone) || /^01\d{8}$/.test(phone)) {
+            formattedPhone = '254' + phone.slice(-9);
+        } else if (/^\+254\d{9}$/.test(phone)) {
+            formattedPhone = '254' + phone.slice(-9);
+        }
+        return formattedPhone;
     };
 
     const handleCardInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,45 +85,50 @@ const Checkout: React.FC = () => {
     };
 
     const handlePaymentInitiation = async () => {
-    setShowPaymentLoaderModal(true);
-    try {
-      const endpoint = 'https://api.discoun3ree.com/api/mpesa/payment';
-      const response = await axios.post(endpoint, {
-        phone: mpesaDetails.phone,
-        discount_id: id,
-        user_id: user?.id,
-      });
-      const { MerchantRequestID } = response.data.data;
-      setPaymentStatusResponse(response.data);
-      handleQueryPaymentStatus(MerchantRequestID);
-    } catch (error) {
-      console.error('Error initiating payment:', error);
-    }
-  };
+        const formattedPhone = validateAndFormatPhoneNumber(mpesaDetails.phone);
+        if (!formattedPhone) {
+            alert('Invalid phone number format. Please enter a valid Mpesa number.');
+            return;
+        }
 
-  const handleQueryPaymentStatus = async (MerchantRequestID: string) => {
-    const endpoint = `https://api.discoun3ree.com/api/payments/checkout/${MerchantRequestID}`;
-    try {
-      const response = await axios.get(endpoint);
-      setPaymentStatusResponse(response.data);
+        setShowPaymentLoaderModal(true);
+        try {
+            const endpoint = 'https://api.discoun3ree.com/api/mpesa/payment';
+            const response = await axios.post(endpoint, {
+                phone: formattedPhone,
+                discount_id: id,
+                user_id: user?.id,
+            });
+            const { MerchantRequestID } = response.data.data;
+            setPaymentStatusResponse(response.data);
+            handleQueryPaymentStatus(MerchantRequestID);
+        } catch (error) {
+            console.error('Error initiating payment:', error);
+        }
+    };
+    const handleQueryPaymentStatus = async (MerchantRequestID: string) => {
+        const endpoint = `https://api.discoun3ree.com/api/payments/checkout/${MerchantRequestID}`;
+        try {
+        const response = await axios.get(endpoint);
+        setPaymentStatusResponse(response.data);
 
-      const paymentStatus = response.data.payment.status;
-      if (paymentStatus === 'pending') {
-        setTimeout(() => handleQueryPaymentStatus(MerchantRequestID), 4000);
-      } else if (paymentStatus === 'failed') {
+        const paymentStatus = response.data.payment.status;
+        if (paymentStatus === 'pending') {
+            setTimeout(() => handleQueryPaymentStatus(MerchantRequestID), 4000);
+        } else if (paymentStatus === 'failed') {
+            setPaymentStatus('failed');
+            setShowPaymentLoaderModal(true);
+        } else if (paymentStatus === 'complete') {
+            setPaymentStatus('complete');
+            setShowPaymentLoaderModal(true);
+            setTimeout(() => navigate(`/discount/${id}/booking`), 3000);
+        }
+        } catch (error) {
+        console.error('Error querying payment status:', error);
         setPaymentStatus('failed');
         setShowPaymentLoaderModal(true);
-      } else if (paymentStatus === 'complete') {
-        setPaymentStatus('complete');
-        setShowPaymentLoaderModal(true);
-        setTimeout(() => navigate(`/discount/${id}/booking`), 3000);
-      }
-    } catch (error) {
-      console.error('Error querying payment status:', error);
-      setPaymentStatus('failed');
-      setShowPaymentLoaderModal(true);
-    }
-  };
+        }
+    };
 
     const handleCheckout = () => {
         if (user) {
@@ -206,21 +222,22 @@ const Checkout: React.FC = () => {
                     <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
                         <div className="bg-white p-8 w-[80%] md:w-1/3 rounded-lg">
 
-                            {selectedGateway === 'mpesa' && (
+                             {selectedGateway === 'mpesa' && (
                                 <div className="flex flex-col">
-                                    <p className="text-center mb-2 ">Enter Your Mpesa number</p>
+                                    <p className="text-center mb-2">Enter Your Mpesa number</p>
                                     <input
                                         type="text"
                                         placeholder="Enter your phone number"
-                                        className="border outline-none p-2 mt-2"
+                                        className="border outline-none text-[14px] rounded-md p-2 mt-2"
                                         value={mpesaDetails.phone}
                                         onChange={handleMpesaInputChange}
                                     />
+                                    <p className="text-[13px] text-gray-600 font-light">Format: 07/01/+254</p>
                                     <div className="flex w-full items-center justify-end">
                                         <button className="mt-4 text-primary mr-4 border-none outline-none" onClick={handleClosePopup}>Cancel</button>
                                         <button
-                                            className="mt-4 bg-primary text-white py-3 px-6 rounded-md"
-                                            onClick={handleCheckout}
+                                            className="mt-4 bg-primary text-white py-2 px-6 rounded-md"
+                                            onClick={handlePaymentInitiation}
                                         >
                                             Complete
                                         </button>

@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
           <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input
               type="text"
-              placeholder='Search value'
+              placeholder='Search'
               className='outline-none py-1 w-fit bg-transparent'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -71,8 +71,8 @@ const Navbar: React.FC = () => {
             </button>
           </form>
         </div>
-          <div className="flex items-center gap-[30px] ">
-            <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300 w-[450px] gap-2 pl-10 pr-4">
+          <div className="flex items-center gap-[30px] md:pr-[13%] ">
+            <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300  w-[450px] gap-2 pl-10 pr-4">
               <input
                 type="text"
                 placeholder='Search'
