@@ -155,10 +155,17 @@ const Navbar: React.FC = () => {
                     </button>
                   </a>
                 ) : (
-                  <button onClick={() => setOpenForm(true)} className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2">
-                    <IoMdAdd />
-                    Add Store
-                  </button>
+                  <div>
+                    {user?.user_type === 'seller' && (
+                      <button
+                        onClick={() => setOpenForm(true)}
+                        className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
+                      >
+                        <IoMdAdd />
+                        Add Store
+                      </button>
+                    )}
+                  </div>
                 )}
                 <button className="bg-primary text-white rounded-md py-1.5" onClick={logoutUser}>
                   Log Out
