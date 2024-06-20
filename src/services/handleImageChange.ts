@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const handleImageChange = async (file: File, setImageUrl: Function, setLoading: Function) => {
-  setLoading(true); // Set loading state to true when starting upload
+const handleImageChange = async (file: File) => {
   try {
     const formData = new FormData();
     formData.append('image', file);
@@ -11,11 +10,11 @@ const handleImageChange = async (file: File, setImageUrl: Function, setLoading: 
         'Content-Type': 'multipart/form-data'
       }
     });
-    setImageUrl(response.data.url);
+
+    return response.data.url; // Return the uploaded image URL
   } catch (error) {
     console.error('Error uploading image:', error);
-  } finally {
-    setLoading(false); // Set loading state to false after upload completes (success or failure)
+    throw error; // Re-throw the error to be caught by the caller
   }
 };
 

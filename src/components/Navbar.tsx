@@ -24,7 +24,7 @@ interface StoreData {
   name: string;
   location: string;
   store_type: string;
-  image_url: string;
+  image_url: string; 
 }
 
 const Navbar: React.FC = () => {
@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
   const [stores, setStores] = useState<Shop[]>([]);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [openForm, setOpenForm] = useState<boolean>(false);
+  const [openForm, setOpenForm] = useState<boolean>(true);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [storeData, setStoreData] = useState<StoreData>({
@@ -58,13 +58,26 @@ const Navbar: React.FC = () => {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
-      await handleImageChange(file, setImageUrl, setLoading);
+      try {
+        setLoading(true);
+        const imageUrl = await handleImageChange(file);
+        setStoreData(prevState => ({
+          ...prevState,
+          image_url: imageUrl
+        }));
+        console.log("image: ", imageUrl);
+      } catch (error) {
+        console.error('Error handling image upload:', error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await addStore(storeData, setLoading, handleCloseAddStore);
+    // await addStore(storeData, setLoading, handleCloseAddStore);
+    console.log(storeData);
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {

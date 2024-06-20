@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const addStore = async (storeData: any, setLoading: Function, handleCloseAddStore: Function) => {
+interface StoreData {
+  name: string;
+  location: string;
+  store_type: string;
+  image_url: string;
+}
+
+const addStore = async (storeData: StoreData, setLoading: Function, handleCloseAddStore: Function) => {
   const token = localStorage.getItem('access_token');
   if (!token) {
     console.error('Access token not found in localStorage');
@@ -16,8 +23,8 @@ const addStore = async (storeData: any, setLoading: Function, handleCloseAddStor
       }
     });
     console.log('Store added successfully:', response.data);
-    toast("Store creation successful!");
-    window.location.reload();
+    toast.success("Store creation successful!");
+    // window.location.reload();
   } catch (error) {
     console.error('Error adding store:', error);
     toast.error("An error occurred!");
