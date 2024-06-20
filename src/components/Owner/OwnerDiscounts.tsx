@@ -73,7 +73,7 @@ const OwnerDiscounts: React.FC = () => {
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
-        setLoading(true); // Start loading
+        setLoading(true);
         try {
             const formData = new FormData();
             formData.append('image', file);
@@ -87,7 +87,7 @@ const OwnerDiscounts: React.FC = () => {
         } catch (error) {
             console.error('Error uploading image:', error);
         } finally {
-            setLoading(false); // End loading
+            setLoading(false);
         }
         }
     };

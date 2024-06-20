@@ -50,7 +50,7 @@ const Stores: React.FC = () => {
       <Navbar />
       <div className="w-full flex flex-col px-[5%] py-[2%]">
         <div className="flex flex-col justify-center items-center text-center w-full ">
-          <p className="text-[18px] md:text-[24px] font-medium text-center">
+          <p className="text-[18px] md:text-[24px] text-center">
             Stores with cashbacks, Coupon Codes & Promo Codes
           </p>
           <p className="text-[16px] font-light text-gray-700">
@@ -59,7 +59,7 @@ const Stores: React.FC = () => {
         </div>
         <CategorySlider />
         <p className="text-gray-600 font-medium mb-2 text-[20px]">
-          Double Cash Back Event Featured Stores | Mar 2024
+          Double Cash Back Stores
         </p>
         <div className="grid grid-cols-2 md:grid-cols-6 w-full lg:grid-cols-7 gap-4">
           {loading ? (

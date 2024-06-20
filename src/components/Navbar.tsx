@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { FaRegHeart, FaRegUser, FaSearch } from "react-icons/fa";
 import { FiUser } from 'react-icons/fi';
 import { CiBookmarkPlus } from "react-icons/ci";
@@ -6,9 +6,11 @@ import { BiSolidDiscount } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
 import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
-import axios from 'axios';
 import logo from '../assets/logo1.png'
-import { IoIosMenu } from 'react-icons/io';
+import { IoIosMenu, IoMdAdd } from 'react-icons/io';
+import addStore from '../services/addStore';
+import handleImageChange from '../services/handleImageChange';
+import fetchOwnerStores from '../services/fetchownerStores';
 
 interface Shop {
   id: string;
@@ -17,12 +19,50 @@ interface Shop {
   store_type: string,
 }
 
+interface StoreData {
+  storeName: string;
+  location: string;
+  storeType: string;
+}
+
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [stores, setStores] = useState<Shop[]>([]);
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [openForm, setOpenForm] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [storeData, setStoreData] = useState<StoreData>({
+    storeName: '',
+    location: '',
+    storeType: ''
+  });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setStoreData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleCloseAddStore = () => {
+    setOpenForm(false);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) {
+      await handleImageChange(file, setImageUrl);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await addStore(storeData, setLoading, handleCloseAddStore);
+  };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,22 +70,11 @@ const Navbar: React.FC = () => {
   };
   const token = localStorage.getItem('access_token');
 
-  const fetchStores = async () => {
-    try {
-      const response = await axios.get(`https://api.discoun3ree.com/api/user/shops`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      setStores(response.data);
-    } catch (error) {
-      console.error('Error fetching stores:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchStores();
-  }, [user]);
+    if (token) {
+      fetchOwnerStores(token, setStores);
+    }
+  }, [token]);
 
   const logoutUser = () => {
     localStorage.removeItem('access_token');
@@ -124,8 +153,10 @@ const Navbar: React.FC = () => {
                     </button>
                   </a>
                 ) : (
-                  <div>
-                  </div>
+                  <button onClick={() => setOpenForm(true)} className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2">
+                    <IoMdAdd />
+                    Add Store
+                  </button>
                 )}
                 <button className="bg-primary text-white rounded-md py-1.5" onClick={logoutUser}>
                   Log Out
@@ -140,6 +171,84 @@ const Navbar: React.FC = () => {
         <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
         <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Deals</Link>
       </div>
+      {openForm && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white max-h-[90vh] overflow-auto rounded-lg shadow-lg p-8 w-full max-w-md">
+            <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">Add New Store</h2>
+            <p className="text-center mb-6 text-gray-600">To proceed to your dashboard, you need to create at least one store.</p>
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="storeName" className="block text-sm font-medium text-gray-700">Store Name</label>
+                <input  
+                  type="text"
+                  id="storeName"
+                  name="storeName"
+                  value={storeData.storeName}
+                  placeholder='e.g. QBF Software Solutions'
+                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location</label>
+                <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  value={storeData.location}
+                  placeholder='e.g. Shiloh Residence, Kilimani'
+                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="storeType" className="block text-sm font-medium text-gray-700">Store Type</label>
+                <input
+                  type="text"
+                  id="storeType"
+                  name="storeType"
+                  value={storeData.storeType}
+                  placeholder='e.g. nail spa, make up. etc...'
+                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Image</label>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                  onChange={handleImageUpload}
+                />
+              </div>
+              {imageUrl && (
+                <div>
+                  <img src={imageUrl} alt="Uploaded" className="mt-4 w-full rounded" />
+                </div>
+              )}
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  className="text-gray-600 mr-4"
+                  onClick={handleCloseAddStore}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Adding...' : 'Add Store'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   )
 }
