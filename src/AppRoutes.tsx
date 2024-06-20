@@ -43,15 +43,6 @@ import BookingPage from './pages/BookingPage';
 import Bookings from './pages/Bookings';
 
 const AppRoutes: React.FC = () => {
-  const fakeUserData = {
-    id: 903481,
-    firstName: 'John',
-    lastName: 'Doe',
-    username: 'john_doe',
-    email: 'john.doe@example.com',
-    avatar: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D',
-    bio: 'Passionate about technology and programming. Coffee lover ☕.',
-  };
 
   return (
     <Routes>
@@ -63,7 +54,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/receipt/view' element={<Receipt orderNumber='KWi972Ji90' productName='Soul Soothing massage' amountPaid={1600} />} />
       <Route path='/deals' element={<Deals />} />
       <Route path='/discounts/bought' element={<PurchasesPage />} />
-      <Route path='/accounts/profile' element={<UserProfileCard {...fakeUserData} />} />
+      <Route path='/accounts/profile' element={<UserProfileCard />} />
       <Route path="/search" element={<SearchResults />} />
 
       <Route path='/about' element={<About />} />
