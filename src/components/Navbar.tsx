@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
   const [stores, setStores] = useState<Shop[]>([]);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [openForm, setOpenForm] = useState<boolean>(true);
+  const [openForm, setOpenForm] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>('');
   const [storeData, setStoreData] = useState<StoreData>({
