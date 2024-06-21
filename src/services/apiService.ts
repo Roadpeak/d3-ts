@@ -30,6 +30,11 @@ interface ReviewData {
   reviewable_id?: number;
 }
 
+interface VerifyDiscountParams {
+  discountId: number;
+  accessToken: string | null;
+}
+
 export const manageReview = async (method: 'post' | 'put' | 'delete', data: ReviewData) => {
   const url = method === 'post' ? `${BASE_URL}/reviews` : `${BASE_URL}/reviews/${data.id}`;
   
@@ -152,5 +157,63 @@ export const approveBooking = async (bookingId: number, code: string) => {
     console.error('Error approving booking:', error);
     toast.error('An error occurred while approving the booking.');
     throw error;
+  }
+};
+
+
+export const getDiscounts = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discounts`, {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching discounts:', error);
+    toast.error('An error occurred while fetching discounts.');
+    throw error;
+  }
+};
+
+export const getUnverifiedDiscounts = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discounts/unverified`, {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching unverified discounts:', error);
+    toast.error('An error occurred while fetching unverified discounts.');
+    throw error;
+  }
+}
+
+export const deleteDiscount = async (id: number) => {
+  try {
+    const response = await axios.delete(`https://api.discoun3ree.com/api/discounts/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error; 
+  }
+};
+
+export const verifyDiscount = async ({ discountId, accessToken }: VerifyDiscountParams) => {
+  try {
+    const response = await axios.put(
+      `https://api.discoun3ree.com/api/discounts/${discountId}/verify`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data; // Return the response data if needed
+  } catch (error) {
+    console.error('Error verifying discount:', error);
+    throw error; // Throw the error to be handled where this function is called
   }
 };

@@ -12,6 +12,7 @@ import addStore from '../services/addStore';
 import handleImageChange from '../services/handleImageChange';
 import fetchOwnerStores from '../services/fetchownerStores';
 import { Spinner } from '@material-tailwind/react';
+import { LuLayoutDashboard } from "react-icons/lu";
 import { toast } from 'react-toastify';
 
 interface Shop {
@@ -157,11 +158,26 @@ const Navbar: React.FC = () => {
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegHeart /> Saved</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineDiscount /> Coupons</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BiSolidDiscount /> Vouchers</a>
+                {user && user.user_type === 'admin' ? (
+                  <>
+                  <a href={`/manage`} className=''>
+                    <button
+                      className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
+                    >
+                      <LuLayoutDashboard />
+                      Dashboard
+                    </button>
+                  </a>
+                  </>
+                ) : (
+                  <></>
+                )}
                 {user && user.user_type === 'seller' && stores.length !== 0 ? (
                   <a href={stores.length > 0 ? `/store/${stores[0]?.id}/home` : '#'} className=''>
                     <button
-                      className=""
+                      className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
                     >
+                      <LuLayoutDashboard />
                       Dashboard
                     </button>
                   </a>

@@ -17,7 +17,6 @@ import SignUpPage from './pages/auth/SignUp';
 import LoginPage from './pages/auth/Login';
 import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import ResetPasswordPage from './pages/auth/ResetPassword';
-import Dashboard from './components/seller/Dashboard';
 import NotFoundPage from './components/NotFoundPage';
 import SellerStores from './components/seller/SellerStores';
 import Appointments from './components/seller/Appointments';
@@ -34,14 +33,14 @@ import ManageDiscounts from './components/admin/ManageDiscounts';
 import Vouchers from './components/admin/Vouchers';
 import Users from './components/admin/Users';
 import Tickets from './components/admin/Tickets';
-import Sidenav from './elements/Sidenav';
-import SellerLayout from './elements/SellerLayout';
 import OwnerHome from './components/Owner/OwnerHome';
 import OwnerDiscounts from './components/Owner/OwnerDiscounts';
 import OwnerBookings from './components/Owner/OwnerBookings';
 import BookingPage from './pages/BookingPage';
 import Bookings from './pages/Bookings';
 import OwnerUnverified from './components/Owner/OwnerUnverified';
+import CrmLogin from './pages/auth/CrmLogin';
+import UnverifiedDiscounts from './components/admin/UnverifiedDiscounts';
 
 const AppRoutes: React.FC = () => {
 
@@ -85,9 +84,11 @@ const AppRoutes: React.FC = () => {
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
       <Route path='/seller/products/:id/see-details' element={<DiscountDetails />} />
 
+      <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />
       <Route path='/manage/stores' element={<ManageStores />} />
       <Route path='/manage/discounts' element={<ManageDiscounts />} />
+      <Route path='/manage/unverified' element={<UnverifiedDiscounts />} /> 
       <Route path='/manage/vouchers' element={<Vouchers />} />
       <Route path='/manage/users' element={<Users />} />
       <Route path='/manage/tickets' element={<Tickets />} />

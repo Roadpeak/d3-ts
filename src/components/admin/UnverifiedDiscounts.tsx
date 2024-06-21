@@ -1,59 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
 import axios from 'axios';
-import { deleteDiscount } from '../../services/apiService';
+import { getUnverifiedDiscounts, verifyDiscount } from '../../services/apiService';
 import PopupModal from '../../utils/elements/PopupModal';
-import ConfirmModal from '../../utils/elements/ConfirmModal';
+import { toast } from 'react-toastify';
 
-const ManageDiscounts: React.FC = () => {
+
+const UnverifiedDiscounts = () => {
   const [discounts, setDiscounts] = useState<any[]>([]);
   const [selectedDiscount, setSelectedDiscount] = useState<any | null>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchVerifiedDiscounts = async () => {
+   useEffect(() => {
+    const fetchUnverifiedDiscounts = async () => {
       try {
-        const response = await axios.get('https://api.discoun3ree.com/api/discounts', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        });
-        setDiscounts(response.data);
+        const discounts = await getUnverifiedDiscounts();
+        setDiscounts(discounts);
       } catch (error) {
         console.error('Error fetching discounts:', error);
         // Handle error here
       }
     };
 
-    fetchVerifiedDiscounts();
+    fetchUnverifiedDiscounts();
   }, []);
+
+ const handleVerify = async (id: number) => {
+    try {
+      await verifyDiscount({
+        discountId: id,
+        accessToken: localStorage.getItem('access_token') || '',
+      });
+      const updatedDiscounts = discounts.map(discount => {
+        if (discount.id === id) {
+          return { ...discount, verified: true }; 
+        }
+        return discount;
+      });
+      setDiscounts(updatedDiscounts);
+      setShowDetailsModal(false);
+      window.location.reload();
+      toast("Discount verified!");
+    } catch (error) {
+      toast.error("An error occured!")
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowDetailsModal(false);
+    setShowDeleteConfirmModal(false);
+  };
 
   const handleRowClick = (discount: any) => {
     setSelectedDiscount(discount);
     setShowDetailsModal(true);
-  };
-
-  const handleDelete = async () => {
-    if (!selectedDiscount) return;
-
-    try {
-      setLoading(true);
-      await deleteDiscount(selectedDiscount.id);
-      setLoading(false);
-      const updatedDiscounts = discounts.filter(discount => discount.id !== selectedDiscount.id);
-      setDiscounts(updatedDiscounts);
-      setShowDeleteConfirmModal(false);
-    } catch (error) {
-      setLoading(false);
-      console.error('Error deleting discount:', error);
-    }
-  };
-
-  const closeModal = () => {
-    setSelectedDiscount(null);
-    setShowDetailsModal(false);
   };
 
   return (
@@ -90,7 +92,7 @@ const ManageDiscounts: React.FC = () => {
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{discount.discount}</td>
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{new Date(discount.expiry_date).toLocaleDateString()}</td>
                       <td className="px-4 py-3">
-                        <button onClick={() => { setSelectedDiscount(discount); setShowDeleteConfirmModal(true); }} className="text-red-500 hover:text-red-700">Delete</button>
+                        <button onClick={() => { setSelectedDiscount(discount); setShowDetailsModal(true); }} className="text-green-500 hover:text-green-700">Verify</button>
                       </td>
                     </tr>
                   ))
@@ -100,27 +102,16 @@ const ManageDiscounts: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {showDetailsModal && selectedDiscount && (
-         <PopupModal
-          discount={selectedDiscount}
-          actionType="delete"
-          onClose={closeModal}
-          onAction={handleDelete}
-        />
-      )}
-
-      {/* Delete Confirmation Modal */}
-      {showDeleteConfirmModal && selectedDiscount && (
-        <ConfirmModal
-          message={`Are you sure you want to delete "${selectedDiscount.name}"?`}
-          onConfirm={handleDelete}
-          onCancel={() => setShowDeleteConfirmModal(false)}
-          isLoading={loading}
-        />
-      )}
+        {showDetailsModal && (
+          <PopupModal
+            discount={selectedDiscount}
+            actionType="verify"
+            onClose={handleCloseModal}
+            onAction={() => handleVerify(selectedDiscount.id)}
+          />
+        )}
     </AdminLayout>
   );
 };
 
-export default ManageDiscounts;
+export default UnverifiedDiscounts
