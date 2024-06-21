@@ -26,6 +26,7 @@ interface Discount {
   price_after_discount: string;
   percentage_discount: string;
   expiry_date: string;
+  amount: string;
   slug: string;
   image_url: string;
   service_time_hours: number;
@@ -161,7 +162,7 @@ const ProductView: React.FC = () => {
                       <p className="text-third">
                       </p>
                       <button onClick={() => navigate(`/${discount?.id}/checkout`)} className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2">
-                        Get this discount
+                        Get this discount @ Ksh <span>{discount?.amount}</span>
                       </button>
                       <div className="flex flex-col my-3.5">
                         <span className="text-[15px]">
