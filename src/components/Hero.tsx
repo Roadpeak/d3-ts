@@ -10,6 +10,7 @@ import Banner from '../utils/elements/Banner';
 
 const Hero: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
+  const [slidesToShow, setSlidesToShow] = useState(1);
 
   useEffect(() => {
     const fetchDiscountData = async () => {
@@ -22,6 +23,17 @@ const Hero: React.FC = () => {
     };
 
     fetchDiscountData();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSlidesToShow(getSlidesToShow());
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const CustomNextArrow = (props: any) => (
@@ -52,10 +64,10 @@ const Hero: React.FC = () => {
   };
 
   const settings = {
-    dots: false, 
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: getSlidesToShow(),
+    slidesToShow,
     slidesToScroll: 1,
     centerMode: true,
     arrows: true,
@@ -103,16 +115,18 @@ const Hero: React.FC = () => {
     return date.toLocaleDateString(undefined, options);
   };
 
-  return (
-    <div className='py-4 px-[5%] bg-gray-100'>
-      <Banner />
-      <p className='text-gray-600 font-medium mt-4 mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
-      <div className="border border-gray-200 rounded-md p-2">
-        <Slider {...settings}>
+  const renderDiscounts = () => {
+    if (discounts.length === 0) {
+      return <p className='text-center text-gray-600'>No discounts available at the moment.</p>;
+    }
+
+    if (discounts.length <= slidesToShow) {
+      return (
+        <div className="flex flex-wrap justify-center">
           {discounts.slice(0, 10).map((discount, index) => (
-            <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2'>
+            <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full md:w-1/5 px-2 mb-4'>
               <div className='max-w-sm rounded overflow-hidden bg-white'>
-                <img src={discount.image_url} alt={discount.name} className='w-fit p-2 object-cover' />
+                <img src={discount.image_url} alt={discount.name} className='w-full p-2 object-cover' />
                 <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
                 <div className='flex flex-col gap-2 justify-between w-full p-2'>
                   <span className='text-[13px] text-gray-600 font-light'>
@@ -125,7 +139,38 @@ const Hero: React.FC = () => {
               </div>
             </a>
           ))}
-        </Slider>
+        </div>
+      );
+    }
+
+    return (
+      <Slider {...settings}>
+        {discounts.slice(0, 10).map((discount, index) => (
+          <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2'>
+            <div className='max-w-sm rounded overflow-hidden bg-white'>
+              <img src={discount.image_url} alt={discount.name} className='w-fit p-2 object-cover' />
+              <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
+              <div className='flex flex-col gap-2 justify-between w-full p-2'>
+                <span className='text-[13px] text-gray-600 font-light'>
+                  in {discount.category}
+                </span>
+                <span className='text-primary font-medium text-[16px]'>
+                  ksh. {discount.price_after_discount}
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </Slider>
+    );
+  };
+
+  return (
+    <div className='py-4 px-[5%] bg-gray-100'>
+      <Banner />
+      <p className='text-gray-600 font-medium mt-4 mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
+      <div className="border border-gray-200 rounded-md p-2">
+        {renderDiscounts()}
       </div>
       <div className="flex mt-3 flex-col">
         <p className='text-gray-600 mb-2 font-medium text-[20px]'>Top Categories</p>

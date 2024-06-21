@@ -71,7 +71,7 @@ export const followShop = async (shopId: number) => {
   } catch (error) {
     console.error('Error following shop:', error);
     toast.error('An error occurred while following the shop.');
-    throw error; // Rethrow the error to handle it elsewhere if needed
+    throw error;
   }
 };
 
@@ -85,7 +85,7 @@ export const unfollowShop = async (shopId: number) => {
   } catch (error) {
     console.error('Error unfollowing shop:', error);
     toast.error('An error occurred while unfollowing the shop.');
-    throw error; // Rethrow the error to handle it elsewhere if needed
+    throw error; 
   }
 };
 
@@ -124,6 +124,19 @@ export const getShopById = async (shopId: number) => {
   } catch (error) {
     console.error('Error fetching shop information:', error);
     toast.error('An error occurred while fetching shop information.');
+    throw error;
+  }
+};
+
+export const getUnverifiedDiscountsByShop = async (shopId: number) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/shops/${shopId}/unverified-discounts`, {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching unverified discounts:', error);
+    toast.error('An error occurred while fetching unverified discounts.');
     throw error;
   }
 };

@@ -12,7 +12,7 @@ interface DiscountData {
     discount: number;
     image_url: string;
     expiry_date: string;
-    service_time_hrs: number;
+    service_time_hours: number;
     category: string;
     description: string;
     shop_id: number;
@@ -27,7 +27,7 @@ const OwnerDiscounts: React.FC = () => {
         initial_price: 0,
         discount: 0,
         expiry_date: '',
-        service_time_hrs: 0,
+        service_time_hours: 0,
         image_url : '',
         category: '',
         description: '',
@@ -113,7 +113,7 @@ const OwnerDiscounts: React.FC = () => {
                 initial_price: 0,
                 discount: 0,
                 expiry_date: '',
-                service_time_hrs: 0,
+                service_time_hours: 0,
                 image_url : imageUrl,
                 category: '',
                 description: '',
@@ -171,14 +171,22 @@ const OwnerDiscounts: React.FC = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-600 text-[12.04px] text-[#646882]'>
-                                   {discounts.map((discount) => (
+                                    {discounts.length === 0 ? (
+                                        <tr>
+                                            <td colSpan={4} className="text-center py-4">
+                                            No Verified discounts found.
+                                            </td>
+                                        </tr>
+                                    ) : (
+                                        discounts.map((discount) => (
                                         <tr key={discount.id} onClick={() => handleRowClick(discount)} className="cursor-pointer border-b py-2 border-gray-100 hover:bg-gray-100">
                                             <td className="px-4 py-3">{discount.name}</td>
                                             <td className="px-4 py-3">{discount.initial_price}</td>
                                             <td className="px-4 py-3">{discount.discount}</td>
                                             <td className="px-4 py-3">{new Date(discount.expiry_date).toLocaleDateString()}</td>
                                         </tr>
-                                    ))}
+                                    ))
+                                    )}
                                 </tbody>
                             </table>
                         </div>
@@ -238,18 +246,18 @@ const OwnerDiscounts: React.FC = () => {
                                     id="expiry_date"
                                     name="expiry_date"
                                     value={discountData.expiry_date}
-                                    min={minExpiryDateString} // Set minimum date to tomorrow
+                                    min={minExpiryDateString}
                                     className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                                     onChange={handleInputChange}
                                 />
                             </div>
                             <div>
-                                <label htmlFor="service_time_hrs" className="block text-sm font-medium text-gray-700">Service Time (hrs)</label>
+                                <label htmlFor="service_time_hours" className="block text-sm font-medium text-gray-700">Service Time (hrs)</label>
                                 <input
                                     type="number"
-                                    id="service_time_hrs"
-                                    name="service_time_hrs"
-                                    value={discountData.service_time_hrs}
+                                    id="service_time_hours"
+                                    name="service_time_hours"
+                                    value={discountData.service_time_hours}
                                     placeholder='e.g. 2'
                                     className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                                     onChange={handleInputChange}
@@ -331,7 +339,7 @@ const OwnerDiscounts: React.FC = () => {
                         <p className='text-gray-600 text-[15px] flex w-full justify-between border-b border-gray-200 mt-2'>Initial Price <span>{selectedDiscount.initial_price}</span></p>
                         <p className='text-gray-600 text-[15px] flex w-full justify-between border-b border-gray-200 mt-2'>Discount <span>{selectedDiscount.discount}</span></p>
                         <p className='text-gray-600 text-[15px] flex w-full justify-between border-b border-gray-200 mt-2'>EXpiry Date <span>{new Date(selectedDiscount.expiry_date).toLocaleDateString()}</span></p>
-                        <p className='text-gray-600 text-[15px] flex w-full justify-between border-b border-gray-200 mt-2'>Service Time (hrs) <span>{selectedDiscount.service_time_hrs}</span></p>
+                        <p className='text-gray-600 text-[15px] flex w-full justify-between border-b border-gray-200 mt-2'>Service Time (hrs) <span>{selectedDiscount.service_time_hours}</span></p>
                         <p className='text-gray-600 text-[15px] flex w-full justify-between border-b border-gray-200 mt-2'>Category <span>{selectedDiscount.category}</span></p>
                         <p className='text-gray-600 text-center font-light text-[13px]'>{selectedDiscount.description}</p>
                         {selectedDiscount.image_url && <img src={selectedDiscount.image_url} alt="Discount" className="mt-4 w-full rounded" />}

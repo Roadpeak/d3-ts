@@ -41,6 +41,7 @@ import OwnerDiscounts from './components/Owner/OwnerDiscounts';
 import OwnerBookings from './components/Owner/OwnerBookings';
 import BookingPage from './pages/BookingPage';
 import Bookings from './pages/Bookings';
+import OwnerUnverified from './components/Owner/OwnerUnverified';
 
 const AppRoutes: React.FC = () => {
 
@@ -76,6 +77,9 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/home' element={<OwnerHome />} />
       <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />
       <Route path='/store/:id/bookings' element={<OwnerBookings />} />
+      <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
+
+
       <Route path='/seller/stores' element={<SellerStores />} />
       <Route path='/seller/stores/:id/appointments' element={<Appointments />} />
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
