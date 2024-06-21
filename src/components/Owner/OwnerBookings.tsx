@@ -4,6 +4,7 @@ import SellerLayout from '../../elements/SellerLayout';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import { approveBooking } from '../../services/apiService';
 
 interface Booking {
     id: number;
@@ -69,36 +70,20 @@ const OwnerBookings: React.FC = () => {
         setShowApproveModal(true);
     };
 
-    const handleApprove = async () => {
-        if (!selectedBooking) return;
+   const handleApproveBooking = async () => {
+    if (!selectedBooking || !approvalCode) {
+      toast.error('Please enter an approval code.');
+      return;
+    }
 
-        try {
-            const token = localStorage.getItem('access_token');
-            if (!token) {
-                throw new Error('No access token found');
-            }
-
-            const response = await axios.post(`https://api.discoun3ree.com/bookings/${selectedBooking.id}/approve`, {
-                code: approvalCode
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (response.status === 200) {
-                // Update the booking status locally
-                setBookings(bookings.map(booking => booking.id === selectedBooking.id ? { ...booking, approved: 1 } : booking));
-                setShowApproveModal(false);
-            } else {
-                throw new Error('Failed to approve booking');
-            }
-        } catch (error) {
-            console.error('Error approving booking:', error);
-            // Handle error as needed, e.g., show a message to the user
-        }
-    };
+    try {
+      const response = await approveBooking(selectedBooking.id, approvalCode);
+      toast.success('Booking approved successfully!');
+      setShowApproveModal(false);
+    } catch (error) {
+      toast.error('An error occurred.');
+    }
+  };
 
     const formatDate = (date: string) => {
         return moment(date).format('MMMM Do YYYY, h:mm:ss a');
@@ -194,7 +179,7 @@ const OwnerBookings: React.FC = () => {
                                 Cancel
                             </button>
                             <button
-                                onClick={handleApprove}
+                                onClick={handleApproveBooking}
                                 className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
                             >
                                 Approve

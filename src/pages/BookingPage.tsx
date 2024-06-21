@@ -103,9 +103,9 @@ const BookingPage: React.FC = () => {
         <MiniCalendar timeSlots={timeSlots} onSelectSlot={(slot) => { setSelectedSlot(slot); setShowPaymentCodeModal(true); }} />
         {showPaymentCodeModal && selectedSlot && (
             <PaymentCodeModal
-            payments={payments}
-            onClose={() => setShowPaymentCodeModal(false)}
-            onBook={(paymentCode) => handleBooking(paymentCode, selectedSlot.id)}
+              payments={payments}
+              onClose={() => setShowPaymentCodeModal(false)}
+              onBook={(paymentCode) => handleBooking(paymentCode, selectedSlot.id)}
             />
         )}
         </div>

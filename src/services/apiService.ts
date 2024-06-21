@@ -140,3 +140,17 @@ export const getUnverifiedDiscountsByShop = async (shopId: number) => {
     throw error;
   }
 };
+
+export const approveBooking = async (bookingId: number, code: string) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/bookings/${bookingId}/approve`, { code }, {
+      headers: getHeaders(),
+    });
+    toast.success('Booking approved successfully!');
+    return response.data;
+  } catch (error) {
+    console.error('Error approving booking:', error);
+    toast.error('An error occurred while approving the booking.');
+    throw error;
+  }
+};
