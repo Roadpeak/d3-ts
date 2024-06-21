@@ -66,10 +66,10 @@ const UnverifiedDiscounts = () => {
           <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
         </div>
         <div className="w-full rounded-md mt-2 bg-white overflow-x-auto">
-          <div className="bg-light w-full rounded-lg">
+          <div className="w-full rounded-lg">
             <table className="table-auto w-full rounded-md">
               <thead className=''>
-                <tr className="bg-light border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
+                <tr className="bg-gray-100 border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
                   <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
                   <th className="px-4 text-start font-normal pb-2 pt-4">Price</th>
                   <th className="px-4 text-start font-normal pb-2 pt-4">Discount</th>

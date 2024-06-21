@@ -1,92 +1,69 @@
-import React, { useEffect, useState } from 'react'
-import AdminLayout from '../../utils/layouts/AdminLayout'
-import axios from 'axios';
-
-interface Store {
-    _id: string;
-    name: string;
-    owner: {
-        first_name: string;
-        last_name: string;
-    };
-    followers: string[];
-    imageUrl: string;
-    location: string;
-    storeType: string;
+import React, { useEffect, useState } from 'react';
+import AdminLayout from '../../utils/layouts/AdminLayout';
+import { fetchShops } from '../../services/apiService'; 
+interface Shop {
+  id: number;
+  name: string;
+  location: string;
 }
-
 const ManageStores: React.FC = () => {
-    const [stores, setStores] = useState<Store[]>([]);
+  const [shops, setShops] = useState<Shop[]>([]);
+  const [loading, setLoading] = useState(false);
 
-    const fetchStores = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await axios.get('https://d3-api.onrender.com/api/v1/stores', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            setStores(response.data.stores);
-        } catch (error) {
-            console.error('Error fetching stores:', error);
-        }
+  useEffect(() => {
+    const fetchShopsData = async () => {
+      setLoading(true);
+      try {
+        const shopsData = await fetchShops();
+        setShops(shopsData);
+      } catch (error) {
+        console.error('Error fetching shops:', error);
+        // Handle error (e.g., show error message to the user)
+      } finally {
+        setLoading(false);
+      }
     };
 
-    useEffect(() => {
-        fetchStores();
-    }, []);
+    fetchShopsData();
+  }, []);
 
-    return (
-        <AdminLayout>
-            <div>
-                <div className="w-full py-4 border-b border-gray-600 px-[5%] flex justify-between">
-                    <input type="text" placeholder='Search...' className='bg-transparent border border-gray-600 outline-none focus:border-gray-400 text-gray-500  px-4 py-2 rounded-md md:w-[350px]' />
-                    <div className="flex gap-3 items-center ">
-                        <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-1.5 rounded-md hover:shadow-md">Actions</button>
-                    </div>
-                </div>
-                <div className="px-[5%] py-[2%] flex flex-col">
-                    <div className="flex gap-1 items-center">
-                        <p className="text-gray-200 text-[18px] font-medium">Dashboard</p>
-                        <span className="text-gray-300">/</span>
-                        <p className="text-gray-400 text-[16px]">stores</p>
-                    </div>
-                    <div className="">
-                        <table className="w-full mt-4 border-collapse">
-                            <thead>
-                                <tr className='bg-gray-600 uppercase'>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">#</th>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Name</th>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Type</th>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Location</th>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Owner</th>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Status</th>
-                                    <th className="border-b border-gray-600 text-gray-300 px-4 text-start py-2">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {stores.map((store, index) => (
-                                    <tr key={store._id}>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{index + 1}</td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{store.name}</td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{store?.storeType}</td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{store?.location}</td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">{store?.owner.first_name} {store?.owner.last_name}</td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">
-                                            <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">Active</button>
-                                        </td>
-                                        <td className="border-b border-gray-600 text-gray-400 px-4 py-2">
-                                            <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">Suspend</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </AdminLayout>
-    )
-}
+  return (
+    <AdminLayout>
+      <div>
+        <div className="w-full rounded-md mt-2 bg-white overflow-x-auto">
+          <div className="w-full rounded-lg">
+            <table className="table-auto w-full rounded-md">
+              <thead className="">
+                <tr className="bg-gray-100 border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
+                  <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
+                  <th className="px-4 text-start font-normal pb-2 pt-4">Location</th>
+                  <th className="px-4 text-start font-normal pb-2 pt-4">Owner Id</th>
+                  {/* Add more columns as needed */}
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
+                {shops.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} className="text-center py-4">
+                      No shops found.
+                    </td>
+                  </tr>
+                ) : (
+                  shops.map((shop) => (
+                    <tr key={shop.id} className="border-b py-2 border-gray-100 hover:bg-gray-100">
+                      <td className="px-4 py-3 cursor-pointer">{shop.name}</td>
+                      <td className="px-4 py-3 cursor-pointer">{shop.location}</td>
+                      <td className="px-4 py-3 cursor-pointer">{shop.location}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </AdminLayout>
+  );
+};
 
-export default ManageStores
+export default ManageStores;

@@ -91,10 +91,10 @@ const CategorySlider: React.FC = () => {
     <div className='bg-gray-100'>      
       <Slider {...settings}>
         {categories.map((category, index) => (
-          <div key={index} className='w-full md:w-1/5 px-2'>
-              <div className='max-w-sm cursor-pointer relative'>
+          <div key={index} className='w-full md:w-1/6 px-2'>
+              <div className='cursor-pointer relative'>
                 <div className='image-container'>
-                  <img src={category.image_url} alt={category.name} className='w-[70%] h-fit m-auto rounded-md mt-3 object-cover' />
+                  <img src={category.image_url} alt={category.name} className='w-[90%] h-fit m-auto rounded-md mt-3 object-cover' />
                 </div>
                 <div className='absolute bottom-0 left-0 right-0 p-2 text-center font-medium w-fit mx-auto text-[15px] text-white'>
                   <span className="bg-black bg-opacity-50 px-3 py-1 rounded-md">{category.name}</span>

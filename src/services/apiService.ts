@@ -23,6 +23,19 @@ const getHeaders = (includeAuth: boolean = true) => {
   return headers;
 };
 
+export interface Payment {
+  id: number;
+  user_id: number;
+  payment_date: string;
+  discount_id: number;
+  amount: string;
+  phone: string;
+  status: string;
+  gateway: string;
+  code: string;
+  used: number;
+}
+
 interface ReviewData {
   id?: number;
   body?: string;
@@ -33,6 +46,12 @@ interface ReviewData {
 interface VerifyDiscountParams {
   discountId: number;
   accessToken: string | null;
+}
+
+interface Shop {
+  id: number;
+  name: string;
+  location: string;
 }
 
 export const manageReview = async (method: 'post' | 'put' | 'delete', data: ReviewData) => {
@@ -211,9 +230,31 @@ export const verifyDiscount = async ({ discountId, accessToken }: VerifyDiscount
         },
       }
     );
-    return response.data; // Return the response data if needed
+    return response.data; 
   } catch (error) {
     console.error('Error verifying discount:', error);
-    throw error; // Throw the error to be handled where this function is called
+    throw error; 
+  }
+};
+
+export const fetchShops = async (): Promise<Shop[]> => {
+  try {
+    const response = await axios.get<Shop[]>(`${BASE_URL}/shops`); 
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching shops:', error);
+    throw error; 
+  }
+};
+
+export const fetchPayments = async (): Promise<Payment[]> => {
+  try {
+    const response = await axios.get<{ payments: Payment[] }>(`${BASE_URL}/payments`, {
+      headers: getHeaders(),
+    });
+    return response.data.payments;
+  } catch (error) {
+    console.error('Error fetching payments:', error);
+    throw error;
   }
 };

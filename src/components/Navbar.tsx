@@ -6,7 +6,7 @@ import { BiSolidDiscount } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
 import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
-import logo from '../assets/logo1.png'
+import logo from '../assets/icon2.png'
 import { IoIosMenu, IoMdAdd } from 'react-icons/io';
 import addStore from '../services/addStore';
 import handleImageChange from '../services/handleImageChange';
@@ -101,8 +101,8 @@ const Navbar: React.FC = () => {
   return (
     <>
       <div className='flex w-full py-2 px-[5%] items-center justify-between items-center bg-gray-50 '>
-        <img className='w-[150px] hidden md:flex pb-[10px]' src={logo} alt="" />
-        <p className="text-[18px] flex md:hidden font-medium italic">D3</p>
+        <img className='w-[80px] hidden md:flex' src={logo} alt="" />
+        <img className="w-[40px] -mr-4 flex md:hidden" src={logo} />
         <div className="flex items-center gap-[30px] w-fit px-4">
           <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input

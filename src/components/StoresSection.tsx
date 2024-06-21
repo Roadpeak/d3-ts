@@ -42,7 +42,7 @@ const StoresSection = () => {
         <p className="text-gray-600 font-medium text-[20px]">
         Top Stores | 2024
       </p>
-      <Link className="text-primary" to={'/stores'}>More Stores</Link>
+      <Link className="text-primary items-center font-medium hover:border-b border-primary text-[15px] flex gap-2" to={'/stores'}>More Stores <FaExternalLinkAlt className="font-light" size={18} /> </Link>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 w-full lg:grid-cols-7 gap-4 mb-4 mt-2">
         {loading ? (

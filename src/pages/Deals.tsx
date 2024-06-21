@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import CategorySlider from '../utils/elements/CategorySlider';
 
 interface Store {
   _id: string;
@@ -52,6 +53,11 @@ const Deals: React.FC = () => {
   return (
     <div>
       <Navbar />
+      <div className="bg-gray-100 flex flex-col px-[5%] py-4">
+        <p className="text-center"></p>
+        <CategorySlider />
+        
+      </div>
       <FeaturedOffers />
       <Footer />
     </div>

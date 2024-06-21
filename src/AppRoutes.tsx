@@ -41,6 +41,7 @@ import Bookings from './pages/Bookings';
 import OwnerUnverified from './components/Owner/OwnerUnverified';
 import CrmLogin from './pages/auth/CrmLogin';
 import UnverifiedDiscounts from './components/admin/UnverifiedDiscounts';
+import ManagePayments from './components/admin/Payments';
 
 const AppRoutes: React.FC = () => {
 
@@ -90,6 +91,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage/discounts' element={<ManageDiscounts />} />
       <Route path='/manage/unverified' element={<UnverifiedDiscounts />} /> 
       <Route path='/manage/vouchers' element={<Vouchers />} />
+      <Route path='/manage/payments' element={<ManagePayments />} />
       <Route path='/manage/users' element={<Users />} />
       <Route path='/manage/tickets' element={<Tickets />} />
 

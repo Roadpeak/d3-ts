@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+import logo from '../../assets/icon.png';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -31,11 +32,13 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex border items-center justify-center min-h-screen bg-white">
-      <div className="w-fit md:border border-primary md:shadow-md h-fit rounded-md flex flex-col md:flex-row">
+    <div className="flex flex border bg-gray-100 items-center justify-center min-h-screen">
+      <div className="w-fit bg-white  h-fit rounded-md flex flex-col md:flex-row">
         <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
-          <div className="text-center mb-8">
-            <Link to='/' className="text-primary text-[20px] font-medium lowercase">D-THREE</Link>
+          <div className="text-center mb-2">
+            <a href="/">
+              <img src={logo} className='w-[50px] -mb-4 mx-auto' alt="" />
+            </a>
             <h1 className="text-2xl font-semibold text-black">Sign In</h1>
           </div>
           <div className="flex w-full justify-start gap-2 border-b border-gray-400 mb-4">
@@ -49,7 +52,7 @@ const LoginPage: React.FC = () => {
               className={`px-4 py-2 flex items-center ${loginType === 'seller' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
               onClick={() => setLoginType('seller')}
             >
-              Seller
+              Service Provider
             </button>
           </div>
           <form onSubmit={handleSubmit}>

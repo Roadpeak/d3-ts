@@ -35,7 +35,6 @@ const Footer:React.FC = () => {
               <a href={`/terms-and-conditions`} className="mb-2 text-gray-500 hover:text-black">Terms & Conditions</a>
               <a href={`/privacy-policy`} className="mb-2 text-gray-500 hover:text-black">Privacy Policy</a>
               <a href={`/contact`} className="mb-2 text-gray-500 hover:text-black">Contact</a>
-              <a href={`/accounts/seller/sign-up`} className="mb-2 text-gray-500 hover:text-black capitalize">Sign up as service provider</a>
               <a href={`/accounts/sign-in`} className="mb-2 text-gray-500 hover:text-black">Sign In</a>
               <a href={`/deals`} className="mb-2 text-gray-500 hover:text-black capitalize">Start getting discounts</a>
             </div>
@@ -95,13 +94,13 @@ const Footer:React.FC = () => {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <a href="#" className="mr-4 text-gray-500 hover:text-black">
+          <a href="https://www.facebook.com/davtec.co?mibextid=ZbWKwL" target='_blank' className="mr-4 text-gray-500 hover:text-black">
             <FaFacebookF />
           </a>
-          <a href="#" className="mr-4 text-gray-500 hover:text-black">
+          <a href="https://x.com/discoun3_" target='_blank' className="mr-4 text-gray-500 hover:text-black">
             <FaXTwitter />
           </a>
-          <a href="#" className="mr-4 text-gray-500 hover:text-black">
+          <a href="https://www.instagram.com/discoun3_official" target='_blank' className="mr-4 text-gray-500 hover:text-black">
             <FaInstagram />
           </a>
           <a href="#" className="text-gray-500 hover:text-black">
