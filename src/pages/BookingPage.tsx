@@ -35,7 +35,6 @@ const BookingPage: React.FC = () => {
         try {
             const accessToken = localStorage.getItem('access_token');
             if (!accessToken) {
-            // console.error('Access token not found in localStorage');
             return;
             }
             console.log(user?.id);
@@ -83,8 +82,7 @@ const BookingPage: React.FC = () => {
       navigate('/my-bookings')
 
     } catch (error) {
-      console.error('Error making booking:', error);
-      // Handle error (e.g., show error message)
+      toast.error("An error ocurred.")
     }
   };
 

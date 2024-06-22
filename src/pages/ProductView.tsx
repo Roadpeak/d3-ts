@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FaAngleLeft, FaFacebookF, FaInstagram, FaRegHeart, FaSlideshare, FaWhatsapp } from 'react-icons/fa';
+import { FaAngleLeft, FaFacebookF, FaInstagram, FaLink, FaRegHeart, FaSlideshare, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -84,7 +84,7 @@ const ProductView: React.FC = () => {
             <div className="flex flex-col w-full gap-[2%] md:w-2/3">
               {
                 loading ? (
-                  <div className="border p-4 flex flex-col md:flex-row w-full">
+                  <div className="border rounded-md p-4 flex flex-col md:flex-row w-full">
                     <div className="flex flex-col md:flex-row flex-wrap overflow-x-auto w-full md:w-1/2">
                       <div className="px-[5%] w-full md:w-2/3 mt-4 md:mt-0">
                         <div className="bg-gray-300 h-64 rounded-md animate-pulse"></div>
@@ -178,27 +178,27 @@ const ProductView: React.FC = () => {
                           Share with friends and family
                         </p>
                         <div className="flex flex-wrap items-center w-fit gap-4">
-                          <div className="bg-gray-100 p-1 items-end flex gap-1">
+                          <div className="bg-gray-100 rounded-md p-1 items-end flex gap-1">
                             <FaFacebookF size={24} className='bg-blue-500 text-white p-1' />
-                            <span className="text-gray-400 font-light">
+                            <span className="text-gray-600 text-[14px] font-light">
                               share
                             </span>
                           </div>
-                          <div className="bg-gray-100 p-1 items-end flex gap-1">
+                          <div className="bg-gray-100 p-1 rounded-md items-end flex gap-1">
                             <FaWhatsapp size={24} className='bg-green-500 text-white p-1' />
-                            <span className="text-gray-400 font-light">
+                            <span className="text-gray-600 text-[14px] font-light">
                               share
                             </span>
                           </div>
-                          <div className="bg-gray-100 p-1 items-end flex gap-1">
+                          <div className="bg-gray-100 p-1 rounded-md items-end flex gap-1">
                             <FaInstagram size={24} className='bg-rose-200 text-black p-1' />
-                            <span className="text-gray-400 font-light">
+                            <span className="ttext-gray-600 text-[14px] font-light">
                               share
                             </span>
                           </div>
-                          <div className="bg-gray-100 p-1 items-end flex gap-1">
+                          <div className="bg-gray-100 p-1 rounded-md items-end rounded-md flex gap-1">
                             <FaXTwitter size={24} className='bg-gray-200 text-black p-1' />
-                            <span className="text-gray-400 font-light">
+                            <span className="text-gray-600 text-[14px] font-light">
                               share
                             </span>
                           </div>
@@ -208,38 +208,9 @@ const ProductView: React.FC = () => {
                   </div>
                 )
               }
-              {/* <div className="mt-4 w-full">
-                <p className="font-medium text-[16px] mb-2">Post Your Review</p>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handlePostReview();
-                  }}
-                  className="flex flex-col gap-2"
-                >
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    required
-                    value={newReview.user}
-                    onChange={(e) => setNewReview({ ...newReview, user: e.target.value })}
-                    className="p-2 outline-none rounded-md"
-                  />
-                  <textarea
-                    placeholder="Your Comment"
-                    value={newReview.comment}
-                    required
-                    onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    className="p-2 rounded-md outline-none"
-                  />
-                  <button type="submit" className="bg-primary rounded-md text-white font-medium mt-2 px-4 py-2">
-                    {loading ? <ClipLoader color="#fff" /> : 'Post Review'}
-                  </button>
-                </form>
-              </div> */}
             </div>
             <div className="w-full md:w-1/3">
-              <div className="flex gap-2 w-full justify-between items-center mb-2">
+              <div className="flex gap-6 w-full items-center mb-2">
                   <p
                     className={`font-medium text-[18px] cursor-pointer ${activeTab === 'details' ? 'text-primary border-b border-primary' : 'text-gray-600'
                       }`}
@@ -247,6 +218,7 @@ const ProductView: React.FC = () => {
                   >
                     Details
                   </p>
+                  <a href={`/stores/${discount?.shop_id}/view`} className="text-primary font-nromal text-[14px] flex items-center gap-1">View Store <FaLink /></a>
                 </div>
                 {activeTab === 'details' ? (
                   <div className="">

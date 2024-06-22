@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
-import axios from 'axios';
 import { getUnverifiedDiscounts, verifyDiscount } from '../../services/apiService';
 import PopupModal from '../../utils/elements/PopupModal';
 import { toast } from 'react-toastify';
 
 
-const UnverifiedDiscounts = () => {
+const UnverifiedDiscounts:React.FC = () => {
   const [discounts, setDiscounts] = useState<any[]>([]);
   const [selectedDiscount, setSelectedDiscount] = useState<any | null>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
-  const [loading, setLoading] = useState(false);
 
    useEffect(() => {
     const fetchUnverifiedDiscounts = async () => {
@@ -19,8 +17,7 @@ const UnverifiedDiscounts = () => {
         const discounts = await getUnverifiedDiscounts();
         setDiscounts(discounts);
       } catch (error) {
-        console.error('Error fetching discounts:', error);
-        // Handle error here
+        toast.error("An error occured.")
       }
     };
 

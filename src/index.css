@@ -1,4 +1,3 @@
-/* src/styles/tailwind.css */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -46,5 +45,20 @@
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     max-height: 3rem;
-    /* Adjust the height based on your line height */
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.animate-pulse {
+    background: linear-gradient(to right, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 2000px 100%;
+    animation: shimmer 1.5s infinite linear;
 }

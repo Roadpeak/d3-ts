@@ -245,44 +245,48 @@ const Checkout: React.FC = () => {
                                 </div>
                             )}
                             {selectedGateway === 'card' && (
-                                <div className='flex flex-col justify-center '>
-                                    <p className="text-center text-gray-700 text-[18px] mb-4 font-medium">Enter Your Visa/Mastercard Information</p>
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <input
-                                            type="text"
-                                            name="cardNumber"
-                                            placeholder="Card Number"
-                                            className="border rounded-md outline-none p-3 text-gray-800 placeholder-gray-500 focus:border-primary focus:ring-primary"
-                                            value={cardDetails.cardNumber}
-                                            onChange={handleCardInputChange}
-                                        />
-                                        <input
-                                            type="text"
-                                            name="cvv"
-                                            placeholder="CVV"
-                                            className="border rounded-md outline-none flex-1 p-3 text-gray-800 placeholder-gray-500 focus:border-primary focus:ring-primary"
-                                            value={cardDetails.cvv}
-                                            onChange={handleCardInputChange}
-                                        />
-                                    </div>
-                                    <input
-                                        type="text"
-                                        name="expiry"
-                                        placeholder="Expiry Date"
-                                        className="border rounded-md outline-none flex-1 p-3 text-gray-800 placeholder-gray-500 focus:border-primary focus:ring-primary"
-                                        value={cardDetails.expiry}
-                                        onChange={handleCardInputChange}
-                                    />
-                                    <div className="flex w-full items-center justify-end">
-                                        <button className="mt-4 text-primary mr-4 border-none outline-none" onClick={handleClosePopup}>Cancel</button>
-                                        <button
-                                            className="mt-4 bg-primary text-white py-3 px-6 rounded-md"
-                                            onClick={handleCheckout}
-                                        >
-                                            Complete
-                                        </button>
-                                    </div>
+                                <div className="">
+                                    <p className="">Coming Soon!</p>
+                                    <button className="mt-1 text-primary mr-4 border-none outline-none" onClick={handleClosePopup}>Cancel</button>
                                 </div>
+                                // <div className='flex flex-col justify-center '>
+                                //     <p className="text-center text-gray-700 text-[18px] mb-4 font-medium">Enter Your Visa/Mastercard Information</p>
+                                //     <div className="flex items-center gap-2 mb-2">
+                                //         <input
+                                //             type="text"
+                                //             name="cardNumber"
+                                //             placeholder="Card Number"
+                                //             className="border rounded-md outline-none p-3 text-gray-800 placeholder-gray-500 focus:border-primary focus:ring-primary"
+                                //             value={cardDetails.cardNumber}
+                                //             onChange={handleCardInputChange}
+                                //         />
+                                //         <input
+                                //             type="text"
+                                //             name="cvv"
+                                //             placeholder="CVV"
+                                //             className="border rounded-md outline-none flex-1 p-3 text-gray-800 placeholder-gray-500 focus:border-primary focus:ring-primary"
+                                //             value={cardDetails.cvv}
+                                //             onChange={handleCardInputChange}
+                                //         />
+                                //     </div>
+                                //     <input
+                                //         type="text"
+                                //         name="expiry"
+                                //         placeholder="Expiry Date"
+                                //         className="border rounded-md outline-none flex-1 p-3 text-gray-800 placeholder-gray-500 focus:border-primary focus:ring-primary"
+                                //         value={cardDetails.expiry}
+                                //         onChange={handleCardInputChange}
+                                //     />
+                                //     <div className="flex w-full items-center justify-end">
+                                //         <button className="mt-4 text-primary mr-4 border-none outline-none" onClick={handleClosePopup}>Cancel</button>
+                                //         <button
+                                //             className="mt-4 bg-primary text-white py-3 px-6 rounded-md"
+                                //             onClick={handleCheckout}
+                                //         >
+                                //             Complete
+                                //         </button>
+                                //     </div>
+                                // </div>
                             )}
                         </div>
                     </div>

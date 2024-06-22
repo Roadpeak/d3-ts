@@ -1,15 +1,16 @@
 import React from 'react';
 
-const SkeletonLoader: React.FC = () => {
-    return (
-        <div className="bg-white flex flex-col items-center justify-center rounded-md p-4 shadow-md">
-            <div className="animate-pulse">
-                <div className="w-[200px] h-[150px] bg-gray-200 rounded-md mb-2"></div>
-                <div className="h-6 w-[70%] bg-gray-200 rounded-full mb-2"></div>
-                <div className="h-6 w-[50%] bg-gray-200 rounded-full"></div>
-            </div>
-        </div>
-    );
+const SkeletonLoader:React.FC = () => {
+  return (
+    <div className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 cursor-pointer animate-pulse">
+      <div className="flex flex-col justify-center mx-auto relative">
+        <div className="bg-gray-200 shadow-xl mb-2 mx-auto w-[40%] h-24 rounded-sm"></div>
+        <p className="text-center text-gray-200 font-medium h-4 w-3/4 mx-auto mb-2 rounded-sm"></p>
+        <p className="text-center text-gray-200 h-3 w-1/2 mx-auto mb-2 rounded-sm"></p>
+        <div className="bg-gray-200 h-5 w-5 rounded-md absolute top-0 right-0"></div>
+      </div>
+    </div>
+  );
 };
 
 export default SkeletonLoader;

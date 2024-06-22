@@ -83,13 +83,13 @@ const FeaturedOffers: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <p className=""><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
+                <p className="text-[13px] text-gray-600 "><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
                 <div className="flex w-full gap-[2%]">
                   {new Date(item.expiry_date) > new Date() ? (
                     <>
                       <a
                         href={`/${item.id}/checkout`}
-                        className="w-full rounded-md text-center border border-third text-third py-1"
+                        className="w-full rounded-md text-center border text-[14px] border-third text-third px-2 items-center py-1"
                         onClick={() => handleGetOffer(item)}
                         title="Get offer"
                       >
@@ -97,7 +97,7 @@ const FeaturedOffers: React.FC = () => {
                       </a>
                       <a
                         href={`/discount/${item.id}/see-details`}
-                        className="w-full rounded-md text-center bg-primary text-white py-1"
+                        className="w-full rounded-md text-center text-[14px] bg-primary text-white px-2 items-center py-1"
                         onClick={() => handleSeeDetails(item)}
                         title="See Details"
                       >
