@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
 const BASE_URL = 'https://api.discoun3ree.com/api';
@@ -23,6 +23,16 @@ const getHeaders = (includeAuth: boolean = true) => {
   return headers;
 };
 
+interface User {
+    id: number;
+    email: string;
+    first_name: string;
+    last_name: string;
+    phone: string | null;
+    user_type: string;
+    active: boolean;
+}
+
 export interface Payment {
   id: number;
   user_id: number;
@@ -35,6 +45,16 @@ export interface Payment {
   code: string;
   used: number;
 }
+
+interface Appointment {
+  id: number;
+  code: string;
+  discount_name: string;
+  shop_name: string;
+  time_slot_start: string;
+  approved: boolean;
+}
+
 
 interface ReviewData {
   id?: number;
@@ -255,6 +275,30 @@ export const fetchPayments = async (): Promise<Payment[]> => {
     return response.data.payments;
   } catch (error) {
     console.error('Error fetching payments:', error);
+    throw error;
+  }
+};
+
+export const fetchUsers = async (): Promise<User[]> => {
+  try {
+    const response = await axios.get<User[]>(`${BASE_URL}/users`, {
+      headers: getHeaders(),
+    }); 
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error; 
+  }
+};
+
+export const fetchAppointments = async (): Promise<Appointment[]> => {
+  try {
+    const response: AxiosResponse<Appointment[]> = await axios.get<Appointment[]>(`${BASE_URL}/bookings`, {
+      headers: getHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
     throw error;
   }
 };

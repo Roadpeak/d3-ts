@@ -1,8 +1,6 @@
-// ManagePayments.tsx
-
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
-import { fetchPayments, Payment } from '../../services/apiService'; // Adjust import path as needed
+import { fetchPayments, Payment } from '../../services/apiService'; 
 
 const ManagePayments: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
@@ -16,7 +14,6 @@ const ManagePayments: React.FC = () => {
         setPayments(paymentsData);
       } catch (error) {
         console.error('Error fetching payments:', error);
-        // Handle error (e.g., show error message to the user)
       } finally {
         setLoading(false);
       }

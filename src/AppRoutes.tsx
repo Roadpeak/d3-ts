@@ -19,7 +19,6 @@ import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import ResetPasswordPage from './pages/auth/ResetPassword';
 import NotFoundPage from './components/NotFoundPage';
 import SellerStores from './components/seller/SellerStores';
-import Appointments from './components/seller/Appointments';
 import SellerSingleStore from './components/seller/SellerSingleStore';
 import DiscountDetails from './components/seller/DiscountDetails';
 import SearchResults from './pages/SearchResults';
@@ -42,6 +41,7 @@ import OwnerUnverified from './components/Owner/OwnerUnverified';
 import CrmLogin from './pages/auth/CrmLogin';
 import UnverifiedDiscounts from './components/admin/UnverifiedDiscounts';
 import ManagePayments from './components/admin/Payments';
+import Appointments from './components/admin/Appointments';
 
 const AppRoutes: React.FC = () => {
 
@@ -90,6 +90,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage/stores' element={<ManageStores />} />
       <Route path='/manage/discounts' element={<ManageDiscounts />} />
       <Route path='/manage/unverified' element={<UnverifiedDiscounts />} /> 
+      <Route path='/manage/appointments' element={<Appointments /> } />
       <Route path='/manage/vouchers' element={<Vouchers />} />
       <Route path='/manage/payments' element={<ManagePayments />} />
       <Route path='/manage/users' element={<Users />} />

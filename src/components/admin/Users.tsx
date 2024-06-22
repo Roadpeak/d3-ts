@@ -1,76 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
-import axios from 'axios';
+import { fetchUsers } from '../../services/apiService';
 
 const Users: React.FC = () => {
     const [users, setUsers] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const response = await axios.get('https://d3-api.onrender.com/api/v1/users', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                setUsers(response.data);
-            } catch (error) {
-                console.error('Error fetching users:', error);
-            }
-        };
-        fetchUsers();
-    }, []);
+    const fetchUsersData = async () => {
+      setLoading(true);
+      try {
+        const usersData = await fetchUsers();
+        setUsers(usersData);
+      } catch (error) {
+        console.error('Error fetching payments:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsersData();
+  }, []);
 
     return (
         <AdminLayout>
-            <div className="">
-                <div className="w-full py-4 border-b border-gray-600 px-[5%] flex justify-between">
-                    <input type="text" placeholder='Search...' className='bg-transparent border border-gray-600 outline-none focus:border-gray-400 text-gray-500  px-4 py-2 rounded-md md:w-[350px]' />
-                    <div className="flex gap-3 items-center ">
-                        <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-1.5 rounded-md hover:shadow-md">Actions</button>
-                    </div>
+            <div className="w-full gap-2 flex flex-col py-4">
+                <div className="flex w-full justify-between items-center">
+                <p className="font-medium text-[13px] text-dark tracking-wide">Users</p>
+                <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
                 </div>
-                <div className="px-[5%] py-[2%] flex flex-col">
-                    <div className="flex gap-1 items-center">
-                        <p className="text-gray-200 text-[18px] font-medium">Dashboard</p>
-                        <span className="text-gray-300">/</span>
-                        <p className="text-gray-400 text-[16px]">users</p>
-                    </div>
-                    <div className="mt-4">
-                        <table className="w-full border-collapse border border-gray-600">
-                            <thead>
-                                <tr className='bg-gray-600'>
-                                    <th className="border-b text-gray-200 text-start uppercase font-normal border-gray-600 px-4 py-2">#</th>
-                                    <th className="border-b text-gray-200 text-start uppercase font-normal border-gray-600 px-4 py-2">Name</th>
-                                    <th className="border-b text-gray-200 text-start uppercase font-normal border-gray-600 px-4 py-2">Email</th>
-                                    <th className="border-b text-gray-200 text-start uppercase font-normal border-gray-600 px-4 py-2">Phone</th>
-                                    <th className="border-b text-gray-200 text-start uppercase font-normal border-gray-600 px-4 py-2">role</th>
-                                    <th className="border-b text-gray-200 text-start uppercase font-normal border-gray-600 px-4 py-2">action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {users.map((user, index) => (
-                                    <tr key={user._id}>
-                                        <td className="border-b text-gray-300 border-gray-600 px-4 py-2">{index + 1}</td>
-                                        <td className="border-b text-gray-300 border-gray-600 px-4 py-2">{user.first_name} {user.last_name}</td>
-                                        <td className="border-b text-gray-300 border-gray-600 px-4 py-2">{user.email}</td>
-                                        <td className="border-b text-gray-300 border-gray-600 px-4 py-2">{user.phone}</td>
-                                        <td className="border-b text-gray-300 border-gray-600 px-4 py-2 uppercase">{user.role}</td>
-                                        <td className="border-b text-gray-300 border-gray-600 px-4 py-2 uppercase">
-                                            {user.role === 'admin' ? (
-                                                <div className="">
-                                                    <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">Report</button>
-                                                </div>
-                                            ) : (
-                                                    <button className="bg-fast text-gray-500 border border-gray-600 px-4 py-0.5 rounded-md hover:shadow-md">suspend</button>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                <div className="w-full rounded-md mt-2 bg-white overflow-auto">
+                <div className="w-full h-[80vh] overflow-y-auto rounded-lg">
+                    <table className="table-auto w-full rounded-md">
+                    <thead>
+                        <tr className="bg-gray-100 border-b-2 border-gray-200 text-[13px] text-[#002A4D] font-medium">
+                            <th className="px-4 py-3 text-start">User ID</th>
+                            <th className="px-4 py-3 text-start">Name</th>
+                            <th className="px-4 py-3 text-start">Email</th>
+                            <th className="px-4 py-3 text-start">Phone</th>
+                            <th className="px-4 py-3 text-start">User Type</th>
+                            <th className="px-4 py-3 text-start">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
+                        {loading ? (
+                        <tr>
+                            <td colSpan={9} className="text-center py-4">Loading...</td>
+                        </tr>
+                        ) : users.length === 0 ? (
+                        <tr>
+                            <td colSpan={9} className="text-center py-4">No payments found.</td>
+                        </tr>
+                        ) : (
+                        users.map((user, index) => (
+                            <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-100">
+                                <td className="px-4 py-3">{user.id}</td>
+                                <td className="px-4 py-3">{user.first_name} {user.last_name}</td>
+                                <td className="px-4 py-3">{user.email}</td>
+                                <td className="px-4 py-3">{user.phone}</td>
+                                <td className={`px-4 py-3`}>
+                                    {user.user_type}
+                                </td>
+                                <td className="px-4 py-3">Suspend</td>
+                            </tr>
+                        ))
+                        )}
+                    </tbody>
+                    </table>
+                </div>
                 </div>
             </div>
         </AdminLayout>
