@@ -81,7 +81,7 @@ const UnverifiedDiscounts = () => {
                 {discounts.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="text-center py-4">
-                      No Verified discounts found.
+                      No pending verifications found.
                     </td>
                   </tr>
                 ) : (
