@@ -91,7 +91,7 @@ const CategorySlider: React.FC = () => {
     <div className='bg-gray-100'>      
       <Slider {...settings}>
         {categories.map((category, index) => (
-          <div key={index} className='w-full md:w-1/6 px-2'>
+          <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full md:w-1/6 px-2'>
               <div className='cursor-pointer relative'>
                 <div className='image-container'>
                   <img src={category.image_url} alt={category.name} className='w-[90%] h-fit m-auto rounded-md mt-3 object-cover' />
@@ -100,7 +100,7 @@ const CategorySlider: React.FC = () => {
                   <span className="bg-black bg-opacity-50 px-3 py-1 rounded-md">{category.name}</span>
                 </div>
               </div>
-            </div>
+            </a>
         ))}
       </Slider>
     </div>

@@ -144,7 +144,7 @@ const ProductView: React.FC = () => {
                     <div className="flex flex-col w-full md:w-1/2">
                       <p className="text-gray-400 font-light text-[11px]">{discount?.category}</p>
                       <p className="font-medium text-[20px] ">{discount?.name}</p>
-                      <span className="text-primary font-medium text-[17px]">
+                      <span className="text-primary text-[15px]">
                         {discount?.percentage_discount}% OFF
                       </span>
                       <div className="flex items-center gap-2 ">
