@@ -42,6 +42,7 @@ import CrmLogin from './pages/auth/CrmLogin';
 import UnverifiedDiscounts from './components/admin/UnverifiedDiscounts';
 import ManagePayments from './components/admin/Payments';
 import Appointments from './components/admin/Appointments';
+import MyTickets from './pages/MyTickets';
 
 const AppRoutes: React.FC = () => {
 
@@ -57,6 +58,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/discounts/bought' element={<PurchasesPage />} />
       <Route path='/accounts/profile' element={<UserProfileCard />} />
       <Route path="/search" element={<SearchResults />} />
+      <Route path='/my-tickets' element={<MyTickets />} />
 
       <Route path='/about' element={<About />} />
       <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />

@@ -88,7 +88,7 @@ const Footer:React.FC = () => {
               info@discoun3.com
             </p>
             <p className="mb-2">
-              <a href="tel:+254113794219">+254 743 007000</a>
+              <a href="tel:+254743007000">+254 743 007000</a>
             </p>
           </div>
         </div>

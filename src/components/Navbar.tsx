@@ -14,6 +14,7 @@ import fetchOwnerStores from '../services/fetchownerStores';
 import { Spinner } from '@material-tailwind/react';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { toast } from 'react-toastify';
+import { BsTicketDetailed } from "react-icons/bs";
 
 interface Shop {
   id: string;
@@ -102,7 +103,7 @@ const Navbar: React.FC = () => {
     <>
       <div className='flex w-full py-2 px-[5%] items-center justify-between items-center bg-gray-50 '>
         <img className='w-[80px] hidden md:flex' src={logo} alt="" />
-        <img className="w-[40px] -mr-4 flex md:hidden" src={logo} />
+        <img className="w-[40px] -ml-4 flex md:hidden" src={logo} />
         <div className="flex items-center gap-[30px] w-fit px-4">
           <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input
@@ -154,7 +155,7 @@ const Navbar: React.FC = () => {
               <div className="absolute z-20 top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
                 <a href='/accounts/profile' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegUser /> Account</a>
                 <a href='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</a>
-                <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineAddShoppingCart /> Cart</a>
+                <a href='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegHeart /> Saved</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineDiscount /> Coupons</a>
                 <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BiSolidDiscount /> Vouchers</a>

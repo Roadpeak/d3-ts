@@ -15,3 +15,15 @@ export interface Discount {
   description: string;
   verified: boolean;
 }
+
+
+export interface Ticket {
+  id: number;
+  title: string;
+  body: string;
+  priority: string;
+  status: string;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+}

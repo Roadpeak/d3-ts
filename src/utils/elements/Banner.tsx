@@ -10,7 +10,7 @@ import banner4 from '../../assets/banner4.jpg';
 const Banner: React.FC = () => {
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,

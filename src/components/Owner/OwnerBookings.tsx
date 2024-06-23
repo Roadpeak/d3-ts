@@ -10,13 +10,13 @@ interface Booking {
     id: number;
     discount: {
         name: string;
-        discount: string; // Add more fields if needed
+        discount: string; 
         price_after_discount: string;
     };
     user: {
         first_name: string;
         last_name: string;
-        phone: string | null; // Add more fields if needed
+        phone: string | null; 
     };
     time_slot: {
         id: number;

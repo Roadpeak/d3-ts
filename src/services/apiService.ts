@@ -302,3 +302,32 @@ export const fetchAppointments = async (): Promise<Appointment[]> => {
     throw error;
   }
 };
+
+export const submitTicket = async (formData: { title: string; body: string; priority: string }, resetForm: () => void) => {
+  try {
+    await axios.post(
+      `${BASE_URL}/tickets`, 
+      formData, 
+      { headers: getHeaders() }
+    );
+    toast("Ticket submitted!");
+    resetForm();
+  } catch (error) {
+    console.error('Error submitting ticket:', error);
+    toast.error('Error submitting ticket');
+  }
+};
+
+export const getUserTickets = async () => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/tickets/user`, 
+      { headers: getHeaders() }
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching user tickets:', error);
+    toast.error('Error fetching user tickets');
+    return [];
+  }
+};
