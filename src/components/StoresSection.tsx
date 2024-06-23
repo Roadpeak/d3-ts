@@ -65,8 +65,8 @@ const StoresSection = () => {
                     className="w-full mx-auto rounded-sm object-cover"
                   />
                 </div>
-                <p className="text-center text-gray-600 font-medium">{store.name}</p>
-                <p className="text-center text-[13px] text-[#FF9021]">{store.store_type}</p>
+                <p className="text-center text-[14px] text-gray-600 font-medium">{store.name}</p>
+                <p className="text-center text-[12px] text-[#FF9021]">{store.store_type}</p>
                 <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                   <FaExternalLinkAlt />
                 </div>

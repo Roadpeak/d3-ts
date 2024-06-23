@@ -28,7 +28,7 @@ const MyTickets: React.FC = () => {
   return (
     <>
     <Navbar />
-    <div className="py-8 px-[5%]">
+    <div className="py-8 px-[5%] bg-gray-100 ">
       <div className="flex w-full justify-between mb-3 items-center">
           <p className="font-medium text-sm text-gray-700 tracking-wide">Tickets</p>
           <input type="text" placeholder='Search here' className='bg-white w-52 focus:outline-none rounded-full py-2 px-3.5 text-sm text-gray-700' />
@@ -38,7 +38,7 @@ const MyTickets: React.FC = () => {
       ) : (
         <div className="w-full overflow-x-auto">
             <table className="w-full bg-white rounded-md">
-            <thead className="bg-gray-100">
+            <thead className="bg-gray-200">
                     <tr>
                     <th className="py-2 px-4 text-gray-900 font-medium text-[15px] text-start border-b">Title</th>
                     <th className="py-2 px-4 text-gray-900 font-medium text-[15px] text-start border-b">Priority</th>
