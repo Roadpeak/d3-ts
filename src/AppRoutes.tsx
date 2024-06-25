@@ -18,9 +18,6 @@ import LoginPage from './pages/auth/Login';
 import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import ResetPasswordPage from './pages/auth/ResetPassword';
 import NotFoundPage from './components/NotFoundPage';
-import SellerStores from './components/seller/SellerStores';
-import SellerSingleStore from './components/seller/SellerSingleStore';
-import DiscountDetails from './components/seller/DiscountDetails';
 import SearchResults from './pages/SearchResults';
 import CareersPage from './pages/company/Careers';
 import Vision from './pages/company/Vision';
@@ -81,11 +78,11 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/bookings' element={<OwnerBookings />} />
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
 
-
+{/* 
       <Route path='/seller/stores' element={<SellerStores />} />
       <Route path='/seller/stores/:id/appointments' element={<Appointments />} />
       <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
-      <Route path='/seller/products/:id/see-details' element={<DiscountDetails />} />
+      <Route path='/seller/products/:id/see-details' element={<DiscountDetails />} /> */}
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />

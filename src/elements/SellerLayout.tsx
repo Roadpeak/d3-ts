@@ -12,7 +12,7 @@ const SellerLayout = ({ children }: SellerLayoutProps) => {
       <Topmenu />
       <div className="flex">
         <Sidenav />
-        <div className="flex py-8 pl-8 pr-[5%] h-[92vh] overflow-y-auto w-full ">
+        <div className="flex p-4 md:py-8 md:pl-8 md:pr-[5%] h-[92vh] overflow-y-auto w-full ">
           {children}
         </div>
       </div>

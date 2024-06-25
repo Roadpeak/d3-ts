@@ -1,56 +1,55 @@
 import React from 'react'
+import { useAuth } from '../utils/context/AuthContext'
+import { MdOutlineDiscount } from 'react-icons/md';
+import { CiBookmarkCheck } from 'react-icons/ci';
 
-const Dashboard = () => {
+const Dashboard:React.FC = () => {
+    const {user} = useAuth();
   return (
      <div className="flex flex-col w-full tracking-wide">
-            <p className="subheading">Hello 👋,</p>
-            <p className="normal-text">Here's whats going on today</p>
+            <p className="subheading">Hello 👋, {user?.firstName}</p>
             <div className="flex w-full justify-between py-6 flex-col md:flex-row gap-4">
                 <div className="bg-[#FAB040] w-full p-6 rounded-xl items-center flex gap-4">
                     <div className="rounded-md text-[#FAB040] bg-white flex items-center justify-center p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
-                        </svg>
+                        <MdOutlineDiscount />
                     </div>
                     <div className="flex flex-col w-full gap-3">
-                        <p className="font-medium text-[#FFFFFF] text-[12px] tracking-wide">Current balance</p>
+                        <p className="font-medium text-[#FFFFFF] text-[12px] tracking-wide">Total Discounts</p>
                         <hr className='w-full bg-[#FFFFFF]' />
-                        <p className="text-[#FFFFFF] text-[17px]">Kes <span className="font-medium text-[17px]">58.90</span></p>
+                        <p className="text-[#FFFFFF] text-[17px]"><span className="font-medium text-[17px]">7</span></p>
                     </div>
                 </div>
                 <div className="bg-primary w-full p-6 items-center rounded-xl flex gap-4">
                     <div className="rounded-md text-primary bg-white flex items-center justify-center p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
-                        </svg>
+                        <CiBookmarkCheck />
                     </div>
                     <div className="flex flex-col text-light gap-3 w-full">
-                        <p className="font-medium text-[#FFFFFF] text-[12px] tracking-wide">Total Deposit</p>
+                        <p className="font-medium text-[#FFFFFF] text-[12px] tracking-wide">Total Bookings</p>
                         <hr className='w-full bg-[#FFFFFF]' />
-                        <p className="text-[#FFFFFF] text-[17px]">Kes <span className="font-medium text-[17px]">58.90</span></p>
+                        <p className="text-[#FFFFFF] text-[17px]"><span className="font-medium text-[17px]">40</span></p>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col md:flex-row gap-4 items-center text-gray-600">
                 <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Transaction Orders</p>
+                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Verified Discounts</p>
                     <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">2312</p>
+                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">89</p>
                 </div>
                 <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Transaction Orders</p>
+                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Pending Verifications</p>
                     <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">2312</p>
+                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">34</p>
                 </div>
                 <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Transaction Orders</p>
+                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Fullfilled Appointments</p>
                     <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">2312</p>
+                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">54</p>
                 </div>
                 <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Transaction Orders</p>
+                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Pending Appointments</p>
                     <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">2312</p>
+                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">34</p>
                 </div>
             </div>
             <div className="w-full gap-2 flex flex-col py-8">
@@ -72,11 +71,11 @@ const Dashboard = () => {
                         </thead>
                         <tbody className='text-gray-600 text-[12.04px] text-[#646882]'>
                             <tr>
-                                <td className=" px-4 py-2">YCXKLO45KAL</td>
+                                {/* <td className=" px-4 py-2">YCXKLO45KAL</td>
                                 <td className=" px-4 py-2 whitespace-nowrap">John Oduol</td>
                                 <td className=" px-4 py-2">13-05-22 14:45</td>
                                 <td className=" px-4 py-2">Photoshoot</td>
-                                <td className=" px-4 py-2">Approved</td>
+                                <td className=" px-4 py-2">Approved</td> */}
                             </tr>
                         </tbody>
                     </table>
