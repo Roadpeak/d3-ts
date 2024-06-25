@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { FaAngleLeft, FaFacebookF, FaInstagram, FaLink, FaRegHeart, FaSlideshare, FaWhatsapp } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
+import { FaTwitter } from 'react-icons/fa';
+import { FacebookShareButton, WhatsappShareButton, TwitterShareButton, InstapaperShareButton } from 'react-share';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import BookingSlotsList from '../components/seller/BookingSlotsList';
-import { ClipLoader } from 'react-spinners';
 import ReviewComponent from '../components/ReviewComponent';
 
 interface Review {
@@ -134,11 +133,7 @@ const ProductView: React.FC = () => {
                   <div className="border p-4 flex flex-col md:flex-row w-full">
                     <div className="flex flex-col md:flex-row flex-wrap overflow-x-auto w-full md:w-1/2">
                       <div className="w-full md:w-2/3 mt-4 md:mt-0">
-                        <img
-                          className='rounded-md'
-                          alt='image'
-                          src={discount?.image_url}
-                        />
+                        <img className="rounded-md" alt="image" src={discount?.image_url} />
                       </div>
                     </div>
                     <div className="flex flex-col w-full md:w-1/2">
@@ -148,60 +143,54 @@ const ProductView: React.FC = () => {
                         {discount?.percentage_discount}% OFF
                       </span>
                       <div className="flex items-center gap-2 ">
-                        <span className='font-light text-[12px] text-gray-600 '>was</span>
-                        <p className="text-[13px] line-through">
-                          Ksh {discount?.initial_price}
-                        </p>
+                        <span className="font-light text-[12px] text-gray-600">was</span>
+                        <p className="text-[13px] line-through">Ksh {discount?.initial_price}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className='font-light text-gray-600'>now</span>
-                        <p className="font-medium text-[18px]">
-                          Ksh {discount?.price_after_discount}
-                        </p>
+                        <span className="font-light text-gray-600">now</span>
+                        <p className="font-medium text-[18px]">Ksh {discount?.price_after_discount}</p>
                       </div>
-                      <p className="text-third">
-                      </p>
-                      <button onClick={() => navigate(`/${discount?.id}/checkout`)} className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2">
+                      <p className="text-third"></p>
+                      <button
+                        onClick={() => navigate(`/${discount?.id}/checkout`)}
+                        className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2"
+                      >
                         Get this discount @ Ksh <span>{discount?.amount}</span>
                       </button>
                       <div className="flex flex-col my-3.5">
-                        <span className="text-[15px]">
-                          Save this for later
-                        </span>
-                        <button className='flex border rounded-md border-gray-300 px-2 py-1.5 w-fit items-center gap-2'>
+                        <span className="text-[15px]">Save this for later</span>
+                        <button className="flex border rounded-md border-gray-300 px-2 py-1.5 w-fit items-center gap-2">
                           <FaRegHeart />
                           Favorite
                         </button>
                       </div>
                       <div className="flex flex-col mb-2">
-                        <p className="text-[16px] font-light">
-                          Share with friends and family
-                        </p>
+                        <p className="text-[16px] font-light">Share with friends and family</p>
                         <div className="flex flex-wrap items-center w-fit gap-4">
-                          <div className="bg-gray-100 rounded-md p-1 items-end flex gap-1">
-                            <FaFacebookF size={24} className='bg-blue-500 text-white p-1' />
-                            <span className="text-gray-600 text-[14px] font-light">
-                              share
-                            </span>
-                          </div>
-                          <div className="bg-gray-100 p-1 rounded-md items-end flex gap-1">
-                            <FaWhatsapp size={24} className='bg-green-500 text-white p-1' />
-                            <span className="text-gray-600 text-[14px] font-light">
-                              share
-                            </span>
-                          </div>
-                          <div className="bg-gray-100 p-1 rounded-md items-end flex gap-1">
-                            <FaInstagram size={24} className='bg-rose-200 text-black p-1' />
-                            <span className="ttext-gray-600 text-[14px] font-light">
-                              share
-                            </span>
-                          </div>
-                          <div className="bg-gray-100 p-1 rounded-md items-end rounded-md flex gap-1">
-                            <FaXTwitter size={24} className='bg-gray-200 text-black p-1' />
-                            <span className="text-gray-600 text-[14px] font-light">
-                              share
-                            </span>
-                          </div>
+                          <FacebookShareButton url={window.location.href} className="flex items-center">
+                            <div className="bg-gray-100 rounded-md p-1 items-end flex gap-1">
+                              <FaFacebookF size={24} className="bg-blue-500 text-white p-1" />
+                              <span className="text-gray-600 text-[14px] font-light">share</span>
+                            </div>
+                          </FacebookShareButton>
+                          <WhatsappShareButton url={window.location.href} className="flex items-center">
+                            <div className="bg-gray-100 p-1 rounded-md items-end flex gap-1">
+                              <FaWhatsapp size={24} className="bg-green-500 text-white p-1" />
+                              <span className="text-gray-600 text-[14px] font-light">share</span>
+                            </div>
+                          </WhatsappShareButton>
+                          <InstapaperShareButton url={window.location.href} className="flex items-center">
+                            <div className="bg-gray-100 p-1 rounded-md items-end flex gap-1">
+                              <FaInstagram size={24} className="bg-rose-200 text-black p-1" />
+                              <span className="text-gray-600 text-[14px] font-light">share</span>
+                            </div>
+                          </InstapaperShareButton>
+                          <TwitterShareButton url={window.location.href} className="flex items-center">
+                            <div className="bg-gray-100 p-1 rounded-md items-end rounded-md flex gap-1">
+                              <FaTwitter size={24} className="bg-gray-200 text-black p-1" />
+                              <span className="text-gray-600 text-[14px] font-light">share</span>
+                            </div>
+                          </TwitterShareButton>
                         </div>
                       </div>
                     </div>

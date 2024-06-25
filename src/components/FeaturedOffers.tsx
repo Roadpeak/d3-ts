@@ -70,7 +70,7 @@ const FeaturedOffers: React.FC = () => {
         {loading ? (
           <ShimmerLoader count={4} />
         ) : (
-          discounts.map((item) => (
+          discounts.slice(0, 12).map((item) => (
             <div key={item.id} className="bg-white flex flex-col justify-between rounded-md p-4">
               <img src={item.image_url} className='rounded-md' alt="" />
               <div className="flex flex-col">

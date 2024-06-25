@@ -7,6 +7,10 @@ import { useAuth } from '../utils/context/AuthContext';
 import { ClipLoader } from 'react-spinners';
 import ReviewComponent from '../components/ReviewComponent';
 import { followShop, getShopById, getShopFollowers, unfollowShop } from '../services/apiService';
+import { CiLocationOn } from 'react-icons/ci';
+import { LuUsers2 } from 'react-icons/lu';
+import { StringifyOptions } from 'querystring';
+import { MdOutlineLocalPhone } from 'react-icons/md';
 
 interface Store {
   id: number;
@@ -17,6 +21,7 @@ interface Store {
   seller_id: number;
   created_at: string;
   updated_at: string;
+  seller_phone: string;
   store_type: string | null;
 }
 
@@ -48,7 +53,7 @@ interface Follower {
   last_name: string;
   phone: string;
   email: string;
-  user: any; // Assuming user can be any type, adjust as per your actual data
+  user: any; 
 }
 
 
@@ -89,7 +94,7 @@ const StoreView: React.FC = () => {
     try {
       const data = await getShopFollowers(shopId);
       setFollowers(data);
-      
+      console.log(followers);
       const isCurrentUserFollowing = data.some((follower: Follower) => follower.phone === user?.phone);
       setIsFollowing(isCurrentUserFollowing);
     } catch (error) {
@@ -103,7 +108,6 @@ const StoreView: React.FC = () => {
     fetchFollowers();
   }
 }, [shopId, user]);
-
 
   const handleFollow = async () => {
     setIsLoading(true);
@@ -153,25 +157,36 @@ const StoreView: React.FC = () => {
       <Navbar />
       <div className="flex flex-col bg-gray-100">
         <div className="flex flex-col w-full px-[5%] py-[2%] text-black gap-[2%]">
-          <div className="w-full flex bg-gray-200 h-[120px] justify-between p-2 rounded-md">
+          <div className="w-full flex bg-gray-200 h-auto justify-between p-2 rounded-md">
             <div className="flex h-full items-center gap-4">
               <img
                 src={store?.image_url}
-                alt="Store Image"
+                alt="Store logo"
                 className="w-[100px] rounded-full h-full justify-center mx-auto flex items-center"
               />
               <div className="flex flex-col items-start justify-start">
                 <p className="text-center text-[20px] font-medium">
                   {store?.name} <span className="text-gray-600"></span>
                 </p>
+                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><CiLocationOn /> {store?.location}</p>
+                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><LuUsers2 /> {followers?.length} followers</p>
+                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</p>
+                <div className='flex md:hidden mt-1'>
+                  {isFollowing ? (
+                    <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
+                      Unfollow
+                    </button>
+                  ) : (
+                    <button onClick={handleFollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
+                      Follow
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
             <div className="flex gap-2 items-center ">
-              <p className="hidden md:text-gray-500 h">{Number(reviews?.length) === 1 ?
-                `${reviews?.length} review`
-                : `${reviews?.length} reviews`}</p>
               <span className="hidden md:block">|</span>
-              <div>
+              <div className='hidden md:flex'>
                 {isFollowing ? (
                   <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
                     Unfollow

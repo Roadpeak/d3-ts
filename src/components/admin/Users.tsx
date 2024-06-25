@@ -55,7 +55,7 @@ const Users: React.FC = () => {
                         users.map((user, index) => (
                             <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-100">
                                 <td className="px-4 py-3">{user.id}</td>
-                                <td className="px-4 py-3">{user.first_name} {user.last_name}</td>
+                                <td className="px-4 py-3 uppercase">{user.first_name} {user.last_name}</td>
                                 <td className="px-4 py-3">{user.email}</td>
                                 <td className="px-4 py-3">{user.phone}</td>
                                 <td className={`px-4 py-3`}>

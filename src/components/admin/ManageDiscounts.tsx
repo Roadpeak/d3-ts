@@ -58,17 +58,18 @@ const ManageDiscounts: React.FC = () => {
 
   return (
     <AdminLayout>
-      <div className="w-full gap-2 flex flex-col py-8">
+      <div className="w-full gap-2 flex flex-col py-2 overflow-y-auto">
         <div className="flex w-full justify-between items-center">
-          <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>
+          <p className="font-medium text-[13px] text-dark tracking-wide">Discounts</p>
           <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
         </div>
-        <div className="w-full rounded-md mt-2 bg-white overflow-x-auto">
+        <div className="w-full rounded-md mt-2 bg-white overflow-auto">
           <div className="bg-light w-full rounded-lg">
             <table className="table-auto w-full rounded-md">
               <thead className=''>
                 <tr className="bg-light border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
+                  <th className="px-4 text-start font-normal pb-2 pt-4">Id</th>
+                  <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>                  
                   <th className="px-4 text-start font-normal pb-2 pt-4">Price</th>
                   <th className="px-4 text-start font-normal pb-2 pt-4">Discount</th>
                   <th className="px-4 text-start font-normal pb-2 pt-4">Expiry</th>
@@ -85,6 +86,7 @@ const ManageDiscounts: React.FC = () => {
                 ) : (
                   discounts.map((discount) => (
                     <tr key={discount.id} className="border-b py-2 border-gray-100 hover:bg-gray-100">
+                      <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{discount.id}</td>
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{discount.name}</td>
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{discount.initial_price}</td>
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{discount.discount}</td>
