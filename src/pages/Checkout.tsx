@@ -221,7 +221,6 @@ const Checkout: React.FC = () => {
                 {showPaymentPopup && (
                     <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
                         <div className="bg-white p-8 w-[80%] md:w-1/3 rounded-lg">
-
                              {selectedGateway === 'mpesa' && (
                                 <div className="flex flex-col">
                                     <p className="text-center mb-2">Enter Your Mpesa number</p>
@@ -245,7 +244,7 @@ const Checkout: React.FC = () => {
                                 </div>
                             )}
                             {selectedGateway === 'card' && (
-                                <div className="flex flexocol">
+                                <div className="flex flex-col">
                                     <div className="">
                                         <p className="">Coming Soon!</p>
                                         <button className="mt-1 text-primary mr-4 border-none outline-none" onClick={handleClosePopup}>Cancel</button>

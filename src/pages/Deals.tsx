@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import CategorySlider from '../utils/elements/CategorySlider';
+import AllDeals from './AllDeals';
 
 interface Store {
   _id: string;
@@ -58,7 +59,7 @@ const Deals: React.FC = () => {
         <CategorySlider />
         
       </div>
-      <FeaturedOffers />
+      <AllDeals />
       <Footer />
     </div>
   )

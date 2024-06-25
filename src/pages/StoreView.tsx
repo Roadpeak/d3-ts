@@ -4,13 +4,12 @@ import Footer from '../components/Footer';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
-import { ClipLoader } from 'react-spinners';
 import ReviewComponent from '../components/ReviewComponent';
 import { followShop, getShopById, getShopFollowers, unfollowShop } from '../services/apiService';
 import { CiLocationOn } from 'react-icons/ci';
 import { LuUsers2 } from 'react-icons/lu';
-import { StringifyOptions } from 'querystring';
 import { MdOutlineLocalPhone } from 'react-icons/md';
+import { FaTimes } from 'react-icons/fa';
 
 interface Store {
   id: number;
@@ -64,7 +63,7 @@ const StoreView: React.FC = () => {
   const [followers, setFollowers] = useState<Follower[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const { user } = useAuth();
@@ -169,7 +168,7 @@ const StoreView: React.FC = () => {
                   {store?.name} <span className="text-gray-600"></span>
                 </p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><CiLocationOn /> {store?.location}</p>
-                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><LuUsers2 /> {followers?.length} followers</p>
+                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600 cursor-pointer" onClick={() => setOpen(!open)}><LuUsers2 /> {followers?.length} followers</p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</p>
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
@@ -241,6 +240,30 @@ const StoreView: React.FC = () => {
         </div>
       </div>
       <Footer />
+      {open && (
+        <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 w-[80%] md:w-1/3 max-h-[90vh] overflow-y-auto rounded-lg relative">
+            <button 
+              onClick={() => setOpen(false)} 
+              className="absolute top-4 right-4 text-gray-600 border rounded-full p-1 border-gray-400 hover:text-gray-800"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <p className="border-b font-medium text-gray-600 text-[16px]">Followers</p>
+            {followers.length > 0 ? (
+              followers.map((follower) => (
+                <div key={follower.follower_id} className="py-1">
+                  <p className='text-[14px] font-light text-gray-600'>{`${follower.first_name} ${follower.last_name}`}</p>
+                </div>
+              ))
+            ) : (
+              <div>No Followers at this time.</div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
