@@ -56,7 +56,7 @@ const MessagesList: React.FC<Props> = ({ messages, currentUserId, onBackToConver
 
   return (
     <div className="flex flex-col h-full">
-      <div className="fixed w-full top-0 z-10 bg-white border-b border-gray-200 px-4 py-2">
+      <div className="fixed md:hidden w-full top-0 z-10 bg-white border-b border-gray-200 px-4 py-2">
         <button
           onClick={handleDeselectMessage}
           className="text-primary mt-1 focus:outline-none"
