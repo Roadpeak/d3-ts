@@ -46,9 +46,8 @@ import ChatPage from './components/chat/ChatPage';
 const AppRoutes: React.FC = () => {
 
   return (
-    // <ChatProvider>
       <Routes>
-      <Route path='/' element={<ChatPage />} />
+      <Route path='/' element={<Home />} />
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
       <Route path='/discount/:id/see-details' element={<ProductView />} />
@@ -59,7 +58,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/profile' element={<UserProfileCard />} />
       <Route path="/search" element={<SearchResults />} />
       <Route path='/my-tickets' element={<MyTickets />} />
-      {/* <Route path="/chat" element={<Chat />} /> */}
+      <Route path="/chat" element={<ChatPage />} />
 
       <Route path='/about' element={<About />} />
       <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
