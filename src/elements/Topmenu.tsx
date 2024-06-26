@@ -59,7 +59,7 @@ const Topmenu: React.FC = () => {
           <a href={`/store/${id}/bookings`} className="text-gray-800 hover:text-gray-600">Bookings</a>
           <a href={`/store/${id}/unverified-discounts`} className="text-gray-800 hover:text-gray-600">Pending</a>
           <a href="#" className="text-gray-800 hover:text-gray-600">Tickets</a>
-          <a href="#" className="text-gray-800 hover:text-gray-600">Conversatione</a>
+          <a href="#" className="text-gray-800 hover:text-gray-600">Chat</a>
           <a href="#" className="text-gray-800 hover:text-gray-600">Reviews</a>
         </nav>
       </div>

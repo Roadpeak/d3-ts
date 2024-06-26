@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 import ReviewComponent from '../components/ReviewComponent';
-import { followShop, getShopById, getShopFollowers, unfollowShop } from '../services/apiService';
+import { followShop, getShopById, getShopFollowers, initializeConversation, unfollowShop } from '../services/apiService';
 import { CiLocationOn } from 'react-icons/ci';
 import { LuUsers2 } from 'react-icons/lu';
 import { MdOutlineLocalPhone } from 'react-icons/md';
@@ -71,6 +71,7 @@ const StoreView: React.FC = () => {
   const token = localStorage.getItem('access_token');
   const maxLength = 27;
   const shopId = id ? parseInt(id, 10) : 0;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -151,6 +152,19 @@ const StoreView: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleInitializeConversation = async () => {
+    try {
+      if (!store?.seller_id) {
+        throw new Error('Seller ID is undefined');
+      }
+
+      const result = await initializeConversation(store.seller_id);
+      navigate('/chat')
+    } catch (error) {
+      navigate('/chat')
+    }
+  };
+
   return (
     <div className='w-full h-full scroll-smooth flex bg-gray-100 flex-col'>
       <Navbar />
@@ -169,7 +183,7 @@ const StoreView: React.FC = () => {
                 </p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><CiLocationOn /> {store?.location}</p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600 cursor-pointer" onClick={() => setOpen(!open)}><LuUsers2 /> {followers?.length} followers</p>
-                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</p>
+                <a href={`tel:${store?.seller_phone}`} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</a>
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
                     <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
@@ -184,6 +198,7 @@ const StoreView: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 items-center ">
+              <button className="" onClick={handleInitializeConversation}>Chat</button>
               <span className="hidden md:block">|</span>
               <div className='hidden md:flex'>
                 {isFollowing ? (

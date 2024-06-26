@@ -180,10 +180,10 @@ const OwnerDiscounts: React.FC = () => {
                                     ) : (
                                         discounts.map((discount) => (
                                         <tr key={discount.id} onClick={() => handleRowClick(discount)} className="cursor-pointer border-b py-2 border-gray-100 hover:bg-gray-100">
-                                            <td className="px-4 py-3">{discount.name}</td>
-                                            <td className="px-4 py-3">{discount.initial_price}</td>
-                                            <td className="px-4 py-3">{discount.discount}</td>
-                                            <td className="px-4 py-3">{new Date(discount.expiry_date).toLocaleDateString()}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{discount.name}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{discount.initial_price}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{discount.discount}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{new Date(discount.expiry_date).toLocaleDateString()}</td>
                                         </tr>
                                     ))
                                     )}

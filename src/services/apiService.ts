@@ -331,3 +331,36 @@ export const getUserTickets = async () => {
     return [];
   }
 };
+
+export const getShopReviews = async (shopId: number) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/shops/${shopId}/reviews`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    throw error;
+  }
+};
+
+export const initializeConversation = async (userId: number) => {
+  const accessToken = localStorage.getItem('access_token');
+
+  if (!accessToken) {
+    throw new Error('Access token not found');
+  }
+
+  try {
+    const response = await axios.post(
+      'https://api.discoun3ree.com/api/conversations/initialize',
+      { user_id: userId },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error initializing conversation:.`);
+  }
+};

@@ -40,12 +40,15 @@ import UnverifiedDiscounts from './components/admin/UnverifiedDiscounts';
 import ManagePayments from './components/admin/Payments';
 import Appointments from './components/admin/Appointments';
 import MyTickets from './pages/MyTickets';
+import OwnerReviews from './components/Owner/OwnerReviews';
+import ChatPage from './components/chat/ChatPage';
 
 const AppRoutes: React.FC = () => {
 
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
+    // <ChatProvider>
+      <Routes>
+      <Route path='/' element={<ChatPage />} />
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
       <Route path='/discount/:id/see-details' element={<ProductView />} />
@@ -56,6 +59,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/profile' element={<UserProfileCard />} />
       <Route path="/search" element={<SearchResults />} />
       <Route path='/my-tickets' element={<MyTickets />} />
+      {/* <Route path="/chat" element={<Chat />} /> */}
 
       <Route path='/about' element={<About />} />
       <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
@@ -76,13 +80,8 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/home' element={<OwnerHome />} />
       <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />
       <Route path='/store/:id/bookings' element={<OwnerBookings />} />
+      <Route path='/store/:id/reviews' element={<OwnerReviews />} />
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
-
-{/* 
-      <Route path='/seller/stores' element={<SellerStores />} />
-      <Route path='/seller/stores/:id/appointments' element={<Appointments />} />
-      <Route path='/seller/stores/:id' element={<SellerSingleStore />} />
-      <Route path='/seller/products/:id/see-details' element={<DiscountDetails />} /> */}
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />
@@ -100,6 +99,7 @@ const AppRoutes: React.FC = () => {
 
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
+    // </ChatProvider>
   );
 };
 
