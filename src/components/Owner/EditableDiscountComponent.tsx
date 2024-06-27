@@ -135,9 +135,9 @@ const EditableDiscountComponent: React.FC = () => {
               <label className="block text-sm font-bold mb-2">Description:</label>
               <p>{discount.description}</p>
             </div>
-            {/* Display other fields here */}
             <button
               className="bg-primary text-white px-4 py-2 rounded-md"
+              disabled={loading}
               onClick={handleSubmit}
             >
               Submit
