@@ -4,6 +4,7 @@ import { IoMdAdd } from 'react-icons/io';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
+import { FiEdit3 } from 'react-icons/fi';
 
 interface DiscountData {
     id: number;
@@ -21,6 +22,12 @@ interface DiscountData {
 const OwnerDiscounts: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [discounts, setDiscounts] = useState<DiscountData[]>([]);
+    const [discountsData, setDiscountsData] = useState<Partial<DiscountData>>({
+        id: 0,
+        name: '',
+        image_url: '',
+        shop_id: parseInt(id ?? '0')
+    });
     const [discountData, setDiscountData] = useState<DiscountData>({
         id: 0,
         name: '',
@@ -35,6 +42,7 @@ const OwnerDiscounts: React.FC = () => {
     });
     const [openForm, setOpenForm] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
+    const [isEdit, setIsEdit] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [selectedDiscount, setSelectedDiscount] = useState<DiscountData | null>(null);
     const [showPopup, setShowPopup] = useState(false);
@@ -129,6 +137,18 @@ const OwnerDiscounts: React.FC = () => {
         }
     };
 
+    const handleEditClick = (discount: DiscountData) => {
+        setDiscountsData({
+            id: discount.id,
+            name: discount.name,
+            image_url: discount.image_url,
+            shop_id: parseInt(id ?? '0')
+        });
+        setImageUrl(discount.image_url);
+        setIsEdit(true);
+        setOpenForm(true);
+    };
+
     const minExpiryDate = new Date();
     minExpiryDate.setDate(minExpiryDate.getDate() + 1);
     const minExpiryDateString = minExpiryDate.toISOString().split('T')[0];
@@ -168,6 +188,7 @@ const OwnerDiscounts: React.FC = () => {
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Price</th>
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Discount</th>
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Expiry</th>
+                                        <th className="px-4 text-start font-normal pb-2 pt-4">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody className='text-gray-600 text-[12.04px] text-[#646882]'>
@@ -179,11 +200,12 @@ const OwnerDiscounts: React.FC = () => {
                                         </tr>
                                     ) : (
                                         discounts.map((discount) => (
-                                        <tr key={discount.id} onClick={() => handleRowClick(discount)} className="cursor-pointer border-b py-2 border-gray-100 hover:bg-gray-100">
-                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{discount.name}</td>
-                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{discount.initial_price}</td>
-                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{discount.discount}</td>
-                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">{new Date(discount.expiry_date).toLocaleDateString()}</td>
+                                        <tr key={discount.id} className="cursor-pointer border-b py-2 border-gray-100 hover:bg-gray-100">
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.name}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.initial_price}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.discount}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{new Date(discount.expiry_date).toLocaleDateString()}</td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => setIsEdit(true)}><FiEdit3 /></td>
                                         </tr>
                                     ))
                                     )}
@@ -307,7 +329,7 @@ const OwnerDiscounts: React.FC = () => {
                                     <img src={imageUrl} alt="Uploaded" className="mt-4 w-full h-[100px] rounded" />
                                     </div>
                                 )}
-                                </div>
+                            </div>
                             <div className="flex justify-end">
                                 <button
                                     type="button"
@@ -322,6 +344,49 @@ const OwnerDiscounts: React.FC = () => {
                                 >
                                     {isLoading ? 'Loading...' : 'Add Discount'}
                                 </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {isEdit && (
+                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white max-h-[90vh] overflow-auto relative rounded-lg shadow-lg p-8 w-full max-w-md">
+                        <form action="" className="">
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Discount Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={discountsData.name}
+                                    placeholder='e.g. Summer Sale'
+                                    className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                                    Upload Image
+                                </label>
+                                <input
+                                    type="file"
+                                    id="image"
+                                    name="image"
+                                    className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
+                                    onChange={handleImageChange}
+                                />
+                                {loading && (
+                                    <div className="flex justify-center items-center mt-4">
+                                    <FaSpinner className="animate-spin text-primary text-2xl" />
+                                    </div>
+                                )}
+                                {imageUrl && (
+                                    <div>
+                                    <img src={imageUrl} alt="Uploaded" className="mt-4 w-full h-[100px] rounded" />
+                                    </div>
+                                )}
                             </div>
                         </form>
                     </div>
