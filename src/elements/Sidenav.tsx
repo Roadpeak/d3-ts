@@ -12,7 +12,7 @@ const Sidenav:React.FC = () => {
   return (
      <div className='w-[15%] md:w-[20%] bg-[#fff] hidden md:flex flex-col pl-[2%] md:pl-[5%] h-[92vh] py-3 md:py-8 pr-[1.5%]'>
         <p className="font-medium border-b hidden md:block tracking-wide pb-1.5">General</p>
-        <a href={`/stores/${id}/home`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
+        <a href={`/store/${id}/home`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
             <MdOutlineDashboardCustomize />
             <span className='hidden md:flex text-[#242220] text-[14px]'>Dashboard</span>
         </a>
