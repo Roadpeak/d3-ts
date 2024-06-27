@@ -5,7 +5,6 @@ import Stores from './pages/Stores';
 import StoreView from './pages/StoreView';
 import ProductView from './pages/ProductView';
 import Checkout from './pages/Checkout';
-import Receipt from './pages/Receipt';
 import Deals from './pages/Deals';
 import PurchasesPage from './pages/PurchasesPage';
 import UserProfileCard from './pages/auth/Profile';
@@ -43,6 +42,7 @@ import MyTickets from './pages/MyTickets';
 import OwnerReviews from './components/Owner/OwnerReviews';
 import ChatPage from './components/chat/ChatPage';
 import EditableDiscountComponent from './components/Owner/EditableDiscountComponent';
+import ShopDetaisEdit from './pages/ShopDetailsEdit';
 
 const AppRoutes: React.FC = () => {
 
@@ -51,9 +51,9 @@ const AppRoutes: React.FC = () => {
       <Route path='/' element={<Home />} />
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
+      <Route path='/stores/edit/:id' element={<ShopDetaisEdit />} />
       <Route path='/discount/:id/see-details' element={<ProductView />} />
       <Route path='/:id/checkout' element={<Checkout />} />
-      <Route path='/receipt/view' element={<Receipt orderNumber='KWi972Ji90' productName='Soul Soothing massage' amountPaid={1600} />} />
       <Route path='/deals' element={<Deals />} />
       <Route path='/discounts/bought' element={<PurchasesPage />} />
       <Route path='/accounts/profile' element={<UserProfileCard />} />

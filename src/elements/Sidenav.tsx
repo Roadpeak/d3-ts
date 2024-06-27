@@ -40,7 +40,7 @@ const Sidenav:React.FC = () => {
             <FaRegStar />
             <span className='hidden md:flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Reviews</span>
         </a>
-        <a href='transactions' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+        <a href={`/stores/edit/${id}`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <CiEdit />
             <span className='hidden md:flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Edit</span>
         </a>
