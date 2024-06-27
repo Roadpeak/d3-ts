@@ -47,12 +47,13 @@ const ConversationsList: React.FC<Props> = ({ conversations, onSelectConversatio
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col pl-10 pr-4 py-6 overflow-y-auto h-[100vh]">
+      <a href='/' className="uppercase text-primary font-medium ">Discoun3</a>
       <ul className="flex-1 overflow-y-auto">
         {conversations.map(conv => (
           <li key={conv.id} className="cursor-pointer border-b border-gray-200 py-2">
             <div
-              className="flex justify-between items-center px-4 py-2"
+              className="flex justify-between items-center py-2"
               onClick={() => onSelectConversation(conv.id)}
             >
               <div className="flex-1">

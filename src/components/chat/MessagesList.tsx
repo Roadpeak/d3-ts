@@ -24,7 +24,6 @@ const MessagesList: React.FC<Props> = ({ messages, currentUserId, onBackToConver
     });
   };
 
-  // Group messages by date
   const groupedMessages: { [key: string]: Message[] } = {};
   messages.forEach(msg => {
     const date = formatDate(msg.sent_at);
@@ -34,7 +33,6 @@ const MessagesList: React.FC<Props> = ({ messages, currentUserId, onBackToConver
     groupedMessages[date].push(msg);
   });
 
-  // Automatically scroll to bottom when component mounts or messages change
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -73,7 +71,6 @@ const MessagesList: React.FC<Props> = ({ messages, currentUserId, onBackToConver
             <path d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        {/* <span className="text-lg font-semibold">Message Details</span> */}
         <div></div>
       </div>
 
@@ -84,7 +81,7 @@ const MessagesList: React.FC<Props> = ({ messages, currentUserId, onBackToConver
             {groupedMessages[date].map((msg, index) => (
               <li
                 key={index}
-                className={`flex flex-col mb-2 ${
+                className={`flex flex-col px-6 mb-2 ${
                   msg.sender_id === currentUserId ? 'self-end items-end' : 'items-start'
                 }`}
                 onClick={() => handleSelectMessage(msg)}

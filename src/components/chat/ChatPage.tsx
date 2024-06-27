@@ -94,7 +94,7 @@ const ChatPage: React.FC = () => {
   };
 
   const handleBackToMessages = () => {
-    setSelectedConversation(null); // Deselect current conversation
+    setSelectedConversation(null);
   };
 
   const handleBackToConversations = () => {
@@ -106,7 +106,6 @@ const ChatPage: React.FC = () => {
 
   return (
     <div className="">
-      <Navbar />
       <div className="flex flex-col h-screen sm:flex-row">
       {(selectedConversation === null || window.innerWidth >= 640) && (
         <div className="sm:w-1/3 bg-gray-100 border-r border-gray-200 overflow-y-auto">
