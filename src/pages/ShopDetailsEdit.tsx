@@ -2,6 +2,8 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import AdminLayout from '../utils/layouts/AdminLayout';
+import { toast } from 'react-toastify';
+import SellerLayout from '../elements/SellerLayout';
 
 type Shop = {
   id: number;
@@ -79,11 +81,11 @@ const ShopDetailsEdit: React.FC = () => {
             }
         });
         setLoading(false);
-        alert('Shop information updated successfully!');
+        toast('Shop information updated successfully!');
     } catch (error) {
         setLoading(false);
         console.error('Failed to update shop information:', error);
-        alert('Failed to update shop information. Please try again.');
+        toast.error('Failed to update shop information. Please try again.');
     }
 };
 
@@ -92,60 +94,65 @@ const ShopDetailsEdit: React.FC = () => {
   }
 
   return (
-    <AdminLayout>
-        <div className="">
-      <h1 className="text-2xl font-bold mb-4">{shop.name}</h1>
-      <div className="mb-4">
-        <label htmlFor="name" className="block mb-1">Name:</label>
-        <input
-          type="text"
-          id="name"
-          value={editedName}
-          onChange={(e) => setEditedName(e.target.value)}
-          className="border rounded-md p-2 w-full"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="location" className="block mb-1">Location:</label>
-        <input
-          type="text"
-          id="location"
-          value={editedLocation}
-          onChange={(e) => setEditedLocation(e.target.value)}
-          className="border rounded-md p-2 w-full"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="store_type" className="block mb-1">Store Type:</label>
-        <input
-          type="text"
-          id="store_type"
-          value={storeType}
-          onChange={(e) => setStoreType(e.target.value)}
-          className="border rounded-md p-2 w-full"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="image" className="block mb-1">Image:</label>
-        <input
-          type="file"
-          id="image"
-          onChange={handleImageChange}
-          className="border rounded-md p-2 w-full"
-        />
-        {editedImage && (
-          <img src={editedImage} alt="Shop" className="mt-4 w-32 h-32 object-cover" />
-        )}
-      </div>
-      <button
-        className={`bg-primary text-white px-4 py-2 rounded-md ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-        onClick={handleSubmit}
-        disabled={loading}
-      >
-        {loading ? 'Submitting...' : 'Submit'}
-      </button>
-    </div>
-    </AdminLayout>
+    <SellerLayout>
+        <div className="flex flex-col my-6 gap-4 w-full">
+            <p className="">Editing <span className="font-medium">{shop.name}</span></p>
+            <div className="w-full flex gap-5  flex-col md:flex-row">
+                <div className="w-full bg-white h-full rounded-md p-4 md:w-1/2 mb-4">
+                    <label htmlFor="image" className="block mb-1">Image:</label>
+                    <input
+                    type="file"
+                    id="image"
+                    onChange={handleImageChange}
+                    className="border rounded-md p-2 w-full"
+                    />
+                    {editedImage && (
+                    <img src={editedImage} alt="Shop" className="mt-4 w-32 h-32 object-cover" />
+                    )}
+                </div>
+                <div className="w-full bg-white rounded-md p-4 h-full md:w-1/2">                
+                    <div className="mb-4">
+                    <label htmlFor="name" className="block mb-1">Name:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={editedName}
+                            onChange={(e) => setEditedName(e.target.value)}
+                            className="border rounded-md p-2 w-full"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="location" className="block mb-1">Location:</label>
+                        <input
+                            type="text"
+                            id="location"
+                            value={editedLocation}
+                            onChange={(e) => setEditedLocation(e.target.value)}
+                            className="border rounded-md p-2 w-full"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="store_type" className="block mb-1">Store Type:</label>
+                        <input
+                        type="text"
+                        id="store_type"
+                        value={storeType}
+                        onChange={(e) => setStoreType(e.target.value)}
+                        className="border rounded-md p-2 w-full"
+                        />
+                    </div>
+                </div>            
+            </div>
+            <button
+                className={`bg-primary text-white px-4 mb-4 py-2 rounded-md ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                onClick={handleSubmit}
+                disabled={loading}
+            >
+                {loading ? 'Submitting...' : 'Submit'}
+            </button>
+        </div>
+
+    </SellerLayout>
   );
 };
 
