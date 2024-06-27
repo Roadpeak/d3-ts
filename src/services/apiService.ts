@@ -135,12 +135,9 @@ export const unfollowShop = async (shopId: number) => {
 
 export const getShopFollowers = async (shopId: number) => {
   try {
-    const response = await axios.get(`${BASE_URL}/followers/${shopId}`, {
-      headers: getHeaders(false), 
-    });
+    const response = await axios.get(`${BASE_URL}/followers/${shopId}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching shop followers:', error);
     toast.error('An error occurred while fetching shop followers.');
     throw error; 
   }

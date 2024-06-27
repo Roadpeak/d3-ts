@@ -94,7 +94,6 @@ const StoreView: React.FC = () => {
     try {
       const data = await getShopFollowers(shopId);
       setFollowers(data);
-      console.log(followers);
       const isCurrentUserFollowing = data.some((follower: Follower) => follower.phone === user?.phone);
       setIsFollowing(isCurrentUserFollowing);
     } catch (error) {

@@ -42,7 +42,6 @@ const OwnerDiscounts: React.FC = () => {
     });
     const [openForm, setOpenForm] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
-    const [isEdit, setIsEdit] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [selectedDiscount, setSelectedDiscount] = useState<DiscountData | null>(null);
     const [showPopup, setShowPopup] = useState(false);
@@ -135,18 +134,6 @@ const OwnerDiscounts: React.FC = () => {
             console.error('Error adding discount:', error);
             setIsLoading(false);
         }
-    };
-
-    const handleEditClick = (discount: DiscountData) => {
-        setDiscountsData({
-            id: discount.id,
-            name: discount.name,
-            image_url: discount.image_url,
-            shop_id: parseInt(id ?? '0')
-        });
-        setImageUrl(discount.image_url);
-        setIsEdit(true);
-        setOpenForm(true);
     };
 
     const minExpiryDate = new Date();
