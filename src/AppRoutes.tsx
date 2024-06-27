@@ -42,6 +42,7 @@ import Appointments from './components/admin/Appointments';
 import MyTickets from './pages/MyTickets';
 import OwnerReviews from './components/Owner/OwnerReviews';
 import ChatPage from './components/chat/ChatPage';
+import EditableDiscountComponent from './components/Owner/EditableDiscountComponent';
 
 const AppRoutes: React.FC = () => {
 
@@ -81,6 +82,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/bookings' element={<OwnerBookings />} />
       <Route path='/store/:id/reviews' element={<OwnerReviews />} />
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
+      <Route path='/discounts/edit/:id' element={<EditableDiscountComponent />} />
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />

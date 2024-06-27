@@ -205,7 +205,9 @@ const OwnerDiscounts: React.FC = () => {
                                             <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.initial_price}</td>
                                             <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.discount}</td>
                                             <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{new Date(discount.expiry_date).toLocaleDateString()}</td>
-                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => setIsEdit(true)}><FiEdit3 /></td>
+                                            <td className="px-4 text-[14px] text-gray-600 font-light py-3">
+                                                <a href={`/discounts/edit/${discount.id}`} className=""><FiEdit3 /></a>
+                                            </td>
                                         </tr>
                                     ))
                                     )}
@@ -344,49 +346,6 @@ const OwnerDiscounts: React.FC = () => {
                                 >
                                     {isLoading ? 'Loading...' : 'Add Discount'}
                                 </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {isEdit && (
-                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white max-h-[90vh] overflow-auto relative rounded-lg shadow-lg p-8 w-full max-w-md">
-                        <form action="" className="">
-                            <div>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Discount Name</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    value={discountsData.name}
-                                    placeholder='e.g. Summer Sale'
-                                    className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-                                    Upload Image
-                                </label>
-                                <input
-                                    type="file"
-                                    id="image"
-                                    name="image"
-                                    className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                                    onChange={handleImageChange}
-                                />
-                                {loading && (
-                                    <div className="flex justify-center items-center mt-4">
-                                    <FaSpinner className="animate-spin text-primary text-2xl" />
-                                    </div>
-                                )}
-                                {imageUrl && (
-                                    <div>
-                                    <img src={imageUrl} alt="Uploaded" className="mt-4 w-full h-[100px] rounded" />
-                                    </div>
-                                )}
                             </div>
                         </form>
                     </div>
