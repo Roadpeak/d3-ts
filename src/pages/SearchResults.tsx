@@ -15,6 +15,7 @@ interface Discount {
     category: string;
     store: Shop;
     service_time: string;
+    percentage_discount: number;
     description: string;
     image_url: string;
     price_after_discount: number;
@@ -117,7 +118,10 @@ const SearchResults: React.FC = () => {
                 {discounts.length > 0 && (
                     <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5 lg:grid-cols-5'>
                         {discounts.map((discount) => (
-                            <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between rounded-md p-4">
+                            <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between relative rounded-md p-4">
+                                <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
+                                    -{Math.floor(discount.percentage_discount)}%
+                                </div>
                                 <img src={discount.image_url} alt={discount.name} className="w-full object-cover rounded-md" />
                                 <div className="flex flex-col">
                                     <p className="text-[14px] text-gray-600">{discount.name}</p>
