@@ -88,7 +88,7 @@ const LoginPage: React.FC = () => {
               <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">{loading ? <ClipLoader color="#fff" /> : 'Log in'}</button>
             </div>
           </form>
-          <p className="text-sm text-gray-700 text-center">Forgot your password? <Link to='/accounts/forgot-password' className="text-red-500">Reset it here</Link></p>
+          <p className="text-sm text-gray-700 text-center">Forgot your password? <Link to='/request-password-reset' className="text-red-500">Reset it here</Link></p>
         </div>
         <div className="hidden md:flex justify-center items-center ">
           <img src="https://imgs.search.brave.com/VikpyiN7OTH_xj6mfR6zYxy8_mHlGuCGveLv7wIAg14/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzUzLzMyLzc2/LzM2MF9GXzQ1MzMy/NzYyMF9mbExTaFJD/VU50cW9WTUszTnlm/SmRLSTFVblEzRHhC/eS5qcGc" alt="" />

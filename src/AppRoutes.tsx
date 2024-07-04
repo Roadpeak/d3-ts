@@ -14,7 +14,6 @@ import PrivacyPolicyPage from './index/Privacypolicy';
 import ContactUsPage from './index/Contact';
 import SignUpPage from './pages/auth/SignUp';
 import LoginPage from './pages/auth/Login';
-import ForgotPasswordPage from './pages/auth/ForgotPassword';
 import NotFoundPage from './components/NotFoundPage';
 import SearchResults from './pages/SearchResults';
 import CareersPage from './pages/company/Careers';
@@ -43,6 +42,7 @@ import ChatPage from './components/chat/ChatPage';
 import EditableDiscountComponent from './components/Owner/EditableDiscountComponent';
 import ShopDetaisEdit from './pages/ShopDetailsEdit';
 import ResetPassword from './pages/auth/ResetPassword';
+import RequestPasswordReset from './pages/auth/RequestPasswordReset';
 
 const AppRoutes: React.FC = () => {
 
@@ -68,8 +68,8 @@ const AppRoutes: React.FC = () => {
 
       <Route path='/accounts/sign-up' element={<SignUpPage />} />
       <Route path='/accounts/sign-in' element={<LoginPage />} />
-      <Route path='/accounts/forgot-password' element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/request-password-reset" element={<RequestPasswordReset />} />
 
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
       <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
