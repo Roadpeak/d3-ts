@@ -30,7 +30,7 @@ const ResetPassword: React.FC = () => {
       });
       setSuccess(response.data.message);
       setTimeout(() => {
-        navigate('/login');
+        navigate('/accounts/sign-in');
       }, 3000);
     } catch (error) {
       setError('Failed to reset password. Please try again.');
