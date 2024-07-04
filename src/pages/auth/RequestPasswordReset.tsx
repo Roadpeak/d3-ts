@@ -33,7 +33,7 @@ const RequestPasswordReset: React.FC = () => {
             <label className="block text-gray-700">Email Address</label>
             <input
               type="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -41,7 +41,7 @@ const RequestPasswordReset: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-700 disabled:opacity-50"
             disabled={loading}
           >
             {loading ? 'Sending...' : 'Send Reset Link'}
