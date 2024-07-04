@@ -15,7 +15,6 @@ import ContactUsPage from './index/Contact';
 import SignUpPage from './pages/auth/SignUp';
 import LoginPage from './pages/auth/Login';
 import ForgotPasswordPage from './pages/auth/ForgotPassword';
-import ResetPasswordPage from './pages/auth/ResetPassword';
 import NotFoundPage from './components/NotFoundPage';
 import SearchResults from './pages/SearchResults';
 import CareersPage from './pages/company/Careers';
@@ -43,6 +42,7 @@ import OwnerReviews from './components/Owner/OwnerReviews';
 import ChatPage from './components/chat/ChatPage';
 import EditableDiscountComponent from './components/Owner/EditableDiscountComponent';
 import ShopDetaisEdit from './pages/ShopDetailsEdit';
+import ResetPassword from './pages/auth/ResetPassword';
 
 const AppRoutes: React.FC = () => {
 
@@ -69,7 +69,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/sign-up' element={<SignUpPage />} />
       <Route path='/accounts/sign-in' element={<LoginPage />} />
       <Route path='/accounts/forgot-password' element={<ForgotPasswordPage />} />
-      <Route path='/accounts/reset-password' element={<ResetPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
 
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
       <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
