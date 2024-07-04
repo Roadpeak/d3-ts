@@ -9,7 +9,7 @@ const RequestPasswordReset: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://api.discoun3ree.com/api/password/reset-link', { email });
+      const response = await axios.post('https://api.discoun3ree.com/api/send-reset-link', { email });
       setMessage(response.data.message);
       setError('');
     } catch (err) {
