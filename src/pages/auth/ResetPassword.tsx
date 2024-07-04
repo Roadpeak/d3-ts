@@ -9,6 +9,7 @@ const ResetPassword: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const query = new URLSearchParams(location.search);
   const token = query.get('token');
@@ -21,6 +22,7 @@ const ResetPassword: React.FC = () => {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await axios.post('https://api.discoun3ree.com/api/reset-password', {
         token,
@@ -29,11 +31,15 @@ const ResetPassword: React.FC = () => {
         password_confirmation: confirmPassword,
       });
       setSuccess(response.data.message);
+      setError('');
       setTimeout(() => {
         navigate('/accounts/sign-in');
       }, 3000);
     } catch (error) {
       setError('Failed to reset password. Please try again.');
+      setSuccess('');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,9 +72,10 @@ const ResetPassword: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-700"
+            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-700 disabled:opacity-50"
+            disabled={loading}
           >
-            Reset Password
+            {loading ? 'Resetting...' : 'Reset Password'}
           </button>
         </form>
       </div>

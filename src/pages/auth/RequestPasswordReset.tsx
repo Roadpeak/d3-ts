@@ -5,16 +5,20 @@ const RequestPasswordReset: React.FC = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post('https://api.discoun3ree.com/api/send-reset-link', { email });
+      const response = await axios.post('https://api.discoun3ree.com/api/password/reset-link', { email });
       setMessage(response.data.message);
       setError('');
     } catch (err) {
       setError('Failed to send reset link. Please try again.');
       setMessage('');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,9 +41,10 @@ const RequestPasswordReset: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            disabled={loading}
           >
-            Send Reset Link
+            {loading ? 'Sending...' : 'Send Reset Link'}
           </button>
         </form>
       </div>
