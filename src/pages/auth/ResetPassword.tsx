@@ -54,7 +54,7 @@ const ResetPassword: React.FC = () => {
             <label className="block text-gray-700">New Password</label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -64,7 +64,7 @@ const ResetPassword: React.FC = () => {
             <label className="block text-gray-700">Confirm New Password</label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
