@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { FaAngleLeft, FaChevronRight } from 'react-icons/fa';
+import axios from 'axios';
+
+interface Category {
+  name: string;
+  image_url: string;
+}
 
 const CategorySlider: React.FC = () => {
-  const categories = [
-    { name: 'Cleaning', image_url: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2xlYW5pbmd8ZW58MHwwfDB8fHww' },
-    { name: 'Photography', image_url: 'https://images.unsplash.com/photo-1522108098940-de49801b5b40?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmVhdXR5fGVufDB8MHwwfHx8MA%3D%3D' },
-    { name: 'Beauty', image_url: 'https://images.unsplash.com/photo-1522108098940-de49801b5b40?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmVhdXR5fGVufDB8MHwwfHx8MA%3D%3D' },
-    { name: 'Spa', image_url: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhfGVufDB8MHwwfHx8MA%3D%3D' },
-    { name: 'Hair and Salon', image_url: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2Fsb258ZW58MHwwfDB8fHww' },
-    { name: 'Events', image_url: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnRzfGVufDB8MHwwfHx8MA%3D%3D' },
-  ];
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const storedCategories = localStorage.getItem('cachedCategories');
+        if (storedCategories) {
+          setCategories(JSON.parse(storedCategories));
+        }
+
+        const response = await axios.get<Category[]>('https://api.discoun3ree.com/api/random-categories');
+        setCategories(response.data);
+        localStorage.setItem('cachedCategories', JSON.stringify(response.data));
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+
+    const interval = setInterval(fetchCategories, 360000); 
+
+    return () => clearInterval(interval);
+  }, []);
 
   const CustomNextArrow = (props: any) => (
     <button {...props} className="slick-arrow next bg-opacity-50 text-primary p-4 rounded-full shadow-md absolute right-[-25px] top-1/2 transform -translate-y-1/2 z-20 focus:outline-none">
@@ -86,6 +111,10 @@ const CategorySlider: React.FC = () => {
       },
     ],
   };
+
+  if (loading) {
+    return <div className="text-center">Loading...</div>;
+  }
 
   return (
     <div className='bg-gray-100'>      
