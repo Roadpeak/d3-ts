@@ -39,31 +39,34 @@ const CategoryList: React.FC = () => {
   return (
     <AdminLayout>
         <div className="min-h-screen flex flex-col items-center bg-gray-100 py-6">
-            <button 
-                className="mb-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600" 
-                onClick={handleCreate}
-            >
-                Create New Category
-            </button>
+            <div className="flex items-center w-full justify-between">
+                <p className="font-medium text-[16px] text-gray-700">Categories</p>
+                <button 
+                    className="mb-4 bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-700" 
+                    onClick={handleCreate}
+                >
+                    Create New Category
+                </button>
+            </div>
             <div className="w-full overflow-x-auto">
-                <table className="min-w-full bg-white shadow-md rounded-lg">
+                <table className="min-w-full bg-white rounded-lg">
                 <thead>
                     <tr>
-                        <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Image</th>
-                        <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Name</th>
-                        <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Actions</th>
+                        <th className="px-6 py-3 border-b-2 border-gray-100 text-left leading-4 text-gray-600 tracking-wider">Image</th>
+                        <th className="px-6 py-3 border-b-2 border-gray-100 text-left leading-4 text-gray-600 tracking-wider">Name</th>
+                        <th className="px-6 py-3 border-b-2 border-gray-100 text-left leading-4 text-gray-600 tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {categories.map((category) => (
                     <tr key={category.id}>
-                        <td className="px-6 py-4 border-b border-gray-300">
-                        <img src={category.image_url} alt={category.name} className="w-20 h-20 object-cover rounded-md" />
+                        <td className="px-6 py-1 border-b border-gray-300">
+                        <img src={category.image_url} alt={category.name} className="w-16 h-16 object-cover rounded-full" />
                         </td>
                         <td className="px-6 py-4 border-b border-gray-300">{category.name}</td>
                         <td className="px-6 py-4 border-b border-gray-300">
                         <button 
-                            className="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600" 
+                            className="text-yellow-500 hover:text-yellow-600" 
                             onClick={() => handleEdit(category)}
                         >
                             Edit
