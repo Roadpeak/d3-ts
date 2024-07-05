@@ -34,7 +34,7 @@ const CategorySlider: React.FC = () => {
 
     fetchCategories();
 
-    const interval = setInterval(fetchCategories, 360000); 
+    const interval = setInterval(fetchCategories, 180000); 
 
     return () => clearInterval(interval);
   }, []);
