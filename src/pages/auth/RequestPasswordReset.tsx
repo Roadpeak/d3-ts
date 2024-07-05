@@ -30,8 +30,8 @@ const RequestPasswordReset: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">Request Password Reset</h2>
-        {message && <div className="text-green-500 mb-4">{message}</div>}
-        {error && <div className="text-red-500 mb-4">{error}</div>}
+        {message && <div className="text-green-500 text-[14px] mb-4">{message}</div>}
+        {error && <div className="text-red-500 text-[14px] mb-4">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Email Address</label>
