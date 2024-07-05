@@ -39,7 +39,6 @@ const CategoryList: React.FC = () => {
   return (
     <AdminLayout>
         <div className="min-h-screen flex flex-col items-center bg-gray-100 py-6">
-            <h1 className="text-2xl font-bold mb-4">Categories</h1>
             <button 
                 className="mb-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600" 
                 onClick={handleCreate}
@@ -50,9 +49,9 @@ const CategoryList: React.FC = () => {
                 <table className="min-w-full bg-white shadow-md rounded-lg">
                 <thead>
                     <tr>
-                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Image</th>
-                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Name</th>
-                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Actions</th>
+                        <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Image</th>
+                        <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Name</th>
+                        <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,15 +76,15 @@ const CategoryList: React.FC = () => {
             </div>
             {editCategory && (
                 <EditCategoryModal 
-                category={editCategory} 
-                onClose={() => setEditCategory(null)} 
-                onRefresh={fetchCategories} 
+                    category={editCategory} 
+                    onClose={() => setEditCategory(null)} 
+                    onRefresh={fetchCategories} 
                 />
             )}
             {showCreateModal && (
                 <CreateCategoryModal 
-                onClose={() => setShowCreateModal(false)} 
-                onRefresh={fetchCategories} 
+                    onClose={() => setShowCreateModal(false)} 
+                    onRefresh={fetchCategories} 
                 />
             )}
         </div>
