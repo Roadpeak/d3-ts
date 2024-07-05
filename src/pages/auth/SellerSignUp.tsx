@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
@@ -33,13 +32,16 @@ const SellerSignUp: React.FC = () => {
             const token = response.data.token;
             localStorage.setItem('token', token);
             setError('');
-            navigate('/')
-            setLoading(false);
-
+            navigate('/');
         } catch (error) {
-            console.error('Error logging in:', error);
             setLoading(false);
-            setError('An error occurred');
+            if (axios.isAxiosError(error) && error.response) {
+                setError(error.response.data.message);
+            } else {
+                setError('An error occurred');
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -122,7 +124,7 @@ const SellerSignUp: React.FC = () => {
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
-export default SellerSignUp
+export default SellerSignUp;
