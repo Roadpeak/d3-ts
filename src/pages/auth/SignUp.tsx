@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
               Service Provider
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-2">
+          <form onSubmit={handleSubmit} className="">
             {Object.keys(errors).map((key) => (
                 errors[key].map((message) => <p key={message} className="text-sm text-red-500 mb-4">{message}</p>)
             ))}
