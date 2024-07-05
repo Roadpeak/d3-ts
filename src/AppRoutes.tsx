@@ -43,6 +43,7 @@ import EditableDiscountComponent from './components/Owner/EditableDiscountCompon
 import ShopDetaisEdit from './pages/ShopDetailsEdit';
 import ResetPassword from './pages/auth/ResetPassword';
 import RequestPasswordReset from './pages/auth/RequestPasswordReset';
+import CategoryList from './components/admin/CategoryList';
 
 const AppRoutes: React.FC = () => {
 
@@ -94,6 +95,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage/payments' element={<ManagePayments />} />
       <Route path='/manage/users' element={<Users />} />
       <Route path='/manage/tickets' element={<Tickets />} />
+      <Route path='/manage/categories' element={<CategoryList />} />
 
       <Route path='/company/careers' element={<CareersPage />} />
       <Route path='/company/vision' element={<Vision />} />
