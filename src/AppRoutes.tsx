@@ -100,7 +100,6 @@ const AppRoutes: React.FC = () => {
 
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
-    // </ChatProvider>
   );
 };
 

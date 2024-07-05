@@ -55,7 +55,7 @@ const SignUp: React.FC = () => {
             <a href="/">
               <img src={logo} className='w-[50px] -mb-4 mx-auto' alt="" />
             </a>
-            <h1 className="text-2xl font-semibold text-black">Sign In</h1>
+            <h1 className="text-2xl font-semibold text-black">Sign Up</h1>
           </div>
           <div className="flex w-full justify-start gap-2 border-b border-gray-400 mb-4">
             <button
