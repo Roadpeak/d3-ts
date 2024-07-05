@@ -5,7 +5,7 @@ import { CiBookmarkRemove } from 'react-icons/ci';
 import { TbTicket } from 'react-icons/tb';
 import { HiOutlineUsers } from 'react-icons/hi2';
 import { IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
-import { MdOutlineDiscount, MdPayment } from 'react-icons/md';
+import { MdOutlineCategory, MdOutlineDiscount, MdPayment } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { AiTwotoneShopping } from 'react-icons/ai';
 import { IoMdNotificationsOutline } from 'react-icons/io';
@@ -49,11 +49,11 @@ const SideNav: React.FC = () => {
                         <AiTwotoneShopping /> Stores
                     </a>
                     <a
-                        href='/manage/vouchers'
+                        href='/manage/categories'
                         className={`py-1.5 px-2 rounded-md flex items-center gap-2 hover:bg-gray-50 hover:text-primary ${location.pathname === '/manage/vouchers' ? 'bg-gray-100 text-primary' : ''
                             }`}
                     >
-                        <BiSolidDiscount /> Vouchers
+                        <MdOutlineCategory /> Categories
                     </a>
                     <a
                         href='/manage/appointments'
