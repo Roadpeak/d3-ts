@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [loginType, setLoginType] = useState('user'); 
+  const [loginType, setLoginType] = useState('user');
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,32 +18,36 @@ const LoginPage: React.FC = () => {
     try {
       const endpoint = loginType === 'user' ? 'https://api.discoun3ree.com/api/user/login' : 'https://api.discoun3ree.com/api/seller/login';
       const response = await axios.post(endpoint, { email, password });
-      console.log(response.data.access_token);
       const token = response.data.access_token;
       localStorage.setItem('access_token', token);
       setError('');
       navigate('/');
       window.location.reload();
-      setLoading(false);
     } catch (error) {
       setLoading(false);
-      setError('An error occurred');
+      if (axios.isAxiosError(error) && error.response) {
+        setError(error.response.data.message || 'An error occurred');
+      } else {
+        setError('An error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex flex border bg-gray-100 items-center justify-center min-h-screen">
-      <div className="w-fit bg-white  h-fit rounded-md flex flex-col md:flex-row">
+      <div className="w-fit bg-white h-fit rounded-md flex flex-col md:flex-row">
         <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
           <div className="text-center mb-2">
             <a href="/">
-              <img src={logo} className='w-[50px] -mb-4 mx-auto' alt="" />
+              <img src={logo} className='w-[50px] -mb-4 mx-auto' alt="Logo" />
             </a>
             <h1 className="text-2xl font-semibold text-black">Sign In</h1>
           </div>
           <div className="flex w-full justify-start gap-2 border-b border-gray-400 mb-4">
             <button
-              className={`px-4 py-2 flex items-center  ${loginType === 'user' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
+              className={`px-4 py-2 flex items-center ${loginType === 'user' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
               onClick={() => setLoginType('user')}
             >
               User
@@ -85,13 +89,15 @@ const LoginPage: React.FC = () => {
             </div>
             <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-red-500">Sign Up</Link></p>
             <div className="mb-4">
-              <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">{loading ? <ClipLoader color="#fff" /> : 'Log in'}</button>
+              <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">
+                {loading ? <ClipLoader color="#fff" /> : 'Log in'}
+              </button>
             </div>
           </form>
           <p className="text-sm text-gray-700 text-center">Forgot your password? <Link to='/request-password-reset' className="text-red-500">Reset it here</Link></p>
         </div>
         <div className="hidden md:flex justify-center items-center ">
-          <img src="https://imgs.search.brave.com/VikpyiN7OTH_xj6mfR6zYxy8_mHlGuCGveLv7wIAg14/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzUzLzMyLzc2/LzM2MF9GXzQ1MzMy/NzYyMF9mbExTaFJD/VU50cW9WTUszTnlm/SmRLSTFVblEzRHhC/eS5qcGc" alt="" />
+          <img src="https://imgs.search.brave.com/VikpyiN7OTH_xj6mfR6zYxy8_mHlGuCGveLv7wIAg14/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzUzLzMyLzc2/LzM2MF9GXzQ1MzMy/NzYyMF9mbExTaFJD/VU50cW9WTUszTnlm/SmRLSTFVblEzRHhC/eS5qcGc" alt="Illustration" />
         </div>
       </div>
     </div>

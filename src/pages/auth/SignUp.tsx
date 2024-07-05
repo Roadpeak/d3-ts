@@ -14,7 +14,7 @@ const SignUp: React.FC = () => {
     password_confirmation: '',
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
   const [signupType, setSignupType] = useState('user');
   const navigate = useNavigate();
 
@@ -34,14 +34,17 @@ const SignUp: React.FC = () => {
       const response = await axios.post(endpoint, formData);
       const token = response.data.access_token;
       localStorage.setItem('token', token);
-      setError('');
+      setErrors({});
       navigate('/');
       setLoading(false);
     } catch (error) {
-      console.error('Error signing up:', error);
-      setLoading(false);
-      setError('An error occurred');
-    }
+            setLoading(false);
+            if (axios.isAxiosError(error) && error.response) {
+                setErrors(error.response.data);
+            } else {
+                setErrors({ general: ['An error occurred'] });
+            }
+        }
   };
 
   return (
@@ -69,7 +72,9 @@ const SignUp: React.FC = () => {
             </button>
           </div>
           <form onSubmit={handleSubmit} className="space-y-2">
-            {error && <p className="text-[14px] text-red-500 mb-4">{error}</p>}
+            {Object.keys(errors).map((key) => (
+                errors[key].map((message) => <p key={message} className="text-sm text-red-500 mb-4">{message}</p>)
+            ))}
             <div className="flex w-full gap-[2%] items-center">
               <div className="mb-1">
                 <label htmlFor="first_name" className="block text-[14px] text-black">First Name <span className='text-primary '>*</span></label>
