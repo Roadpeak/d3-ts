@@ -26,7 +26,7 @@ const LoginPage: React.FC = () => {
     } catch (error) {
       setLoading(false);
       if (axios.isAxiosError(error) && error.response) {
-        setError(error.response.data.message || 'An error occurred');
+        setError(error.response.data.error || 'An error occurred');
       } else {
         setError('An error occurred');
       }
