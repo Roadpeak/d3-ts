@@ -16,7 +16,7 @@ const RequestPasswordReset: React.FC = () => {
       setError('');
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
-        setError(err.response.data.message || 'Failed to send reset link. Please try again.');
+        setError(err.response.data.message);
       } else {
         setError('Failed to send reset link. Please try again.');
       }
