@@ -157,14 +157,14 @@ const SignUp: React.FC = () => {
                 />
               </div>
             </div>
-            <p className="text-[12px] text-gray-600 font-light -mt-4">Password must be atleast 8 characters long</p>
+            <p className="text-[12px] text-gray-600 font-light">Password must be atleast 8 characters long</p>
             <button
               type="submit"
               className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
             >
               {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
             </button>
-            <p className="text-[14px] text-gray-700 text-end text-start mt-4 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
+            <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           </form>
         </div>
         <div className="w-1/2 hidden md:flex items-center justify-center">

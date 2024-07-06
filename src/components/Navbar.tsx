@@ -1,11 +1,9 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { FaRegHeart, FaRegUser, FaSearch } from "react-icons/fa";
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { FaRegUser, FaSearch } from "react-icons/fa";
 import { FiUser } from 'react-icons/fi';
 import { CiBookmarkPlus } from "react-icons/ci";
-import { BiSolidDiscount } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
-import { MdOutlineAddShoppingCart, MdOutlineDiscount } from 'react-icons/md';
 import logo from '../assets/icon2.png'
 import { IoIosMenu, IoMdAdd } from 'react-icons/io';
 import addStore from '../services/addStore';
@@ -142,46 +140,43 @@ const Navbar: React.FC = () => {
               <>
                 <div className="flex flex-col items-center relative text-white">
                   <div className="flex relative w-full">
-                    <a href='/accounts/sign-in' className="flex text-black md:hidden">
+                    <Link to='/accounts/sign-in' className="flex text-black md:hidden">
                       <IoIosMenu size={24} />
-                    </a>
-                    <a href={`/accounts/sign-in`} className='px-4 py-1 text-gray-500 mr-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</a>
-                    <a href={`/accounts/sign-up`} className='px-4 py-1 text-gray-500 ml-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Register</a>
+                    </Link>
+                    <Link to={`/accounts/sign-in`} className='px-4 py-1 text-gray-500 mr-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</Link>
+                    <Link to={`/accounts/sign-up`} className='px-4 py-1 text-gray-500 ml-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Register</Link>
                   </div>
                 </div>
               </>
             )}
             {open && (
               <div className="absolute z-20 top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
-                <a href='/accounts/profile' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegUser /> Account</a>
-                <a href='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</a>
-                <a href='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</a>
-                {/* <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegHeart /> Saved</a>
-                <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineDiscount /> Coupons</a>
-                <a href='/' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BiSolidDiscount /> Vouchers</a> */}
+                <Link to='/accounts/profile' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegUser /> Account</Link>
+                <Link to='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</Link>
+                <Link to='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</Link>
                 {user && user.user_type === 'admin' ? (
                   <>
-                  <a href={`/manage`} className=''>
+                  <Link to={`/manage`} className=''>
                     <button
                       className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
                     >
                       <LuLayoutDashboard />
                       Dashboard
                     </button>
-                  </a>
+                  </Link>
                   </>
                 ) : (
                   <></>
                 )}
                 {user && user.user_type === 'seller' && stores.length !== 0 ? (
-                  <a href={stores.length > 0 ? `/store/${stores[0]?.id}/home` : '#'} className=''>
+                  <Link to={stores.length > 0 ? `/store/${stores[0]?.id}/home` : '#'} className=''>
                     <button
                       className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
                     >
                       <LuLayoutDashboard />
                       Dashboard
                     </button>
-                  </a>
+                  </Link>
                 ) : (
                   <div>
                     {user?.user_type === 'seller' && (

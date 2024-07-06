@@ -22,7 +22,7 @@ const CategorySlider: React.FC = () => {
           setCategories(JSON.parse(storedCategories));
         }
 
-        const response = await axios.get<Category[]>('https://api.discoun3ree.com/api/categories/random');
+        const response = await axios.get<Category[]>('https://api.discoun3ree.com/api/random-categories');
         setCategories(response.data);
         localStorage.setItem('cachedCategories', JSON.stringify(response.data));
         setLoading(false);

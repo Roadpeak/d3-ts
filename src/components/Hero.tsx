@@ -168,12 +168,12 @@ const Hero: React.FC = () => {
   return (
     <div className='py-4 px-[5%] bg-gray-100'>
       <Banner />
-      <p className='text-gray-600 font-medium mt-4 mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
+      <p className='text-black font-semibold mt-4 mb-2 text-[20px]'>Featured Discounts | {getCurrentMonthAndYear()}</p>
       <div className="border border-gray-200 rounded-md p-2">
         {renderDiscounts()}
       </div>
       <div className="flex mt-3 flex-col">
-        <p className='text-gray-600 mb-2 font-medium text-[20px]'>Top Categories</p>
+        <p className='text-black mb-2 font-semibold text-[20px]'>Top Categories</p>
         <CategorySlider />
       </div>
     </div>
