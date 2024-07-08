@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAppointments } from '../../services/apiService';
 import AdminLayout from '../../utils/layouts/AdminLayout';
+import { format, parseISO } from 'date-fns';
 
-// Define your appointment type
 interface Appointment {
   id: number;
-  code: string;
+  user_first_name: string;
+  user_last_name: string;
+  user_phone: string;
   discount_name: string;
   shop_name: string;
-  time_slot_start: string;
+  time_slot_date: string;
+  time_slot_start_time: string;
+  time_slot_end_time: string;
   approved: boolean;
 }
 
@@ -24,6 +28,7 @@ const Appointments: React.FC = () => {
       try {
         const appointmentsData = await fetchAppointments();
         setAppointments(appointmentsData);
+        console.log(appointmentsData);
       } catch (error) {
         console.error('Error fetching appointments:', error);
         setError('Error fetching appointments. Please try again later.');
@@ -47,17 +52,20 @@ const Appointments: React.FC = () => {
             <table className="table-auto w-full rounded-md">
               <thead>
                 <tr className="bg-gray-100 border-b-2 border-gray-200 text-[13px] text-[#002A4D] font-medium">
-                  <th className="px-4 py-3 text-start">Code</th>
+                  <th className="px-4 py-3 text-start">#</th>
+                  <th className="px-4 py-3 text-start">Name</th>
+                  <th className="px-4 py-3 text-start">Phone</th>
                   <th className="px-4 py-3 text-start">Date</th>
+                  <th className="px-4 py-3 text-start">Time slot</th>
                   <th className="px-4 py-3 text-start">Discount</th>
                   <th className="px-4 py-3 text-start">Shop</th>
-                  <th className="px-4 py-3 text-start">Status</th>
+                  <th className="px-4 py-3 text-start">Fullfilled</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
-                {/* {loading ? (
+                {loading ? (
                   <tr>
-                    <td colSpan={9} className="text-center py-4">Loading...</td>
+                    <td colSpan={9} className="text-center py-4">Loading, please wait...</td>
                   </tr>
                 ) : error ? (
                   <tr>
@@ -68,10 +76,13 @@ const Appointments: React.FC = () => {
                     <td colSpan={9} className="text-center py-4">No appointments found.</td>
                   </tr>
                 ) : (
-                  appointments.map((appointment) => (
+                  appointments.map((appointment, index) => (
                     <tr key={appointment.id} className="border-b border-gray-100 hover:bg-gray-100">
-                      <td className="px-4 py-3">{appointment.code}</td>
-                      <td className="px-4 py-3">{new Date(appointment.time_slot_start).toLocaleString()}</td>
+                      <td className="px-4 py-3">{index + 1}</td>
+                      <td className="px-4 py-3 capitalize">{appointment.user_first_name} {appointment.user_last_name}</td>          
+                      <td className="px-4 py-3">{appointment.user_phone}</td>
+                      <td className="px-4 py-3">{format(parseISO(appointment.time_slot_date), 'MMMM do, yyyy')}</td>
+                      <td className="px-4 py-3">{format(parseISO(appointment.time_slot_start_time), 'HH:mm')} - {format(parseISO(appointment.time_slot_end_time), 'HH:mm')}</td>
                       <td className="px-4 py-3">{appointment.discount_name}</td>
                       <td className="px-4 py-3">{appointment.shop_name}</td>
                       <td className={`px-4 py-3 ${appointment.approved ? 'text-green-500' : 'text-red-500'}`}>
@@ -79,7 +90,7 @@ const Appointments: React.FC = () => {
                       </td>
                     </tr>
                   ))
-                )} */}
+                )}
               </tbody>
             </table>
           </div>

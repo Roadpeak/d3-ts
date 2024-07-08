@@ -48,13 +48,16 @@ export interface Payment {
 
 interface Appointment {
   id: number;
-  code: string;
+  user_first_name: string;
+  user_last_name: string;
+  user_phone: string;
   discount_name: string;
   shop_name: string;
-  time_slot_start: string;
+  time_slot_date: string;
+  time_slot_start_time: string;
+  time_slot_end_time: string;
   approved: boolean;
 }
-
 
 interface ReviewData {
   id?: number;
@@ -72,6 +75,10 @@ interface Shop {
   id: number;
   name: string;
   location: string;
+}
+
+interface AppointmentResponse {
+  data: Appointment[];
 }
 
 export const manageReview = async (method: 'post' | 'put' | 'delete', data: ReviewData) => {
@@ -290,10 +297,10 @@ export const fetchUsers = async (): Promise<User[]> => {
 
 export const fetchAppointments = async (): Promise<Appointment[]> => {
   try {
-    const response: AxiosResponse<Appointment[]> = await axios.get<Appointment[]>(`${BASE_URL}/bookings`, {
+    const response: AxiosResponse<AppointmentResponse> = await axios.get<AppointmentResponse>(`${BASE_URL}/bookings`, {
       headers: getHeaders(),
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error('Error fetching appointments:', error);
     throw error;
