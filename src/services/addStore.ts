@@ -24,7 +24,7 @@ const addStore = async (storeData: StoreData, setLoading: Function, handleCloseA
     });
     console.log('Store added successfully:', response.data);
     toast.success("Store creation successful!");
-    // window.location.reload();
+    window.location.reload();
   } catch (error) {
     console.error('Error adding store:', error);
     toast.error("An error occurred!");
