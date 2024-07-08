@@ -39,48 +39,48 @@ const PopupModal: React.FC<PopupModalProps> = ({ discount, actionType, onClose, 
         </div>
         <div className="grid grid-cols-2 gap-x-4">
           <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-500 mb-1">Name</label>
-            <p className="font-medium">{discount.name}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Name</label>
+            <p className="text-gray-500 text-[14px] font-light">{discount.name}</p>
           </div>
           <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-500 mb-1">Initial Price</label>
-            <p className="font-medium">Ksh {discount.initial_price}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Initial Price</label>
+            <p className="text-gray-500 text-[14px] font-light">Ksh {discount.initial_price}</p>
           </div>
           <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-500 mb-1">Discount</label>
-            <p className="font-medium">Ksh {discount.discount}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Discount</label>
+            <p className="ftext-gray-500 text-[14px] font-light">Ksh {discount.discount}</p>
           </div>
           <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-500 mb-1">Price After Discount</label>
-            <p className="font-medium">Ksh {discount.price_after_discount}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Price After Discount</label>
+            <p className="text-gray-500 text-[14px] font-light">Ksh {discount.price_after_discount}</p>
           </div>
           <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-500 mb-1">Percentage Discount</label>
-            <p className="font-medium">{discount.percentage_discount}%</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Percentage Discount</label>
+            <p className="text-gray-500 text-[14px] font-light">{discount.percentage_discount}%</p>
           </div>
           <div className="flex flex-col mb-4">
-            <label className="text-sm text-gray-500 mb-1">Voucher Amount</label>
-            <p className="font-medium">KSh {discount.amount}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Voucher Amount</label>
+            <p className="text-gray-500 text-[14px] font-light">KSh {discount.amount}</p>
           </div>
           <div className="flex flex-col mb-4 col-span-2">
-            <label className="text-sm text-gray-500 mb-1">Expiry Date</label>
-            <p className="font-medium">{new Date(discount.expiry_date).toLocaleDateString()}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Expiry Date</label>
+            <p className="text-gray-500 text-[14px] font-light">{new Date(discount.expiry_date).toLocaleDateString()}</p>
           </div>
           <div className="flex flex-col mb-4 col-span-2">
-            <label className="text-sm text-gray-500 mb-1">Description</label>
-            <p className="font-medium">{discount.description}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Description</label>
+            <p className="text-gray-500 text-[14px] font-light">{discount.description}</p>
           </div>
           <div className="flex flex-col mb-4 col-span-2">
-            <label className="text-sm text-gray-500 mb-1">Category</label>
-            <p className="font-medium">{discount.category}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Category</label>
+            <p className="text-gray-500 text-[14px] font-light">{discount.category}</p>
           </div>
           <div className="flex flex-col mb-4 col-span-2">
-            <label className="text-sm text-gray-500 mb-1">Shop ID</label>
-            <p className="font-medium">{discount.shop_id}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Shop ID</label>
+            <p className="text-gray-500 text-[14px] font-light">{discount.shop_id}</p>
           </div>
           <div className="flex flex-col mb-4 col-span-2">
-            <label className="text-sm text-gray-500 mb-1">Created At</label>
-            <p className="font-medium">{new Date(discount.created_at).toLocaleString()}</p>
+            <label className="text-[16px] font-medium text-gray-700 mb-1">Uploaded</label>
+            <p className="text-gray-500 text-[14px] font-light">{new Date(discount.created_at).toLocaleString()}</p>
           </div>
         </div>
         <div className="flex justify-end mt-6">

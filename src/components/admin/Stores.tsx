@@ -75,7 +75,7 @@ const ManageStores: React.FC = () => {
                   <th className="px-4 text-start font-normal pb-2 pt-4">Owner</th>
                   <th className="px-4 text-start font-normal pb-2 pt-4">Location</th>
                   <th className="px-4 text-start font-normal pb-2 pt-4">Phone</th>
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Verified</th>
+                  <th className="px-4 text-start font-normal pb-2 pt-4">Status</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
