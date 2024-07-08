@@ -283,7 +283,7 @@ export const verifyShop = async (shopId: number) => {
 };
 
 export const unverifyShop = async (shopId: number) => {
-  const response = await axios.put(`${BASE_URL}/shops/${shopId}/unverify`, {}, {
+  const response = await axios.put(`${BASE_URL}/shops/${shopId}/suspend`, {}, {
     headers: getHeaders(),
   });
   return response.data;
