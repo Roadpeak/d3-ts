@@ -151,7 +151,7 @@ const Hero: React.FC = () => {
       <Slider {...settings}>
         {discounts.slice(0, 10).map((discount, index) => (
           <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2 relative'>
-            <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
+            <div className="absolute top-4 right-6 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
               -{Math.floor(discount.percentage_discount)}%
             </div>
             <div className='max-w-sm rounded overflow-hidden bg-white'>

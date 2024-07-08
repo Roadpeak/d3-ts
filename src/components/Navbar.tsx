@@ -228,7 +228,7 @@ const Navbar: React.FC = () => {
                   id="location"
                   name="location"
                   value={storeData.location}
-                  placeholder='e.g. Shiloh Residence, Kilimani'
+                  placeholder='Enter exact location for easier accessibility.'
                   className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
                   onChange={handleInputChange}
                 />

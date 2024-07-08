@@ -55,10 +55,6 @@ const Bookings: React.FC = () => {
     }
   }, [user]);
 
-  if (loading) {
-    return <div className="p-4 text-center">Loading...</div>;
-  }
-
   if (error) {
     return <div className="p-4 text-center text-red-500">{error}</div>;
   }
@@ -84,7 +80,10 @@ const Bookings: React.FC = () => {
     <>
       <Navbar />
       <div className="px-[5%] py-6 bg-gray-50 ">
-        <h1 className="text-[17px] mb-2 font-medum text-gray-700">Your Bookings</h1>
+        <div className="flex w-full items-center justify-between mb-2">
+          <p className="text-[17px] mb-2 font-medum text-gray-700">Your Bookings</p>
+          <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[13px] rounded-full py-2 px-3.5 ' />
+        </div>
         {bookings.length === 0 ? (
           <div className="text-gray-600 text-center">You have no bookings.</div>
         ) : (
@@ -134,7 +133,15 @@ const Bookings: React.FC = () => {
                 <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Time Slot</span>{formatDateTime(selectedBooking.time_slot_start, selectedBooking.time_slot_end)}</p>
                 <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Fulfilled</span>{selectedBooking.approved ? 'Yes' : 'No'}</p>
               </div>
-              <p className="text-center text-[13px] font-light text-gray-600 my-2">For great service delivery, after your service is fulfilled, you will provide this code <span className='font-medium text-[15px]'>{selectedBooking.code}</span> to the service provider, to mark it as fulfilled, please keep it safe.</p>
+              <p className="text-center text-[13px] font-light text-gray-600 my-2">{selectedBooking.approved ? (
+                <p>
+                  Thank You, we hope you enjoyed the service. you could take a moment and submit a review about his discount
+                </p>
+              ) : (
+                <p>
+                  For great service delivery, after your service is fulfilled, you will provide this code <span className='font-medium text-[15px]'>{selectedBooking.code}</span> to the service provider, to mark it as fulfilled, please keep it safe.
+                </p>
+              )}</p>
             </div>
           </div>
         )}
