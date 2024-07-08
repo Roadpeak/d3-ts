@@ -75,6 +75,10 @@ interface Shop {
   id: number;
   name: string;
   location: string;
+  seller_first_name: string;
+  seller_last_name: string;
+  seller_phone: string;
+  verified: boolean;
 }
 
 interface AppointmentResponse {
@@ -269,6 +273,20 @@ export const fetchShops = async (): Promise<Shop[]> => {
     console.error('Error fetching shops:', error);
     throw error; 
   }
+};
+
+export const verifyShop = async (shopId: number) => {
+  const response = await axios.put(`${BASE_URL}/shops/${shopId}/verify`, {}, {
+    headers: getHeaders(),
+  });
+  return response.data;
+};
+
+export const unverifyShop = async (shopId: number) => {
+  const response = await axios.put(`${BASE_URL}/shops/${shopId}/unverify`, {}, {
+    headers: getHeaders(),
+  });
+  return response.data;
 };
 
 export const fetchPayments = async (): Promise<Payment[]> => {
