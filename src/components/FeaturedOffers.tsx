@@ -66,7 +66,7 @@ const FeaturedOffers: React.FC = () => {
       <p className="text-black font-semibold mb-2 text-[20px]">
         Top Selling | 2024
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {loading ? (
           <ShimmerLoader count={4} />
         ) : (
@@ -76,15 +76,15 @@ const FeaturedOffers: React.FC = () => {
               <div className="flex flex-col">
                 <p className="text-black my-2 font-medium text-[16px]">{item.name}</p>
                 <div className="flex mt-2 items-center justify-between w-full">
-                  <div className="flex gap-1 items-center">
+                  <div className="flex flex-col md:flex-row gap-1">
                     <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
-                    <p className="text-primary font-semibold text-[14px] ml-2">
+                    <p className="text-primary font-semibold text-[14px] md:ml-2">
                       {`Ksh. ${item.price_after_discount}`}
                     </p>
                   </div>
                 </div>
                 <p className="text-[13px] text-gray-600 "><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
-                <div className="flex w-full gap-[2%]">
+                <div className="flex flex-col md:flex-row gap-2 w-full">
                   {new Date(item.expiry_date) > new Date() ? (
                     <>
                       <a
