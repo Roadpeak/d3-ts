@@ -58,7 +58,7 @@ const OwnerBookings: React.FC = () => {
         };
 
         fetchBookings();
-    }, [id]); // Fetch bookings whenever id changes
+    }, [id]);
 
     const handleDetailsClick = (booking: Booking) => {
         setSelectedBooking(booking);
