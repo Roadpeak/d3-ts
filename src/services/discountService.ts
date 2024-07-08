@@ -13,3 +13,13 @@ export const fetchDiscounts = async (): Promise<Discount[]> => {
     return [];
   }
 };
+
+export const fetchRandomDiscounts = async (): Promise<Discount[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/random-discounts`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching discounts:', error);
+    return [];
+  }
+};

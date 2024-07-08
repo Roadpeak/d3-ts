@@ -5,7 +5,7 @@ export interface Discount {
   initial_price: string;
   discount: string;
   price_after_discount: string;
-  percentage_discount: string;
+  percentage_discount: number;
   amount: string;
   expiry_date: string;
   slug: string;
