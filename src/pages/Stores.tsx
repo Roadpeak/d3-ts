@@ -21,10 +21,15 @@ interface Store {
   store_type: string | null;
 }
 
+interface Category {
+  name: string;
+  image_url: string;
+}
 
 const Stores: React.FC = () => {
   const [stores, setStores] = useState<Store[]>([]);
   const [discounts, setDiscounts] = useState<Discount[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
  const fetchStores = async () => {
@@ -53,13 +58,37 @@ const Stores: React.FC = () => {
       try {
         const data = await fetchRandomDiscounts();
         setDiscounts(data);
-        console.log(data); // Debugging statement
       } catch (error) {
         console.error('Error fetching discounts:', error);
       }
     };
 
     fetchDiscountData();
+  }, []);
+
+   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const storedCategories = localStorage.getItem('cachedCategories');
+        if (storedCategories) {
+          setCategories(JSON.parse(storedCategories));
+        }
+
+        const response = await axios.get<Category[]>('https://api.discoun3ree.com/api/random-categories');
+        setCategories(response.data);
+        localStorage.setItem('cachedCategories', JSON.stringify(response.data));
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+
+    const interval = setInterval(fetchCategories, 180000); 
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -71,7 +100,7 @@ const Stores: React.FC = () => {
             Stores with cashbacks, Coupon Codes & Promo Codes
           </p>
           <p className="text-[16px] font-light text-gray-700">
-            Get Extra 5% Bonus at over 1000 stores
+            Get Extra 5% Bonus at over 100 stores
           </p>
         </div>
         <CategorySlider />
@@ -108,6 +137,21 @@ const Stores: React.FC = () => {
               </a>
             ))
           )}
+        </div>
+        <div className="flex flex-col my-6 h-full w-full">
+          <p className="text-black font-semibold text-[20px] mb-2">Top searched</p>
+          <div className="w-full h-full grid grid-cols-2 md:grid-cols-7 w-full lg:grid-cols-6 gap-4">
+            {categories.slice(0,6).map((category, index) => (
+              <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full'>
+                  <div className='cursor-pointer flex items-center justify-center flex-col bg-gray-50 p-4 rounded-md'>
+                    <div className='image-container'>
+                      <img src={category.image_url} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
+                    </div>
+                    <span className="text-black mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
+                  </div>
+                </a>
+            ))}
+          </div>
         </div>
         <div className="flex w-full bg-white p-4 rounded-md flex-col h-full mt-4 mb-6">
           <p className="text-black font-semibold text-[20px] mb-2">You may like</p>
