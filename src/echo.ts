@@ -7,7 +7,7 @@ const echo = new Echo({
   broadcaster: 'pusher',
     key: 'f566a73b20b1548b5a13',
     cluster: 'ap2',
-  forceTLS: false,
+  forceTLS: true,
   authEndpoint: `https://api.discoun3ree.com/broadcasting/auth`,
   auth: {
     headers: {
