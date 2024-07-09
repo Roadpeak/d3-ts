@@ -135,7 +135,7 @@ const Bookings: React.FC = () => {
               </div>
               <p className="text-center text-[13px] font-light text-gray-600 my-2">{selectedBooking.approved ? (
                 <p>
-                  Thank You, we hope you enjoyed the service. you could take a moment and submit a review about his discount
+                  Thank You, we hope you enjoyed the service. you could take a moment and submit a review about this service.
                 </p>
               ) : (
                 <p>

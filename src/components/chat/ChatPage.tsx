@@ -4,8 +4,7 @@ import MessagesList from './MessagesList';
 import SendMessageForm from './SendMessageForm';
 import ConversationsList from './ConversationsList';
 import { useAuth } from '../../utils/context/AuthContext';
-import Navbar from '../Navbar';
-import Footer from '../Footer';
+import echo from '../../echo';
 
 const ChatPage: React.FC = () => {
   const [conversations, setConversations] = useState<any[]>([]);
@@ -58,6 +57,17 @@ const ChatPage: React.FC = () => {
       };
 
       fetchMessages();
+
+      // Listen for new messages on the private channel
+      const channel = echo.private(`conversation.${selectedConversation}`);
+      channel.listen('MessageSent', (e: any) => {
+        setMessages(prevMessages => [...prevMessages, e.message]);
+      });
+
+      // Cleanup: leave the channel when the component unmounts or selectedConversation changes
+      return () => {
+        echo.leave(`conversation.${selectedConversation}`);
+      };
     }
   }, [selectedConversation]);
 
@@ -105,8 +115,7 @@ const ChatPage: React.FC = () => {
   const currentUserId: number | null = user?.id ?? null;
 
   return (
-    <div className="">
-      <div className="flex flex-col h-screen sm:flex-row">
+    <div className="flex flex-col h-screen sm:flex-row">
       {(selectedConversation === null || window.innerWidth >= 640) && (
         <div className="sm:w-1/3 bg-gray-100 border-r border-gray-200 overflow-y-auto">
           <ConversationsList
@@ -132,8 +141,6 @@ const ChatPage: React.FC = () => {
           />
         </div>
       )}
-    </div>
-      {/* <Footer /> */}
     </div>
   );
 };

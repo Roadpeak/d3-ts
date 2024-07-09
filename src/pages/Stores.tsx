@@ -40,7 +40,6 @@ const Stores: React.FC = () => {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response.data);
       setStores(response.data); 
       setLoading(false); 
     } catch (error) {
