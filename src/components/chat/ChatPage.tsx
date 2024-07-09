@@ -116,7 +116,8 @@ const ChatPage: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen sm:flex-row">
-      {(selectedConversation === null || window.innerWidth >= 640) && (
+      Coming soon
+      {/* {(selectedConversation === null || window.innerWidth >= 640) && (
         <div className="sm:w-1/3 bg-gray-100 border-r border-gray-200 overflow-y-auto">
           <ConversationsList
             conversations={conversations}
@@ -140,7 +141,7 @@ const ChatPage: React.FC = () => {
             onMessageSent={handleSendMessage}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
