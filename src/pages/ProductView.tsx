@@ -58,11 +58,13 @@ const ProductView: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="bg-yellow-200">
-        <p className="text-yellow-800 px-4 text-center py-3 text-sm">
-          {user && user.first_discount === 0 ? 'You have one free voucher. You will use it to access this discount and book an appointment.' : ''}
-        </p>
-      </div>
+     {user && user.first_discount === 0 && (
+        <div className="bg-yellow-200">
+          <p className="text-yellow-800 px-4 text-center py-3 text-sm">
+            You have one free voucher. You will use it to access this discount and book an appointment.
+          </p>
+        </div>
+      )}
       <div className="flex px-[5%] flex-col py-[2%]">
         <div className="flex w-full flex-col gap-2 items-start ">
           <button onClick={() => navigate(-1)} className="flex text-gray-600 font-light text-[15px] items-center gap-2">
