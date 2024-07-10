@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FiUpload } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 interface SendMessageModalProps {
     isOpen: boolean;
@@ -11,6 +12,7 @@ interface SendMessageModalProps {
 const SendMessageModal: React.FC<SendMessageModalProps> = ({ isOpen, onClose, sellerId }) => {
     const [newMessage, setNewMessage] = useState<string>('');
     const [attachment, setAttachment] = useState<File | null>(null);
+    const navigate = useNavigate();
 
     const sendMessage = async () => {
         if (!sellerId) {
@@ -35,6 +37,7 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({ isOpen, onClose, se
             setNewMessage('');
             setAttachment(null);
             onClose();
+            navigate('/chat')
         } catch (error) {
             console.error('Error sending message:', error);
         }
