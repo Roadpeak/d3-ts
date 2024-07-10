@@ -82,7 +82,7 @@ const SignUp: React.FC = () => {
                 errors[key].map((message) => <p key={message} className="text-sm text-red-500 mb-4">{message}</p>)
             ))}
             <div className="flex w-full gap-[2%] items-center">
-              <div className="mb-1">
+              <div className="mb-1 w-full">
                 <label htmlFor="first_name" className="block text-[14px] text-black">First Name <span className='text-primary '>*</span></label>
                 <input
                   type="text"
@@ -95,7 +95,7 @@ const SignUp: React.FC = () => {
                   required
                 />
               </div>
-              <div className="mb-1">
+              <div className="mb-1 w-full">
                 <label htmlFor="last_name" className="block text-[14px] text-black">Last name <span className='text-primary '>*</span></label>
                 <input
                   type="text"
