@@ -4,7 +4,7 @@ import Pusher from 'pusher-js';
 import { FiUpload } from 'react-icons/fi';
 import moment from 'moment';
 import { FaRegUserCircle, FaUser } from 'react-icons/fa';
-import { IoHomeOutline } from 'react-icons/io5';
+import { IoFilterSharp, IoHomeOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
 
 interface Message {
@@ -169,7 +169,7 @@ const ChatPage: React.FC = () => {
         <div className="flex w-full h-screen md:p-8 bg-gray-50">
             <div className="flex w-full border rounded">
                 <div className="w-1/3 bg-gray-100 border border-gray-200 py-4 overflow-y-auto">
-                    <div className="flex mb-4 items-center w-full justify-between">
+                    <div className="flex mb-1 items-center w-full justify-between">
                         <a href='/' className="px-4">Chat</a>
                         <div className="flex items-center gap-2 mr-4 text-gray-600">
                             <a href="/" className="">
@@ -180,6 +180,10 @@ const ChatPage: React.FC = () => {
                             </a>
                             <IoMdMenu />
                         </div>
+                    </div>
+                    <div className="flex px-4 text-gray-600 w-full justify-between items-center gap-1 mb-4">
+                        <input className='w-[90%] bg-transparent border py-1 px-4 border-gray-200 rounded-full outline-none focus:bg-white text-[15px]' type="text" placeholder='Search...'/>
+                        <IoFilterSharp className='cursor-pointer' size={24} />
                     </div>
                     {conversations.map((conversation) => (
                         <div
