@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loginType, setLoginType] = useState('user');
   const navigate = useNavigate();
@@ -33,6 +35,10 @@ const LoginPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -74,10 +80,10 @@ const LoginPage: React.FC = () => {
                 required
               />
             </div>
-            <div className="">
+            <div className="relative">
               <label htmlFor="password" className="block text-sm font-medium text-black">Password</label>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
                 placeholder='Enter password'
@@ -86,6 +92,13 @@ const LoginPage: React.FC = () => {
                 className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
                 required
               />
+              <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 top-6 flex items-center text-gray-500"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
             </div>
             <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-red-500">Sign Up</Link></p>
             <div className="mb-4">
