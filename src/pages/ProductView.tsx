@@ -142,10 +142,11 @@ const ProductView: React.FC = () => {
                         <span className="font-light text-gray-600">now</span>
                         <p className="font-medium text-[18px]">Ksh {discount?.price_after_discount}</p>
                       </div>
-                      {/* <p className="text-third"></p> */}
                       <button
                         onClick={() => {
-                          if (user?.first_discount === 1) {
+                          if (!user) {
+                            navigate(`/${discount?.id}/checkout`);
+                          } else if (user.first_discount === 1) {
                             navigate(`/${discount?.id}/checkout`);
                           } else {
                             navigate(`/discount/${discount?.id}/booking`);
@@ -153,15 +154,17 @@ const ProductView: React.FC = () => {
                         }}
                         className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2"
                       >
-                        {
-                          user?.first_discount === 1 ? (
-                            <>
-                              Get this discount @ Ksh <span>{discount?.amount}</span>
-                            </>
-                          ) : (
-                            'Book appointment'
-                          )
-                        }
+                        {!user ? (
+                          <>
+                            Get this discount @ Ksh <span>{discount?.amount}</span>
+                          </>
+                        ) : user.first_discount === 1 ? (
+                          <>
+                            Get this discount @ Ksh <span>{discount?.amount}</span>
+                          </>
+                        ) : (
+                          'Book appointment'
+                        )}
                       </button>
                       <div className="flex flex-col my-3.5">
                         <span className="text-[15px]">Save this for later</span>
