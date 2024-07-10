@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const SignUp: React.FC = () => {
     password_confirmation: '',
   });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
   const [signupType, setSignupType] = useState('user');
   const navigate = useNavigate();
@@ -38,13 +40,17 @@ const SignUp: React.FC = () => {
       navigate('/');
       setLoading(false);
     } catch (error) {
-            setLoading(false);
-            if (axios.isAxiosError(error) && error.response) {
-                setErrors(error.response.data);
-            } else {
-                setErrors({ general: ['An error occurred'] });
-            }
+        setLoading(false);
+        if (axios.isAxiosError(error) && error.response) {
+            setErrors(error.response.data);
+        } else {
+            setErrors({ general: ['An error occurred'] });
         }
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -62,13 +68,13 @@ const SignUp: React.FC = () => {
               className={`px-4 py-2 ${signupType === 'user' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
               onClick={() => setSignupType('user')}
             >
-              User
+              user
             </button>
             <button
               className={`px-4 py-2 ${signupType === 'seller' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
               onClick={() => setSignupType('seller')}
             >
-              Service Provider
+              service provider
             </button>
           </div>
           <form onSubmit={handleSubmit} className="">
@@ -130,34 +136,60 @@ const SignUp: React.FC = () => {
               />
             </div>
             <div className="flex items-center w-full gap-2">
-              <div className="mb-1">
-                <label htmlFor="password" className="block text-[14px] text-black">Password <span className='text-primary '>*</span></label>
+              <div className="relative mb-1 w-full">
+                <label htmlFor="password" className="block text-[14px] text-black">
+                  Password <span className="text-primary">*</span>
+                </label>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   value={formData.password}
-                  placeholder='Type your password'
+                  placeholder="Type your password"
                   onChange={handleChange}
                   className="mt-1 p-2 block w-full text-[13px] rounded border border-gray-300 focus:border-primary outline-none"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 top-6 flex items-center text-gray-500"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
               </div>
-              <div className="mb-1">
-                <label htmlFor="password_confirmation" className="block text-[14px] text-black">Confirm Password <span className='text-primary '>*</span></label>
+              <div className="relative mb-1 w-full">
+                <label htmlFor="password_confirmation" className="block text-[14px] text-black">
+                  Confirm Password <span className="text-primary">*</span>
+                </label>
                 <input
-                  type="password"
-                  id="confirm_passwpassword_confirmationord"
+                  type={showPassword ? 'text' : 'password'}
+                  id="password_confirmation"
                   name="password_confirmation"
                   value={formData.password_confirmation}
-                  placeholder='Confirm your password'
+                  placeholder="Confirm your password"
                   onChange={handleChange}
                   className="mt-1 p-2 block w-full text-[13px] rounded border border-gray-300 focus:border-primary outline-none"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 top-6 flex items-center text-gray-500"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
               </div>
             </div>
             <p className="text-[12px] text-gray-600 font-light">Password must be atleast 8 characters long</p>
+            <div className="flex w-full items-center mt-1 gap-2">
+              <input required type="checkbox" />
+              <p className="text-gray-600 text-[13px] font-light ">By signing up, you agree to our 
+                <a href="https://discoun3ree.com/terms-and-conditions" target='_blank' className="text-primary px-2">Terms & Conditons</a>
+                and
+                <a href="https://discoun3ree.com/privacy-policy" target='_blank' className="text-primary px-2">Privacy Policy</a>
+              </p>
+            </div>
             <button
               type="submit"
               className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"

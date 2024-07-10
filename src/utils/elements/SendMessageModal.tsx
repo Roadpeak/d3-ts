@@ -73,13 +73,13 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({ isOpen, onClose, se
                 <div className="flex justify-end">
                     <button
                         onClick={onClose}
-                        className="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2"
+                        className="mr-2 text-gray-600"
                     >
                         Cancel
                     </button>
                     <button
                         onClick={sendMessage}
-                        className="bg-primary text-white px-4 py-2 rounded"
+                        className="bg-primary text-white px-4 py-1.5 rounded"
                     >
                         Send
                     </button>

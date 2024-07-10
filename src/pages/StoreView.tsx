@@ -165,6 +165,7 @@ const StoreView: React.FC = () => {
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><CiLocationOn /> {store?.location}</p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600 cursor-pointer" onClick={() => setOpen(!open)}><LuUsers2 /> {followers?.length} followers</p>
                 <a href={`tel:${store?.seller_phone}`} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</a>
+                <button onClick={openModal} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><IoChatboxEllipsesOutline />Chat </button>
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
                     <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
@@ -179,7 +180,7 @@ const StoreView: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 items-center ">
-              <button onClick={openModal} className="flex items-center gap-1 text-gray-600 text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
+              <button onClick={openModal} className="hidden md:flex items-center gap-1 text-gray-600 text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
               <SendMessageModal
                   isOpen={isModalOpen}
                   onClose={closeModal}
