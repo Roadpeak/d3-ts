@@ -122,7 +122,7 @@ const ChatPage: React.FC = () => {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                 }
             });
-            setMessages(prevMessages => [...prevMessages, response.data]);
+            // setMessages(prevMessages => [...prevMessages, response.data]);
             setNewMessage('');
             setAttachment(null);
             // Update the cache

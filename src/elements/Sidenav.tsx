@@ -5,10 +5,17 @@ import { CiBookmark, CiEdit } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { FcSupport } from "react-icons/fc";
 import { MdOutlineDashboardCustomize, MdOutlineDiscount, MdPendingActions } from 'react-icons/md';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Sidenav:React.FC = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
+
+    const logoutUser = () => {
+        localStorage.removeItem('access_token');
+        navigate('/');
+        window.location.reload();
+    };
   return (
      <div className='w-[15%] md:w-[20%] bg-[#fff] hidden md:flex flex-col pl-[2%] md:pl-[5%] h-[92vh] py-3 md:py-8 pr-[1.5%]'>
         <p className="font-medium border-b hidden md:block tracking-wide pb-1.5">General</p>
@@ -44,10 +51,10 @@ const Sidenav:React.FC = () => {
             <CiEdit />
             <span className='hidden md:flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Edit</span>
         </a>
-        <a href='transactions' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+        <button onClick={logoutUser} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <BiLogOut />
             <span className='hidden md:flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Log Out</span>
-        </a>
+        </button>
     </div>
   )
 }

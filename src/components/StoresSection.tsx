@@ -113,7 +113,7 @@ const StoresSection = () => {
             {categories.slice(0,6).map((category, index) => (
               <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full'>
                   <div className='cursor-pointer flex items-center justify-center flex-col bg-gray-50 p-4 rounded-md'>
-                    <div className='image-container'>
+                    <div className='image-container bg-gray-50'>
                       <img src={category.image_url} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
                     </div>
                     <span className="text-black mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
