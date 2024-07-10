@@ -102,7 +102,7 @@ const Navbar: React.FC = () => {
     <>
       <div className='flex w-full py-2 px-[5%] items-center justify-between items-center bg-gray-50 '>
         <img className='w-[80px] hidden md:flex' src={logo} alt="" />
-        <img className="w-[40px] -ml-4 flex md:hidden" src={logo} />
+        <img className="w-[70px] h-full -mx-6 flex md:hidden" src={logo} />
         <div className="flex items-center gap-[30px] w-fit px-4">
           <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input
