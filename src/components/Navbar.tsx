@@ -13,6 +13,7 @@ import { Spinner } from '@material-tailwind/react';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { toast } from 'react-toastify';
 import { BsTicketDetailed } from "react-icons/bs";
+import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 
 interface Shop {
   id: string;
@@ -152,6 +153,7 @@ const Navbar: React.FC = () => {
             {open && (
               <div className="absolute z-20 top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
                 <Link to='/accounts/profile' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegUser /> Account</Link>
+                <Link to='/chat' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><IoChatboxEllipsesOutline /> Chat</Link>
                 <Link to='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</Link>
                 <Link to='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</Link>
                 {user && user.user_type === 'admin' ? (

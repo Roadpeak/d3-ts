@@ -73,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "@types/pusher-js": "^5.1.0",
     "@types/react-slick": "^0.23.13",
     "autoprefixer": "^10.4.16",
     "postcss-cli": "^11.0.0",

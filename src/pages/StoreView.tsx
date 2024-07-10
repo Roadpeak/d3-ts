@@ -10,6 +10,8 @@ import { CiLocationOn } from 'react-icons/ci';
 import { LuUsers2 } from 'react-icons/lu';
 import { MdOutlineLocalPhone } from 'react-icons/md';
 import { FaTimes } from 'react-icons/fa';
+import SendMessageModal from '../utils/elements/SendMessageModal';
+import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 
 interface Store {
   id: number;
@@ -38,13 +40,6 @@ interface Discount {
   price_after_discount: number;
 }
 
-interface Review {
-  body: string;
-  created_at: string;
-  user_name: string;
-  reviewable_type: string;
-}
-
 interface Follower {
   follower_id: number;
   shop_name: string;
@@ -55,23 +50,23 @@ interface Follower {
   user: any; 
 }
 
-
 const StoreView: React.FC = () => {
   const [store, setStore] = useState<Store | null>(null);
   const [discounts, setDiscounts] = useState<Discount[]>([]);
   const [loading, setLoading] = useState(false);
   const [followers, setFollowers] = useState<Follower[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const { user } = useAuth();
   const { id } = useParams<{ id: string }>();
-  const token = localStorage.getItem('access_token');
-  const maxLength = 27;
+    const maxLength = 27;
   const shopId = id ? parseInt(id, 10) : 0;
-  const navigate = useNavigate();
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -151,19 +146,6 @@ const StoreView: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleInitializeConversation = async () => {
-    try {
-      if (!store?.seller_id) {
-        throw new Error('Seller ID is undefined');
-      }
-
-      const result = await initializeConversation(store.seller_id);
-      navigate('/chat')
-    } catch (error) {
-      navigate('/chat')
-    }
-  };
-
   return (
     <div className='w-full h-full scroll-smooth flex bg-gray-100 flex-col'>
       <Navbar />
@@ -197,7 +179,12 @@ const StoreView: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 items-center ">
-              <button className="" onClick={handleInitializeConversation}>Chat</button>
+              <button onClick={openModal} className="flex items-center gap-1 text-gray-600 text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
+              <SendMessageModal
+                  isOpen={isModalOpen}
+                  onClose={closeModal}
+                  sellerId={store?.seller_id ?? null}
+              />
               <span className="hidden md:block">|</span>
               <div className='hidden md:flex'>
                 {isFollowing ? (
