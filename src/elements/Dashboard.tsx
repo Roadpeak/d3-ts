@@ -95,7 +95,7 @@ const Dashboard:React.FC = () => {
 
   return (
      <div className="flex flex-col w-full tracking-wide">
-            <p className="">Hello 👋, {user?.firstName}</p>
+            <p className="">Hello 👋, {user?.first_name}</p>
             <div className="flex w-full justify-between py-6 flex-col md:flex-row gap-4">
                 <div className="bg-white w-full p-6 rounded-xl items-center flex gap-4">
                     <div className="rounded-md text-gray-600 bg-gray-100 flex items-center justify-center p-1">

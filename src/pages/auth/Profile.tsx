@@ -10,8 +10,8 @@ const UserProfileCard: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
-    firstName: user?.firstName || '',
-    lastName: user?.lastName || '',
+    firstName: user?.first_name || '',
+    lastName: user?.last_name || '',
     email: user?.email || '',
     phone: user?.phone || '',
   });

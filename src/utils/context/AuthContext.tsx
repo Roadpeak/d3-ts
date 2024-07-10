@@ -3,11 +3,14 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface User {
     id: number;
     email: string;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     phone: string | null;
     user_type: string;
     active: boolean;
+    first_discount: boolean;
+    active_status: boolean;
+    dark_mode: boolean;
 }
 
 interface AuthContextType {
@@ -19,7 +22,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
-    children: React.ReactNode;
+    children: React.ReactNode;  
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -40,11 +43,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         const mappedUser: User = {
                             id: userData.id,
                             email: userData.email,
-                            firstName: userData.first_name,
-                            lastName: userData.last_name,
+                            first_name: userData.first_name,
+                            last_name: userData.last_name,
                             phone: userData.phone,
                             user_type: userData.user_type,
                             active: Boolean(userData.active),
+                            first_discount: Boolean(userData.first_discount),
+                            active_status: Boolean(userData.active_status),
+                            dark_mode: Boolean(userData.dark_mode)
                         };
                         setUser(mappedUser);
                     } else {
@@ -76,11 +82,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 const mappedUser: User = {
                     id: userData.id,
                     email: userData.email,
-                    firstName: userData.first_name,
-                    lastName: userData.last_name,
+                    first_name: userData.first_name,
+                    last_name: userData.last_name,
                     phone: userData.phone,
                     user_type: userData.user_type,
                     active: Boolean(userData.active),
+                    first_discount: Boolean(userData.first_discount),
+                    active_status: Boolean(userData.active_status),
+                    dark_mode: Boolean(userData.dark_mode)
                 };
                 setUser(mappedUser);
                 localStorage.setItem('access_token', userData.token);

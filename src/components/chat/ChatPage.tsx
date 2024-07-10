@@ -24,6 +24,8 @@ interface Conversation {
     last_name: string;
     avatar: string;
     unseenCount: number;
+    last_message?: string;
+    last_message_time?: string;
 }
 
 const ChatPage: React.FC = () => {
@@ -85,12 +87,34 @@ const ChatPage: React.FC = () => {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                 }
             });
-            setConversations(response.data);
-            localStorage.setItem('conversations', JSON.stringify(response.data));
+
+            const conversationsWithLastMessage = await Promise.all(response.data.map(async (conversation: Conversation) => {
+                const messagesResponse = await axios.get(`https://api.discoun3ree.com/api/messages/${conversation.id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    }
+                });
+
+                const lastMessage = messagesResponse.data[messagesResponse.data.length - 1];
+                return {
+                    ...conversation,
+                    last_message: lastMessage?.body,
+                    last_message_time: lastMessage?.created_at,
+                };
+            }));
+
+            const sortedConversations = conversationsWithLastMessage.sort((a: Conversation, b: Conversation) => {
+                if (!a.last_message_time || !b.last_message_time) return 0;
+                return new Date(b.last_message_time).getTime() - new Date(a.last_message_time).getTime();
+            });
+
+            setConversations(sortedConversations);
+            localStorage.setItem('conversations', JSON.stringify(sortedConversations));
         } catch (error) {
             console.error('Error fetching conversations:', error);
         }
     };
+
 
     const fetchMessages = async (userId: number) => {
         try {
@@ -122,10 +146,8 @@ const ChatPage: React.FC = () => {
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                 }
             });
-            // setMessages(prevMessages => [...prevMessages, response.data]);
             setNewMessage('');
             setAttachment(null);
-            // Update the cache
             const updatedMessages = [...messages, response.data];
             localStorage.setItem(`messages_${selectedConversation}`, JSON.stringify(updatedMessages));
         } catch (error) {
@@ -165,8 +187,18 @@ const ChatPage: React.FC = () => {
                             onClick={() => handleConversationClick(conversation.id)}
                             className={`cursor-pointer hover:bg-gray-50 h-fit border-b border-gray-400 px-4 py-3 ${selectedConversation === conversation.id ? 'bg-white' : ''}`}
                         >
-                            <FaUser className="w-10 h-10 rounded-full inline-block mr-2 text-gray-300 border border-gray-300" />
-                            {conversation.first_name} {conversation.last_name}
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center gap-1">
+                                    <FaUser className="w-10 h-10 rounded-full inline-block mr-2 text-gray-300 border border-gray-300" />                            
+                                <div>
+                                    <div>{conversation.first_name} {conversation.last_name}</div>
+                                    <div className="text-gray-600 text-sm">{conversation.last_message}</div>
+                                </div>
+                                </div>
+                                <div className="text-gray-500 text-xs">
+                                    {conversation.last_message_time && moment(conversation.last_message_time).format('h:mm A')}
+                                </div>
+                            </div>  
                             {conversation.unseenCount > 0 && (
                                 <span className="ml-2 text-sm text-red-500">
                                     {conversation.unseenCount} new
@@ -174,6 +206,7 @@ const ChatPage: React.FC = () => {
                             )}
                         </div>
                     ))}
+
                 </div>
                 <div className="flex-1 p-4 relative bg-white">
                     <div className="flex flex-col bg-white overflow-y-auto h-[90%] w-full">
