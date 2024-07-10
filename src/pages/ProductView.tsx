@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { FaAngleLeft, FaFacebookF, FaInstagram, FaLink, FaRegHeart, FaSlideshare, FaWhatsapp } from 'react-icons/fa';
+import { FaAngleLeft, FaFacebookF, FaInstagram, FaLink, FaRegHeart, FaWhatsapp } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa';
 import { FacebookShareButton, WhatsappShareButton, TwitterShareButton, InstapaperShareButton } from 'react-share';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReviewComponent from '../components/ReviewComponent';
-
-interface Review {
-  _id: string;
-  entityType: string;
-  entityId: string;
-  reviewerName: string;
-  reviewDate: Date;
-  reviewText: string;
-}
-
+import { useAuth } from '../utils/context/AuthContext';
 
 interface Discount {
   id: number;
@@ -37,20 +28,14 @@ interface Discount {
   updated_at: string;
 }
 
-
-interface BookingSlot {
-  date: Date;
-  startTime: string;
-  endTime: string;
-  booked: boolean;
-}
-
 const ProductView: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'details' | 'reviews'>('details');
   const [discount, setDiscount] = useState<Discount | null>(null);
-  const [error, setError] = useState(''); const [bookingSlots, setBookingSlots] = useState<BookingSlot[]>([]);
+  const [error, setError] = useState(''); 
   const [loading, setLoading] = useState(false)
+  
+  const {  user } = useAuth();
   const { id } = useParams();
   const discounId = id ? parseInt(id, 10) : 0;
 
@@ -73,6 +58,11 @@ const ProductView: React.FC = () => {
   return (
     <div>
       <Navbar />
+      <div className="bg-yellow-200">
+        <p className="text-yellow-800 px-4 text-center py-3 text-sm">
+          {user && user.first_discount === 0 ? 'You have one free voucher. You will use it to access this discount and book an appointment.' : ''}
+        </p>
+      </div>
       <div className="flex px-[5%] flex-col py-[2%]">
         <div className="flex w-full flex-col gap-2 items-start ">
           <button onClick={() => navigate(-1)} className="flex text-gray-600 font-light text-[15px] items-center gap-2">
@@ -150,12 +140,26 @@ const ProductView: React.FC = () => {
                         <span className="font-light text-gray-600">now</span>
                         <p className="font-medium text-[18px]">Ksh {discount?.price_after_discount}</p>
                       </div>
-                      <p className="text-third"></p>
+                      {/* <p className="text-third"></p> */}
                       <button
-                        onClick={() => navigate(`/${discount?.id}/checkout`)}
+                        onClick={() => {
+                          if (user?.first_discount === 1) {
+                            navigate(`/${discount?.id}/checkout`);
+                          } else {
+                            navigate(`/discount/${discount?.id}/booking`);
+                          }
+                        }}
                         className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2"
                       >
-                        Get this discount @ Ksh <span>{discount?.amount}</span>
+                        {
+                          user?.first_discount === 1 ? (
+                            <>
+                              Get this discount @ Ksh <span>{discount?.amount}</span>
+                            </>
+                          ) : (
+                            'Book appointment'
+                          )
+                        }
                       </button>
                       <div className="flex flex-col my-3.5">
                         <span className="text-[15px]">Save this for later</span>

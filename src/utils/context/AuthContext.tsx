@@ -8,7 +8,7 @@ interface User {
     phone: string | null;
     user_type: string;
     active: boolean;
-    first_discount: boolean;
+    first_discount: number;
     active_status: boolean;
     dark_mode: boolean;
 }
@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             phone: userData.phone,
                             user_type: userData.user_type,
                             active: Boolean(userData.active),
-                            first_discount: Boolean(userData.first_discount),
+                            first_discount: userData.first_discount,
                             active_status: Boolean(userData.active_status),
                             dark_mode: Boolean(userData.dark_mode)
                         };
@@ -87,7 +87,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     phone: userData.phone,
                     user_type: userData.user_type,
                     active: Boolean(userData.active),
-                    first_discount: Boolean(userData.first_discount),
+                    first_discount: userData.first_discount,
                     active_status: Boolean(userData.active_status),
                     dark_mode: Boolean(userData.dark_mode)
                 };

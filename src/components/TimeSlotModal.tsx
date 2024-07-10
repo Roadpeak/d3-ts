@@ -11,7 +11,7 @@ interface TimeSlotModalProps {
 const TimeSlotModal: React.FC<TimeSlotModalProps> = ({ date, timeSlots, onClose, onSelectSlot }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
-      <div className="bg-white rounded-md shadow-md w-full max-w-lg">
+      <div className="bg-white rounded-md shadow-md max-h-[90vh] overflow-y-auto w-full max-w-lg">
         <div className="p-6">
           <h2 className="text-2xl font-bold mb-4 text-center">Available Time Slots</h2>
           <h3 className="text-lg font-semibold mb-2">{format(new Date(date), 'EEEE, MMMM d, yyyy')}</h3>

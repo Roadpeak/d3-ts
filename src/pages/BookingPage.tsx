@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MiniCalendar from '../components/MiniCalendar';
-import { useAuth } from '../utils/context/AuthContext';
 import PaymentCodeModal from '../components/PaymentCodeModal';
+import { useAuth } from '../utils/context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
@@ -16,7 +16,7 @@ const BookingPage: React.FC = () => {
   const [selectedSlot, setSelectedSlot] = useState<any | null>(null);
   const [showPaymentCodeModal, setShowPaymentCodeModal] = useState(false);
   const { user } = useAuth();
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,29 +32,27 @@ const BookingPage: React.FC = () => {
     };
 
     const fetchPayments = async () => {
-        try {
-            const accessToken = localStorage.getItem('access_token');
-            if (!accessToken) {
-            return;
-            }
-            console.log(user?.id);
-
-            const response = await axios.get(`https://api.discoun3ree.com/api/payments/user/${user?.id}/discount/${id}`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-            });
-
-            setPayments(response.data.payments);
-        } catch (err) {
-            console.error('Failed to fetch payments', err);
+      try {
+        const accessToken = localStorage.getItem('access_token');
+        if (!accessToken) {
+          return;
         }
-        };
+
+        const response = await axios.get(`https://api.discoun3ree.com/api/payments/user/${user?.id}/discount/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        setPayments(response.data.payments);
+      } catch (err) {
+        console.error('Failed to fetch payments', err);
+      }
+    };
 
     fetchTimeSlots();
     fetchPayments();
   }, [id, user?.id]);
-
 
   const handleBooking = async (paymentCode: string, slotId: number) => {
     try {
@@ -78,11 +76,10 @@ const BookingPage: React.FC = () => {
         },
       });
 
-      toast('Booking Successfull!')
-      navigate('/my-bookings')
-
+      toast('Booking Successful!');
+      navigate('/my-bookings');
     } catch (error) {
-      toast.error("An error ocurred.")
+      toast.error('An error occurred.');
     }
   };
 
@@ -94,20 +91,22 @@ const BookingPage: React.FC = () => {
     return <div className="p-4 text-red-500">{error}</div>;
   }
 
+  const showPaymentModal = user?.first_discount !== 0;
+
   return (
     <>
-        <Navbar />
-        <div className="py-8">
-        <MiniCalendar timeSlots={timeSlots} onSelectSlot={(slot) => { setSelectedSlot(slot); setShowPaymentCodeModal(true); }} />
+      <Navbar />
+      <div className="py-8">
+        <MiniCalendar timeSlots={timeSlots} onSelectSlot={(slot) => { setSelectedSlot(slot); setShowPaymentCodeModal(showPaymentModal); }} />
         {showPaymentCodeModal && selectedSlot && (
-            <PaymentCodeModal
-              payments={payments}
-              onClose={() => setShowPaymentCodeModal(false)}
-              onBook={(paymentCode) => handleBooking(paymentCode, selectedSlot.id)}
-            />
+          <PaymentCodeModal
+            payments={payments}
+            onClose={() => setShowPaymentCodeModal(false)}
+            onBook={(paymentCode) => handleBooking(paymentCode, selectedSlot.id)}
+          />
         )}
-        </div>
-        <Footer />
+      </div>
+      <Footer />
     </>
   );
 };
