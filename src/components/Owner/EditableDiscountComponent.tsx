@@ -29,6 +29,7 @@ const EditableDiscountComponent: React.FC = () => {
   const [discount, setDiscount] = useState<Discount | null>(null);
   const [editedName, setEditedName] = useState<string>('');
   const [editedImage, setEditedImage] = useState<string>('');
+  const [editedDescription, setEditedDescription] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const { id } = useParams<{ id: string }>();
   const discountId = id;
@@ -40,6 +41,7 @@ const EditableDiscountComponent: React.FC = () => {
         setDiscount(response.data);
         setEditedName(response.data.name);
         setEditedImage(response.data.image_url);
+        setEditedDescription(response.data.description);
       } catch (error) {
         console.error('Error fetching discount:', error);
       }
@@ -73,29 +75,33 @@ const EditableDiscountComponent: React.FC = () => {
     }
   };
 
+  const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setEditedDescription(event.target.value);
+  };
+
   const handleSubmit = async () => {
     try {
-        const accessToken = localStorage.getItem('access_token');
+      const accessToken = localStorage.getItem('access_token');
 
-        const response = await axios.patch(`https://api.discoun3ree.com/api/discounts/${discountId}`, {
+      const response = await axios.patch(`https://api.discoun3ree.com/api/discounts/${discountId}`, {
         name: editedName,
         image_url: editedImage,
-        }, {
+        description: editedDescription,
+      }, {
         headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json', // Assuming JSON payload
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json', // Assuming JSON payload
         },
-        });
+      });
 
-        console.log(response.data); // Optionally handle response data
+      console.log(response.data); // Optionally handle response data
 
-        toast('Discount updated successfully!');
+      toast('Discount updated successfully!');
     } catch (error) {
-        console.error('Failed to update discount:', error);
-        toast.error('Failed to update discount.');
+      console.error('Failed to update discount:', error);
+      toast.error('Failed to update discount.');
     }
-    };
-
+  };
 
   if (!discount) {
     return <div className="p-4">Loading...</div>;
@@ -133,7 +139,11 @@ const EditableDiscountComponent: React.FC = () => {
             </div>
             <div className="mb-4">
               <label className="block text-sm font-bold mb-2">Description:</label>
-              <p>{discount.description}</p>
+              <textarea
+                className="w-full px-3 py-2 h-[150px] border rounded-md mb-2 bg-white"
+                value={editedDescription}
+                onChange={handleDescriptionChange}
+              />
             </div>
             <button
               className="bg-primary text-white px-4 py-2 rounded-md"
