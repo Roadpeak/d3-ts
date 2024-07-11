@@ -4,6 +4,7 @@ import axios from 'axios';
 import { deleteDiscount } from '../../services/apiService';
 import PopupModal from '../../utils/elements/PopupModal';
 import ConfirmModal from '../../utils/elements/ConfirmModal';
+import SideMenu from './SideMenu';
 
 const ManageDiscounts: React.FC = () => {
   const [discounts, setDiscounts] = useState<any[]>([]);
@@ -23,7 +24,6 @@ const ManageDiscounts: React.FC = () => {
         setDiscounts(response.data);
       } catch (error) {
         console.error('Error fetching discounts:', error);
-        // Handle error here
       }
     };
 
@@ -58,7 +58,9 @@ const ManageDiscounts: React.FC = () => {
 
   return (
     <AdminLayout>
-      <div className="w-full gap-2 flex flex-col py-2 overflow-y-auto">
+      <div className="flex flex-col">
+        <SideMenu />
+        <div className="w-full gap-2 flex flex-col py-2 overflow-y-auto">
         <div className="flex w-full justify-between items-center">
           <p className="font-medium text-[13px] text-dark tracking-wide">Discounts</p>
           <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
@@ -112,7 +114,6 @@ const ManageDiscounts: React.FC = () => {
         />
       )}
 
-      {/* Delete Confirmation Modal */}
       {showDeleteConfirmModal && selectedDiscount && (
         <ConfirmModal
           message={`Are you sure you want to delete "${selectedDiscount.name}"?`}
@@ -121,6 +122,7 @@ const ManageDiscounts: React.FC = () => {
           isLoading={loading}
         />
       )}
+      </div>
     </AdminLayout>
   );
 };

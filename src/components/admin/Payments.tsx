@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
 import { fetchPayments, Payment } from '../../services/apiService'; 
+import SideMenu from './SideMenu';
 
 const ManagePayments: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
@@ -24,6 +25,7 @@ const ManagePayments: React.FC = () => {
 
   return (
     <AdminLayout>
+      <SideMenu />
       <div className="w-full gap-2 flex flex-col py-4">
         <div className="flex w-full justify-between items-center">
           <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>

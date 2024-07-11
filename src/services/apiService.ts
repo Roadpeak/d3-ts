@@ -275,6 +275,18 @@ export const fetchShops = async (): Promise<Shop[]> => {
   }
 };
 
+export const fetchLatestShops = async (): Promise<Shop[]> => {
+  try {
+    const response = await axios.get<Shop[]>(`${BASE_URL}/shops/latest`, {
+    headers: getHeaders(),
+  }); 
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching shops:', error);
+    throw error; 
+  }
+};
+
 export const verifyShop = async (shopId: number) => {
   const response = await axios.put(`${BASE_URL}/shops/${shopId}/verify`, {}, {
     headers: getHeaders(),
@@ -325,6 +337,18 @@ export const fetchAppointments = async (): Promise<Appointment[]> => {
   }
 };
 
+export const fetchFirstSixAppointments = async (): Promise<Appointment[]> => {
+  try {
+    const response: AxiosResponse<AppointmentResponse> = await axios.get<AppointmentResponse>(`${BASE_URL}/bookings/recent`, {
+      headers: getHeaders(),
+    });
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    throw error;
+  }
+};
+
 export const submitTicket = async (formData: { title: string; body: string; priority: string }, resetForm: () => void) => {
   try {
     await axios.post(
@@ -344,6 +368,20 @@ export const getUserTickets = async () => {
   try {
     const response = await axios.get(
       `${BASE_URL}/tickets/user`, 
+      { headers: getHeaders() }
+    );
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching user tickets:', error);
+    toast.error('Error fetching user tickets');
+    return [];
+  }
+};
+
+export const getAllTickets = async () => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/tickets`, 
       { headers: getHeaders() }
     );
     return response.data.data;

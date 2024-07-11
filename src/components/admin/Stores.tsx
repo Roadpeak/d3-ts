@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
 import { fetchShops, verifyShop, unverifyShop } from '../../services/apiService';
 import Modal from './Modal';
+import SideNav from './SideNav';
+import SideMenu from './SideMenu';
 
 interface Shop {
   id: number;
@@ -64,7 +66,9 @@ const ManageStores: React.FC = () => {
 
   return (
     <AdminLayout>
-      <div>
+      <div className="flex flex-col">
+        <SideMenu />
+        <div>
         <div className="w-full rounded-md mt-2 bg-white overflow-x-auto">
           <div className="w-full rounded-lg">
             <table className="table-auto w-full rounded-md">
@@ -157,6 +161,7 @@ const ManageStores: React.FC = () => {
           </div>
         </Modal>
       )}
+      </div>
     </AdminLayout>
   );
 };

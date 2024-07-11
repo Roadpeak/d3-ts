@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
 import { fetchUsers } from '../../services/apiService';
+import SideMenu from './SideMenu';
 
 const Users: React.FC = () => {
     const [users, setUsers] = useState<any[]>([]);
@@ -24,6 +25,7 @@ const Users: React.FC = () => {
 
     return (
         <AdminLayout>
+            <SideMenu />
             <div className="w-full gap-2 flex flex-col py-4">
                 <div className="flex w-full justify-between items-center">
                 <p className="font-medium text-[13px] text-dark tracking-wide">Users</p>

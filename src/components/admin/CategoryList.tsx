@@ -3,6 +3,7 @@ import axios from 'axios';
 import EditCategoryModal from './EditCategoryModal';
 import CreateCategoryModal from './CreateCategoryModal';
 import AdminLayout from '../../utils/layouts/AdminLayout';
+import SideMenu from './SideMenu';
 
 interface Category {
   id: number;
@@ -38,14 +39,16 @@ const CategoryList: React.FC = () => {
 
   return (
     <AdminLayout>
-        <div className="min-h-screen flex flex-col items-center bg-gray-100 py-6">
-            <div className="flex items-center w-full justify-between">
+        <div className="flex flex-col">
+          <SideMenu />
+          <div className="min-h-screen flex flex-col items-center bg-gray-100 py-6">
+            <div className="flex items-center mb-4 w-full justify-between">
                 <p className="font-medium text-[16px] text-gray-700">Categories</p>
                 <button 
-                    className="mb-4 bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-700" 
+                    className="bg-primary text-white py-1 px-4 rounded-lg hover:bg-red-700" 
                     onClick={handleCreate}
                 >
-                    Create New Category
+                  New 
                 </button>
             </div>
             <div className="w-full overflow-x-auto">
@@ -90,6 +93,7 @@ const CategoryList: React.FC = () => {
                     onRefresh={fetchCategories} 
                 />
             )}
+        </div>
         </div>
     </AdminLayout>
   );

@@ -1,5 +1,6 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { RiMenu2Fill } from 'react-icons/ri';
+import { FaRegUserCircle } from 'react-icons/fa';
 import { CiBookmarkRemove } from 'react-icons/ci';
 import { TbTicket } from 'react-icons/tb';
 import { HiOutlineUsers } from 'react-icons/hi2';
@@ -7,17 +8,42 @@ import { IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
 import { MdOutlineCategory, MdOutlineDiscount, MdPayment } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { AiTwotoneShopping } from 'react-icons/ai';
-import { IoMdNotificationsOutline } from 'react-icons/io';
+import { IoMdClose, IoMdNotificationsOutline } from 'react-icons/io';
 
-const SideNav: React.FC = () => {
-    const location = useLocation();
+const SideMenu: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <div className='hidden md:flex flex-col w-[20%] bg-white h-[100vh] overflow-y-auto px-8 py-4 h-[100vh]'>
-            <div className="flex w-full">
-                <a href='/' className='text-gray-400 font-medium text-[24px] mx-auto'>D3</a>
-            </div>
-            <div className="flex h-full flex-col">
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className="relative">
+      <div className="flex md:hidden mb-2 bg-white rounded-md p-2 w-full items-center justify-between">
+        <RiMenu2Fill onClick={toggleMenu} />
+        <p className="uppercase">Discoun3</p>
+        <a href="/accounts/profile" className="text-gray-600">
+          <FaRegUserCircle />
+        </a>
+      </div>
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+          onClick={toggleMenu}
+        ></div>
+      )}
+      <div
+        className={`fixed inset-y-0 left-0 bg-white w-4/5 z-50 p-4 transform transition-transform duration-300 ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <p className="text-xl font-bold">Menu</p>
+          <button className="text-gray-600 text-lg" onClick={toggleMenu}>
+            <IoMdClose />
+          </button>
+        </div>
+        <div className="flex h-full flex-col">
                 <div className="flex flex-col mt-4 text-gray-700 text-[14px] font-light gap-2">
                     <a
                         href='/manage'
@@ -99,8 +125,9 @@ const SideNav: React.FC = () => {
                     </a>
                 </div>
             </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export default SideNav;
+export default SideMenu;
