@@ -3,7 +3,7 @@ import axios from 'axios';
 import Pusher from 'pusher-js';
 import { FiUpload } from 'react-icons/fi';
 import moment from 'moment';
-import { FaChevronLeft, FaRegUserCircle, FaUser } from 'react-icons/fa';
+import { FaChevronLeft, FaRegUserCircle, FaSearch, FaUser } from 'react-icons/fa';
 import { IoFilterSharp, IoHomeOutline, IoSendOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
 import { MdAttachFile } from 'react-icons/md';
@@ -55,7 +55,7 @@ const ChatPage: React.FC = () => {
         });
 
         const channel = pusher.subscribe('chat');
-        channel.bind('App\\Events\\MessageSent', function(data: { message: Message }) {
+        channel.bind('App\\Events\\MessageSent', function (data: { message: Message }) {
             setMessages(prevMessages => [...prevMessages, data.message]);
         });
 
@@ -188,44 +188,42 @@ const ChatPage: React.FC = () => {
     };
 
     return (
-        <div className="flex w-full h-screen md:p-8 bg-white">
-            <div className="flex w-full border border-red-200 rounded">
+        <div className="flex w-full h-screen bg-gray-100">
+            <div className="flex w-full">
                 {!isMobileView || (isMobileView && selectedConversation === null) ? (
-                    <div className={`w-1/3 bg-white border border-red-200 py-4 overflow-y-auto ${isMobileView ? 'w-full' : 'w-1/3'}`}>
-                        <div className="flex mb-1 items-center w-full justify-between">
-                            <a href='/chat' className="font-medium text-primary text-[18px] px-4">Chat</a>
-                            <div className="flex items-center gap-4 mr-4 text-gray-600">
+                    <div className={`w-[30%] bg-white py-4 overflow-y-auto ${isMobileView ? 'w-full' : 'w-1/3'}`}>
+                        <div className="flex py-4 items-center w-full justify-between border-b border-gray-200 mb-2 ">
+                            <a href='/chat' className="font-medium text-black text-[18px] px-4">Messages</a>
+                            <div className="flex items-center gap-4 mr-4 text-black">
                                 <a href="/" className="hover:text-primary">
                                     <IoHomeOutline size={20} />
                                 </a>
-                                <a href="/accounts/profile" className="hover:text-primary">
-                                    <FaRegUserCircle size={20} />
-                                </a>
-                                <IoMdMenu className='hover:text-primary' size={20} />
                             </div>
                         </div>
-                        <div className="flex px-4 text-gray-600 w-full justify-between items-center gap-1 mb-4">
-                            <input className='w-[90%] bg-transparent border py-1 px-4 border-red-200 rounded-full outline-none focus:bg-white text-[15px]' type="text" placeholder='Search...'/>
-                            <IoFilterSharp className='text-primary font-light cursor-pointer' size={24} />
+                        <div className="flex px-4 w-full">
+                            <div className="flex border border-gray-200 px-4 rounded-full text-gray-600 w-full justify-between items-center gap-1 mb-4">
+                                <input className='w-full bg-transparent py-1 px-4 outline-none focus:bg-white text-[15px]' type="text" placeholder='Search...' />
+                                <FaSearch />
+                            </div>
                         </div>
                         {conversations.map((conversation) => (
                             <div
                                 key={conversation.id}
                                 onClick={() => handleConversationClick(conversation.id)}
-                                className={`cursor-pointer hover:bg-gray-50 h-fit border-b border-red-400 px-4 py-3 ${selectedConversation === conversation.id ? 'bg-red-50' : ''}`}
+                                className={`cursor-pointer hover:bg-gray-50 h-fit border-b border-gray-200 px-4 py-3 ${selectedConversation === conversation.id ? 'bg-gray-100' : ''}`}
                             >
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-1">
-                                        <FaUser className="w-10 h-10 rounded-full inline-block mr-2 text-red-300 border border-red-300" />                            
-                                    <div>
-                                        <div className='font-medium'>{conversation.first_name} {conversation.last_name}</div>
-                                        <div className="text-red-400 text-sm">{conversation.last_message}</div>
+                                        <FaUser className="w-10 h-10 rounded-full inline-block mr-2 text-gray-400 border border-gray-400" />
+                                        <div>
+                                            <div className='font-medium text-black text-[18px]'>{conversation.first_name} {conversation.last_name}</div>
+                                            <div className="text-gray-400 text-[13px]">{conversation.last_message}</div>
+                                        </div>
                                     </div>
-                                    </div>
-                                     <div className="text-red-500 text-xs">
+                                    <div className="text-black text-[12px]">
                                         {conversation.last_message_time && formatTime(conversation.last_message_time)}
                                     </div>
-                                </div>  
+                                </div>
                                 {conversation.unseenCount > 0 && (
                                     <span className="ml-2 text-sm text-red-500">
                                         {conversation.unseenCount} new
@@ -236,65 +234,71 @@ const ChatPage: React.FC = () => {
                     </div>
                 ) : null}
                 {selectedConversation !== null && (
-                    <div className={`flex-1 p-4 flex flex-col h-full bg-white ${isMobileView ? 'w-full' : 'w-2/3'}`}>
-                        <div className="flex gap-4 items-center mb-4 bg-white fixed top-0 left-0 right-0 p-4 z-10 shadow-md">
-                            {isMobileView && (
-                                <button
-                                    className="text-primary"
-                                    onClick={() => setSelectedConversation(null)}
-                                >
-                                    <FaChevronLeft />
-                                </button>
-                            )}
-                            <div>
-                                {isMobileView && selectedConversation && (
-                                    <div>
-                                        <h2 className="text-[16px] font-medium text-gray-600">
-                                            {conversations.find(c => c.id === selectedConversation)?.first_name} {conversations.find(c => c.id === selectedConversation)?.last_name}
-                                        </h2>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="flex-1 overflow-y-auto mt-14 mb-4">
-                            {messages.map((message) => (
-                                <div key={message.id} className={`mb-2 ${message.from_id === selectedConversation ? 'text-left' : 'text-right'}`}>
-                                    <div className={`inline-block p-2 rounded-lg ${message.from_id === selectedConversation ? 'bg-gray-200' : 'bg-primary text-white'}`}>
-                                        <p className="text-sm">{message.body}</p>
-                                        {message.attachment && (
-                                            <div>
-                                                <img src={message.attachment} alt="attachment" className="w-40 h-40 object-cover mt-2 rounded-lg" />
-                                            </div>
+                    <div className={`${isMobileView ? 'w-full' : 'w-2/3 p-6'}`}>
+                        <div className={`flex-1 p-4 flex flex-col h-full bg-white rounded-md`}>
+                            {
+                                isMobileView && selectedConversation && (
+                                    <div className="flex gap-4 items-center mb-4 bg-white fixed top-0 left-0 right-0 p-4 z-10 shadow-md">
+                                        {isMobileView && (
+                                            <button
+                                                className="text-primary"
+                                                onClick={() => setSelectedConversation(null)}
+                                            >
+                                                <FaChevronLeft />
+                                            </button>
                                         )}
-                                        <span className={`text-xs ${message.from_id !== selectedConversation ? 'text-gray-50' : ''} text-end block`}>{moment(message.created_at).format('h:mm A')}</span>
+                                        <div>
+                                            {isMobileView && selectedConversation && (
+                                                <div>
+                                                    <h2 className="text-[16px] font-medium text-gray-600">
+                                                        {conversations.find(c => c.id === selectedConversation)?.first_name} {conversations.find(c => c.id === selectedConversation)?.last_name}
+                                                    </h2>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                            <div ref={messageEndRef} />
-                        </div>
-                        <div className="mt-4 flex items-center">
-                            <input
-                                type="text"
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                className="flex-1 border border-red-300 rounded-full py-2 px-4 mr-2"
-                                placeholder="Type your message"
-                            />
-                            <input
-                                type="file"
-                                onChange={handleAttachmentChange}
-                                className="hidden"
-                                id="file-input"
-                            />
-                            <label htmlFor="file-input">
-                                <MdAttachFile className="cursor-pointer text-gray-500 mr-2" size={24} />
-                            </label>
-                            <button
-                                onClick={sendMessage}
-                                className="bg-primary text-white rounded-full p-2"
-                            >
-                                <IoSendOutline size={24} />
-                            </button>
+                                )
+                            }
+                            <div className="flex-1 overflow-y-auto mt-14 mb-4">
+                                {messages.map((message) => (
+                                    <div key={message.id} className={`mb-2 ${message.from_id === selectedConversation ? 'text-left' : 'text-right'}`}>
+                                        <div className={`inline-block p-2 rounded-lg ${message.from_id === selectedConversation ? 'bg-gray-200' : 'bg-primary text-white'}`}>
+                                            <p className="text-sm">{message.body}</p>
+                                            {message.attachment && (
+                                                <div>
+                                                    <img src={message.attachment} alt="attachment" className="w-40 h-40 object-cover mt-2 rounded-lg" />
+                                                </div>
+                                            )}
+                                            <span className={`text-xs ${message.from_id !== selectedConversation ? 'text-gray-50' : ''} text-end block`}>{moment(message.created_at).format('h:mm A')}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                                <div ref={messageEndRef} />
+                            </div>
+                            <div className="mt-4 flex items-center">
+                                <input
+                                    type="text"
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                    className="flex-1 border border-red-300 rounded-full py-2 px-4 mr-2"
+                                    placeholder="Type your message"
+                                />
+                                <input
+                                    type="file"
+                                    onChange={handleAttachmentChange}
+                                    className="hidden"
+                                    id="file-input"
+                                />
+                                <label htmlFor="file-input">
+                                    <MdAttachFile className="cursor-pointer text-gray-500 mr-2" size={24} />
+                                </label>
+                                <button
+                                    onClick={sendMessage}
+                                    className="bg-primary text-white rounded-full p-2"
+                                >
+                                    <IoSendOutline size={24} />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
