@@ -10,9 +10,9 @@ const UserProfileCard: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState({
-    firstName: user?.first_name || '',
-    lastName: user?.last_name || '',
-    email: user?.email || '',
+    firstName: user?.first_name,
+    lastName: user?.last_name,
+    email: user?.email,
     phone: user?.phone || '',
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
