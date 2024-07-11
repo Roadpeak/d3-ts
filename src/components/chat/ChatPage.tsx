@@ -176,6 +176,17 @@ const ChatPage: React.FC = () => {
         setSelectedConversation(userId);
     };
 
+    const formatTime = (time: string): string => {
+        const momentTime = moment(time);
+        if (moment().isSame(momentTime, 'day')) {
+            return momentTime.format('h:mm A');
+        } else if (moment().subtract(1, 'days').isSame(momentTime, 'day')) {
+            return `Yesterday, ${momentTime.format('h:mm A')}`;
+        } else {
+            return momentTime.format('MMM D, h:mm A');
+        }
+    };
+
     return (
         <div className="flex w-full h-screen md:p-8 bg-gray-50">
             <div className="flex w-full border rounded">
@@ -211,8 +222,8 @@ const ChatPage: React.FC = () => {
                                         <div className="text-gray-600 text-sm">{conversation.last_message}</div>
                                     </div>
                                     </div>
-                                    <div className="text-gray-500 text-xs">
-                                        {conversation.last_message_time && moment(conversation.last_message_time).format('h:mm A')}
+                                     <div className="text-gray-500 text-xs">
+                                        {conversation.last_message_time && formatTime(conversation.last_message_time)}
                                     </div>
                                 </div>  
                                 {conversation.unseenCount > 0 && (
