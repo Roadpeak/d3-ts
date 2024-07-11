@@ -50,7 +50,6 @@ const UserProfileCard: React.FC = () => {
       setIsModalOpen(false);
       toast("Profile updated.")
     } catch (error) {
-      console.error(error);
       toast.error("An error occured.")
     }
   };

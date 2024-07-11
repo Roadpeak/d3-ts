@@ -188,41 +188,41 @@ const ChatPage: React.FC = () => {
     };
 
     return (
-        <div className="flex w-full h-screen md:p-8 bg-gray-50">
-            <div className="flex w-full border rounded">
+        <div className="flex w-full h-screen md:p-8 bg-white">
+            <div className="flex w-full border border-red-200 rounded">
                 {!isMobileView || (isMobileView && selectedConversation === null) ? (
-                    <div className={`w-1/3 bg-gray-100 border border-gray-200 py-4 overflow-y-auto ${isMobileView ? 'w-full' : 'w-1/3'}`}>
+                    <div className={`w-1/3 bg-white border border-red-200 py-4 overflow-y-auto ${isMobileView ? 'w-full' : 'w-1/3'}`}>
                         <div className="flex mb-1 items-center w-full justify-between">
-                            <a href='/' className="px-4">Chat</a>
-                            <div className="flex items-center gap-2 mr-4 text-gray-600">
-                                <a href="/" className="">
-                                    <IoHomeOutline />
+                            <a href='/chat' className="font-medium text-primary text-[18px] px-4">Chat</a>
+                            <div className="flex items-center gap-4 mr-4 text-gray-600">
+                                <a href="/" className="hover:text-primary">
+                                    <IoHomeOutline size={20} />
                                 </a>
-                                <a href="/accounts/profile" className="">
-                                    <FaRegUserCircle />
+                                <a href="/accounts/profile" className="hover:text-primary">
+                                    <FaRegUserCircle size={20} />
                                 </a>
-                                <IoMdMenu />
+                                <IoMdMenu className='hover:text-primary' size={20} />
                             </div>
                         </div>
                         <div className="flex px-4 text-gray-600 w-full justify-between items-center gap-1 mb-4">
-                            <input className='w-[90%] bg-transparent border py-1 px-4 border-gray-200 rounded-full outline-none focus:bg-white text-[15px]' type="text" placeholder='Search...'/>
-                            <IoFilterSharp className='cursor-pointer' size={24} />
+                            <input className='w-[90%] bg-transparent border py-1 px-4 border-red-200 rounded-full outline-none focus:bg-white text-[15px]' type="text" placeholder='Search...'/>
+                            <IoFilterSharp className='text-primary font-light cursor-pointer' size={24} />
                         </div>
                         {conversations.map((conversation) => (
                             <div
                                 key={conversation.id}
                                 onClick={() => handleConversationClick(conversation.id)}
-                                className={`cursor-pointer hover:bg-gray-50 h-fit border-b border-gray-400 px-4 py-3 ${selectedConversation === conversation.id ? 'bg-white' : ''}`}
+                                className={`cursor-pointer hover:bg-gray-50 h-fit border-b border-red-400 px-4 py-3 ${selectedConversation === conversation.id ? 'bg-red-50' : ''}`}
                             >
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-1">
-                                        <FaUser className="w-10 h-10 rounded-full inline-block mr-2 text-gray-300 border border-gray-300" />                            
+                                        <FaUser className="w-10 h-10 rounded-full inline-block mr-2 text-red-300 border border-red-300" />                            
                                     <div>
-                                        <div>{conversation.first_name} {conversation.last_name}</div>
-                                        <div className="text-gray-600 text-sm">{conversation.last_message}</div>
+                                        <div className='font-medium'>{conversation.first_name} {conversation.last_name}</div>
+                                        <div className="text-red-400 text-sm">{conversation.last_message}</div>
                                     </div>
                                     </div>
-                                     <div className="text-gray-500 text-xs">
+                                     <div className="text-red-500 text-xs">
                                         {conversation.last_message_time && formatTime(conversation.last_message_time)}
                                     </div>
                                 </div>  
@@ -277,7 +277,7 @@ const ChatPage: React.FC = () => {
                                 type="text"
                                 value={newMessage}
                                 onChange={(e) => setNewMessage(e.target.value)}
-                                className="flex-1 border border-gray-300 rounded-full py-2 px-4 mr-2"
+                                className="flex-1 border border-red-300 rounded-full py-2 px-4 mr-2"
                                 placeholder="Type your message"
                             />
                             <input
