@@ -21,7 +21,7 @@ const SideMenu: React.FC = () => {
     <div className="relative">
       <div className="flex md:hidden mb-2 bg-white rounded-md p-2 w-full items-center justify-between">
         <RiMenu2Fill onClick={toggleMenu} />
-        <p className="uppercase">Discoun3</p>
+        <a href='/' className="uppercase">Discoun3</a>
         <a href="/accounts/profile" className="text-gray-600">
           <FaRegUserCircle />
         </a>
