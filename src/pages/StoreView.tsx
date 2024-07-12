@@ -8,7 +8,7 @@ import ReviewComponent from '../components/ReviewComponent';
 import { followShop, getShopById, getShopFollowers, initializeConversation, unfollowShop } from '../services/apiService';
 import { CiLocationOn } from 'react-icons/ci';
 import { LuUsers2 } from 'react-icons/lu';
-import { MdOutlineLocalPhone } from 'react-icons/md';
+import { MdOutlineLightMode, MdOutlineLocalPhone } from 'react-icons/md';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faInstagram,
@@ -25,6 +25,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import SendMessageModal from '../utils/elements/SendMessageModal';
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
+import { IoMdClose } from 'react-icons/io';
 
 interface Store {
   id: number;
@@ -37,6 +38,7 @@ interface Store {
   updated_at: string;
   seller_phone: string;
   store_type: string | null;
+  description: string | null;
 }
 
 interface Discount {
@@ -68,10 +70,6 @@ interface SocialLink {
   url: string;
 }
 
-interface DeleteSocialLinkResponse {
-  message: string;
-}
-
 const getIcon = (url: string): IconDefinition | null => {
   if (url.includes('instagram.com')) return faInstagram;
   if (url.includes('facebook.com')) return faFacebook;
@@ -96,6 +94,7 @@ const StoreView: React.FC = () => {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [open, setOpen] = useState(false);
+  const [des, setDes] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const { user } = useAuth();
@@ -219,12 +218,18 @@ const StoreView: React.FC = () => {
               />
               <div className="flex flex-col items-start justify-start">
                 <p className="text-center text-[20px] font-medium">
-                  {store?.name} <span className="text-gray-600"></span>
+                  {store?.name}
                 </p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><CiLocationOn /> {store?.location}</p>
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600 cursor-pointer" onClick={() => setOpen(!open)}><LuUsers2 /> {followers?.length} followers</p>
                 <a href={`tel:${store?.seller_phone}`} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</a>
                 <button onClick={openModal} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><IoChatboxEllipsesOutline />Chat </button>
+                {store?.description !== null && (
+                  <button onClick={() => setDes(!des)} className="lowercase text-[14px] flex items-center gap-2 text-gray-600">
+                    <MdOutlineLightMode />
+                    about store
+                  </button>
+                )}
                 {socialLinks.length === 0 ? (
                   ''
                 ) : (
@@ -241,7 +246,7 @@ const StoreView: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                )}                
+                )}                          
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
                     <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
@@ -318,6 +323,20 @@ const StoreView: React.FC = () => {
         </div>
       </div>
       <Footer />
+      {des && (
+        <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 w-[80%] md:w-1/3 max-h-[90vh] overflow-y-auto rounded-lg relative">
+            <button
+              onClick={() => setDes(false)}
+              className="absolute top-4 right-4 text-gray-600 rounded-full p-1 hover:text-gray-800"
+            >
+              <IoMdClose />
+            </button>
+            <p className="border-b mb-3 text-gray-700 font-medium pb-1 border-gray-200 ">More info about {store?.name}</p>
+            <p className="text-gray-600 font-light text-[14px]">{store?.description}</p>
+          </div>
+        </div>
+      )}
       {open && (
         <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 w-[80%] md:w-1/3 max-h-[90vh] overflow-y-auto rounded-lg relative">
@@ -325,9 +344,7 @@ const StoreView: React.FC = () => {
               onClick={() => setOpen(false)} 
               className="absolute top-4 right-4 text-gray-600 border rounded-full p-1 border-gray-400 hover:text-gray-800"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-              </svg>
+              <IoMdClose />
             </button>
             <p className="border-b font-medium text-gray-600 text-[16px]">Followers</p>
             {followers.length > 0 ? (

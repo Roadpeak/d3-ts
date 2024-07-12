@@ -1,7 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import AdminLayout from '../utils/layouts/AdminLayout';
 import { toast } from 'react-toastify';
 import SellerLayout from '../elements/SellerLayout';
 
@@ -16,6 +15,7 @@ type Shop = {
   updated_at: string;
   store_type: string | null;
   seller_phone: string;
+  description: string | null;
 };
 
 const ShopDetailsEdit: React.FC = () => {
@@ -24,6 +24,7 @@ const ShopDetailsEdit: React.FC = () => {
   const [editedLocation, setEditedLocation] = useState('');
   const [storeType, setStoreType] = useState('');
   const [editedImage, setEditedImage] = useState('');
+  const [editedDescription, setEditedDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -39,6 +40,7 @@ const ShopDetailsEdit: React.FC = () => {
       setEditedLocation(response.data.location);
       setStoreType(response.data.store_type ?? '');
       setEditedImage(response.data.image_url);
+      setEditedDescription(response.data.description ?? '');
     } catch (error) {
       console.error('Failed to fetch shop information:', error);
     }
@@ -68,26 +70,27 @@ const ShopDetailsEdit: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-        setLoading(true);
-        const accessToken = localStorage.getItem('access_token');
-        await axios.put(`https://api.discoun3ree.com/api/shops/${shop?.id}`, {
-            name: editedName,
-            location: editedLocation,
-            image_url: editedImage,
-            store_type: storeType,
-        }, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
-        setLoading(false);
-        toast('Shop information updated successfully!');
+      setLoading(true);
+      const accessToken = localStorage.getItem('access_token');
+      await axios.put(`https://api.discoun3ree.com/api/shops/${shop?.id}`, {
+        name: editedName,
+        location: editedLocation,
+        image_url: editedImage,
+        store_type: storeType,
+        description: editedDescription,
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      setLoading(false);
+      toast('Info updated.');
     } catch (error) {
-        setLoading(false);
-        console.error('Failed to update shop information:', error);
-        toast.error('Failed to update shop information. Please try again.');
+      setLoading(false);
+      console.error('Failed to update shop information:', error);
+      toast.error('Failed to update shop information. Please try again.');
     }
-};
+  };
 
   if (!shop) {
     return <div>Loading...</div>;
@@ -95,62 +98,72 @@ const ShopDetailsEdit: React.FC = () => {
 
   return (
     <SellerLayout>
-        <div className="flex flex-col my-6 gap-4 w-full">
-            <p className="">Editing <span className="font-medium">{shop.name}</span></p>
-            <div className="w-full flex gap-5  flex-col md:flex-row">
-                <div className="w-full bg-white h-full rounded-md p-4 md:w-1/2 mb-4">
-                    <label htmlFor="image" className="block mb-1">Image:</label>
-                    <input
-                    type="file"
-                    id="image"
-                    onChange={handleImageChange}
-                    className="border rounded-md p-2 w-full"
-                    />
-                    {editedImage && (
-                    <img src={editedImage} alt="Shop" className="mt-4 w-32 h-32 object-cover" />
-                    )}
-                </div>
-                <div className="w-full bg-white rounded-md p-4 h-full md:w-1/2">                
-                    <div className="mb-4">
-                    <label htmlFor="name" className="block mb-1">Name:</label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={editedName}
-                            onChange={(e) => setEditedName(e.target.value)}
-                            className="border rounded-md p-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="location" className="block mb-1">Location:</label>
-                        <input
-                            type="text"
-                            id="location"
-                            value={editedLocation}
-                            onChange={(e) => setEditedLocation(e.target.value)}
-                            className="border rounded-md p-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="store_type" className="block mb-1">Store Type:</label>
-                        <input
-                        type="text"
-                        id="store_type"
-                        value={storeType}
-                        onChange={(e) => setStoreType(e.target.value)}
-                        className="border rounded-md p-2 w-full"
-                        />
-                    </div>
-                </div>            
+      <div className="flex flex-col my-6 gap-4 w-full">
+        <p className="w-full border-b border-gray-200 text-[18px]">Editing <span className="font-medium">{shop.name}</span></p>
+        <div className="w-full flex gap-5  flex-col md:flex-row">
+          <div className="w-full bg-white h-full rounded-md p-4 md:w-1/2 mb-4">
+            <label htmlFor="image" className="block mb-1 text-gray-600 font-light text-[15px]">Image</label>
+            <input
+              type="file"
+              id="image"
+              onChange={handleImageChange}
+              className="border rounded-md p-2 w-full text-gray-600 font-light text-[13px]"
+            />
+            {editedImage && (
+              <img src={editedImage} alt="Shop" className="mt-4 w-32 h-32 object-cover" />
+            )}
+          </div>
+          <div className="w-full bg-white rounded-md p-4 h-full md:w-1/2">
+            <div className="mb-4">
+              <label htmlFor="name" className="block mb-1 text-gray-600 font-light text-[15px]">Name</label>
+              <input
+                type="text"
+                id="name"
+                value={editedName}
+                onChange={(e) => setEditedName(e.target.value)}
+                className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
+              />
             </div>
-            <button
-                className={`bg-primary text-white px-4 mb-4 py-2 rounded-md ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                onClick={handleSubmit}
-                disabled={loading}
-            >
-                {loading ? 'Submitting...' : 'Submit'}
-            </button>
+            <div className="mb-4">
+              <label htmlFor="location" className="block mb-1 text-gray-600 font-light text-[15px]">Location:</label>
+              <input
+                type="text"
+                id="location"
+                value={editedLocation}
+                onChange={(e) => setEditedLocation(e.target.value)}
+                className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="store_type" className="block mb-1 text-gray-600 font-light text-[15px]">Store Type</label>
+              <input
+                type="text"
+                id="store_type"
+                value={storeType}
+                onChange={(e) => setStoreType(e.target.value)}
+                className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
+              />
+            </div>
+          </div>
         </div>
+        <div className="mb-2">
+          <label htmlFor="description" className="block mb-1 text-gray-600 font-light text-[15px]">Description</label>
+          <textarea
+            id="description"
+            placeholder='Tell people more about your store/company, what you do, your working days/hrs and deatiled location(incase you have a physical address).'
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
+            className="border rounded-md p-2 w-full text-gray-600 outline-none focus:border-primary font-light text-[13px]"
+          />
+        </div>
+        <button
+          className={`bg-primary text-white px-4 mb-4 py-2 rounded-md ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          onClick={handleSubmit}
+          disabled={loading}
+        >
+          {loading ? 'Submitting...' : 'Submit'}
+        </button>
+      </div>
 
     </SellerLayout>
   );
