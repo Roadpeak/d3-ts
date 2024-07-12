@@ -66,7 +66,7 @@ const FeaturedOffers: React.FC = () => {
       <p className="text-black font-semibold mb-2 text-[20px]">
         Top Selling | 2024
       </p>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 bg-white md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {loading ? (
           <ShimmerLoader count={4} />
         ) : (

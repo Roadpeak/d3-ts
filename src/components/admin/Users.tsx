@@ -36,7 +36,7 @@ const Users: React.FC = () => {
                     <table className="table-auto w-full rounded-md">
                     <thead>
                         <tr className="bg-gray-100 border-b-2 border-gray-200 text-[13px] text-[#002A4D] font-medium">
-                            <th className="px-4 py-3 text-start">User ID</th>
+                            <th className="px-4 py-3 text-start">#</th>
                             <th className="px-4 py-3 text-start">Name</th>
                             <th className="px-4 py-3 text-start">Email</th>
                             <th className="px-4 py-3 text-start">Phone</th>
@@ -56,7 +56,7 @@ const Users: React.FC = () => {
                         ) : (
                         users.map((user, index) => (
                             <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-100">
-                                <td className="px-4 py-3">{user.id}</td>
+                                <td className="px-4 py-3">{index + 1}</td>
                                 <td className="px-4 py-3 uppercase">{user.first_name} {user.last_name}</td>
                                 <td className="px-4 py-3">{user.email}</td>
                                 <td className="px-4 py-3">{user.phone}</td>

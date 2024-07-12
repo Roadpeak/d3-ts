@@ -49,7 +49,7 @@ const SideNav: React.FC = () => {
                     </a>
                     <a
                         href='/manage/categories'
-                        className={`py-1.5 px-2 rounded-md flex items-center gap-2 hover:bg-gray-50 hover:text-primary ${location.pathname === '/manage/vouchers' ? 'bg-gray-100 text-primary' : ''
+                        className={`py-1.5 px-2 rounded-md flex items-center gap-2 hover:bg-gray-50 hover:text-primary ${location.pathname === '/manage/categories' ? 'bg-gray-100 text-primary' : ''
                             }`}
                     >
                         <MdOutlineCategory /> Categories

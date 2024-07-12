@@ -156,11 +156,11 @@ const ProductView: React.FC = () => {
                       >
                         {!user ? (
                           <>
-                            Get this discount @ Ksh <span>{discount?.amount}</span>
+                            Get voucher @ Ksh <span>{discount?.amount}</span>
                           </>
                         ) : user.first_discount === 1 ? (
                           <>
-                            Get this discount @ Ksh <span>{discount?.amount}</span>
+                            Get voucher @ Ksh <span>{discount?.amount}</span>
                           </>
                         ) : (
                           'Book appointment'
