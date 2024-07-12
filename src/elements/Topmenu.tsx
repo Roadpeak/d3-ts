@@ -24,11 +24,11 @@ const Topmenu: React.FC = () => {
           </button>
           <a href='/' className="text-black text-center md:text-start text-2xl font-bold">Discoun3</a>
           <div className="hidden text-black md:flex space-x-4">
-            <a href="#" className=" px-3 py-2 rounded">Home</a>
-            <a href="#" className=" px-3 py-2 rounded">Discounts</a>
-            <a href="#" className=" px-3 py-2 rounded">FAQs</a>
-            <a href="#" className=" px-3 py-2 rounded">About</a>
-            <a href="#" className=" px-3 py-2 rounded">Contact</a>
+            <a href="/" className=" px-3 py-2 rounded">Home</a>
+            <a href="/deals" className=" px-3 py-2 rounded">Discounts</a>
+            <a href="/about" className=" px-3 py-2 rounded">About</a>
+            <a href="/privacy-policy" className=" px-3 py-2 rounded">Privacy</a>
+            <a href="/contact" className=" px-3 py-2 rounded">Contact</a>
           </div>
         </div>
       </nav>
