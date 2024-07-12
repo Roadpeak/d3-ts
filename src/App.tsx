@@ -27,7 +27,7 @@ const MainApp = () => {
         setPhone(user.phone || '');
         setModalOpen(true);
       }
-    }, 30000); 
+    }, 120000); 
 
     return () => clearInterval(interval);
   }, [user]);
