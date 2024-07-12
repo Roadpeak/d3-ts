@@ -9,7 +9,20 @@ import { followShop, getShopById, getShopFollowers, initializeConversation, unfo
 import { CiLocationOn } from 'react-icons/ci';
 import { LuUsers2 } from 'react-icons/lu';
 import { MdOutlineLocalPhone } from 'react-icons/md';
-import { FaTimes } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faInstagram,
+  faFacebook,
+  faYoutube,
+  faTwitter,
+  faLinkedin,
+  faPinterest,
+  faTiktok,
+  faSnapchat,
+  faReddit,
+  faGithub,
+  IconDefinition,
+} from '@fortawesome/free-brands-svg-icons';
 import SendMessageModal from '../utils/elements/SendMessageModal';
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 
@@ -50,6 +63,29 @@ interface Follower {
   user: any; 
 }
 
+interface SocialLink {
+  id: number;
+  url: string;
+}
+
+interface DeleteSocialLinkResponse {
+  message: string;
+}
+
+const getIcon = (url: string): IconDefinition | null => {
+  if (url.includes('instagram.com')) return faInstagram;
+  if (url.includes('facebook.com')) return faFacebook;
+  if (url.includes('youtube.com')) return faYoutube;
+  if (url.includes('twitter.com')) return faTwitter;
+  if (url.includes('linkedin.com')) return faLinkedin;
+  if (url.includes('pinterest.com')) return faPinterest;
+  if (url.includes('tiktok.com')) return faTiktok;
+  if (url.includes('snapchat.com')) return faSnapchat;
+  if (url.includes('reddit.com')) return faReddit;
+  if (url.includes('github.com')) return faGithub;
+  return null;
+};
+
 const StoreView: React.FC = () => {
   const [store, setStore] = useState<Store | null>(null);
   const [discounts, setDiscounts] = useState<Discount[]>([]);
@@ -57,6 +93,7 @@ const StoreView: React.FC = () => {
   const [followers, setFollowers] = useState<Follower[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -67,6 +104,28 @@ const StoreView: React.FC = () => {
   const shopId = id ? parseInt(id, 10) : 0;
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
+
+
+  const fetchSocialLinks = async () => {
+    try {
+      const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/social-links`);
+      const parsedLinks = JSON.parse(response.data.social_links || '[]');
+
+      const formattedLinks: SocialLink[] = parsedLinks.map((url: string, index: number) => ({
+        id: index + 1,
+        url,
+      }));
+
+      setSocialLinks(formattedLinks);
+    } catch (error) {
+      console.error('Error fetching social links:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSocialLinks();
+  }, [id])
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -154,7 +213,7 @@ const StoreView: React.FC = () => {
           <div className="w-full flex bg-gray-200 h-auto justify-between p-2 rounded-md">
             <div className="flex h-full items-center gap-4">
               <img
-                src={store?.image_url}
+                src={store?.image_url || placeholderImage}
                 alt="Store logo"
                 className="w-[100px] rounded-full h-full justify-center mx-auto flex items-center"
               />
@@ -166,6 +225,23 @@ const StoreView: React.FC = () => {
                 <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600 cursor-pointer" onClick={() => setOpen(!open)}><LuUsers2 /> {followers?.length} followers</p>
                 <a href={`tel:${store?.seller_phone}`} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</a>
                 <button onClick={openModal} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><IoChatboxEllipsesOutline />Chat </button>
+                {socialLinks.length === 0 ? (
+                  ''
+                ) : (
+                  <div className='flex items-center gap-1'>
+                    {socialLinks.map(link => (
+                      <div key={link.id} className="flex flex-col rounded-md ">
+                        <div className='flex flex-col'>
+                          <a href={link.url} target='_blank' className="border-b border-gray-200">
+                            {getIcon(link.url) && (
+                              <FontAwesomeIcon icon={getIcon(link.url) as IconDefinition} className="mr-1" />
+                            )}
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}                
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
                     <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">

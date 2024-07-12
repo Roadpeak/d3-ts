@@ -45,6 +45,7 @@ import ResetPassword from './pages/auth/ResetPassword';
 import RequestPasswordReset from './pages/auth/RequestPasswordReset';
 import CategoryList from './components/admin/CategoryList';
 import VerifyOtp from './pages/auth/VerifyOtp';
+import SocialLinksPage from './components/Owner/SocialLinksPage';
 
 const AppRoutes: React.FC = () => {
 
@@ -84,6 +85,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />
       <Route path='/store/:id/bookings' element={<OwnerBookings />} />
       <Route path='/store/:id/reviews' element={<OwnerReviews />} />
+      <Route path='/store/:id/socials' element={<SocialLinksPage />} />
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
       <Route path='/discounts/edit/:id' element={<EditableDiscountComponent />} />
 
