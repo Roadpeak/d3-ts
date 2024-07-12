@@ -33,6 +33,7 @@ const SearchResults: React.FC = () => {
     const [stores, setStores] = useState<Shop[]>([]);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
+    const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -91,7 +92,7 @@ const SearchResults: React.FC = () => {
                                     <div className="flex flex-col justify-center mx-auto relative ">
                                         <div className="bg-transparent mb-2  mx-auto  w-[40%]">
                                             <img
-                                                src={store.image_url}
+                                                src={store.image_url || placeholderImage}
                                                 alt={store.name}
                                                 className="w-full mx-auto rounded-sm object-cover"
                                             />
@@ -122,7 +123,7 @@ const SearchResults: React.FC = () => {
                                 <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
                                     -{Math.floor(discount.percentage_discount)}%
                                 </div>
-                                <img src={discount.image_url} alt={discount.name} className="w-full object-cover rounded-md" />
+                                <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
                                 <div className="flex flex-col">
                                     <p className="text-[14px] text-gray-600">{discount.name}</p>
                                     <div className="flex items-center">

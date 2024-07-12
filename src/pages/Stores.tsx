@@ -31,6 +31,7 @@ const Stores: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 
  const fetchStores = async () => {
     try {
@@ -122,7 +123,7 @@ const Stores: React.FC = () => {
                 <div className="flex flex-col justify-center mx-auto relative ">
                   <div className="bg-white mb-2  mx-auto  w-[40%]">
                     <img
-                      src={store.image_url}
+                      src={store.image_url || placeholderImage}
                       alt={store.name}
                       className="w-full mx-auto rounded-sm object-cover"
                     />
