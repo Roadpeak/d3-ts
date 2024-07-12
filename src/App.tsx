@@ -1,17 +1,53 @@
 import AppRoutes from './AppRoutes';
-import { AuthProvider } from './utils/context/AuthContext';
+import { AuthProvider, useAuth } from './utils/context/AuthContext';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+import VerificationModal from './pages/auth/VerificationModal';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   return (
-   <AuthProvider>
-      <div className="font-montserrat bg-gray-50">
-        <AppRoutes />
-      </div>
+    <AuthProvider>
+      <MainApp />
       <ToastContainer />
-   </AuthProvider>
+    </AuthProvider>
   );
 }
+
+const MainApp = () => {
+  const { user } = useAuth();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [phone, setPhone] = useState<string>('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (user && user.active_status === 0) {
+        setPhone(user.phone || '');
+        setModalOpen(true);
+      }
+    }, 30000); 
+
+    return () => clearInterval(interval);
+  }, [user]);
+
+  const handleVerify = (phone: string) => {
+    navigate('/accounts/verify-otp', { state: { phone: phone } });
+  };
+
+  return (
+    <div className="font-montserrat bg-gray-50">
+      {isModalOpen && (
+        <VerificationModal
+          onClose={() => setModalOpen(false)}
+          onVerify={handleVerify}
+          phone={phone}
+        />
+      )}
+      <AppRoutes />
+    </div>
+  );
+};
 
 export default App;

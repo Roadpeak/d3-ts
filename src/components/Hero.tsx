@@ -17,7 +17,6 @@ const Hero: React.FC = () => {
       try {
         const data = await fetchRandomDiscounts();
         setDiscounts(data);
-        console.log(data); // Debugging statement
       } catch (error) {
         console.error('Error fetching discounts:', error);
       }

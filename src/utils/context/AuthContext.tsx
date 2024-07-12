@@ -9,7 +9,7 @@ interface User {
     user_type: string;
     active: boolean;
     first_discount: number;
-    active_status: boolean;
+    active_status: number;
     dark_mode: boolean;
 }
 
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                             user_type: userData.user_type,
                             active: Boolean(userData.active),
                             first_discount: userData.first_discount,
-                            active_status: Boolean(userData.active_status),
+                            active_status: userData.active_status,
                             dark_mode: Boolean(userData.dark_mode)
                         };
                         setUser(mappedUser);
@@ -88,7 +88,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     user_type: userData.user_type,
                     active: Boolean(userData.active),
                     first_discount: userData.first_discount,
-                    active_status: Boolean(userData.active_status),
+                    active_status: userData.active_status,
                     dark_mode: Boolean(userData.dark_mode)
                 };
                 setUser(mappedUser);

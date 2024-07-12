@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
+import { toast } from 'react-toastify';
 
 const VerifyOtp: React.FC = () => {
     const [otp, setOtp] = useState('');
@@ -19,6 +20,7 @@ const VerifyOtp: React.FC = () => {
             await axios.post('https://api.discoun3ree.com/api/users/verify-otp', { phone, otp });
             setErrors(null);
             setLoading(false);
+            toast("You account is now activated.")
             navigate('/accounts/sign-in');
         } catch (error) {
             setLoading(false);
