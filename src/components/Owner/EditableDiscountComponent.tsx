@@ -90,11 +90,11 @@ const EditableDiscountComponent: React.FC = () => {
       }, {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json', // Assuming JSON payload
+          'Content-Type': 'application/json',
         },
       });
 
-      console.log(response.data); // Optionally handle response data
+      console.log(response.data); 
 
       toast('Discount updated successfully!');
     } catch (error) {

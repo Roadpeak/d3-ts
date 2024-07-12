@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Topmenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {id} = useParams();
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    localStorage.removeItem('access_token');
+    navigate('/');
+    window.location.reload();
+  };
  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -57,11 +64,11 @@ const Topmenu: React.FC = () => {
           <a href={`/store/${id}/discounts`}  className="text-gray-800 hover:text-gray-600">Discounts</a>
           <a href={`/store/${id}/bookings`} className="text-gray-800 hover:text-gray-600">Bookings</a>
           <a href={`/store/${id}/unverified-discounts`} className="text-gray-800 hover:text-gray-600">Pending</a>
-          <a href="#" className="text-gray-800 hover:text-gray-600">Tickets</a>
+          <a href={`/store/${id}/socials`} className="text-gray-800 hover:text-gray-600">Socials</a>
           <a href="/chat" className="text-gray-800 hover:text-gray-600">Chat</a>
           <a href={`/store/${id}/reviews`} className="text-gray-800 hover:text-gray-600">Reviews</a>
           <a href={`/stores/edit/${id}`} className="text-gray-800 hover:text-gray-600">Edit</a>
-          <a href='/' className="text-gray-800 hover:text-gray-600">Logout</a>
+          <button onClick={logoutUser} className="text-gray-800 hover:text-gray-600">Logout</button>
         </nav>
       </div>
     </>
