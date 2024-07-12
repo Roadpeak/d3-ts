@@ -113,9 +113,9 @@ const Footer:React.FC = () => {
         <div className="px-[5%] flex items-center justify-between text-gray-900">
           <p>&copy; {currentYear} discoun3. All rights reserved.</p>
           <div className="flex items-center gap-4 text-gray-600 text-[16px] ">
-            <p className='hover:text-black cursor-pointer'>Support</p>
-            <p className='hover:text-black cursor-pointer'>Security</p>
-            <p className='hover:text-black cursor-pointer'>Cookies</p>
+            <a href='/contact' className='hover:text-black cursor-pointer'>Support</a>
+            <p className='hidden md:block hover:text-black cursor-pointer'>Security</p>
+            <p className='hidden md:block hover:text-black cursor-pointer'>Cookies</p>
           </div>
         </div>
       </div>
