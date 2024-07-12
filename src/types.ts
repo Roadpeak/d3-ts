@@ -27,3 +27,18 @@ export interface Ticket {
   created_at: string;
   updated_at: string;
 }
+
+export interface Stat {
+  current_week: number;
+  previous_week: number;
+  percentage_change: number;
+  change_status: 'positive' | 'negative' | 'neutral';
+}
+
+export interface WeeklyStats {
+  users: Stat;
+  discounts: Stat;
+  appointments: Stat;
+  shops: Stat;
+}
+

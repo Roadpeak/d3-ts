@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
+import { Stat, WeeklyStats } from '../types';
 
 const BASE_URL = 'https://api.discoun3ree.com/api';
 
@@ -286,6 +287,16 @@ export const fetchLatestShops = async (): Promise<Shop[]> => {
     throw error; 
   }
 };
+
+export const fetchWeekelyStats = async (): Promise<WeeklyStats> => {
+  const response = await fetch(`${BASE_URL}/weekly-stats`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch weekly stats');
+  }
+  const data = await response.json();
+  return data;
+};
+
 
 export const verifyShop = async (shopId: number) => {
   const response = await axios.put(`${BASE_URL}/shops/${shopId}/verify`, {}, {
