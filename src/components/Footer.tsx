@@ -55,7 +55,7 @@ const Footer:React.FC = () => {
               <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Videography')}>
                 <span className="cursor-pointer">Videography</span>
               </li>
-              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Events')}>
+              <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Event')}>
                 <span className="cursor-pointer">Events</span>
               </li>
               <li className="mb-2 text-gray-500 hover:text-black" onClick={() => handleCategoryClick('Hair and salon')}>
