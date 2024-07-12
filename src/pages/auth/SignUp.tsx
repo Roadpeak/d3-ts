@@ -37,8 +37,8 @@ const SignUp: React.FC = () => {
       const token = response.data.access_token;
       localStorage.setItem('token', token);
       setErrors({});
-      navigate('/');
       setLoading(false);
+      navigate('/accounts/verify-otp', { state: { phone: formData.phone } });
     } catch (error) {
         setLoading(false);
         if (axios.isAxiosError(error) && error.response) {

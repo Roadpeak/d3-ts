@@ -44,6 +44,7 @@ import ShopDetaisEdit from './pages/ShopDetailsEdit';
 import ResetPassword from './pages/auth/ResetPassword';
 import RequestPasswordReset from './pages/auth/RequestPasswordReset';
 import CategoryList from './components/admin/CategoryList';
+import VerifyOtp from './pages/auth/VerifyOtp';
 
 const AppRoutes: React.FC = () => {
 
@@ -69,6 +70,7 @@ const AppRoutes: React.FC = () => {
 
       <Route path='/accounts/sign-up' element={<SignUpPage />} />
       <Route path='/accounts/sign-in' element={<LoginPage />} />
+      <Route path='/accounts/verify-otp' element={<VerifyOtp />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/request-password-reset" element={<RequestPasswordReset />} />
 
