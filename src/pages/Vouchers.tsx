@@ -20,7 +20,7 @@ const Vouchers: React.FC = () => {
                 setPayments(paymentsData);
             } catch (error) {
                 console.error('Error fetching payments:', error);
-                setError('Error fetching payments. Please try again later.');
+                setError('Error fetching Vouchers. Please try again later.');
             } finally {
                 setLoading(false);
             }

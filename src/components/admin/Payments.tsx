@@ -39,6 +39,7 @@ const ManagePayments: React.FC = () => {
                 <tr className="bg-gray-100 border-b-2 border-gray-200 text-[13px] text-[#002A4D] font-medium">
                   <th className="px-4 py-3 text-start">User ID</th>
                   <th className="px-4 py-3 text-start">Payment Date</th>
+                  <th className="px-4 py-3 text-start">Discount</th>
                   <th className="px-4 py-3 text-start">Amount</th>
                   <th className="px-4 py-3 text-start">Phone</th>
                   <th className="px-4 py-3 text-start">Status</th>
@@ -60,6 +61,7 @@ const ManagePayments: React.FC = () => {
                     <tr key={payment.id} className="border-b border-gray-100 hover:bg-gray-100">
                       <td className="px-4 py-3">{payment.user_id}</td>
                       <td className="px-4 py-3">{new Date(payment.payment_date).toLocaleString()}</td>
+                      <td className="px-4 py-3">{payment.discount_name}</td>
                       <td className="px-4 py-3">{payment.amount}</td>
                       <td className="px-4 py-3">+{payment.phone}</td>
                       <td className={`px-4 py-3 ${payment.status === 'complete' ? 'text-green-600' : 'text-red-600'}`}>
