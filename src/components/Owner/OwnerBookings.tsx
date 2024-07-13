@@ -74,9 +74,9 @@ const OwnerBookings: React.FC = () => {
     return (
         <SellerLayout>
             <div className="flex w-full h-full flex-col">
-                <div className="flex w-full justify-between items-center mb-4">
-                    <h1 className="text-2xl font-semibold text-gray-900">Latest Bookings</h1>
-                    <input type="text" placeholder='Search here' className='bg-gray-100 w-52 focus:outline-none rounded-full py-2 px-3.5 text-sm text-gray-700' />
+                <div className="flex w-full justify-between items-center mb-2">
+                    <h1 className="text-[19px] font-medium text-gray-700">Appointments</h1>
+                    <input type="text" placeholder='Search here' className='bg-gray-100 w-52 focus:outline-none rounded-full py-2 px-3.5 text-[14px] text-gray-700' />
                 </div>
                 <div className="w-full rounded-md bg-white h-full overflow-x-auto">
                     {loading ? (
@@ -107,26 +107,26 @@ const OwnerBookings: React.FC = () => {
                             <tbody>
                                 {bookings.map(booking => (
                                     <tr key={booking.id}>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-[14px]">
                                             <div className="flex items-center">
                                                 <div className="ml-3">
-                                                    <p className="text-gray-900 whitespace-no-wrap">
+                                                    <p className="text-gray-600 whitespace-no-wrap">
                                                         {booking.discount.name}
                                                     </p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-[14px]">
+                                            <p className="text-gray-600 whitespace-no-wrap">
                                                 {`${booking.user.first_name} ${booking.user.last_name}`}
                                             </p>
                                         </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">
-                                                {formatDate(booking.created_at)}
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-[14px]">
+                                            <p className="text-gray-600 whitespace-no-wrap">
+                                                {moment(booking.time_slot.date).format('MMMM Do YYYY')}, {moment(booking.time_slot.start_time).format('h:mm A')} - {moment(booking.time_slot.end_time).format('h:mm A')}
                                             </p>
                                         </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-[14px]">
                                             <span className={`relative inline-block px-3 py-1 font-semibold leading-tight ${booking.approved === 1 ? 'text-green-900' : 'text-yellow-900'}`}>
                                                 <span aria-hidden="true" className={`absolute inset-0 ${booking.approved === 1 ? 'bg-green-200' : 'bg-yellow-200'} opacity-50 rounded-full`}></span>
                                                 <span className="relative">
@@ -134,7 +134,7 @@ const OwnerBookings: React.FC = () => {
                                                 </span>
                                             </span>
                                         </td>
-                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-[14px]">
                                             <button
                                                 className="text-blue-500 hover:underline mr-2 focus:outline-none"
                                                 onClick={() => handleDetailsClick(booking)}
@@ -189,7 +189,7 @@ const OwnerBookings: React.FC = () => {
                             value={approvalCode}
                             placeholder='Type voucher...'
                             onChange={(e) => setApprovalCode(e.target.value)}
-                            className="border-gray-300 border p-2 text--[14px] focus:border-primary w-full mb-4 rounded-md focus:outline-none"
+                            className="border-gray-300 border p-2 text-[14px] focus:border-primary w-full mb-4 rounded-md focus:outline-none"
                         />
                         <div className="flex justify-end">
                             <button
