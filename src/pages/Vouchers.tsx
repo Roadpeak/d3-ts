@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Payment } from '../types';
 import { fetchUserPayments } from '../services/apiService';
-import { FiCheckCircle, FiXCircle, FiLoader } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { FiLoader } from 'react-icons/fi';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -33,7 +32,7 @@ const Vouchers: React.FC = () => {
         <div className="">
             <Navbar />
             <div className="w-full bg-gray-50 px-[5%] py-6 min-h-screen">
-                <h1 className="text-3xl font-bold text-gray-800 mb-6">Your cart</h1>
+                <h1 className="text-[24px] font-medium capitalize text-gray-800 mb-4">cart</h1>
                 {loading ? (
                     <div className="flex justify-center items-center">
                         <FiLoader className="animate-spin text-4xl text-gray-600" />
