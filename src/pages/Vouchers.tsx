@@ -52,7 +52,7 @@ const Vouchers: React.FC = () => {
                             <thead className='bg-gray-100'>
                                 <tr className='bg-gray-100'>
                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        ID
+                                        #
                                     </th>
                                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                         service
@@ -75,14 +75,14 @@ const Vouchers: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {payments.map((payment) => (
+                                {payments.map((payment, index) => (
                                     <tr
                                         key={payment.id}
                                         className={`hover:bg-gray-100 ${payment.used ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                         onClick={() => !payment.used && (window.location.href = `/discount/${payment.discount_id}/booking`)}
                                     >
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p className="text-gray-900 whitespace-no-wrap">{payment.id}</p>
+                                            <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">{payment.discount_name}</p>

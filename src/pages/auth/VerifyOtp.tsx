@@ -42,6 +42,7 @@ const VerifyOtp: React.FC = () => {
                         </a>
                         <h1 className="text-2xl font-semibold text-black">Verify OTP</h1>
                     </div>
+                    <p className="text-[13px] text-gray-600 font-light">We sent an sms with the otp to {phone}</p>
                     <form onSubmit={handleVerifyOtp} className="">
                         {errors && <p className="text-sm text-red-500 mb-4">{errors}</p>}
                         <div className="mb-1">
