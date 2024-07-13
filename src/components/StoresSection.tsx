@@ -3,19 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SkeletonLoader from "../utils/elements/SkeletonLoader";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
-interface Store {
-  id: string;
-  name: string;
-  image_url: string;
-  number: number;
-  store_type: string;
-}
-
-interface Category {
-  name: string;
-  image_url: string;
-}
+import { Category, Store } from "../types";
 
 const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 

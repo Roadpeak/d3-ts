@@ -6,40 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-interface DiscountData {
-    id: number;
-    name: string;
-    initial_price: number;
-    discount: number;
-    image_url: string;
-    expiry_date: string;
-    service_time_hours: number;
-    category: string;
-    description: string;
-    shop_id: number;
-}
-
-interface Booking {
-    id: number;
-    discount: {
-        name: string;
-        discount: string; 
-        price_after_discount: string;
-    };
-    user: {
-        first_name: string;
-        last_name: string;
-        phone: string | null; 
-    };
-    time_slot: {
-        id: number;
-        date: string;
-        start_time: string;
-        end_time: string;
-    };
-    created_at: string;
-    approved: number;
-}
+import { Booking, DiscountData } from '../types';
 
 const Dashboard:React.FC = () => {
     const [discounts, setDiscounts] = useState<DiscountData[]>([]);
@@ -118,29 +85,7 @@ const Dashboard:React.FC = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className="flex flex-col md:flex-row gap-4 items-center text-gray-600">
-                <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Verified Discounts</p>
-                    <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">89</p>
-                </div>
-                <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Pending Verifications</p>
-                    <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">34</p>
-                </div>
-                <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Fullfilled Appointments</p>
-                    <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">54</p>
-                </div>
-                <div className="w-full bg-white gap-1 flex flex-col rounded-md">
-                    <p className="text-[#656575] text-[12px] pt-3 pb-1.5 px-4 font-medium">Pending Appointments</p>
-                    <hr className='w-full bg-gray-100' />
-                    <p className="py-2 px-4 text-[#002A4D] text-[15px] font-medium">34</p>
-                </div>
-            </div> */}
-            <div className="w-full gap-2 flex flex-col py-8">
+            <div className="w-full gap-2 flex flex-col pb-8">
                 <div className="flex w-full justify-between items-center">
                     <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>
                     <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
@@ -157,11 +102,11 @@ const Dashboard:React.FC = () => {
                             </thead>
                             <tbody>
                                 {bookings.slice(0, 8).map(booking => (
-                                    <tr key={booking.id}>
-                                        <td className="px-4 py-2 text-[13px] text-gray-600 py-2 border-b border-gray-100">{booking.discount.name}</td>
-                                        <td className="px-4 py-2 text-[13px] text-gray-600 py-2 border-b border-gray-100">{`${booking.user.first_name} ${booking.user.last_name}`}</td>
-                                        <td className="px-4 py-2 text-[13px] text-gray-600 py-2 border-b border-gray-100">{formatDate(booking.created_at)}</td>
-                                        <td className="px-4 py-2 text-[13px] text-gray-600 py-2 border-b border-gray-100">{booking.approved === 1 ? 'Approved' : 'Pending'}</td>
+                                    <tr key={booking.id} className='mb-2 py-2 '>
+                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{booking.discount.name}</td>
+                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{`${booking.user.first_name} ${booking.user.last_name}`}</td>
+                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{moment(booking.time_slot.date).format('MMMM Do YYYY')}, {moment(booking.time_slot.start_time).format('h:mm A')} - {moment(booking.time_slot.end_time).format('h:mm A')}</td>
+                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{booking.approved === 1 ? 'Approved' : 'Pending'}</td>
                                     </tr>
                                 ))}
                             </tbody>

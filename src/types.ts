@@ -1,4 +1,3 @@
-// src/types.ts
 export interface Discount {
   id: number;
   name: string;
@@ -12,10 +11,12 @@ export interface Discount {
   image_url: string;
   service_time_hours: number;
   category: string;
-  description: string;
   verified: boolean;
+  description: string;
+  shop_id: number;
+  created_at: string;
+  updated_at: string;
 }
-
 
 export interface Ticket {
   id: number;
@@ -76,4 +77,62 @@ export interface Booking {
     };
     created_at: string;
     approved: number;
+}
+
+export interface DiscountData {
+    id: number;
+    name: string;
+    initial_price: number;
+    discount: number;
+    image_url: string;
+    expiry_date: string;
+    service_time_hours: number;
+    category: string;
+    description: string;
+    shop_id: number;
+}
+
+export interface Shop {
+  id: string;
+  name: string,
+  location: string,
+  store_type: string,
+}
+
+export interface StoreData {
+  name: string;
+  location: string;
+  store_type: string;
+  image_url: string; 
+}
+
+export interface Store {
+  id: string;
+  name: string;
+  image_url: string;
+  number: number;
+  store_type: string;
+}
+
+export interface Category {
+  name: string;
+  image_url: string;
+}
+
+export interface Review {
+  id: number;
+  body: string;
+  created_at: string;
+  user_id: number;
+  user_name: string;
+  reviewable_type: string;
+}
+
+export interface SocialLink {
+    id: number;
+    url: string;
+}
+
+export interface DeleteSocialLinkResponse {
+    message: string;
 }

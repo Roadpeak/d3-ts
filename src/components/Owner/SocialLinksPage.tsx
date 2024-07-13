@@ -18,15 +18,7 @@ import {
 import SellerLayout from '../../elements/SellerLayout';
 import { MdOutlineDelete } from 'react-icons/md';
 import { IoAddSharp } from 'react-icons/io5';
-
-interface SocialLink {
-    id: number;
-    url: string;
-}
-
-interface DeleteSocialLinkResponse {
-    message: string;
-}
+import { DeleteSocialLinkResponse, SocialLink } from '../../types';
 
 const getIcon = (url: string): IconDefinition | null => {
     if (url.includes('instagram.com')) return faInstagram;

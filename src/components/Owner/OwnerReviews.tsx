@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SellerLayout from '../../elements/SellerLayout';
 import { getShopReviews } from '../../services/apiService';
 import { useParams } from 'react-router-dom';
-
-interface Review {
-  id: number;
-  body: string;
-  created_at: string;
-  user_id: number;
-  user_name: string;
-  reviewable_type: string;
-}
+import { Review } from '../../types';
 
 const OwnerReviews: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);

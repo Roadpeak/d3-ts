@@ -4,26 +4,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import { toast } from 'react-toastify';
-
-interface Discount {
-  id: number;
-  name: string;
-  initial_price: number;
-  discount: number;
-  price_after_discount: number;
-  percentage_discount: number;
-  amount: number;
-  expiry_date: string;
-  slug: string;
-  image_url: string;
-  service_time_hours: number;
-  category: string;
-  description: string;
-  verified: boolean;
-  shop_id: number;
-  created_at: string;
-  updated_at: string;
-}
+import { Discount } from '../../types';
 
 const EditableDiscountComponent: React.FC = () => {
   const [discount, setDiscount] = useState<Discount | null>(null);

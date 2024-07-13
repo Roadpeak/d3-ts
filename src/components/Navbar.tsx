@@ -15,20 +15,7 @@ import { toast } from 'react-toastify';
 import { BsTicketDetailed } from "react-icons/bs";
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { MdOutlineDiscount } from 'react-icons/md';
-
-interface Shop {
-  id: string;
-  name: string,
-  location: string,
-  store_type: string,
-}
-
-interface StoreData {
-  name: string;
-  location: string;
-  store_type: string;
-  image_url: string; 
-}
+import { Shop, StoreData } from '../types';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');

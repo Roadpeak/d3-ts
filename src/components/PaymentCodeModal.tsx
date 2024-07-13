@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-
-interface Payment {
-  id: number;
-  user_id: number;
-  payment_date: string;
-  discount_id: number;
-  amount: string;
-  phone: string;
-  status: string;
-  gateway: string;
-  code: string;
-  used: number;
-}
+import { Payment } from '../types';
 
 interface PaymentCodeModalProps {
   payments: Payment[];
