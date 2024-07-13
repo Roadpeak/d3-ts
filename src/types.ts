@@ -55,3 +55,25 @@ export interface Payment {
   code: string;
   used: number;
 }
+
+export interface Booking {
+    id: number;
+    discount: {
+        name: string;
+        discount: string;
+        price_after_discount: string;
+    };
+    user: {
+        first_name: string;
+        last_name: string;
+        phone: string | null;
+    };
+    time_slot: {
+        id: number;
+        date: string;
+        start_time: string;
+        end_time: string;
+    };
+    created_at: string;
+    approved: number;
+}

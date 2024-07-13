@@ -88,7 +88,7 @@ const StoresSection = () => {
             <SkeletonLoader />
           </>
         ) : (
-          stores.slice(0, 19).map((store) => (
+          stores.slice(0, 21).map((store) => (
             <a href={`/stores/${store?.id}/view`} key={store?.id} className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 hover:shadow-md cursor-pointer">
               <div className="flex flex-col justify-center mx-auto relative ">
                 <div className="bg-transparent mb-2 mx-auto w-[40%]">
