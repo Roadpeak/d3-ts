@@ -33,7 +33,7 @@ const PaymentCodeModal: React.FC<PaymentCodeModalProps> = ({ payments, onClose, 
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
       <div className="bg-white p-6 rounded-md shadow-md max-w-md w-full">
         <h2 className="text-xl font-bold mb-4 text-center">Select Voucher Code</h2>
-        
+
         {payments.length === 0 && (
           <div className="text-center text-gray-600 mb-4">
             No Voucher codes available. Please purchase one to continue.
@@ -61,7 +61,7 @@ const PaymentCodeModal: React.FC<PaymentCodeModalProps> = ({ payments, onClose, 
             </button>
           ))}
         </div>
-        
+
         <div className="flex justify-end mt-4 space-x-2">
           <button
             onClick={handleBookClick}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
-import { fetchPayments, Payment } from '../../services/apiService'; 
+import { fetchPayments } from '../../services/apiService'; 
 import SideMenu from './SideMenu';
+import { Payment } from '../../types';
 
 const ManagePayments: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>([]);

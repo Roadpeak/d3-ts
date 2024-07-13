@@ -23,7 +23,6 @@ import SellerSignIn from './pages/SellerSignIn';
 import AdminDash from './components/admin/AdminDash';
 import ManageStores from './components/admin/Stores';
 import ManageDiscounts from './components/admin/ManageDiscounts';
-import Vouchers from './components/admin/Vouchers';
 import Users from './components/admin/Users';
 import Tickets from './components/admin/Tickets';
 import OwnerHome from './components/Owner/OwnerHome';
@@ -46,11 +45,12 @@ import RequestPasswordReset from './pages/auth/RequestPasswordReset';
 import CategoryList from './components/admin/CategoryList';
 import VerifyOtp from './pages/auth/VerifyOtp';
 import SocialLinksPage from './components/Owner/SocialLinksPage';
+import Vouchers from './pages/Vouchers';
 
 const AppRoutes: React.FC = () => {
 
   return (
-      <Routes>
+    <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
@@ -78,6 +78,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
       <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
 
+      <Route path='/my-vouchers' element={<Vouchers />} />
       <Route path='/my-bookings' element={<Bookings />} />
       <Route path='/discount/:id/booking' element={<BookingPage />} />
 
@@ -93,8 +94,8 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage' element={<AdminDash />} />
       <Route path='/manage/stores' element={<ManageStores />} />
       <Route path='/manage/discounts' element={<ManageDiscounts />} />
-      <Route path='/manage/unverified' element={<UnverifiedDiscounts />} /> 
-      <Route path='/manage/appointments' element={<Appointments /> } />
+      <Route path='/manage/unverified' element={<UnverifiedDiscounts />} />
+      <Route path='/manage/appointments' element={<Appointments />} />
       <Route path='/manage/vouchers' element={<Vouchers />} />
       <Route path='/manage/payments' element={<ManagePayments />} />
       <Route path='/manage/users' element={<Users />} />

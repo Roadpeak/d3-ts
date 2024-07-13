@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
-import { Stat, WeeklyStats } from '../types';
+import { Payment, WeeklyStats } from '../types';
 
 const BASE_URL = 'https://api.discoun3ree.com/api';
 
@@ -32,19 +32,6 @@ interface User {
     phone: string | null;
     user_type: string;
     active: boolean;
-}
-
-export interface Payment {
-  id: number;
-  user_id: number;
-  payment_date: string;
-  discount_id: number;
-  amount: string;
-  phone: string;
-  status: string;
-  gateway: string;
-  code: string;
-  used: number;
 }
 
 interface Appointment {
@@ -308,6 +295,16 @@ export const verifyShop = async (shopId: number) => {
 export const unverifyShop = async (shopId: number) => {
   const response = await axios.put(`${BASE_URL}/shops/${shopId}/suspend`, {}, {
     headers: getHeaders(),
+  });
+  return response.data;
+};
+
+export const fetchUserPayments = async (): Promise<Payment[]> => {
+  const token = localStorage.getItem('access_token');
+  const response = await axios.get(`${BASE_URL}/payments/by-current-user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return response.data;
 };

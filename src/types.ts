@@ -42,3 +42,16 @@ export interface WeeklyStats {
   shops: Stat;
 }
 
+export interface Payment {
+  id: number;
+  user_id: number;
+  payment_date: string;
+  discount_id: number;
+  discount_name: string;
+  amount: string;
+  phone: string;
+  status: string;
+  gateway: string;
+  code: string;
+  used: number;
+}
