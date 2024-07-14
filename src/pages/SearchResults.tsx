@@ -5,21 +5,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SkeletonLoader from '../utils/elements/SkeletonLoader';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-
-interface Discount {
-    id: string;
-    name: string;
-    initial_price: number;
-    discount: number;
-    expiryDate: string;
-    category: string;
-    store: Shop;
-    service_time: string;
-    percentage_discount: number;
-    description: string;
-    image_url: string;
-    price_after_discount: number;
-}
+import { fetchRandomDiscounts } from '../services/discountService';
+import { Discount } from '../types';
 
 interface Shop {
     id: string;
@@ -30,6 +17,7 @@ interface Shop {
 
 const SearchResults: React.FC = () => {
     const [discounts, setDiscounts] = useState<Discount[]>([]);
+    const [random, setRandom] = useState<Discount[]>([]);
     const [stores, setStores] = useState<Shop[]>([]);
     const [loading, setLoading] = useState(false);
     const location = useLocation();
@@ -55,6 +43,19 @@ const SearchResults: React.FC = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        const fetchDiscountData = async () => {
+            try {
+                const data = await fetchRandomDiscounts();
+                setRandom(data);
+            } catch (error) {
+                console.error('Error fetching discounts:', error);
+            }
+        };
+
+        fetchDiscountData();
+    }, []);
 
     return (
         <div className="">
@@ -137,7 +138,32 @@ const SearchResults: React.FC = () => {
                         ))}
                     </div>
                 )}
+                <div className="flex w-full bg-white p-4 rounded-md flex-col h-full mt-4 mb-6">
+                    <p className="text-black font-semibold text-[20px] mb-2">Check this out!</p>
+                    <div className="w-full grid grid-cols-2 h-full md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
+                        {random.map((discount, index) => (
+                            <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full mb-4 relative'>
+                                <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
+                                    -{Math.floor(discount.percentage_discount)}%
+                                </div>
+                                <div className='max-w-sm rounded overflow-hidden bg-white'>
+                                    <img src={discount.image_url} alt={discount.name} className='w-full p-2 object-cover' />
+                                    <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
+                                    <div className='flex flex-col gap-2 justify-between w-full p-2'>
+                                        <span className='text-[13px] text-gray-600 font-light'>
+                                            in {discount.category}
+                                        </span>
+                                        <span className='text-primary font-medium text-[16px]'>
+                                            ksh. {discount.price_after_discount}
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
             </div>
+            
             <Footer />
         </div>
     );
