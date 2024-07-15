@@ -179,7 +179,7 @@ const Hero: React.FC = () => {
         {renderDiscounts()}
       </div>
       <div className="flex mt-3 flex-col">
-        <p className='text-black mb-2 font-semibold text-[20px]'>Top Categories</p>
+        <p className='text-black font-semibold text-[20px]'>Top Categories</p>
         <CategorySlider />
       </div>
     </div>
