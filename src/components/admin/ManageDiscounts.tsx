@@ -94,7 +94,7 @@ const ManageDiscounts: React.FC = () => {
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{discount.discount}</td>
                       <td className="px-4 py-3 cursor-pointer" onClick={() => handleRowClick(discount)}>{new Date(discount.expiry_date).toLocaleDateString()}</td>
                       <td className="px-4 py-3">
-                        <button onClick={() => { setSelectedDiscount(discount); setShowDeleteConfirmModal(true); }} className="text-red-500 hover:text-red-700">Delete</button>
+                        <button className="text-red-500 hover:text-red-700">Delete</button>
                       </td>
                     </tr>
                   ))

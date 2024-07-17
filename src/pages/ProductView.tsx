@@ -8,7 +8,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReviewComponent from '../components/ReviewComponent';
 import { useAuth } from '../utils/context/AuthContext';
-import { toast } from 'react-toastify';
 import { MdContentCopy } from 'react-icons/md';
 import { Discount } from '../types';
 
