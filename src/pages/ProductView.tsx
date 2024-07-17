@@ -43,7 +43,7 @@ const ProductView: React.FC = () => {
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href)
       .then(() => {
-        toast("Copied!")
+        console.log("Copied!")
       })
       .catch((error) => {
         console.error('Failed to copy link: ', error);
