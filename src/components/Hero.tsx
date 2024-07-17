@@ -11,6 +11,7 @@ import Banner from '../utils/elements/Banner';
 const Hero: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
   const [slidesToShow, setSlidesToShow] = useState(1);
+  const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 
   useEffect(() => {
     const fetchDiscountData = async () => {
@@ -124,12 +125,12 @@ const Hero: React.FC = () => {
       return (
         <div className="flex flex-wrap justify-center">
           {discounts.map((discount, index) => (
-            <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full md:w-1/5 px-2 mb-4 relative'>
+            <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={index} className='w-full md:w-1/5 px-2 mb-4 relative'>
               <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
                 -{Math.floor(discount.percentage_discount)}%
               </div>
               <div className='max-w-sm rounded overflow-hidden bg-white'>
-                <img src={discount.image_url} alt={discount.name} className='w-full p-2 object-cover' />
+                <img src={discount.image_url || placeholderImage} alt={discount.name} className='w-full p-2 object-cover' />
                 <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
                 <div className='flex flex-col gap-2 justify-between w-full p-2'>
                   <span className='text-[13px] text-gray-600 font-light'>
@@ -149,12 +150,12 @@ const Hero: React.FC = () => {
     return (
       <Slider {...settings}>
         {discounts.slice(0, 10).map((discount, index) => (
-          <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2 relative'>
+          <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={index} className='w-full h-full justify-between md:w-1/5 px-2 relative'>
             <div className="absolute top-4 right-6 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
               -{Math.floor(discount.percentage_discount)}%
             </div>
             <div className='max-w-sm rounded overflow-hidden bg-white'>
-              <img src={discount.image_url} alt={discount.name} className='w-full p-2 object-cover' />
+              <img src={discount.image_url || placeholderImage} alt={discount.name} className='w-full p-2 object-cover' />
               <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
               <div className='flex flex-col gap-2 justify-between w-full p-2'>
                 <span className='text-[13px] text-gray-600 font-light'>

@@ -26,6 +26,7 @@ import {
 import SendMessageModal from '../utils/elements/SendMessageModal';
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { IoMdClose } from 'react-icons/io';
+import { Discount } from '../types';
 
 interface Store {
   id: number;
@@ -39,20 +40,6 @@ interface Store {
   seller_phone: string;
   store_type: string | null;
   description: string | null;
-}
-
-interface Discount {
-  id: string;
-  name: string;
-  initial_price: number;
-  discount: number;
-  expiryDate: string;
-  category: string;
-  store: Store;
-  serviceTime: string;
-  description: string;
-  image_url: string;
-  price_after_discount: number;
 }
 
 interface Follower {
@@ -296,14 +283,14 @@ const StoreView: React.FC = () => {
             </div>
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
               {discounts.map((discount) => (
-                <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md bg-white flex flex-col justify-between rounded-md p-4">
-                  <img src={discount.image_url} alt={discount.name} className="w-full object-cover rounded-md" />
+                <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md bg-white flex flex-col justify-between rounded-md p-4">
+                  <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
                   <div className="flex flex-col">
-                    <p className="text-[17px] font-medium">{discount.name}</p>
-                    <p className="text-[14px] text-gray-500">
-                      {discount.description.length > maxLength ?
-                        `${discount.description.substring(0, maxLength)}...` :
-                        discount.description
+                    <p className="text-[17px] font-medium truncate-2-lines">{discount.name}</p>
+                    <p className="text-[14px] text-gray-500 mt-1">
+                      {discount.description?.length > maxLength ?
+                        `${discount?.description.substring(0, maxLength)}...` :
+                        discount?.description
                       }
                     </p>
                     <div className="flex items-center">

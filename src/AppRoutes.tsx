@@ -55,8 +55,8 @@ const AppRoutes: React.FC = () => {
       <Route path='/stores' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
       <Route path='/stores/edit/:id' element={<ShopDetaisEdit />} />
-      <Route path='/discount/:id/see-details' element={<ProductView />} />
-      <Route path='/:id/checkout' element={<Checkout />} />
+      <Route path='/discount/:slug/:id/see-details' element={<ProductView />} />
+      <Route path='/:slug/:id/checkout' element={<Checkout />} />
       <Route path='/deals' element={<Deals />} />
       <Route path='/discounts/bought' element={<PurchasesPage />} />
       <Route path='/accounts/profile' element={<UserProfileCard />} />

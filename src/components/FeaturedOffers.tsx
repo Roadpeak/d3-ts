@@ -53,7 +53,7 @@ const FeaturedOffers: React.FC = () => {
   };
 
   const handleGetOffer = (discount: Discount) => {
-    navigate(`/${discount.id}/checkout`);
+    navigate(`/${discount.slug}/${discount.id}/checkout`);
     window.location.reload();
   };
 
@@ -84,20 +84,20 @@ const FeaturedOffers: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <p className="text-[13px] text-gray-600 "><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
+                <p className="text-[13px] text-gray-600"><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
                 <div className="flex flex-col md:flex-row gap-2 w-full">
                   {new Date(item.expiry_date) > new Date() ? (
                     <>
                       <a
-                        href={`/${item.id}/checkout`}
-                        className="w-full rounded-md text-center border text-[14px] border-third text-third px-2 items-center py-1"
+                        href={`/${item.slug}/${item.id}/checkout`}
+                        className="w-full hidden md:flex rounded-md text-center border text-[14px] border-third text-third px-2 items-center py-1"
                         onClick={() => handleGetOffer(item)}
                         title="Get offer"
                       >
                         Get offer
                       </a>
                       <a
-                        href={`/discount/${item.id}/see-details`}
+                        href={`/discount/${item.slug}/${item.id}/see-details`}
                         className="w-full rounded-md text-center text-[14px] bg-primary text-white px-2 items-center py-1"
                         onClick={() => handleSeeDetails(item)}
                         title="See Details"
