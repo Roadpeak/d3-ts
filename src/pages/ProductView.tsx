@@ -10,25 +10,7 @@ import ReviewComponent from '../components/ReviewComponent';
 import { useAuth } from '../utils/context/AuthContext';
 import { toast } from 'react-toastify';
 import { MdContentCopy } from 'react-icons/md';
-
-interface Discount {
-  id: number;
-  name: string;
-  initial_price: string;
-  price_after_discount: string;
-  percentage_discount: string;
-  expiry_date: string;
-  amount: string;
-  slug: string;
-  image_url: string;
-  service_time_hours: number;
-  category: string;
-  description: string;
-  verified: boolean;
-  shop_id: number;
-  created_at: string;
-  updated_at: string;
-}
+import { Discount } from '../types';
 
 const ProductView: React.FC = () => {
   const navigate = useNavigate();
@@ -158,9 +140,9 @@ const ProductView: React.FC = () => {
                       <button
                         onClick={() => {
                           if (!user) {
-                            navigate(`/${discount?.id}/checkout`);
+                            navigate(`/${discount?.slug}/${discount?.id}/checkout`);
                           } else if (user.first_discount === 1) {
-                            navigate(`/${discount?.id}/checkout`);
+                            navigate(`/${discount?.slug}/${discount?.id}/checkout`);
                           } else {
                             navigate(`/discount/${discount?.id}/booking`);
                           }
