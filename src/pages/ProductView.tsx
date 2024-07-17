@@ -8,6 +8,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReviewComponent from '../components/ReviewComponent';
 import { useAuth } from '../utils/context/AuthContext';
+import { toast } from 'react-toastify';
+import { MdContentCopy } from 'react-icons/md';
 
 interface Discount {
   id: number;
@@ -55,6 +57,16 @@ const ProductView: React.FC = () => {
 
     fetchDiscount();
   }, [id]);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => {
+        toast("Copied!")
+      })
+      .catch((error) => {
+        console.error('Failed to copy link: ', error);
+      });
+  };
 
   return (
     <div>
@@ -201,6 +213,9 @@ const ProductView: React.FC = () => {
                               <span className="text-gray-600 text-[14px] font-light">share</span>
                             </div>
                           </TwitterShareButton>
+                            <button onClick={handleCopyLink} className="p-1 flex items-center gap-1 text-gray-600 text-[14px]">
+                              <MdContentCopy className="text-[17px] text-gray-500" /> Copy Link
+                            </button>
                         </div>
                       </div>
                     </div>
