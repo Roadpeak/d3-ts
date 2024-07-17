@@ -126,7 +126,7 @@ const SearchResults: React.FC = () => {
                                 </div>
                                 <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
                                 <div className="flex flex-col">
-                                    <p className="text-[14px] text-gray-600">{discount.name}</p>
+                                    <p className="text-[14px] text-gray-600 truncate-2-lines">{discount.name}</p>
                                     <div className="flex items-center">
                                         <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
                                         <p className="text-primary font-medium text-[15px] ml-2">

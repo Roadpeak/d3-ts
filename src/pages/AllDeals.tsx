@@ -22,6 +22,7 @@ const AllDeals:React.FC = () => {
     const [discounts, setDiscounts] = useState<Discount[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+  const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 
   useEffect(() => {
     const fetchDiscountsByShop = async () => {
@@ -71,9 +72,9 @@ const AllDeals:React.FC = () => {
         ) : (
           discounts.map((item) => (
             <div key={item.id} className="bg-white flex flex-col justify-between rounded-md p-4">
-              <img src={item.image_url} className='rounded-md' alt="" />
+              <img src={item.image_url || placeholderImage} className='rounded-md' alt="" />
               <div className="flex flex-col">
-                <p className="text-black my-2 font-medium text-[16px]">{item.name}</p>
+                <p className="text-black my-2 font-medium text-[16px] truncate-2-lines">{item.name}</p>
                 <div className="flex mt-2 items-center justify-between w-full">
                   <div className="flex flex-col md:flex-row gap-1">
                     <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
