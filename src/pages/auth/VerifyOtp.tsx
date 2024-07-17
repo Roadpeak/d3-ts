@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
 import { toast } from 'react-toastify';
@@ -38,11 +38,11 @@ const VerifyOtp: React.FC = () => {
                 <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
                     <div className="text-center mb-2">
                         <a href="/">
-                            <img src={logo} className='w-[50px] -mb-4 mx-auto' alt="Logo" />
+                            <img src={logo} className='w-[80px] -mb-4 mx-auto' alt="Logo" />
                         </a>
-                        <h1 className="text-2xl font-semibold text-black">Verify OTP</h1>
+                        <h1 className="text-2xl font-semibold text-black">Verify phone</h1>
                     </div>
-                    <p className="text-[13px] text-gray-600 font-light">We sent an sms with the otp to {phone}</p>
+                    <p className="text-[13px] text-gray-600 font-light">We sent an sms with an otp to your phone number</p>
                     <form onSubmit={handleVerifyOtp} className="">
                         {errors && <p className="text-sm text-red-500 mb-4">{errors}</p>}
                         <div className="mb-1">
@@ -61,10 +61,11 @@ const VerifyOtp: React.FC = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-primary text-white py-2 mt-4 rounded hover:bg-primary-dark focus:outline-none focus:bg-primary-dark"
+                            className="w-full bg-primary text-white py-2 mt-2 rounded hover:bg-primary-dark focus:outline-none focus:bg-primary-dark"
                         >
                             {loading ? <ClipLoader color={"#fff"} size={20} /> : 'Verify'}
                         </button>
+                        <Link to='/accounts/sign-in' className="w-full justify-end flex underline text-end text-primary text-[14px] font-light mt-1">Login instead</Link>
                     </form>
                 </div>
                 <div className="hidden md:flex justify-center items-center ">
