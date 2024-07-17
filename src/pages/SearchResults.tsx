@@ -120,7 +120,7 @@ const SearchResults: React.FC = () => {
                 {discounts.length > 0 && (
                     <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5 lg:grid-cols-5'>
                         {discounts.map((discount) => (
-                            <a href={`/discount/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between relative rounded-md p-4">
+                            <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between relative rounded-md p-4">
                                 <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
                                     -{Math.floor(discount.percentage_discount)}%
                                 </div>
@@ -142,7 +142,7 @@ const SearchResults: React.FC = () => {
                     <p className="text-black font-semibold text-[20px] mb-2">Check this out!</p>
                     <div className="w-full grid grid-cols-2 h-full md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
                         {random.map((discount, index) => (
-                            <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full mb-4 relative'>
+                            <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={index} className='w-full h-full mb-4 relative'>
                                 <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
                                     -{Math.floor(discount.percentage_discount)}%
                                 </div>

@@ -156,7 +156,7 @@ const Stores: React.FC = () => {
           <p className="text-black font-semibold text-[20px] mb-2">You may like</p>
           <div className="w-full grid grid-cols-2 h-full md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
             {discounts.map((discount, index) => (
-              <a href={`/discount/${discount.id}/see-details`} key={index} className='w-full h-full mb-4 relative'>
+              <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={index} className='w-full h-full mb-4 relative'>
                 <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
                   -{Math.floor(discount.percentage_discount)}%
                 </div>
