@@ -34,6 +34,7 @@ const ProductView: React.FC = () => {
   const [discount, setDiscount] = useState<Discount | null>(null);
   const [error, setError] = useState(''); 
   const [loading, setLoading] = useState(false)
+  const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
   
   const {  user } = useAuth();
   const { id } = useParams();
@@ -125,7 +126,7 @@ const ProductView: React.FC = () => {
                   <div className="border p-4 flex flex-col md:flex-row w-full">
                     <div className="flex flex-col md:flex-row flex-wrap overflow-x-auto w-full md:w-1/2">
                       <div className="w-full md:w-2/3 mt-4 md:mt-0">
-                        <img className="rounded-md" alt="image" src={discount?.image_url} />
+                          <img className="rounded-md" alt="image" src={discount?.image_url || placeholderImage} />
                       </div>
                     </div>
                     <div className="flex flex-col w-full md:w-1/2">
