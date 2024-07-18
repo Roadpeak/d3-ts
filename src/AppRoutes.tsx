@@ -102,7 +102,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage/users' element={<Users />} />
       <Route path='/manage/tickets' element={<Tickets />} />
       <Route path='/manage/categories' element={<CategoryList />} />
-      <Route path='/manage/create-event' element={<EventForm />} />
+      <Route path='/manage/:id/create-event' element={<EventForm />} />
 
       <Route path='/company/careers' element={<CareersPage />} />
       <Route path='/company/vision' element={<Vision />} />
