@@ -47,6 +47,8 @@ import VerifyOtp from './pages/auth/VerifyOtp';
 import SocialLinksPage from './components/Owner/SocialLinksPage';
 import Vouchers from './pages/Vouchers';
 import EventForm from './components/EventForm';
+import ServicesList from './components/Owner/ServicesList';
+import Calendar from './components/Calendar';
 
 const AppRoutes: React.FC = () => {
 
@@ -90,6 +92,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/socials' element={<SocialLinksPage />} />
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
       <Route path='/discounts/edit/:id' element={<EditableDiscountComponent />} />
+      <Route path='/store/:id/services' element={<ServicesList />} />
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />

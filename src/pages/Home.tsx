@@ -6,6 +6,7 @@ import FeaturedOffers from '../components/FeaturedOffers'
 import TravelSection from '../components/TravelSection'
 import Footer from '../components/Footer'
 import { useAuth } from '../utils/context/AuthContext'
+import EventSection from '../components/EventSection'
 
 const Home: React.FC = () => {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ const Home: React.FC = () => {
       <StoresSection />
       <FeaturedOffers />
       <TravelSection />
+      <EventSection />
       <Footer />
     </div>
   )

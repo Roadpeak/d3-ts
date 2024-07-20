@@ -125,7 +125,7 @@ const Hero: React.FC = () => {
       return (
         <div className="flex flex-wrap justify-center">
           {discounts.map((discount, index) => (
-            <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={index} className='w-full md:w-1/5 px-2 mb-4 relative'>
+            <a href={`/discount/${discount?.slug}/${discount?.id}/see-details`} key={index} className='w-full md:w-1/5 px-2 mb-4 relative'>
               <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
                 -{Math.floor(discount.percentage_discount)}%
               </div>

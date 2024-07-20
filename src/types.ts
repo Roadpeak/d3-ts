@@ -107,11 +107,17 @@ export interface StoreData {
 }
 
 export interface Store {
-  id: string;
+  id: number;
   name: string;
+  location: string;
   image_url: string;
-  number: number;
-  store_type: string;
+  verified: number;
+  seller_id: number;
+  created_at: string;
+  updated_at: string;
+  seller_phone: string;
+  store_type: string | null;
+  description: string | null;
 }
 
 export interface Category {
@@ -135,4 +141,56 @@ export interface SocialLink {
 
 export interface DeleteSocialLinkResponse {
     message: string;
+}
+
+export interface Service {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    duration: number;
+    category: string;
+    image_url: string;
+}
+
+export interface Follower {
+  follower_id: number;
+  shop_name: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  user: any; 
+}
+
+export interface SocialLink {
+  id: number;
+  url: string;
+}
+
+export interface Booking {
+  id: number;
+  user_id: number;
+  time_slot_id: number;
+  discount_id: number;
+  shop_id: number;
+  approved: number;
+  code: string;
+  created_at: string;
+  updated_at: string;
+  discount_name: string;
+  shop_name: string;
+  time_slot_start: string;
+  time_slot_end: string;
+}
+
+export interface Appointment {
+  id: number;
+  user_id: number;
+  service_name: string;
+  shop_name: string;
+  status: string;
+  appointment_time: string; 
+  created_at: string; 
+  updated_at: string;
 }

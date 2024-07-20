@@ -40,13 +40,20 @@ const SignUp: React.FC = () => {
       setLoading(false);
       navigate('/accounts/verify-otp', { state: { phone: formData.phone } });
     } catch (error) {
-        setLoading(false);
-        if (axios.isAxiosError(error) && error.response) {
-            setErrors(error.response.data);
-        } else {
-            setErrors({ general: ['An error occurred'] });
-        }
+      setLoading(false);
+      if (axios.isAxiosError(error) && error.response) {
+        setErrors(error.response.data);
+      } else {
+        setErrors({ general: ['An error occurred'] });
+      }
     }
+  };
+
+  const handleGoogleSignUp = () => {
+    const googleSignUpUrl = signupType === 'user'
+      ? 'https://api.discoun3ree.com/auth/google?user_type=user'
+      : 'https://api.discoun3ree.com/auth/google?user_type=seller';
+    window.location.href = googleSignUpUrl;
   };
 
   const togglePasswordVisibility = () => {
@@ -55,8 +62,8 @@ const SignUp: React.FC = () => {
 
   return (
     <div className="flex flex border bg-gray-100 items-center justify-center min-h-screen">
-      <div className="w-fit bg-white  h-fit rounded-md flex flex-col md:flex-row">
-        <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
+      <div className="w-fit bg-white h-fit rounded-md flex flex-col md:flex-row">
+        <div className="bg-white p-8 rounded-lg w-full md:w-1/2">
           <div className="text-center mb-2">
             <a href="/">
               <img src={logo} className='w-[50px] -mb-4 mx-auto' alt="" />
@@ -68,18 +75,18 @@ const SignUp: React.FC = () => {
               className={`px-4 py-2 ${signupType === 'user' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
               onClick={() => setSignupType('user')}
             >
-              user
+              User
             </button>
             <button
               className={`px-4 py-2 ${signupType === 'seller' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
               onClick={() => setSignupType('seller')}
             >
-              service provider
+              Service Provider
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="">
+          <form onSubmit={handleSubmit}>
             {Object.keys(errors).map((key) => (
-                errors[key].map((message) => <p key={message} className="text-sm text-red-500 mb-4">{message}</p>)
+              errors[key].map((message) => <p key={message} className="text-sm text-red-500 mb-4">{message}</p>)
             ))}
             <div className="flex w-full gap-[2%] items-center">
               <div className="mb-1 w-full">
@@ -181,11 +188,11 @@ const SignUp: React.FC = () => {
                 </button>
               </div>
             </div>
-            <p className="text-[12px] text-gray-600 font-light">Password must be atleast 8 characters long</p>
+            <p className="text-[12px] text-gray-600 font-light">Password must be at least 8 characters long</p>
             <div className="flex w-full items-center mt-1 gap-2">
               <input required type="checkbox" />
-              <p className="text-gray-600 text-[13px] font-light ">By signing up, you agree to our 
-                <a href="https://discoun3ree.com/terms-and-conditions" target='_blank' className="text-primary px-2">Terms & Conditons</a>
+              <p className="text-gray-600 text-[13px] font-light">By signing up, you agree to our
+                <a href="https://discoun3ree.com/terms-and-conditions" target='_blank' className="text-primary px-2">Terms & Conditions</a>
                 and
                 <a href="https://discoun3ree.com/privacy-policy" target='_blank' className="text-primary px-2">Privacy Policy</a>
               </p>
@@ -195,6 +202,13 @@ const SignUp: React.FC = () => {
               className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
             >
               {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
+            </button>
+            <button
+              type="button"
+              onClick={handleGoogleSignUp}
+              className="bg-red-500 w-full text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 mt-2"
+            >
+              Sign Up with Google
             </button>
             <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           </form>

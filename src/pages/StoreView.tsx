@@ -26,36 +26,8 @@ import {
 import SendMessageModal from '../utils/elements/SendMessageModal';
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { IoMdClose } from 'react-icons/io';
-import { Discount } from '../types';
-
-interface Store {
-  id: number;
-  name: string;
-  location: string;
-  image_url: string;
-  verified: number;
-  seller_id: number;
-  created_at: string;
-  updated_at: string;
-  seller_phone: string;
-  store_type: string | null;
-  description: string | null;
-}
-
-interface Follower {
-  follower_id: number;
-  shop_name: string;
-  first_name: string;
-  last_name: string;
-  phone: string;
-  email: string;
-  user: any; 
-}
-
-interface SocialLink {
-  id: number;
-  url: string;
-}
+import { Discount, Follower, Service, SocialLink, Store } from '../types';
+import Calendar from '../components/Calendar';
 
 const getIcon = (url: string): IconDefinition | null => {
   if (url.includes('instagram.com')) return faInstagram;
@@ -74,6 +46,9 @@ const getIcon = (url: string): IconDefinition | null => {
 const StoreView: React.FC = () => {
   const [store, setStore] = useState<Store | null>(null);
   const [discounts, setDiscounts] = useState<Discount[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
+  const [selectedServiceId, setSelectedServiceId] = useState<number | null>(null);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [loading, setLoading] = useState(false);
   const [followers, setFollowers] = useState<Follower[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -83,10 +58,11 @@ const StoreView: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [des, setDes] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [view, setView] = useState<'offers' | 'services'>('offers');
 
   const { user } = useAuth();
   const { id } = useParams<{ id: string }>();
-    const maxLength = 27;
+  const maxLength = 52;
   const shopId = id ? parseInt(id, 10) : 0;
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -121,7 +97,7 @@ const StoreView: React.FC = () => {
       } catch (error) {
         console.error('Error fetching store:', error);
       } finally {
-        
+
       }
     };
 
@@ -129,24 +105,24 @@ const StoreView: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-  const fetchFollowers = async () => {
-    setIsLoading(true);
-    try {
-      const data = await getShopFollowers(shopId);
-      setFollowers(data);
-      const isCurrentUserFollowing = data.some((follower: Follower) => follower.phone === user?.phone);
-      setIsFollowing(isCurrentUserFollowing);
-    } catch (error) {
-      console.error('Error fetching followers:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const fetchFollowers = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getShopFollowers(shopId);
+        setFollowers(data);
+        const isCurrentUserFollowing = data.some((follower: Follower) => follower.phone === user?.phone);
+        setIsFollowing(isCurrentUserFollowing);
+      } catch (error) {
+        console.error('Error fetching followers:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  if (user) {
-    fetchFollowers();
-  }
-}, [shopId, user]);
+    if (user) {
+      fetchFollowers();
+    }
+  }, [shopId, user]);
 
   const handleFollow = async () => {
     setIsLoading(true);
@@ -187,8 +163,25 @@ const StoreView: React.FC = () => {
     fetchDiscountsByShop();
   }, [id]);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+  useEffect(() => {
+    const fetchServicesByShop = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/services`);
+        setServices(response.data);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServicesByShop();
+  }, [id]);
+
+  const openCalendar = (serviceId: number) => {
+    setSelectedServiceId(serviceId);
+    setShowCalendar(true);
   };
 
   return (
@@ -233,7 +226,7 @@ const StoreView: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                )}                          
+                )}
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
                     <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
@@ -250,9 +243,9 @@ const StoreView: React.FC = () => {
             <div className="flex gap-2 items-center ">
               <button onClick={openModal} className="hidden md:flex items-center gap-1 text-gray-600 text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
               <SendMessageModal
-                  isOpen={isModalOpen}
-                  onClose={closeModal}
-                  sellerId={store?.seller_id ?? null}
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                sellerId={store?.seller_id ?? null}
               />
               <span className="hidden md:block">|</span>
               <div className='hidden md:flex'>
@@ -269,40 +262,80 @@ const StoreView: React.FC = () => {
             </div>
           </div>
           <div className="w-full mt-4 rounded-md">
-            <div className="flex items-center w-full mb-2 justify-between">
-              <p className="capitalize text-gray-600 text-[20px] font-medium">
-                all
-              </p>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className='border rounded-md px-2 outline-none focus:outline-none text-gray-500 py-1'
-                placeholder='Search'
-              />
+            <div className="flex items-center gap-4 border-b border-gray-300 mb-4 gap-4">
+              <button
+                onClick={() => setView('offers')}
+                className={`${view === 'offers' ? 'border-b-[2px] border-primary text-primary font-medium' : 'text-gray-600'}`}
+              >
+                Offers
+              </button>
+              <button
+                onClick={() => setView('services')}
+                className={`${view === 'services' ? 'border-b-[2px] border-primary text-primary font-medium' : 'text-gray-600'}`}
+              >
+                Services
+              </button>
             </div>
-            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
-              {discounts.map((discount) => (
-                <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md bg-white flex flex-col justify-between rounded-md p-4">
-                  <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
-                  <div className="flex flex-col">
-                    <p className="text-[17px] font-medium truncate-2-lines">{discount.name}</p>
-                    <p className="text-[14px] text-gray-500 mt-1">
-                      {discount.description?.length > maxLength ?
-                        `${discount?.description.substring(0, maxLength)}...` :
-                        discount?.description
-                      }
-                    </p>
-                    <div className="flex items-center">
-                      <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
-                      <p className="text-primary font-medium text-[14px] ml-2">
-                        Ksh. {discount.price_after_discount}
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
+            {view === 'offers' ? (
+              <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  discounts.length > 0 ? (
+                    discounts.map(discount => (
+                      <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={discount.id} className="hover:shadow-md bg-white flex flex-col justify-between rounded-md p-4">
+                        <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
+                        <div className="flex flex-col">
+                          <p className="text-[17px] font-medium truncate-2-lines">{discount.name}</p>
+                          <p className="text-[14px] text-gray-500 mt-1">
+                            {discount.description?.length > maxLength
+                              ? `${discount.description.substring(0, maxLength)}...`
+                              : discount.description}
+                          </p>
+                          <div className="flex items-center">
+                            <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
+                            <p className="text-primary font-medium text-[14px] ml-2">
+                              Ksh. {discount.price_after_discount}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    ))
+                  ) : (
+                    <p>No offers available.</p>
+                  )
+                )}
+              </div>
+            ) : (
+              <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
+                {loading ? (
+                  <div>Loading...</div>
+                ) : (
+                  services.length > 0 ? (
+                    services.map(service => (
+                      <div key={service.id} className="bg-white p-4 rounded-md">
+                        {/* <h2 className="text-xl font-medium">{service.name}</h2> */}
+                        <img src={service.image_url} alt={service.name} className="w-full h-auto rounded-md" />
+                        <p className="mt-2 mb-1 text-gray-700 font-medium text-[18px]">{service.name}</p>
+                        <p className="mt-2 text-gray-600 font-light text-[14px]">{service.description}</p>
+                        <p className="text-gray-900 text-[14px] mb-1 ">Kes <span className="font-medium">{service.price}</span></p>
+                        <div className="flex w-full items-center gap-2 ">
+                          <button className="w-full border border-primary px-4 py-1.5 text-primary text-[14px] rounded-md">Details</button>
+                          <button
+                            onClick={() => openCalendar(Number(service.id))}
+                            className="w-full bg-primary px-4 py-1.5 text-white text-[14px] rounded-md"
+                          >
+                            Reserve
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No services available.</p>
+                  )
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div className="px-[5%] flex w-full gap-[2%] pb-4 flex-col md:flex-row ">
@@ -327,8 +360,8 @@ const StoreView: React.FC = () => {
       {open && (
         <div className="absolute h-full top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 w-[80%] md:w-1/3 max-h-[90vh] overflow-y-auto rounded-lg relative">
-            <button 
-              onClick={() => setOpen(false)} 
+            <button
+              onClick={() => setOpen(false)}
               className="absolute top-4 right-4 text-gray-600 border rounded-full p-1 border-gray-400 hover:text-gray-800"
             >
               <IoMdClose />
@@ -343,6 +376,20 @@ const StoreView: React.FC = () => {
             ) : (
               <div>No Followers at this time.</div>
             )}
+          </div>
+        </div>
+      )}
+      {showCalendar && selectedServiceId !== null && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg max-w-md w-full relative">
+            <button
+              onClick={() => setShowCalendar(false)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <Calendar serviceId={selectedServiceId} shopId={shopId} />
           </div>
         </div>
       )}
