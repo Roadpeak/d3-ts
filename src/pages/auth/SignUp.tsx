@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import GoogleSignInButton from './GoogleSignInButton';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -47,13 +48,6 @@ const SignUp: React.FC = () => {
         setErrors({ general: ['An error occurred'] });
       }
     }
-  };
-
-  const handleGoogleSignUp = () => {
-    const googleSignUpUrl = signupType === 'user'
-      ? 'https://api.discoun3ree.com/auth/google?user_type=user'
-      : 'https://api.discoun3ree.com/auth/google?user_type=seller';
-    window.location.href = googleSignUpUrl;
   };
 
   const togglePasswordVisibility = () => {
@@ -199,17 +193,11 @@ const SignUp: React.FC = () => {
             </div>
             <button
               type="submit"
-              className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
+              className="bg-primary w-full mb-2 text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
             >
               {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
             </button>
-            {/* <button
-              type="button"
-              onClick={handleGoogleSignUp}
-              className="bg-red-500 w-full text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 mt-2"
-            >
-              Sign Up with Google
-            </button> */}
+            <GoogleSignInButton />
             <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           </form>
         </div>
