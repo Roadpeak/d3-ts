@@ -197,7 +197,7 @@ const SignUp: React.FC = () => {
             >
               {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
             </button>
-            <GoogleSignInButton />
+            {/* <GoogleSignInButton /> */}
             <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           </form>
         </div>
