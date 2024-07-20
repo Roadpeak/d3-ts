@@ -203,13 +203,13 @@ const SignUp: React.FC = () => {
             >
               {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
             </button>
-            <button
+            {/* <button
               type="button"
               onClick={handleGoogleSignUp}
               className="bg-red-500 w-full text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 mt-2"
             >
               Sign Up with Google
-            </button>
+            </button> */}
             <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           </form>
         </div>
