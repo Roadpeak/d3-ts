@@ -191,13 +191,15 @@ const SignUp: React.FC = () => {
                 <a href="https://discoun3ree.com/privacy-policy" target='_blank' className="text-primary px-2">Privacy Policy</a>
               </p>
             </div>
-            <button
-              type="submit"
-              className="bg-primary w-full mb-2 text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
-            >
-              {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
-            </button>
-            {/* <GoogleSignInButton /> */}
+            <div className="flex items-center w-full gap-2">
+              <button
+                type="submit"
+                className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
+              >
+                {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
+              </button>
+              {/* <GoogleSignInButton /> */}
+            </div>
             <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
           </form>
         </div>

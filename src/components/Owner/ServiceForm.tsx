@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Service } from '../../types';
@@ -13,18 +13,36 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
     const [name, setName] = useState(service?.name || '');
     const [description, setDescription] = useState(service?.description || '');
     const [price, setPrice] = useState(service?.price || '');
-    const [duration, setDuration] = useState(service?.duration || '');
+    const [duration, setDuration] = useState<string>(service?.duration?.toString() || '');
+    const [durationUnit, setDurationUnit] = useState<'minutes' | 'hours' | 'days'>('minutes');
     const [category, setCategory] = useState(service?.category || '');
     const [imageUrl, setImageUrl] = useState(service?.image_url || '');
     const [loading, setLoading] = useState(false);
     const { id } = useParams();
     const shopId = parseInt(id || '0', 10);
 
+    const convertDurationToMinutes = (value: string, unit: 'minutes' | 'hours' | 'days'): number => {
+        const numericValue = parseFloat(value);
+        if (isNaN(numericValue) || numericValue < 0) {
+            return 0;
+        }
+
+        switch (unit) {
+            case 'hours':
+                return numericValue * 60;
+            case 'days':
+                return numericValue * 10 * 60; // 10 hours per day
+            default:
+                return numericValue;
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
-        const serviceData = { name, shop_id: shopId, description, price, duration, category, image_url: imageUrl };
+        const durationInMinutes = convertDurationToMinutes(duration, durationUnit);
+        const serviceData = { name, shop_id: shopId, description, price, duration: durationInMinutes, category, image_url: imageUrl };
 
         try {
             if (service) {
@@ -66,7 +84,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg max-h-[90vh] overflow-y-auto">
-                <h2 className="text-xl mb-4">{service ? 'Edit Service' : 'Add Service'}</h2>
+                <h2 className="text-xl text-center font-medium mb-4">{service ? 'Edit Service' : 'Add Service'}</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-600 text-[14px] font-medium">Name</label>
@@ -75,11 +93,11 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
                             value={name}
                             placeholder='Enter name of the service'
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3.5 border border-gray-200 rounded-md text-[14px] outline-none focus:border-primary py-1.5 "
+                            className="w-full px-3.5 border border-gray-200 rounded-md text-[14px] outline-none focus:border-primary py-1.5"
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="bblock text-gray-600 text-[14px] font-medium">Description</label>
+                        <label className="block text-gray-600 text-[14px] font-medium">Description</label>
                         <textarea
                             value={description}
                             placeholder='More info about the service...'
@@ -88,7 +106,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="bblock text-gray-600 text-[14px] font-medium">Price</label>
+                        <label className="block text-gray-600 text-[14px] font-medium">Price</label>
                         <input
                             type="text"
                             value={price}
@@ -98,17 +116,51 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="bblock text-gray-600 text-[14px] font-medium">Duration</label>
-                        <input
-                            type="text"
-                            value={duration}
-                            placeholder='How long does it take?'
-                            onChange={(e) => setDuration(e.target.value)}
-                            className="w-full px-3.5 border border-gray-200 rounded-md text-[14px] outline-none focus:border-primary py-1.5"
-                        />
+                        <label className="block text-gray-600 text-[14px] font-medium">Duration</label>
+                        <div className="flex items-center w-full">
+                            <label className="mr-2 text-gray-600 font-light text-[13px]">
+                                <input
+                                    type="radio"
+                                    value="minutes"
+                                    checked={durationUnit === 'minutes'}
+                                    onChange={() => setDurationUnit('minutes')}
+                                    className="mr-1"
+                                />
+                                Minutes
+                            </label>
+                            <label className="mr-2 text-gray-600 font-light text-[13px]">
+                                <input
+                                    type="radio"
+                                    value="hours"
+                                    checked={durationUnit === 'hours'}
+                                    onChange={() => setDurationUnit('hours')}
+                                    className="mr-1"
+                                />
+                                Hours
+                            </label>
+                            <label className='text-gray-600 font-light text-[13px]'>
+                                <input
+                                    type="radio"
+                                    value="days"
+                                    checked={durationUnit === 'days'}
+                                    onChange={() => setDurationUnit('days')}
+                                    className="mr-1"
+                                />
+                                Days
+                            </label>
+                        </div>
+                        <div className="flex items-center">
+                            <input
+                                type="text"
+                                value={duration}
+                                placeholder='How long does it take?'
+                                onChange={(e) => setDuration(e.target.value)}
+                                className="w-full px-3.5 border border-gray-200 rounded-md text-[14px] outline-none focus:border-primary py-1.5"
+                            />                            
+                        </div>
                     </div>
                     <div className="mb-4">
-                        <label className="bblock text-gray-600 text-[14px] font-medium">Category</label>
+                        <label className="block text-gray-600 text-[14px] font-medium">Category</label>
                         <input
                             type="text"
                             value={category}
@@ -118,7 +170,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="bblock text-gray-600 text-[14px] font-medium">Image</label>
+                        <label className="block text-gray-600 text-[14px] font-medium">Image</label>
                         <input
                             type="file"
                             onChange={handleImageChange}
