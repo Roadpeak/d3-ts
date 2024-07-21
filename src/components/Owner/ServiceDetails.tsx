@@ -12,8 +12,8 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service, onClose }) => 
             <div className="bg-white max-h-[90vh] overflow-y-auto p-6 rounded-lg">
                 <h2 className="text-xl mb-4">Service Details</h2>
                 <div className="mb-4">
-                    <label className="block text-gray-700">Name</label>
-                    <p>{service.name}</p>
+                    <label className="text-gray-800 font-medium text-[14px]">Name</label>
+                    <p className='text-gray-600 font-light text-[13px]'>{service.name}</p>
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700">Description</label>

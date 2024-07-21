@@ -48,7 +48,7 @@ import SocialLinksPage from './components/Owner/SocialLinksPage';
 import Vouchers from './pages/Vouchers';
 import EventForm from './components/EventForm';
 import ServicesList from './components/Owner/ServicesList';
-import Calendar from './components/Calendar';
+import ServiceDetailsPage from './pages/ServiceDetailsPage';
 
 const AppRoutes: React.FC = () => {
 
@@ -59,6 +59,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/stores/:id/view' element={<StoreView />} />
       <Route path='/stores/edit/:id' element={<ShopDetaisEdit />} />
       <Route path='/discount/:slug/:id/see-details' element={<ProductView />} />
+      <Route path='/services/:slug/:id/see-details' element={<ServiceDetailsPage />} />
       <Route path='/:slug/:id/checkout' element={<Checkout />} />
       <Route path='/deals' element={<Deals />} />
       <Route path='/discounts/bought' element={<PurchasesPage />} />

@@ -11,7 +11,7 @@ interface CalendarProps {
 }
 
 const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date()); // Open with the current date
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
     const [slots, setSlots] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
@@ -97,7 +97,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
                     </ul>
                     <button
                         onClick={handleAppointment}
-                        className="mt-6 w-full p-3 bg-primary text-white rounded-md hover:bg-red-700">
+                        className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2 mt-4">
                         Schedule Appointment
                     </button>
                 </div>

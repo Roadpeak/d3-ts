@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 import ReviewComponent from '../components/ReviewComponent';
@@ -314,13 +314,12 @@ const StoreView: React.FC = () => {
                   services.length > 0 ? (
                     services.map(service => (
                       <div key={service.id} className="bg-white p-4 rounded-md">
-                        {/* <h2 className="text-xl font-medium">{service.name}</h2> */}
                         <img src={service.image_url} alt={service.name} className="w-full h-auto rounded-md" />
                         <p className="mt-2 mb-1 text-gray-700 font-medium text-[18px]">{service.name}</p>
-                        <p className="mt-2 text-gray-600 font-light text-[14px]">{service.description}</p>
-                        <p className="text-gray-900 text-[14px] mb-1 ">Kes <span className="font-medium">{service.price}</span></p>
+                        <p className="mt-2 text-gray-600 font-light text-[14px] truncate-2-lines">{service.description}</p>
+                        <p className="text-gray-900 text-[14px] mb-1 mt-2">Kes <span className="font-medium">{service.price}</span></p>
                         <div className="flex w-full items-center gap-2 ">
-                          <button className="w-full border border-primary px-4 py-1.5 text-primary text-[14px] rounded-md">Details</button>
+                          <a href={`/services/${service.slug}/${service.id}/see-details`} className="flex text-center items-center justify-center w-full border border-primary px-4 py-1.5 text-primary text-[14px] rounded-md">Details</a>
                           <button
                             onClick={() => openCalendar(Number(service.id))}
                             className="w-full bg-primary px-4 py-1.5 text-white text-[14px] rounded-md"

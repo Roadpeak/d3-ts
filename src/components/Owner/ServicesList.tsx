@@ -87,7 +87,7 @@ const ServicesList: React.FC = () => {
                                     {services.length === 0 ? (
                                         <tr>
                                             <td colSpan={4} className="text-center py-4">
-                                                No Verified discounts found.
+                                                No services found.
                                             </td>
                                         </tr>
                                     ) : (

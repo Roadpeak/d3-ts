@@ -151,6 +151,8 @@ export interface Service {
     duration: number;
     category: string;
     image_url: string;
+    slug: string;
+    shop_id: number;
 }
 
 export interface Follower {
