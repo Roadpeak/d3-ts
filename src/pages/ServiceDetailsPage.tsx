@@ -179,7 +179,7 @@ const ServiceDetailsPage = () => {
             </div>
             {
                 open && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 overflow-y-auto">
                         <div className="bg-white p-6 rounded shadow-lg max-w-md w-full max-h-[90vh] overflow-y-auto relative">
                             <button
                                 onClick={() => setOpen(false)}

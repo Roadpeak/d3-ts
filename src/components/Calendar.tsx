@@ -64,14 +64,15 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
     return (
         <div className="relative">
             <h1 className="text-[20px] font-medium text-gray-700 mb-4 text-center border-b border-gray-200">Appointment Scheduler</h1>
-            <p className="">Select suitable date</p>
+            <p className="">Select a suitable date</p>
             <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
                 dateFormat="yyyy-MM-dd"
                 minDate={new Date()}
-                className="p-2 border rounded w-full mb-4"
+                className="p-2 border rounded w-full z-index-20 mb-4"
                 placeholderText="Select a date"
+                portalId="datepicker-portal"
             />
             {error && (
                 <p className="text-red-500 mb-4">{error}</p>
