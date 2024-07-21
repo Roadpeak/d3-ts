@@ -83,7 +83,7 @@ const ServicesList: React.FC = () => {
                                     <tr className="bg-light border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Price (KES)</th>
-                                        <th className="px-4 text-start font-normal pb-2 pt-4">Duration</th>
+                                        <th className="px-4 text-start font-normal pb-2 pt-4">Duration (mins)</th>
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Action</th>
                                     </tr>
                                 </thead>
