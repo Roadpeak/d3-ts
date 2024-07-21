@@ -51,6 +51,10 @@ const ServicesList: React.FC = () => {
     const handleDetailsClick = (service: Service) => {
         setShowDetails(service);
     };
+    const handleClose = () => {
+        setShowForm(false);
+        window.location.reload();
+    };
 
     return (
         <SellerLayout>
@@ -110,7 +114,10 @@ const ServicesList: React.FC = () => {
                 </div>
                 {showForm && (
                     <ServiceForm
-                        onClose={() => setShowForm(false)}
+                        onClose={() => {
+                            setShowForm(false);
+                            window.location.reload();
+                        }}
                         onSuccess={handleFormSuccess}
                         service={editService}
                     />

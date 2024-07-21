@@ -31,7 +31,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ onClose, onSuccess, service }
             case 'hours':
                 return numericValue * 60;
             case 'days':
-                return numericValue * 10 * 60; // 10 hours per day
+                return numericValue * 10 * 60;
             default:
                 return numericValue;
         }

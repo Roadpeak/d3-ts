@@ -7,6 +7,7 @@ import { FaRegStar } from 'react-icons/fa';
 import { FcSupport } from "react-icons/fc";
 import { MdOutlineDashboardCustomize, MdOutlineDiscount, MdOutlineMiscellaneousServices, MdPendingActions } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
+import { IoHomeOutline } from 'react-icons/io5';
 
 const Topmenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,6 +67,10 @@ const Topmenu: React.FC = () => {
           <FaTimes size={20} />
         </button>
         <nav className="flex flex-col space-y-4 p-4">
+          <a href={`/`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
+            <IoHomeOutline />
+            <span className='flex text-[#242220] text-[14px]'>Home</span>
+          </a>
           <a href={`/store/${id}/home`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
             <MdOutlineDashboardCustomize />
             <span className='flex text-[#242220] text-[14px]'>Dashboard</span>
