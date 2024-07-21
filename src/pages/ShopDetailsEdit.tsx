@@ -28,8 +28,8 @@ const ShopDetailsEdit: React.FC = () => {
   const [storeType, setStoreType] = useState('');
   const [editedImage, setEditedImage] = useState('');
   const [editedDescription, setEditedDescription] = useState('');
-  const [openTime, setOpenTime] = useState('');
-  const [closeTime, setCloseTime] = useState('');
+  const [openTime, setOpenTime] = useState('09:00:00'); // Default to 09:00:00
+  const [closeTime, setCloseTime] = useState('17:00:00'); // Default to 17:00:00
   const [workingDays, setWorkingDays] = useState<string[]>([]);
   const [availableDays] = useState<string[]>(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
   const [selectedDay, setSelectedDay] = useState('');
@@ -52,8 +52,8 @@ const ShopDetailsEdit: React.FC = () => {
       setStoreType(response.data.store_type ?? '');
       setEditedImage(response.data.image_url);
       setEditedDescription(response.data.description ?? '');
-      setOpenTime(response.data.open_time);
-      setCloseTime(response.data.close_time);
+      setOpenTime(response.data.open_time || '09:00:00'); // Default value if not provided
+      setCloseTime(response.data.close_time || '17:00:00'); // Default value if not provided
       setWorkingDays(sortWorkingDays(response.data.working_days));
     } catch (error) {
       console.error('Failed to fetch shop information:', error);
@@ -90,14 +90,19 @@ const ShopDetailsEdit: React.FC = () => {
     try {
       setLoading(true);
       const accessToken = localStorage.getItem('access_token');
+
+      // Ensure times are in H:i:s format
+      const formattedOpenTime = formatTime(openTime);
+      const formattedCloseTime = formatTime(closeTime);
+
       await axios.put(`https://api.discoun3ree.com/api/shops/${shop?.id}`, {
         name: editedName,
         location: editedLocation,
         image_url: editedImage,
         store_type: storeType,
         description: editedDescription,
-        open_time: openTime,
-        close_time: closeTime,
+        open_time: formattedOpenTime,
+        close_time: formattedCloseTime,
         working_days: workingDays
       }, {
         headers: {
@@ -111,6 +116,11 @@ const ShopDetailsEdit: React.FC = () => {
       console.error('Failed to update shop information:', error);
       toast.error('Failed to update shop information. Please try again.');
     }
+  };
+
+  const formatTime = (time: string) => {
+    const [hours, minutes] = time.split(':');
+    return `${hours}:${minutes}:00`;
   };
 
   const handleAddDay = () => {
@@ -197,7 +207,7 @@ const ShopDetailsEdit: React.FC = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="location" className="block mb-1 text-gray-600 font-light text-[15px]">Location:</label>
+              <label htmlFor="location" className="block mb-1 text-gray-600 font-light text-[15px]">Location</label>
               <input
                 type="text"
                 id="location"
@@ -217,12 +227,21 @@ const ShopDetailsEdit: React.FC = () => {
               />
             </div>
             <div className="mb-4">
+              <label htmlFor="description" className="block mb-1 text-gray-600 font-light text-[15px]">Description</label>
+              <textarea
+                id="description"
+                value={editedDescription || ''}
+                onChange={(e) => setEditedDescription(e.target.value)}
+                className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
+              />
+            </div>
+            <div className="mb-4">
               <label htmlFor="open_time" className="block mb-1 text-gray-600 font-light text-[15px]">Open Time</label>
               <input
                 type="time"
                 id="open_time"
-                value={openTime}
-                onChange={(e) => setOpenTime(e.target.value)}
+                value={openTime.substring(0, 5)}
+                onChange={(e) => setOpenTime(formatTime(e.target.value))}
                 className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
               />
             </div>
@@ -231,30 +250,27 @@ const ShopDetailsEdit: React.FC = () => {
               <input
                 type="time"
                 id="close_time"
-                value={closeTime}
-                onChange={(e) => setCloseTime(e.target.value)}
+                value={closeTime.substring(0, 5)}
+                onChange={(e) => setCloseTime(formatTime(e.target.value))}
                 className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
               />
-            </div>            
+            </div>
+            <div className="flex gap-4 mt-4">
+              <button
+                onClick={handleSubmit}
+                className="bg-primary text-white px-4 py-2 font-light text-[14px] rounded-md"
+              >
+                Save Changes
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="bg-gray-300 text-gray-800 px-4 py-2 font-light text-[14px] rounded-md"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
-        <div className="mb-2">
-          <label htmlFor="description" className="block mb-1 text-gray-600 font-light text-[15px]">Description</label>
-          <textarea
-            id="description"
-            placeholder='Tell people more about your store/company, what you do, your working days/hrs and detailed location (in case you have a physical address).'
-            value={editedDescription}
-            onChange={(e) => setEditedDescription(e.target.value)}
-            className="border rounded-md p-2 w-full text-gray-600 outline-none focus:border-primary font-light text-[13px]"
-          />
-        </div>
-        <button
-          className={`bg-primary text-white px-4 mb-4 py-2 rounded-md ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? 'Submitting...' : 'Submit'}
-        </button>
       </div>
     </SellerLayout>
   );
