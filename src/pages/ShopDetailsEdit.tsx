@@ -16,6 +16,9 @@ type Shop = {
   store_type: string | null;
   seller_phone: string;
   description: string | null;
+  open_time: string;
+  close_time: string;
+  working_days: string[];
 };
 
 const ShopDetailsEdit: React.FC = () => {
@@ -25,8 +28,16 @@ const ShopDetailsEdit: React.FC = () => {
   const [storeType, setStoreType] = useState('');
   const [editedImage, setEditedImage] = useState('');
   const [editedDescription, setEditedDescription] = useState('');
+  const [openTime, setOpenTime] = useState('');
+  const [closeTime, setCloseTime] = useState('');
+  const [workingDays, setWorkingDays] = useState<string[]>([]);
+  const [availableDays] = useState<string[]>(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
+  const [selectedDay, setSelectedDay] = useState('');
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+
+  // Define the order of days
+  const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   useEffect(() => {
     fetchShopInfo();
@@ -41,9 +52,16 @@ const ShopDetailsEdit: React.FC = () => {
       setStoreType(response.data.store_type ?? '');
       setEditedImage(response.data.image_url);
       setEditedDescription(response.data.description ?? '');
+      setOpenTime(response.data.open_time);
+      setCloseTime(response.data.close_time);
+      setWorkingDays(sortWorkingDays(response.data.working_days));
     } catch (error) {
       console.error('Failed to fetch shop information:', error);
     }
+  };
+
+  const sortWorkingDays = (days: string[]) => {
+    return days.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
   };
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +96,9 @@ const ShopDetailsEdit: React.FC = () => {
         image_url: editedImage,
         store_type: storeType,
         description: editedDescription,
+        open_time: openTime,
+        close_time: closeTime,
+        working_days: workingDays
       }, {
         headers: {
           Authorization: `Bearer ${accessToken}`
@@ -90,6 +111,19 @@ const ShopDetailsEdit: React.FC = () => {
       console.error('Failed to update shop information:', error);
       toast.error('Failed to update shop information. Please try again.');
     }
+  };
+
+  const handleAddDay = () => {
+    if (selectedDay && !workingDays.includes(selectedDay)) {
+      const newWorkingDays = [...workingDays, selectedDay];
+      setWorkingDays(sortWorkingDays(newWorkingDays));
+      setSelectedDay('');
+    }
+  };
+
+  const handleRemoveDay = (day: string) => {
+    const newWorkingDays = workingDays.filter(d => d !== day);
+    setWorkingDays(sortWorkingDays(newWorkingDays));
   };
 
   if (!shop) {
@@ -112,6 +146,44 @@ const ShopDetailsEdit: React.FC = () => {
             {editedImage && (
               <img src={editedImage} alt="Shop" className="mt-4 w-32 h-32 object-cover" />
             )}
+            <div className="mb-4 border-t w-full border-gray-300 pt-1  ">
+              <label htmlFor="working_days" className="block mb-1 text-gray-600 font-light text-[15px]">Add Working Day</label>
+              <div className="flex items-center gap-2">
+                <select
+                  id="working_days"
+                  value={selectedDay}
+                  onChange={(e) => setSelectedDay(e.target.value)}
+                  className="border rounded-md p-2 w-full text-gray-600 font-light outline-none bg-transparent focus:border-primary text-[13px]"
+                >
+                  <option value="">Select a day</option>
+                  {availableDays.map(day => (
+                    <option key={day} value={day}>{day}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={handleAddDay}
+                  className="bg-primary text-white px-4 py-1 font-light text-[14px] rounded-md"
+                >
+                  Add
+                </button>
+              </div>
+              <div className="mt-2">
+                <p className="text-gray-600 mt-2 text-[15px]">Selected Working Days:</p>
+                <ul className="list-disc pl-5 mt-2">
+                  {workingDays.map(day => (
+                    <li key={day} className="flex justify-between border-b mb-1 border-gray-200 items-center">
+                      <span className="text-gray-600 font-normal text-[14px]">{day}</span>
+                      <button
+                        onClick={() => handleRemoveDay(day)}
+                        className="text-primary text-[13px] font-light hover:text-red-700"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           <div className="w-full bg-white rounded-md p-4 h-full md:w-1/2">
             <div className="mb-4">
@@ -144,13 +216,33 @@ const ShopDetailsEdit: React.FC = () => {
                 className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
               />
             </div>
+            <div className="mb-4">
+              <label htmlFor="open_time" className="block mb-1 text-gray-600 font-light text-[15px]">Open Time</label>
+              <input
+                type="time"
+                id="open_time"
+                value={openTime}
+                onChange={(e) => setOpenTime(e.target.value)}
+                className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="close_time" className="block mb-1 text-gray-600 font-light text-[15px]">Close Time</label>
+              <input
+                type="time"
+                id="close_time"
+                value={closeTime}
+                onChange={(e) => setCloseTime(e.target.value)}
+                className="border rounded-md p-2 w-full text-gray-600 font-light outline-none focus:border-primary text-[13px]"
+              />
+            </div>            
           </div>
         </div>
         <div className="mb-2">
           <label htmlFor="description" className="block mb-1 text-gray-600 font-light text-[15px]">Description</label>
           <textarea
             id="description"
-            placeholder='Tell people more about your store/company, what you do, your working days/hrs and deatiled location(incase you have a physical address).'
+            placeholder='Tell people more about your store/company, what you do, your working days/hrs and detailed location (in case you have a physical address).'
             value={editedDescription}
             onChange={(e) => setEditedDescription(e.target.value)}
             className="border rounded-md p-2 w-full text-gray-600 outline-none focus:border-primary font-light text-[13px]"
@@ -164,7 +256,6 @@ const ShopDetailsEdit: React.FC = () => {
           {loading ? 'Submitting...' : 'Submit'}
         </button>
       </div>
-
     </SellerLayout>
   );
 };
