@@ -93,11 +93,21 @@ export interface DiscountData {
 }
 
 export interface Shop {
-  id: string;
-  name: string,
-  location: string,
-  store_type: string,
-}
+  id: number;
+  name: string;
+  location: string;
+  image_url: string;
+  verified: number;
+  seller_id: number;
+  created_at: string;
+  updated_at: string;
+  store_type: string | null;
+  seller_phone: string;
+  description: string | null;
+  open_time: string;
+  close_time: string;
+  working_days: string[];
+};
 
 export interface StoreData {
   name: string;

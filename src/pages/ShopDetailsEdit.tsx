@@ -3,23 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SellerLayout from '../elements/SellerLayout';
-
-type Shop = {
-  id: number;
-  name: string;
-  location: string;
-  image_url: string;
-  verified: number;
-  seller_id: number;
-  created_at: string;
-  updated_at: string;
-  store_type: string | null;
-  seller_phone: string;
-  description: string | null;
-  open_time: string;
-  close_time: string;
-  working_days: string[];
-};
+import { Shop } from '../types';
 
 const ShopDetailsEdit: React.FC = () => {
   const [shop, setShop] = useState<Shop | null>(null);
@@ -28,15 +12,14 @@ const ShopDetailsEdit: React.FC = () => {
   const [storeType, setStoreType] = useState('');
   const [editedImage, setEditedImage] = useState('');
   const [editedDescription, setEditedDescription] = useState('');
-  const [openTime, setOpenTime] = useState('09:00:00'); // Default to 09:00:00
-  const [closeTime, setCloseTime] = useState('17:00:00'); // Default to 17:00:00
+  const [openTime, setOpenTime] = useState('09:00:00'); 
+  const [closeTime, setCloseTime] = useState('17:00:00');
   const [workingDays, setWorkingDays] = useState<string[]>([]);
   const [availableDays] = useState<string[]>(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
   const [selectedDay, setSelectedDay] = useState('');
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
-  // Define the order of days
   const dayOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   useEffect(() => {
@@ -52,8 +35,8 @@ const ShopDetailsEdit: React.FC = () => {
       setStoreType(response.data.store_type ?? '');
       setEditedImage(response.data.image_url);
       setEditedDescription(response.data.description ?? '');
-      setOpenTime(response.data.open_time || '09:00:00'); // Default value if not provided
-      setCloseTime(response.data.close_time || '17:00:00'); // Default value if not provided
+      setOpenTime(response.data.open_time || '09:00:00'); 
+      setCloseTime(response.data.close_time || '17:00:00'); 
       setWorkingDays(sortWorkingDays(response.data.working_days));
     } catch (error) {
       console.error('Failed to fetch shop information:', error);
@@ -91,7 +74,6 @@ const ShopDetailsEdit: React.FC = () => {
       setLoading(true);
       const accessToken = localStorage.getItem('access_token');
 
-      // Ensure times are in H:i:s format
       const formattedOpenTime = formatTime(openTime);
       const formattedCloseTime = formatTime(closeTime);
 
