@@ -263,6 +263,16 @@ export const fetchShops = async (): Promise<Shop[]> => {
   }
 };
 
+export const fetchShopServices = async (shopId: string): Promise<Service[]> => {
+  try {
+    const response = await axios.get<Service[]>(`${BASE_URL}/shops/${shopId}/services`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching shop services:', error);
+    throw error;
+  }
+};
+
 export const fetchServices = async (): Promise<Service[]> => {
   try {
     const response = await axios.get<Service[]>(`${BASE_URL}/services`); 

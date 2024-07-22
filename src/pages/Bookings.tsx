@@ -137,11 +137,16 @@ const Bookings: React.FC = () => {
                 <tbody>
                   {appointments.map((appointment) => (
                     <tr key={appointment.id} className="hover:bg-gray-50 cursor-pointer" onClick={() => handleRowClick(appointment, 'appointment')}>
-                      <td className="py-2 px-4 text-gray-600 text-[14px]  border-b">{appointment.service_name}</td>
-                      <td className="py-2 px-4 text-gray-600 text-[14px]  border-b">{appointment.shop_name}</td>
-                      <td className="py-2 px-4 text-gray-600 text-[14px]  border-b">{new Date(appointment.appointment_time).toLocaleDateString()}</td>
-                      <td className="py-2 px-4 text-gray-600 text-[14px]  border-b">{appointment.status}</td>
-                      <td className="py-2 px-4 text-gray-600 text-[14px]  border-b">{new Date(appointment.appointment_time).toLocaleTimeString()}</td>
+                      <td className="py-2 px-4 text-gray-600 text-[14px] border-b">{appointment.service_name}</td>
+                      <td className="py-2 px-4 text-gray-600 text-[14px] border-b">{appointment.shop_name}</td>
+                      <td className="py-2 px-4 text-gray-600 text-[14px] border-b">{new Date(appointment.appointment_time).toLocaleDateString()}</td>
+                      <td className={`py-2 px-4 text-[14px] border-b ${appointment.status === 'pending' ? 'text-yellow-500' :
+                          appointment.status === 'complete' ? 'text-green-500' :
+                            'text-gray-600'
+                        }`}>
+                        {appointment.status}
+                      </td>
+                      <td className="py-2 px-4 text-gray-600 text-[14px] border-b">{new Date(appointment.appointment_time).toLocaleTimeString()}</td>
                     </tr>
                   ))}
                 </tbody>

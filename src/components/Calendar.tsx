@@ -17,6 +17,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
     const [slots, setSlots] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,6 +47,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
             const [startTime] = selectedSlot.split('-');
             const appointmentDateTime = `${format(selectedDate, 'yyyy-MM-dd')} ${startTime}:00`;
 
+            setLoading(true);
             try {
                 const response = await axios.post(
                     'https://api.discoun3ree.com/api/appointments',
@@ -60,6 +62,8 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
             } catch (error) {
                 console.error('Error creating appointment:', error);
                 toast.error('Failed to book appointment. Please try again.');
+            } finally {
+                setLoading(false);
             }
         }
     };
@@ -101,8 +105,10 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
                     </ul>
                     <button
                         onClick={handleAppointment}
-                        className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2 mt-4">
-                        Schedule Appointment
+                        className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2 mt-4"
+                        disabled={loading}
+                    >
+                        {loading ? 'Scheduling...' : 'Schedule Appointment'}
                     </button>
                 </div>
             ) : !error ? (

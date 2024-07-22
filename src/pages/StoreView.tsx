@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../utils/context/AuthContext';
 import ReviewComponent from '../components/ReviewComponent';
-import { followShop, getShopById, getShopFollowers, initializeConversation, unfollowShop } from '../services/apiService';
+import { fetchShopServices, followShop, getShopById, getShopFollowers, initializeConversation, unfollowShop } from '../services/apiService';
 import { CiLocationOn } from 'react-icons/ci';
 import { LuUsers2 } from 'react-icons/lu';
 import { MdOutlineLightMode, MdOutlineLocalPhone } from 'react-icons/md';
@@ -164,19 +164,21 @@ const StoreView: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-    const fetchServicesByShop = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/services`);
-        setServices(response.data);
-      } catch (error) {
-        console.error('Error fetching services:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    if (id) {
+      const fetchServicesByShop = async () => {
+        setLoading(true);
+        try {
+          const services = await fetchShopServices(id);
+          setServices(services);
+        } catch (error) {
+          console.error('Error fetching services:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    fetchServicesByShop();
+      fetchServicesByShop();
+    }
   }, [id]);
 
   const openCalendar = (serviceId: number) => {

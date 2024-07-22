@@ -50,6 +50,7 @@ import EventForm from './components/EventForm';
 import ServicesList from './components/Owner/ServicesList';
 import ServiceDetailsPage from './pages/ServiceDetailsPage';
 import Services from './components/admin/Services';
+import ServicesPage from './pages/ServicesPage';
 
 const AppRoutes: React.FC = () => {
 
@@ -68,6 +69,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/search" element={<SearchResults />} />
       <Route path='/my-tickets' element={<MyTickets />} />
       <Route path="/chat" element={<ChatPage />} />
+      <Route path='/services' element={<ServicesPage />} />
 
       <Route path='/about' element={<About />} />
       <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />} />
