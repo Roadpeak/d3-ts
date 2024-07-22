@@ -40,7 +40,7 @@ const ManageDiscounts: React.FC = () => {
 
     try {
       setLoading(true);
-      await deleteDiscount(selectedDiscount.id);
+      // await deleteDiscount(selectedDiscount.id);
       setLoading(false);
       const updatedDiscounts = discounts.filter(discount => discount.id !== selectedDiscount.id);
       setDiscounts(updatedDiscounts);
