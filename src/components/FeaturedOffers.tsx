@@ -91,7 +91,6 @@ const FeaturedOffers: React.FC = () => {
                       <a
                         href={`/${item.slug}/${item.id}/checkout`}
                         className="w-full hidden md:block rounded-md text-center border text-[14px] border-third text-third px-2 items-center py-1"
-                        onClick={() => handleGetOffer(item)}
                         title="Get offer"
                       >
                         Get offer
