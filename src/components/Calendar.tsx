@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { CheckCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface CalendarProps {
     serviceId: number;
@@ -15,6 +17,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
     const [slots, setSlots] = useState<any[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (selectedDate) {
@@ -52,11 +55,11 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
                     },
                     { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } }
                 );
-                console.log('Appointment created:', response.data);
-                alert('Appointment successfully booked!');
+                navigate('/my-bookings');
+                window.location.reload();               
             } catch (error) {
                 console.error('Error creating appointment:', error);
-                alert('Failed to book appointment. Please try again.');
+                toast.error('Failed to book appointment. Please try again.');
             }
         }
     };

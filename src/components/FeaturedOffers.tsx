@@ -99,7 +99,6 @@ const FeaturedOffers: React.FC = () => {
                       <a
                         href={`/discount/${item.slug}/${item.id}/see-details`}
                         className="w-full rounded-md text-center text-[14px] bg-primary text-white px-2 items-center py-1"
-                        onClick={() => handleSeeDetails(item)}
                         title="See Details"
                       >
                         See Details

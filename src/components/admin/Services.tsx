@@ -82,7 +82,7 @@ const Services:React.FC = () => {
               {selectedService && (
                   <Modal onClose={() => setSelectedService(null)}>
                       <div className="p-4">
-                          <h2 className="text-xl font-semibold mb-4">Shop Details</h2>
+                          <h2 className="text-xl font-semibold mb-4">Service Details</h2>
                           <div className="mb-4">
                               <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Name <span className="text-gray-600 font-light text-[14px]">{selectedService.name}</span></p>
                               <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Price <span className="text-gray-600 font-light text-[14px]">{selectedService.price}</span></p>
