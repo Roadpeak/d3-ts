@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
-import { Payment, WeeklyStats } from '../types';
+import { Payment, Service, WeeklyStats } from '../types';
 
 const BASE_URL = 'https://api.discoun3ree.com/api';
 
@@ -256,6 +256,16 @@ export const verifyDiscount = async ({ discountId, accessToken }: VerifyDiscount
 export const fetchShops = async (): Promise<Shop[]> => {
   try {
     const response = await axios.get<Shop[]>(`${BASE_URL}/shops`); 
+    return response.data; 
+  } catch (error) {
+    console.error('Error fetching shops:', error);
+    throw error; 
+  }
+};
+
+export const fetchServices = async (): Promise<Service[]> => {
+  try {
+    const response = await axios.get<Service[]>(`${BASE_URL}/services`); 
     return response.data; 
   } catch (error) {
     console.error('Error fetching shops:', error);

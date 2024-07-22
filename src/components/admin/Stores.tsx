@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import AdminLayout from '../../utils/layouts/AdminLayout';
 import { fetchShops, verifyShop, unverifyShop } from '../../services/apiService';
 import Modal from './Modal';
-import SideNav from './SideNav';
 import SideMenu from './SideMenu';
 
 interface Shop {
@@ -69,98 +68,98 @@ const ManageStores: React.FC = () => {
       <div className="flex flex-col">
         <SideMenu />
         <div>
-        <div className="w-full rounded-md mt-2 bg-white overflow-x-auto">
-          <div className="w-full rounded-lg">
-            <table className="table-auto w-full rounded-md">
-              <thead className="">
-                <tr className="bg-gray-100 border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
-                  <th className="px-4 text-start font-normal pb-2 pt-4">#</th>
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Owner</th>
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Location</th>
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Phone</th>
-                  <th className="px-4 text-start font-normal pb-2 pt-4">Status</th>
-                </tr>
-              </thead>
-              <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
-                {shops.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="text-center py-4">
-                      No shops found.
-                    </td>
+          <div className="w-full rounded-md mt-2 bg-white overflow-x-auto">
+            <div className="w-full rounded-lg">
+              <table className="table-auto w-full rounded-md">
+                <thead className="">
+                  <tr className="bg-gray-100 border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
+                    <th className="px-4 text-start font-normal pb-2 pt-4">#</th>
+                    <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
+                    <th className="px-4 text-start font-normal pb-2 pt-4">Owner</th>
+                    <th className="px-4 text-start font-normal pb-2 pt-4">Location</th>
+                    <th className="px-4 text-start font-normal pb-2 pt-4">Phone</th>
+                    <th className="px-4 text-start font-normal pb-2 pt-4">Status</th>
                   </tr>
-                ) : (
-                  shops.map((shop, index) => (
-                    <tr
-                      key={shop.id}
-                      className="border-b py-2 border-gray-100 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => handleRowClick(shop)}
-                    >
-                      <td className="px-4 py-3">{index + 1}</td>
-                      <td className="px-4 py-3">{shop.name}</td>
-                      <td className="px-4 py-3 uppercase">{shop.seller_first_name} {shop.seller_last_name}</td>
-                      <td className="px-4 py-3">{shop.location}</td>
-                      <td className="px-4 py-3">{shop.seller_phone}</td>
-                      <td className="px-4 py-3">
-                        {shop.verified ? (
-                          <span className="text-green-500">Verified</span>
-                        ) : (
-                          <span className="text-red-500">Not Verified</span>
-                        )}
+                </thead>
+                <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
+                  {shops.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="text-center py-4">
+                        No shops found.
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : (
+                    shops.map((shop, index) => (
+                      <tr
+                        key={shop.id}
+                        className="border-b py-2 border-gray-100 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => handleRowClick(shop)}
+                      >
+                        <td className="px-4 py-3">{index + 1}</td>
+                        <td className="px-4 py-3">{shop.name}</td>
+                        <td className="px-4 py-3 uppercase">{shop.seller_first_name} {shop.seller_last_name}</td>
+                        <td className="px-4 py-3">{shop.location}</td>
+                        <td className="px-4 py-3">{shop.seller_phone}</td>
+                        <td className="px-4 py-3">
+                          {shop.verified ? (
+                            <span className="text-green-500">Verified</span>
+                          ) : (
+                            <span className="text-red-500">Not Verified</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
 
-      {selectedShop && (
-        <Modal onClose={() => setSelectedShop(null)}>
-          <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">Shop Details</h2>
-            <div className="mb-4">
-              <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Name <span className="text-gray-600 font-light text-[14px]">{selectedShop.name}</span></p>
-              <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Owner <span className="text-gray-600 font-light text-[14px]">{selectedShop.seller_first_name} {selectedShop.seller_last_name}</span></p>
-              <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Location <span className="text-gray-600 font-light text-[14px]">{selectedShop.location}</span></p>
-              <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Phone <span className="text-gray-600 font-light text-[14px]">{selectedShop.seller_phone}</span></p>
-              <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>
-                Verified: 
+        {selectedShop && (
+          <Modal onClose={() => setSelectedShop(null)}>
+            <div className="p-4">
+              <h2 className="text-xl font-semibold mb-4">Shop Details</h2>
+              <div className="mb-4">
+                <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Name <span className="text-gray-600 font-light text-[14px]">{selectedShop.name}</span></p>
+                <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Owner <span className="text-gray-600 font-light text-[14px]">{selectedShop.seller_first_name} {selectedShop.seller_last_name}</span></p>
+                <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Location <span className="text-gray-600 font-light text-[14px]">{selectedShop.location}</span></p>
+                <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>Phone <span className="text-gray-600 font-light text-[14px]">{selectedShop.seller_phone}</span></p>
+                <p className='flex w-full items-center justify-between border-b border-gray-200 mb-2 text-gray-800'>
+                  Verified:
+                  {selectedShop.verified ? (
+                    <span className="text-green-500 ml-2">Verified</span>
+                  ) : (
+                    <span className="text-red-500 ml-2">Not Verified</span>
+                  )}
+                </p>
+              </div>
+              <div className="flex gap-4">
                 {selectedShop.verified ? (
-                  <span className="text-green-500 ml-2">Verified</span>
+                  <button
+                    className="bg-red-500 text-white px-6 py-1 rounded"
+                    onClick={handleUnverify}
+                  >
+                    Suspend
+                  </button>
                 ) : (
-                  <span className="text-red-500 ml-2">Not Verified</span>
+                  <button
+                    className="bg-green-500 text-white px-6 py-1 rounded"
+                    onClick={handleVerify}
+                  >
+                    Verify
+                  </button>
                 )}
-              </p>
-            </div>
-            <div className="flex gap-4">
-              {selectedShop.verified ? (
                 <button
-                  className="bg-red-500 text-white px-6 py-1 rounded"
-                  onClick={handleUnverify}
+                  className="bg-gray-200 text-gray-700 px-6 py-1 rounded"
+                  onClick={() => setSelectedShop(null)}
                 >
-                  Suspend
+                  Close
                 </button>
-              ) : (
-                <button
-                  className="bg-green-500 text-white px-6 py-1 rounded"
-                  onClick={handleVerify}
-                >
-                  Verify
-                </button>
-              )}
-              <button
-                className="bg-gray-200 text-gray-700 px-6 py-1 rounded"
-                onClick={() => setSelectedShop(null)}
-              >
-                Close
-              </button>
+              </div>
             </div>
-          </div>
-        </Modal>
-      )}
+          </Modal>
+        )}
       </div>
     </AdminLayout>
   );

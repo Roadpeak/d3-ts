@@ -49,6 +49,7 @@ import Vouchers from './pages/Vouchers';
 import EventForm from './components/EventForm';
 import ServicesList from './components/Owner/ServicesList';
 import ServiceDetailsPage from './pages/ServiceDetailsPage';
+import Services from './components/admin/Services';
 
 const AppRoutes: React.FC = () => {
 
@@ -107,6 +108,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage/tickets' element={<Tickets />} />
       <Route path='/manage/categories' element={<CategoryList />} />
       <Route path='/manage/:id/create-event' element={<EventForm />} />
+      <Route path='/manage/services' element={<Services />} />
 
       <Route path='/company/careers' element={<CareersPage />} />
       <Route path='/company/vision' element={<Vision />} />
