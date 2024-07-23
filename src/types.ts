@@ -206,3 +206,14 @@ export interface Appointment {
   created_at: string; 
   updated_at: string;
 }
+
+export interface ShopCalendarProps {
+  shopId: number;
+}
+
+export interface CalendarEvent extends Event {
+  title: string;
+  start: Date;
+  end: Date;
+  status: string;
+}

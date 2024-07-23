@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { BsChatDots } from 'react-icons/bs';
-import { CiBookmark, CiEdit, CiGlobe } from 'react-icons/ci';
+import { CiBookmark, CiCalendarDate, CiEdit, CiGlobe } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { FcSupport } from "react-icons/fc";
 import { MdOutlineDashboardCustomize, MdOutlineDiscount, MdOutlineMiscellaneousServices, MdPendingActions } from 'react-icons/md';
@@ -90,6 +90,10 @@ const Topmenu: React.FC = () => {
           <a href={`/store/${id}/unverified-discounts`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <MdPendingActions />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Pending</span>
+          </a>
+          <a href={`/store/${id}/calendar`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+            <CiCalendarDate />
+            <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Calendar</span>
           </a>
           <a href='tickets' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <FcSupport />

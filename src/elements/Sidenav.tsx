@@ -1,7 +1,7 @@
 import React from 'react'
 import { BiLogOut } from 'react-icons/bi';
 import { BsChatDots } from 'react-icons/bs';
-import { CiBookmark, CiEdit, CiGlobe } from 'react-icons/ci';
+import { CiBookmark, CiCalendarDate, CiEdit, CiGlobe } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { FcSupport } from "react-icons/fc";
 import { IoHomeOutline } from 'react-icons/io5';
@@ -39,11 +39,15 @@ const Sidenav: React.FC = () => {
             </a>
             <a href={`/store/${id}/bookings`} className={`flex items-center gap-2 p-2 rounded-md ${isActive(`/store/${id}/bookings`)}`}>
                 <CiBookmark />
-                <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Bookings</span>
+                <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Appointments</span>
             </a>
             <a href={`/store/${id}/unverified-discounts`} className={`flex items-center gap-2 p-2 rounded-md ${isActive(`/store/${id}/unverified-discounts`)}`}>
                 <MdPendingActions />
                 <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Pending</span>
+            </a>
+            <a href={`/store/${id}/calendar`} className={`flex items-center gap-2 p-2 rounded-md ${isActive(`/store/${id}/calendar`)}`}>
+                <CiCalendarDate />
+                <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Calendar</span>
             </a>
             <a href='tickets' className={`flex items-center gap-2 p-2 rounded-md ${isActive('/tickets')}`}>
                 <FcSupport />

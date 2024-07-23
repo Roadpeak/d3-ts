@@ -51,6 +51,7 @@ import ServicesList from './components/Owner/ServicesList';
 import ServiceDetailsPage from './pages/ServiceDetailsPage';
 import Services from './components/admin/Services';
 import ServicesPage from './pages/ServicesPage';
+import ShopCalendar from './components/ShopCalendar';
 
 const AppRoutes: React.FC = () => {
 
@@ -97,6 +98,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
       <Route path='/discounts/edit/:id' element={<EditableDiscountComponent />} />
       <Route path='/store/:id/services' element={<ServicesList />} />
+      <Route path='/store/:id/calendar' element={<ShopCalendar />} />
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />
