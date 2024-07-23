@@ -96,7 +96,6 @@ const StoresSection = () => {
           ))
         )}
       </div>
-
       <div className="flex flex-col my-6 h-full w-full">
         <p className="text-black font-semibold text-[20px] mb-2">Trending Now</p>
         <div className="w-full h-full grid grid-cols-2 md:grid-cols-7 bg-gray-50 lg:grid-cols-6 gap-4">
