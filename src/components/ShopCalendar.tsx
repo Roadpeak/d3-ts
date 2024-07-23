@@ -42,20 +42,16 @@ const ShopCalendar: React.FC<ShopCalendarProps> = () => {
 
     const updateEvents = (data: AppointmentData[]) => {
         const events = data
-            .filter(app => app.appointments_count > 0) // Only include days with appointments
+            .filter(app => app.appointments_count > 0) 
             .map(app => ({
                 title: app.appointments_count > 1 ? `${app.appointments_count} appointments` : '1 appointment',
                 start: new Date(app.date),
                 end: new Date(app.date),
                 busyLevel: app.appointments_count,
-                appointmentTimes: app.appointment_times, // Add appointment times for further use
+                appointmentTimes: app.appointment_times,
             }));
         setEvents(events);
     };
-
-    if (loading) {
-        return <div className="text-center mt-20">Loading...</div>;
-    }
 
     const eventStyleGetter = (event: any) => {
         return {
