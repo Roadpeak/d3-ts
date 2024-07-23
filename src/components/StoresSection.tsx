@@ -78,7 +78,7 @@ const StoresSection = () => {
         ) : (
           stores.slice(0, 21).map((store) => (
             <a href={`/stores/${store?.id}/view`} key={store?.id} className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 hover:shadow-md cursor-pointer">
-              <div className="flex flex-col justify-center mx-auto relative ">
+              <div className="flex flex-col justify-center h-full mx-auto justify-between relative ">
                 <div className="bg-transparent mb-2 mx-auto w-[40%]">
                   <img
                     src={store.image_url || placeholderImage}
@@ -86,8 +86,10 @@ const StoresSection = () => {
                     className="w-full mx-auto rounded-sm object-cover"
                   />
                 </div>
-                <p className="text-center text-[14px] text-gray-600 font-medium">{store.name}</p>
-                <p className="text-center text-[12px] text-[#FF9021]">{store.store_type}</p>
+                <div className="flex flex-col">
+                  <p className="text-center text-[15px] text-black font-medium">{store.name}</p>
+                  <p className="text-center text-[13px] font-light text-[#FF9021] truncate-2-lines">{store.store_type}</p>
+                </div>
                 <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                   <FaExternalLinkAlt />
                 </div>
