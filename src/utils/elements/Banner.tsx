@@ -29,13 +29,16 @@ const Banner: React.FC = () => {
 
   return (
     <div className='w-full'>
-      <Slider {...settings}>
+      <div className="w-fit md:w-full h-auto md:h-[440px]">
+        <img src={banner1} alt={`Banner`} className="w-full h-full rounded-md object-cover" />
+      </div>
+      {/* <Slider {...settings}>
         {banners.map((banner, index) => (
           <div key={index} className="w-fit md:w-full h-auto md:h-[440px]">
             <img src={banner} alt={`Banner ${index + 1}`} className="w-full h-full rounded-md object-cover" />
           </div>
         ))}
-      </Slider>
+      </Slider> */}
     </div>
   );
 }

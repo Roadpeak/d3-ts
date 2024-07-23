@@ -46,7 +46,7 @@ const TravelSection: React.FC = () => {
       </div>
       <div className="flex flex-col px-[5%] mt-6">
         <p className="text-black font-semibold text-[20px] mb-2">Featured services</p>
-        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5 mb-6">
           {
             loading ?
               <p className="">Loading...</p>
@@ -90,9 +90,9 @@ const TravelSection: React.FC = () => {
           </div>
         </div>
       )}
-      <div className="flex w-full py-6 px-[5%] h-auto">
+      {/* <div className="flex w-full py-6 px-[5%] h-auto">
         <img src={banner} className='rounded-lg' alt="" />
-      </div>
+      </div> */}
     </div>
   )
 }
