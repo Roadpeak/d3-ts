@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import React, { useEffect, useState } from 'react';
 import VerificationModal from './pages/auth/VerificationModal';
 import { useNavigate } from 'react-router-dom';
+import BrevoConversations from './BrevoConversations';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ const MainApp = () => {
           phone={phone}
         />
       )}
+      <BrevoConversations />
       <AppRoutes />
     </div>
   );
