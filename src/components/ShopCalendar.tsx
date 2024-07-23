@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import SellerLayout from '../elements/SellerLayout';
@@ -12,6 +11,7 @@ const localizer = momentLocalizer(moment);
 interface AppointmentData {
     date: string;
     appointments_count: number;
+    appointment_times: string[];
 }
 
 interface ShopCalendarProps { }
@@ -27,10 +27,7 @@ const ShopCalendar: React.FC<ShopCalendarProps> = () => {
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const month = format(viewDate, 'yyyy-MM');
-                const response = await axios.get(`https://api.discoun3ree.com/api/shops/${shopId}/appointments/calendar`, {
-                    params: { month }
-                });
+                const response = await axios.get(`https://api.discoun3ree.com/api/shops/${shopId}/appointments/calendar`);
                 setAppointments(response.data);
                 updateEvents(response.data);
             } catch (error) {
@@ -41,7 +38,7 @@ const ShopCalendar: React.FC<ShopCalendarProps> = () => {
         };
 
         fetchAppointments();
-    }, [shopId, viewDate]);
+    }, [shopId]);
 
     const updateEvents = (data: AppointmentData[]) => {
         const events = data
@@ -51,6 +48,7 @@ const ShopCalendar: React.FC<ShopCalendarProps> = () => {
                 start: new Date(app.date),
                 end: new Date(app.date),
                 busyLevel: app.appointments_count,
+                appointmentTimes: app.appointment_times, // Add appointment times for further use
             }));
         setEvents(events);
     };
@@ -63,7 +61,7 @@ const ShopCalendar: React.FC<ShopCalendarProps> = () => {
         return {
             style: {
                 color: '#D97706',
-                backgroundColor: 'transparent', 
+                backgroundColor: 'transparent',
                 border: 'none',
                 height: '100%',
             },
