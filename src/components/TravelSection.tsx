@@ -52,7 +52,7 @@ const TravelSection: React.FC = () => {
               <p className="">Loading...</p>
               : (
                 services.length > 0 ? (
-                  services.map(service => (
+                  services.slice(0, 8).map(service => (
                     <div key={service.id} className="bg-white p-4 rounded-md">
                       <img src={service.image_url} alt={service.name} className="w-full h-auto rounded-md" />
                       <p className="mt-2 mb-1 text-gray-700 font-medium text-[18px]">{service.name}</p>
