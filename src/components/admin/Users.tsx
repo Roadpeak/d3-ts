@@ -28,7 +28,7 @@ const Users: React.FC = () => {
             <SideMenu />
             <div className="w-full gap-2 flex flex-col py-4">
                 <div className="flex w-full justify-between items-center">
-                <p className="font-medium text-[13px] text-dark tracking-wide">Users</p>
+                <p className="font-medium text-[13px] text-dark tracking-wide">Users ({users?.length})</p>
                 <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
                 </div>
                 <div className="w-full rounded-md mt-2 bg-white overflow-auto">
