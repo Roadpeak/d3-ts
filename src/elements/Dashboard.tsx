@@ -83,16 +83,12 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="flex flex-col w-full tracking-wide">
-            <p className="border-b w-full border-gray-200 ">What's up <span className="text-black font-medium text-[18px] uppercase">{user?.first_name}</span>!</p>
-            <div className="bg-white shadow-sm p-2 rounded-md mt-4 flex">
-                <img src={shop?.image_url} className='w-[125px] rounded-md' alt="" />
-                <div className="flex flex-col justify-center">
-                    <p className="text-black text-[20px] font-medium uppercase">{shop?.name}</p>
-                    <p className="text-gray-500 font-light text-[14px]">{shop?.location}</p>
-                    <p className="text-gray-500 font-light text-[14px]">{shop?.store_type}</p>
-                    <p className="text-gray-500 font-light text-[14px]">{shop?.seller_phone}</p>
-                </div>
-            </div>
+            <div className="border-b flex w-full items-center justify-between border-gray-200 ">
+                <span>
+                    What's up <span className="text-black font-medium text-[18px] uppercase">{user?.first_name}</span>!
+                </span>
+                <Link to={`/stores/edit/${id}`} className="font-medium text-primary text-[15px] hover:text-[17px] transition ease-in-out dekat-300">Update shop info</Link>
+            </div>           
             <div className="flex w-full justify-between py-6 flex-col md:flex-row gap-4">
                 <div className="bg-primary w-full p-6 rounded-xl items-center flex gap-4">
                     <div className="rounded-md text-gray-600 bg-gray-100 flex items-center justify-center p-1">
