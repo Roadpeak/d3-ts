@@ -8,11 +8,16 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 import { Booking, DiscountData, Shop } from '../types';
 import ShopAnalytics from '../components/Owner/ShopAnalytics';
+import PointsModal from './PointsModal';
 
 const Dashboard: React.FC = () => {
     const [discounts, setDiscounts] = useState<DiscountData[]>([]);
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [shop, setShop] = useState<Shop | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
     const { user } = useAuth();
     const { id } = useParams();
 
@@ -90,7 +95,7 @@ const Dashboard: React.FC = () => {
                 <Link to={`/stores/edit/${id}`} className="font-medium text-primary text-[15px] hover:text-[17px] transition ease-in-out dekat-300">Update shop info</Link>
             </div>           
             <div className="flex w-full justify-between py-6 flex-col md:flex-row gap-4">
-                <div className="bg-primary w-full p-6 rounded-xl items-center flex gap-4">
+                <div onClick={openModal} className="bg-primary w-full p-6 rounded-xl items-center flex gap-4 cursor-pointer">
                     <div className="rounded-md text-gray-600 bg-gray-100 flex items-center justify-center p-1">
                         <MdOutlineLoyalty />
                     </div>
@@ -152,6 +157,7 @@ const Dashboard: React.FC = () => {
                     <p className="text-gray-700 text-[14px] font-medium">8</p>
                 </div>
             </div>
+            <PointsModal isOpen={isModalOpen} onClose={closeModal} points={Number(shop?.loyalty_points)} />
             <div className="flex flex-col mt-4 gap-4">
                 <ShopAnalytics />
                 <div className="w-full gap-2 flex flex-col pb-8">
