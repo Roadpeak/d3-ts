@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../utils/context/AuthContext'
-import { MdOutlineDiscount, MdOutlineLoyalty } from 'react-icons/md';
+import { MdOutlineLoyalty } from 'react-icons/md';
 import { CiBookmarkCheck } from 'react-icons/ci';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
