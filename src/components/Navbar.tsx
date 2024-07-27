@@ -190,10 +190,10 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <div className="bg-primary flex items-center justify-center gap-2 py-2 ">
-        <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Home</Link>
-        <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer  '>Stores</Link>
-        <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Deals</Link>
-        <Link to={`/services`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer  '>Services</Link>
+        <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Home</Link>
+        <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Stores</Link>
+        <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer font-medium '>Deals</Link>
+        <Link to={`/services`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer font-medium '>Services</Link>
       </div>
       {openForm && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">

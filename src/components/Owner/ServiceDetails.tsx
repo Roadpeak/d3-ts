@@ -10,7 +10,7 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service, onClose }) => 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white max-h-[90vh] overflow-y-auto p-6 rounded-lg">
-                <h2 className="text-xl mb-4">Service Details</h2>
+                <h2 className="text-xl mb-4">Service</h2>
                 <div className="mb-4">
                     <label className="text-gray-800 font-medium text-[14px]">Name</label>
                     <p className='text-gray-600 font-light text-[13px]'>{service.name}</p>
@@ -33,7 +33,7 @@ const ServiceDetails: React.FC<ServiceDetailsProps> = ({ service, onClose }) => 
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700">Image</label>
-                    {service.image_url && <img src={service.image_url} alt="Service" className="w-full h-auto" />}
+                    {service.image_url && <img src={service.image_url} alt="Service" className="w-[50%] h-auto" />}
                 </div>
                 <div className="flex justify-end">
                     <button
