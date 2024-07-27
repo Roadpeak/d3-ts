@@ -12,7 +12,7 @@ const ShopDetailsEdit: React.FC = () => {
   const [storeType, setStoreType] = useState('');
   const [editedImage, setEditedImage] = useState('');
   const [editedDescription, setEditedDescription] = useState('');
-  const [openTime, setOpenTime] = useState('09:00:00'); 
+  const [openTime, setOpenTime] = useState('09:00:00');
   const [closeTime, setCloseTime] = useState('17:00:00');
   const [workingDays, setWorkingDays] = useState<string[]>([]);
   const [availableDays] = useState<string[]>(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]);
@@ -28,15 +28,25 @@ const ShopDetailsEdit: React.FC = () => {
 
   const fetchShopInfo = async () => {
     try {
-      const response = await axios.get<Shop>(`https://api.discoun3ree.com/api/shops/${id}`);
+      const accessToken = localStorage.getItem('access_token');
+
+      if (!accessToken) {
+        throw new Error('No access token found');
+      }
+
+      const response = await axios.get<Shop>(`https://api.discoun3ree.com/api/shops/${id}/see`, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
       setShop(response.data);
       setEditedName(response.data.name);
       setEditedLocation(response.data.location);
       setStoreType(response.data.store_type ?? '');
       setEditedImage(response.data.image_url);
       setEditedDescription(response.data.description ?? '');
-      setOpenTime(response.data.open_time || '09:00:00'); 
-      setCloseTime(response.data.close_time || '17:00:00'); 
+      setOpenTime(response.data.open_time || '09:00:00');
+      setCloseTime(response.data.close_time || '17:00:00');
       setWorkingDays(sortWorkingDays(response.data.working_days));
     } catch (error) {
       console.error('Failed to fetch shop information:', error);

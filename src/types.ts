@@ -107,6 +107,7 @@ export interface Shop {
   open_time: string;
   close_time: string;
   working_days: string[];
+  loyalty_points: number;
 };
 
 export interface StoreData {

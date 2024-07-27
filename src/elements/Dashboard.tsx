@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../utils/context/AuthContext'
-import { MdOutlineDiscount } from 'react-icons/md';
+import { MdOutlineDiscount, MdOutlineLoyalty } from 'react-icons/md';
 import { CiBookmarkCheck } from 'react-icons/ci';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import { Booking, DiscountData } from '../types';
+import { Booking, DiscountData, Shop } from '../types';
+import ShopAnalytics from '../components/Owner/ShopAnalytics';
 
-const Dashboard:React.FC = () => {
+const Dashboard: React.FC = () => {
     const [discounts, setDiscounts] = useState<DiscountData[]>([]);
     const [bookings, setBookings] = useState<Booking[]>([]);
-    const {user} = useAuth();
-    const {id} = useParams();
+    const [shop, setShop] = useState<Shop | null>(null);
+    const { user } = useAuth();
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchDiscounts = async () => {
@@ -46,7 +48,7 @@ const Dashboard:React.FC = () => {
                     }
                 });
 
-                setBookings(response.data.data); 
+                setBookings(response.data.data);
             } catch (error) {
                 console.error('Error fetching bookings:', error);
                 toast.error("An error occured!")
@@ -56,25 +58,53 @@ const Dashboard:React.FC = () => {
         fetchBookings();
     }, [id]);
 
-     const formatDate = (date: string) => {
-        return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+    useEffect(() => {
+        fetchShopInfo();
+    }, []);
+
+    const fetchShopInfo = async () => {
+        try {
+            const accessToken = localStorage.getItem('access_token');
+
+            if (!accessToken) {
+                throw new Error('No access token found');
+            }
+
+            const response = await axios.get<Shop>(`https://api.discoun3ree.com/api/shops/${id}/see`, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+            setShop(response.data);
+        } catch (error) {
+            console.error('Failed to fetch shop information:', error);
+        }
     };
 
-  return (
-     <div className="flex flex-col w-full tracking-wide">
-            <p className="">Hello 👋, {user?.first_name}</p>
+    return (
+        <div className="flex flex-col w-full tracking-wide">
+            <p className="border-b w-full border-gray-200 ">What's up <span className="text-black font-medium text-[18px] uppercase">{user?.first_name}</span>!</p>
+            <div className="bg-white shadow-sm p-2 rounded-md mt-4 flex">
+                <img src={shop?.image_url} className='w-[125px] rounded-md' alt="" />
+                <div className="flex flex-col justify-center">
+                    <p className="text-black text-[20px] font-medium uppercase">{shop?.name}</p>
+                    <p className="text-gray-500 font-light text-[14px]">{shop?.location}</p>
+                    <p className="text-gray-500 font-light text-[14px]">{shop?.store_type}</p>
+                    <p className="text-gray-500 font-light text-[14px]">{shop?.seller_phone}</p>
+                </div>
+            </div>
             <div className="flex w-full justify-between py-6 flex-col md:flex-row gap-4">
-                <div className="bg-white w-full p-6 rounded-xl items-center flex gap-4">
+                <div className="bg-primary w-full p-6 rounded-xl items-center flex gap-4">
                     <div className="rounded-md text-gray-600 bg-gray-100 flex items-center justify-center p-1">
-                        <MdOutlineDiscount />
+                        <MdOutlineLoyalty />
                     </div>
                     <div className="flex flex-col w-full gap-3">
-                        <p className="font-medium text-gray-600 text-[12px] tracking-wide">Total Discounts</p>
+                        <p className="font-medium text-white text-[12px] tracking-wide">Reward Points</p>
                         <hr className='w-full bg-gray-600' />
-                        <p className="text-gray-600 text-[17px]"><span className="font-medium text-[17px]">{discounts?.length}</span></p>
+                        <p className="text-white text-[17px]"><span className="font-medium text-[17px]">{shop?.loyalty_points}</span></p>
                     </div>
                 </div>
-                <div className="bg-white w-full p-6 items-center rounded-xl flex gap-4">
+                <div className="bg-[#F9EBD6] w-full p-6 items-center rounded-xl flex gap-4">
                     <div className="rounded-md text-gray-600 bg-gray-100 flex items-center justify-center p-1">
                         <CiBookmarkCheck />
                     </div>
@@ -85,36 +115,76 @@ const Dashboard:React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full gap-2 flex flex-col pb-8">
-                <div className="flex w-full justify-between items-center">
-                    <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>
-                    <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
+            <p className="text-gray-700 font-medium text-[14px]">Working days</p>
+            <div className="flex flex-col w-full bg-white mb-4 rounded-md p-2">
+                {shop?.working_days && shop.working_days.length > 0 ? (
+                    <div className="flex w-full items-center">
+                        {shop.working_days.map(day => (
+                            <div key={day} className="flex w-full">
+                                <span className="text-gray-600 font-normal text-[13px]">{day}</span>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex w-full items-center justify-between">
+                        <span className="text-gray-600 font-normal text-[13px]">No working days set</span>
+                        <Link to={`/stores/edit/${shop?.id}`} className="text-blue-500 hover:underline">
+                            Edit Working Days
+                        </Link>
+                    </div>
+                )}
+            </div>
+            <div className="flex flex-col w-full md:flex-row mb-2 gap-4 ">
+                <div className="flex flex-col p-4 w-full gap-1.5 bg-white rounded-md">
+                    <p className="text-gray-600 font-light text-[13px]">Opening time</p>
+                    <hr />
+                    <p className="text-gray-700 text-[14px] font-medium">{shop?.open_time}</p>
                 </div>
-                <div className="w-full rounded-md mt-4 bg-white overflow-x-auto">
+                <div className="flex flex-col p-4 w-full gap-1.5 bg-white rounded-md">
+                    <p className="text-gray-600 font-light text-[13px]">Closing time</p>
+                    <hr />
+                    <p className="text-gray-700 text-[14px] font-medium">{shop?.close_time}</p>
+                </div>
+                <div className="flex flex-col p-4 w-full gap-1.5 bg-white rounded-md">
+                    <p className="text-gray-600 font-light text-[13px]">Offers</p>
+                    <hr />
+                    <p className="text-gray-700 text-[14px] font-medium">{discounts?.length}</p>
+                </div>
+                <div className="flex flex-col p-4 w-full gap-1.5 bg-white rounded-md">
+                    <p className="text-gray-600 font-light text-[13px]">Services</p>
+                    <hr />
+                    <p className="text-gray-700 text-[14px] font-medium">8</p>
+                </div>
+            </div>
+            <div className="flex flex-col mt-4 gap-4">
+                <ShopAnalytics />
+                <div className="w-full gap-2 flex flex-col pb-8">
+                    <div className="flex w-full justify-between items-center">
+                        <p className="font-medium text-[13px] text-dark tracking-wide">Latest</p>
+                        <input type="text" placeholder='Search here' className='bg-light w-[220px] focus:border-secondary outline-none text-[11px] rounded-full py-2 px-3.5 ' />
+                    </div>
+                    <div className="w-full rounded-md bg-white overflow-x-auto">
                         <table className="min-w-full leading-normal">
                             <thead>
-                                <tr>
-                                    <th className="px-4 py-2 text-left text-[15px] border-b border-gray-300 font-normal text-gray-700">Discount</th>
-                                    <th className="px-4 py-2 text-left text-[15px] border-b border-gray-300 font-normal text-gray-700">Name</th>
-                                    <th className="px-4 py-2 text-left text-[15px] border-b border-gray-300 font-normal text-gray-700">Time</th>
-                                    <th className="px-4 py-2 text-left text-[15px] border-b border-gray-300 font-normal text-gray-700">Status</th>
+                                <tr className='w-full bg-gray-50'>
+                                    <th className="px-4 py-3.5 text-left text-[15px] border-b border-gray-300 font-normal text-gray-700">Name</th>
+                                    <th className="px-4 py-3.5 text-left text-[15px] border-b border-gray-300 font-normal text-gray-700">Time</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {bookings.slice(0, 8).map(booking => (
                                     <tr key={booking.id} className='mb-2 py-2 '>
-                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{booking.discount.name}</td>
-                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{`${booking.user.first_name} ${booking.user.last_name}`}</td>
-                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{moment(booking.time_slot.date).format('MMMM Do YYYY')}, {moment(booking.time_slot.start_time).format('h:mm A')} - {moment(booking.time_slot.end_time).format('h:mm A')}</td>
-                                        <td className="px-4 py-2 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{booking.approved === 1 ? 'Approved' : 'Pending'}</td>
+                                        <td className="px-4 py-3 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{`${booking.user.first_name} ${booking.user.last_name}`}</td>
+                                        <td className="px-4 py-3 text-[13px] mb-2 text-gray-600 py-2 border-b border-gray-100">{moment(booking.time_slot.date).format('MMMM Do YYYY')}, {moment(booking.time_slot.start_time).format('h:mm A')} - {moment(booking.time_slot.end_time).format('h:mm A')}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
+                </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default Dashboard
