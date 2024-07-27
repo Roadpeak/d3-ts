@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SellerLayout from '../../elements/SellerLayout';
 import { IoMdAdd } from 'react-icons/io';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
 import { FiEdit3 } from 'react-icons/fi';
 
@@ -152,7 +152,7 @@ const OwnerDiscounts: React.FC = () => {
     return (
         <SellerLayout>
             <div className="flex flex-col w-full">
-                <div className="flex justify-start w-[220px]">
+                <div className="flex gap-2 items-center border-b border-primary pb-2 justify-start ">
                     <button
                         className="bg-primary px-4 py-1.5 flex items-center gap-2 rounded-md text-white text-[14px]"
                         onClick={() => setOpenForm(true)}
@@ -160,6 +160,7 @@ const OwnerDiscounts: React.FC = () => {
                         <IoMdAdd />
                         Add New Discount
                     </button>
+                    <Link className='bg-primary px-4 py-1.5 flex items-center gap-2 rounded-md text-white text-[14px]' to={`/store/${id}/discounts/expired`}>Expired</Link>
                 </div>
                 <div className="w-full gap-2 flex flex-col py-8">
                     <div className="flex w-full justify-between items-center">
@@ -170,7 +171,7 @@ const OwnerDiscounts: React.FC = () => {
                         <div className="bg-light w-full rounded-lg">
                             <table className="table-auto w-full rounded-md">
                                 <thead className=''>
-                                    <tr className="bg-light border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
+                                    <tr className="border-b-[2px] border-gray-50 text-[13px] bg-gray-50 text-[#002A4D] font-medium">
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Price</th>
                                         <th className="px-4 text-start font-normal pb-2 pt-4">Discount</th>
@@ -187,7 +188,7 @@ const OwnerDiscounts: React.FC = () => {
                                         </tr>
                                     ) : (
                                         discounts.map((discount) => (
-                                        <tr key={discount.id} className="cursor-pointer border-b py-2 border-gray-100 hover:bg-gray-100">
+                                        <tr key={discount.id} className="cursor-pointer border-b py-2 border-gray-100 hover:bg-gray-50">
                                             <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.name}</td>
                                             <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.initial_price}</td>
                                             <td className="px-4 text-[14px] text-gray-600 font-light py-3" onClick={() => handleRowClick(discount)} >{discount.discount}</td>

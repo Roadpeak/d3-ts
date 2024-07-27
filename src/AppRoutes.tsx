@@ -52,6 +52,7 @@ import ServiceDetailsPage from './pages/ServiceDetailsPage';
 import Services from './components/admin/Services';
 import ServicesPage from './pages/ServicesPage';
 import ShopCalendar from './components/ShopCalendar';
+import ExpiredDiscounts from './components/Owner/ExpiredDiscounts';
 
 const AppRoutes: React.FC = () => {
 
@@ -97,6 +98,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/socials' element={<SocialLinksPage />} />
       <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
       <Route path='/discounts/edit/:id' element={<EditableDiscountComponent />} />
+      <Route path='/store/:id/discounts/expired' element={<ExpiredDiscounts />} />
       <Route path='/store/:id/services' element={<ServicesList />} />
       <Route path='/store/:id/calendar' element={<ShopCalendar />} />
 
