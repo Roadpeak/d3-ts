@@ -83,7 +83,7 @@ const StoresSection = () => {
               className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 hover:shadow-md cursor-pointer"
             >
               <div className="flex flex-col justify-center h-full mx-auto relative">
-                <div className="bg-transparent mb-2 mx-auto w-[40%]">
+                <div className="bg-transparent mb-2 mx-auto mt-3 w-[40%]">
                   <img
                     src={store.image_url || placeholderImage}
                     alt={store.name}

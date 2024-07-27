@@ -120,15 +120,21 @@ const Stores: React.FC = () => {
             stores.map((store) => (
               <a href={`/stores/${store?.id}/view`} key={store?.id} className="bg-white flex flex-col items-center justify-between rounded-md px-4 py-2 hover:shadow-md cursor-pointer">
                 <div className="flex flex-col justify-center mx-auto relative ">
-                  <div className="bg-white mb-2  mx-auto  w-[40%]">
+                  <div className="bg-white mb-2  mx-auto mt-3  w-[40%]">
                     <img
                       src={store.image_url || placeholderImage}
                       alt={store.name}
                       className="w-full mx-auto rounded-sm object-cover"
                     />
                   </div>
-                  <p className="text-center text-gray-600 text-[15px] font-medium">{store.name}</p>
-                  <p className="text-center text-[12px] text-[#FF9021]">{store.store_type}</p>
+                  <div className="flex flex-col w-full items-center">
+                    <p className="text-center text-[15px] text-black font-semibold line-clamp-2 w-full">
+                      {store.name}
+                    </p>
+                    <p className="text-center text-[13px] font-medium text-[#FF9021] line-clamp-2 w-full">
+                      {store.store_type}
+                    </p>
+                  </div>
                   <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                     <FaExternalLinkAlt />
                   </div>

@@ -97,10 +97,16 @@ const SearchResults: React.FC = () => {
                                                 alt={store.name}
                                                 className="w-full mx-auto rounded-sm object-cover"
                                             />
-                                            </div>
-                                            <p className="text-center text-gray-600 font-medium">{store.name}</p>
-                                            <p className="text-center text-[13px] text-[#FF9021]">{store.store_type}</p>
-                                            <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
+                                        </div>
+                                        <div className="flex flex-col w-full items-center">
+                                            <p className="text-center text-[15px] text-black font-semibold line-clamp-2 w-full">
+                                                {store.name}
+                                            </p>
+                                            <p className="text-center text-[13px] font-medium text-[#FF9021] line-clamp-2 w-full">
+                                                {store.store_type}
+                                            </p>
+                                        </div>
+                                        <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                                             <FaExternalLinkAlt />
                                         </div>
                                     </div>
@@ -163,7 +169,6 @@ const SearchResults: React.FC = () => {
                     </div>
                 </div>
             </div>
-            
             <Footer />
         </div>
     );
