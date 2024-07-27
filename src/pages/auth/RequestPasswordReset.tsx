@@ -54,12 +54,12 @@ const RequestPasswordReset: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-red-700 disabled:opacity-50"
+            className="w-full bg-primary text-white py-2 px-4 rounded-lg disabled:opacity-50"
             disabled={loading}
           >
             {loading ? 'Sending...' : 'Send Reset Link'}
           </button>
-          <p className="text-[14px] text-gray-700 text-end mt-2">Remembered your password? <Link to='/accounts/sign-in' className="text-red-500">Sign in</Link></p>
+          <p className="text-[14px] text-gray-700 text-end mt-2">Remembered your password? <Link to='/accounts/sign-in' className="text-primary">Sign in</Link></p>
         </form>
         </div>
         <div className="hidden md:flex justify-center items-center ">

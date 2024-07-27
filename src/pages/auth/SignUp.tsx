@@ -194,13 +194,13 @@ const SignUp: React.FC = () => {
             <div className="flex items-center w-full gap-2">
               <button
                 type="submit"
-                className="bg-primary w-full text-white py-2 px-4 rounded-md hover:bg-red-500 transition duration-300"
+                className="bg-primary w-full text-white py-2 px-4 rounded-md transition duration-300"
               >
                 {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
               </button>
               {/* <GoogleSignInButton /> */}
             </div>
-            <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-red-500">Sign In</Link></p>
+            <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-primary">Sign In</Link></p>
           </form>
         </div>
         <div className="w-1/2 hidden md:flex items-center justify-center">

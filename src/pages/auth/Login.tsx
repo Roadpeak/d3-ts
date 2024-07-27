@@ -100,14 +100,14 @@ const LoginPage: React.FC = () => {
                   {showPassword ? <FiEyeOff /> : <FiEye />}
                 </button>
             </div>
-            <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-red-500">Sign Up</Link></p>
+            <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-primary">Sign Up</Link></p>
             <div className="mb-4">
-              <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">
+              <button type="submit" className="w-full bg-primary text-white p-2 rounded hover:bg-primary">
                 {loading ? <ClipLoader color="#fff" /> : 'Log in'}
               </button>
             </div>
           </form>
-          <p className="text-sm text-gray-700 text-end -mt-2">Forgot your password? <Link to='/request-password-reset' className="text-red-500">Reset it here</Link></p>
+          <p className="text-sm text-gray-700 text-end -mt-2">Forgot your password? <Link to='/request-password-reset' className="text-primary">Reset it here</Link></p>
         </div>
         <div className="hidden md:flex justify-center items-center ">
           <img src="https://imgs.search.brave.com/VikpyiN7OTH_xj6mfR6zYxy8_mHlGuCGveLv7wIAg14/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzUzLzMyLzc2/LzM2MF9GXzQ1MzMy/NzYyMF9mbExTaFJD/VU50cW9WTUszTnlm/SmRLSTFVblEzRHhC/eS5qcGc" alt="Illustration" />
