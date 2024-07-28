@@ -191,12 +191,12 @@ const StoreView: React.FC = () => {
       <Navbar />
       <div className="flex flex-col bg-gray-100">
         <div className="flex flex-col w-full px-[5%] py-[2%] text-black gap-[2%]">
-          <div className="w-full flex bg-gray-200 h-auto justify-between p-2 rounded-md">
-            <div className="flex h-full items-center gap-4">
+          <div className="w-full flex bg-white md:shadow-sm h-auto justify-between p-2 rounded-md">
+            <div className="flex flex-col md:flex-row h-full md:items-center gap-4">
               <img
                 src={store?.image_url || placeholderImage}
                 alt="Store logo"
-                className="w-[100px] rounded-full h-full justify-center mx-auto flex items-center"
+                className="w-[150px] md:w-[100px] rounded md:rounded-full h-full md:justify-center md:mx-auto flex items-center"
               />
               <div className="flex flex-col items-start justify-start">
                 <p className="text-center text-[20px] font-medium">
@@ -252,7 +252,7 @@ const StoreView: React.FC = () => {
               <span className="hidden md:block">|</span>
               <div className='hidden md:flex'>
                 {isFollowing ? (
-                  <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
+                  <button onClick={handleUnfollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
                     Unfollow
                   </button>
                 ) : (

@@ -164,7 +164,6 @@ const AdminDash: React.FC = () => {
                   <tr className="border-b-2 border-gray-200 text-[13px] text-[#002A4D] font-medium">
                     <th className="px-4 text-start pb-2 pt-4">Name</th>
                     <th className="px-4 text-start pb-2 pt-4">Owner</th>
-                    <th className="px-4 text-start pb-2 pt-4">Location</th>
                     <th className="px-4 text-start pb-2 pt-4">Phone</th>
                   </tr>
                 </thead>
@@ -183,7 +182,6 @@ const AdminDash: React.FC = () => {
                       >
                         <td className="px-4 py-3">{shop.name}</td>
                         <td className="px-4 py-3 capitalize">{shop.seller_first_name} {shop.seller_last_name}</td>
-                        <td className="px-4 py-3">{shop.location}</td>
                         <td className="px-4 py-3">{shop.seller_phone}</td>
                       </tr>
                     ))
