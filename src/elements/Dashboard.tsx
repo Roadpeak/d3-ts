@@ -119,9 +119,9 @@ const Dashboard: React.FC = () => {
             <p className="text-gray-700 font-medium text-[14px]">Working days</p>
             <div className="flex flex-col w-full bg-white mb-4 rounded-md p-2">
                 {shop?.working_days && shop.working_days.length > 0 ? (
-                    <div className="flex w-full items-center">
+                    <div className="flex w-full items-center flex-wrap gap-6">
                         {shop.working_days.map(day => (
-                            <div key={day} className="flex w-full">
+                            <div key={day} className="flex w-fit">
                                 <span className="text-gray-600 font-normal text-[13px]">{day}</span>
                             </div>
                         ))}
