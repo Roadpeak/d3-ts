@@ -35,8 +35,6 @@ const Footer:React.FC = () => {
               <a href={`/terms-and-conditions`} className="mb-2 text-gray-500 hover:text-black">Terms & Conditions</a>
               <a href={`/privacy-policy`} className="mb-2 text-gray-500 hover:text-black">Privacy Policy</a>
               <a href={`/contact`} className="mb-2 text-gray-500 hover:text-black">Contact</a>
-              <a href={`/accounts/sign-in`} className="mb-2 text-gray-500 hover:text-black">Sign In</a>
-              <a href={`/deals`} className="mb-2 text-gray-500 hover:text-black capitalize">Start getting discounts</a>
             </div>
           </div>
 
@@ -71,11 +69,11 @@ const Footer:React.FC = () => {
             <h4 className="text-lg font-semibold mb-4">Company</h4>
             <div className="flex flex-col">
               <a href={`/company/careers`} className="mb-2 text-gray-500 hover:text-black">Careers</a>
-              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Press</a>
-              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</a>
-              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</a>
+              <a href={`/company/press`} className="mb-2 text-gray-500 hover:text-black">Press</a>
+              {/* <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</a> */}
+              <a href={`/company/brand-guidelines`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</a>
               <a href={`/company/vision`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</a>
-              <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Fund</a>
+              <a href={`/company/fund`} className="mb-2 text-gray-500 hover:text-black">Fund</a>
             </div>
           </div>
 

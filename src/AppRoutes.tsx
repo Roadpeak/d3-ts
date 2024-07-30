@@ -54,6 +54,9 @@ import ServicesPage from './pages/ServicesPage';
 import ShopCalendar from './components/ShopCalendar';
 import ExpiredDiscounts from './components/Owner/ExpiredDiscounts';
 import CreateCustomForm from './components/Owner/CreateCustomForm';
+import PressPage from './pages/company/PressPage';
+import BrandGuidelinesPage from './pages/company/BrandGuidelinesPage';
+import FundPage from './pages/company/FundPage';
 
 const AppRoutes: React.FC = () => {
 
@@ -120,6 +123,9 @@ const AppRoutes: React.FC = () => {
 
       <Route path='/company/careers' element={<CareersPage />} />
       <Route path='/company/vision' element={<Vision />} />
+      <Route path='/company/press' element={<PressPage />} />
+      <Route path='/company/brand-guidelines' element={<BrandGuidelinesPage />} />
+      <Route path='/company/fund' element={<FundPage />} />
 
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

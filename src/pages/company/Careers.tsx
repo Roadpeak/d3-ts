@@ -1,4 +1,3 @@
-// CareersPage.tsx
 import React from 'react';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
@@ -7,8 +6,8 @@ const CareersPage: React.FC = () => {
     return (
         <div className="bg-gray-50">
             <Navbar />
-            <div className="px-[5%] mx-auto py-8">
-                <h1 className="text-4xl font-bold text-center mb-8">Join Our Dynamic Team</h1>
+            <div className="px-[5%] w-full mx-auto py-12">
+                <h1 className="text-[24px] font-semibold text-center mb-8">Join Our Dynamic Team</h1>
 
                 <section className="mb-12">
                     <h2 className="text-2xl font-semibold mb-4">Who We Are</h2>
@@ -20,13 +19,13 @@ const CareersPage: React.FC = () => {
                 <section className="mb-12">
                     <h2 className="text-2xl font-semibold mb-4">Join Our Growing Team</h2>
                     <p className="text-lg text-gray-700">
-                        We are currently not hiring but keep an eye here, as we are looking forward to adding more creative individuals to our talented team.
+                        While we are not currently hiring, we are excited about the future and are eager to build a huge, talented team as we grow. We are focused on increasing revenue and seeking investment to drive our mission forward. If you are a creative and motivated individual who wants to be part of a dynamic team, we encourage you to stay connected.
                     </p>
                     <p className="text-lg mt-4">
-                        If you're passionate about innovation and eager to make a difference, we'd love to hear from you!
+                        If you're passionate about innovation and eager to make a difference, we would love to hear from you as we prepare for future opportunities!
                     </p>
                     <a href="#application-form" className="text-primary font-semibold hover:underline mt-6 inline-block">
-                        Apply Now
+                        Get In Touch
                     </a>
                 </section>
 
@@ -53,9 +52,9 @@ const CareersPage: React.FC = () => {
                 </section>
 
                 <section id="application-form" className="mb-12">
-                    <h2 className="text-2xl font-semibold mb-4">Apply Now</h2>
+                    <h2 className="text-2xl font-semibold mb-4">Get In Touch</h2>
                     <p className="text-lg text-gray-700">
-                        Ready to take the next step in your career? Fill out the form below to apply for one of our open positions.
+                        Ready to take the next step in your career? While we may not have immediate openings, we encourage you to reach out and connect with us. Fill out the form below to express your interest and stay updated on future opportunities.
                     </p>
                 </section>
 
