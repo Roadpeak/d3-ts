@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer:React.FC = () => {
   const handleMapClick = () => {
-    window.open('https://www.google.com/maps/search/?api=1&query=Britam+Towers+Upperhill+Nairobi', '_blank');
+    window.open('https://www.google.com/maps/search/?api=1&query=Le\'Mac', '_blank');
   };
     const currentYear = new Date().getFullYear();
 
@@ -70,7 +70,6 @@ const Footer:React.FC = () => {
             <div className="flex flex-col">
               <a href={`/company/careers`} className="mb-2 text-gray-500 hover:text-black">Careers</a>
               <a href={`/company/press`} className="mb-2 text-gray-500 hover:text-black">Press</a>
-              {/* <a href={`/`} className="mb-2 text-gray-500 hover:text-black">Blog</a> */}
               <a href={`/company/brand-guidelines`} className="mb-2 text-gray-500 hover:text-black">Brand Guidelines</a>
               <a href={`/company/vision`} className="mb-2 text-gray-500 hover:text-black">Vision & Projection</a>
               <a href={`/company/fund`} className="mb-2 text-gray-500 hover:text-black">Fund</a>
@@ -80,7 +79,7 @@ const Footer:React.FC = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
             <p className="mb-2 hover:underline" onClick={handleMapClick} style={{ cursor: 'pointer' }}>
-              Britam Towers, Upperhill Nairobi
+              Le'Mac, Nairobi
             </p>
             <p className="mb-2" onClick={handleEmailClick} style={{ cursor: 'pointer' }}>
               info@discoun3.com
