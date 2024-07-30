@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { CheckCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/context/AuthContext';
 
 interface CalendarProps {
     serviceId: number;
@@ -20,6 +21,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
+    const { user } = useAuth();
 
     useEffect(() => {
         if (startDate && endDate) {
@@ -53,6 +55,10 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
             if (appointmentDateTimeStartObj <= now) {
                 toast.error('The appointment time must be a future date and time.');
                 return;
+            }
+
+            if (!user){
+                navigate('/accounts/sign-in')
             }
 
             setLoading(true);
