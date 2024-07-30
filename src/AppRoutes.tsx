@@ -53,6 +53,7 @@ import Services from './components/admin/Services';
 import ServicesPage from './pages/ServicesPage';
 import ShopCalendar from './components/ShopCalendar';
 import ExpiredDiscounts from './components/Owner/ExpiredDiscounts';
+import CreateCustomForm from './components/Owner/CreateCustomForm';
 
 const AppRoutes: React.FC = () => {
 
@@ -101,6 +102,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/discounts/expired' element={<ExpiredDiscounts />} />
       <Route path='/store/:id/services' element={<ServicesList />} />
       <Route path='/store/:id/calendar' element={<ShopCalendar />} />
+      <Route path='/store/:id/custom-appointments' element={<CreateCustomForm />} />
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />
