@@ -6,7 +6,7 @@ import { CiBookmark, CiCalendarDate, CiEdit, CiGlobe } from 'react-icons/ci';
 import { FaRegStar } from 'react-icons/fa';
 import { FcSupport } from "react-icons/fc";
 import { MdOutlineDashboardCustomize, MdOutlineDiscount, MdOutlineMiscellaneousServices, MdPendingActions } from 'react-icons/md';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IoHomeOutline } from 'react-icons/io5';
 
 const Topmenu: React.FC = () => {
@@ -36,13 +36,13 @@ const Topmenu: React.FC = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          <a href='/' className="text-black text-center md:text-start text-2xl font-bold">Discoun3</a>
+          <Link to='/' className="text-black text-center md:text-start text-2xl font-bold">Discoun3</Link>
           <div className="hidden text-black md:flex space-x-4">
-            <a href="/" className=" px-3 py-2 rounded">Home</a>
-            <a href="/deals" className=" px-3 py-2 rounded">Discounts</a>
-            <a href="/about" className=" px-3 py-2 rounded">About</a>
-            <a href="/privacy-policy" className=" px-3 py-2 rounded">Privacy</a>
-            <a href="/contact" className=" px-3 py-2 rounded">Contact</a>
+            <Link to="/" className=" px-3 py-2 rounded">Home</Link>
+            <Link to="/deals" className=" px-3 py-2 rounded">Discounts</Link>
+            <Link to="/Linkbout" className=" px-3 py-2 rounded">About</Link>
+            <Link to="/privacy-policy" className=" px-3 py-2 rounded">Privacy</Link>
+            <Link to="/contact" className=" px-3 py-2 rounded">Contact</Link>
           </div>
         </div>
       </nav>
@@ -67,54 +67,54 @@ const Topmenu: React.FC = () => {
           <FaTimes size={20} />
         </button>
         <nav className="flex flex-col space-y-4 p-4">
-          <a href={`/`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
+          <Link to={`/`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
             <IoHomeOutline />
             <span className='flex text-[#242220] text-[14px]'>Home</span>
-          </a>
-          <a href={`/store/${id}/home`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
+          </Link>
+          <Link to={`/store/${id}/home`} className="flex items-center mt-4 md:bg-[#F9EBD6] gap-2 p-2 rounded-md">
             <MdOutlineDashboardCustomize />
             <span className='flex text-[#242220] text-[14px]'>Dashboard</span>
-          </a>
-          <a href={`/store/${id}/discounts`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/discounts`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <MdOutlineDiscount />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Discounts</span>
-          </a>
-          <a href={`/store/${id}/services`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/services`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <MdOutlineMiscellaneousServices />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Services</span>
-          </a>
-          <a href={`/store/${id}/bookings`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/bookings`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <CiBookmark />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Bookings</span>
-          </a>
-          <a href={`/store/${id}/unverified-discounts`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/unverified-discounts`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <MdPendingActions />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Pending</span>
-          </a>
-          <a href={`/store/${id}/calendar`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/calendar`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <CiCalendarDate />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Calendar</span>
-          </a>
-          <a href='tickets' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to='tickets' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <FcSupport />
             <span className='flex text-[#777777] text-[14px] group-hover:text-[#242220]'>Tickets</span>
-          </a>
-          <a href='/chat' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to='/chat' className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <BsChatDots />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Chat</span>
-          </a>
-          <a href={`/store/${id}/reviews`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/reviews`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <FaRegStar />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Reviews</span>
-          </a>
-          <a href={`/store/${id}/socials`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/store/${id}/socials`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <CiGlobe />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Socials</span>
-          </a>
-          <a href={`/stores/edit/${id}`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
+          </Link>
+          <Link to={`/stores/edit/${id}`} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <CiEdit />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Edit</span>
-          </a>
+          </Link>
           <button onClick={logoutUser} className="flex items-center gap-2 p-2 rounded-md hover:bg-[#F9EBD6] group">
             <BiLogOut />
             <span className='flex text-[#777777] text-[14px] group group-hover:text-[#242220]'>Log Out</span>

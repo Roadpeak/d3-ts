@@ -103,7 +103,7 @@ const Footer:React.FC = () => {
           <a href="https://www.instagram.com/discoun3_official" target='_blank' className="mr-4 text-gray-500 hover:text-black">
             <FaInstagram />
           </a>
-          <a href="#" className="text-gray-500 hover:text-black">
+          <a href="https://www.linkedin.com/company/discoun3-limited/" target='_blank' className="text-gray-500 hover:text-black">
             <FaLinkedin />
           </a>
         </div>
