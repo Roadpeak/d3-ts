@@ -174,7 +174,6 @@ const Hero: React.FC = () => {
 
   return (
     <div className='py-4 px-[5%] bg-gray-100'>
-      <Banner />
       <p className='text-black font-semibold mt-4 mb-2 text-[20px]'>Featured | {getCurrentMonthAndYear()}</p>
       <div className="border border-gray-200 rounded-md p-2">
         {renderDiscounts()}

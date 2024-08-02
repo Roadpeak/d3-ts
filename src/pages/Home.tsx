@@ -21,10 +21,10 @@ const Home: React.FC = () => {
         </div>
       )}
       <Hero />
-      <StoresSection />
+      
       <FeaturedOffers />
       <TravelSection />
-      {/* <EventSection /> */}
+      <StoresSection />
       <Footer />
     </div>
   )
