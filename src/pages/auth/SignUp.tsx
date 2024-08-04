@@ -64,19 +64,19 @@ const SignUp: React.FC = () => {
             </a>
             <h1 className="text-2xl font-semibold text-black">Sign Up</h1>
           </div>
-          <div className="flex w-full justify-start gap-2 border-b border-gray-400 mb-4">
+          <div className="flex w-full md:hidden justify-start gap-2 border-b border-gray-400 mb-4">
             <button
-              className={`px-4 py-2 ${signupType === 'user' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
-              onClick={() => setSignupType('user')}
+              className={`px-4 py-2 flex md:hidden items-center text-primary border-b-[2px] border-primary`}
             >
               User
             </button>
-            <button
-              className={`px-4 py-2 ${signupType === 'seller' ? 'text-primary border-b-[2px] border-primary' : 'text-black'}`}
-              onClick={() => setSignupType('seller')}
+            <Link
+              to='https://merchants.discoun3ree.com/accounts/register'
+              target='_blank'
+              className={`px-4 py-2 flex items-center md:hidden text-black`}
             >
-              Service Provider
-            </button>
+              Merchant
+            </Link>
           </div>
           <form onSubmit={handleSubmit}>
             {Object.keys(errors).map((key) => (

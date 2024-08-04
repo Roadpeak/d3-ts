@@ -61,6 +61,34 @@ const SearchResults: React.FC = () => {
         <div className="">
             <Navbar />
             <div className='flex flex-col px-[5%] bg-gray-100'>
+                {
+                    discounts?.length > 0 && (
+                        <p className="text-gray-600 font-meduim my-2 text-[18px]">
+                            Offers
+                        </p>
+                    )
+                }
+                {discounts.length > 0 && (
+                    <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5 lg:grid-cols-5'>
+                        {discounts.map((discount) => (
+                            <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between relative rounded-md p-4">
+                                <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
+                                    -{Math.floor(discount.percentage_discount)}%
+                                </div>
+                                <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
+                                <div className="flex flex-col">
+                                    <p className="text-[14px] text-gray-600 truncate-2-lines">{discount.name}</p>
+                                    <div className="flex items-center">
+                                        <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
+                                        <p className="text-primary font-medium text-[15px] ml-2">
+                                            {`Ksh. ${discount.price_after_discount}`}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                )}
                 {stores?.length > 0 && (
                     <p className="text-gray-600 font-meduim mt-2 text-[18px]">
                         Stores
@@ -113,35 +141,6 @@ const SearchResults: React.FC = () => {
                                 </a>
                             ))
                         )}
-                    </div>
-                )}
-
-                {
-                    discounts?.length > 0 && (
-                        <p className="text-gray-600 font-meduim my-2 text-[18px]">
-                            Discounts
-                        </p>
-                    )
-                }
-                {discounts.length > 0 && (
-                    <div className='w-full mb-4 grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5 lg:grid-cols-5'>
-                        {discounts.map((discount) => (
-                            <a href={`/discount/${discount.slug}/${discount.id}/see-details`} key={discount.id} className="flex flex-col bg-gray-50 justify-between relative rounded-md p-4">
-                                <div className="absolute top-4 right-4 rounded-full bg-[#FF9021] text-white text-[14px] font-light w-10 h-10 flex items-center justify-center">
-                                    -{Math.floor(discount.percentage_discount)}%
-                                </div>
-                                <img src={discount.image_url || placeholderImage} alt={discount.name} className="w-full object-cover rounded-md" />
-                                <div className="flex flex-col">
-                                    <p className="text-[14px] text-gray-600 truncate-2-lines">{discount.name}</p>
-                                    <div className="flex items-center">
-                                        <p className="text-gray-500 text-[14px] line-through">{`Ksh. ${discount.initial_price}`}</p>
-                                        <p className="text-primary font-medium text-[15px] ml-2">
-                                            {`Ksh. ${discount.price_after_discount}`}
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        ))}
                     </div>
                 )}
                 <div className="flex w-full bg-white p-4 rounded-md flex-col h-full mt-4 mb-6">

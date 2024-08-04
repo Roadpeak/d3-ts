@@ -6,68 +6,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
 import logo from '../assets/icon2.png'
 import { IoIosMenu, IoMdAdd } from 'react-icons/io';
-import addStore from '../services/addStore';
-import handleImageChange from '../services/handleImageChange';
 import fetchOwnerStores from '../services/fetchownerStores';
-import { Spinner } from '@material-tailwind/react';
 import { LuLayoutDashboard } from "react-icons/lu";
-import { toast } from 'react-toastify';
 import { BsTicketDetailed } from "react-icons/bs";
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { MdOutlineDiscount } from 'react-icons/md';
-import { Shop, StoreData } from '../types';
+import { Shop } from '../types';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [login, setLogin] = useState(false);
+  const [register, setRegister] = useState(false);
   const [open, setOpen] = useState(false);
   const [stores, setStores] = useState<Shop[]>([]);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [openForm, setOpenForm] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [storeData, setStoreData] = useState<StoreData>({
-    name: '',
-    location: '',
-    store_type: '',
-    image_url: ''
-  });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setStoreData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleCloseAddStore = () => {
-    setOpenForm(false);
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0];
-    if (file) {
-      try {
-        setLoading(true);
-        const imageUrl = await handleImageChange(file);
-        setStoreData(prevState => ({
-          ...prevState,
-          image_url: imageUrl
-        }));
-        console.log("image: ", imageUrl);
-      } catch (error) {
-        toast.error("Error uploading Image");
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await addStore(storeData, setLoading, handleCloseAddStore);
-  };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -128,12 +81,28 @@ const Navbar: React.FC = () => {
             ) : (
               <>
                 <div className="flex flex-col items-center relative text-white">
-                  <div className="flex relative w-full">
+                  <div className="flex relative w-full items-center">
                     <Link to='/accounts/sign-in' className="flex text-black md:hidden">
-                      <IoIosMenu size={24} />
+                        <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
                     </Link>
-                    <Link to={`/accounts/sign-in`} className='px-4 py-1 text-gray-500 mr-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Login</Link>
-                    <Link to={`/accounts/sign-up`} className='px-4 py-1 text-gray-500 ml-2 bg-transparent border hidden md:flex border-gray-300 rounded-full hover:text-primary hover:border-primary'>Register</Link>
+                    <div className="flex flex-col relative">
+                        <button onClick={() => setLogin(!login)} className='mr-3 hidden md:flex text-primary hover:underline text-[14px] font-medium'>Login</button>
+                        {login && (
+                          <div className="flex flex-col absolute top-full left-0 rounded-md p-4 bg-white gap-2">
+                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-in`}>User</Link>
+                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/login`} target='_blank'>Merchant</Link>
+                          </div>
+                        )}
+                    </div>
+                      <div className="flex flex-col relative">
+                        <button onClick={() => setRegister(!register)} className='hidden md:flex text-white hover:underline font-medium text-[14px] bg-primary px-6 py-1.5 rounded-md'>Register</button>
+                        {register && (
+                          <div className="flex flex-col absolute top-full right-0 rounded-md p-4 bg-white gap-2">
+                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-up`}>User</Link>
+                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/register`} target='_blank'>Merchant</Link>
+                          </div>
+                        )}
+                      </div>
                   </div>
                 </div>
               </>
@@ -172,7 +141,7 @@ const Navbar: React.FC = () => {
                   <div>
                     {user?.user_type === 'seller' && (
                       <button
-                        onClick={() => setOpenForm(true)}
+                        onClick={() => {}}
                         className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
                       >
                         <IoMdAdd />
@@ -191,94 +160,10 @@ const Navbar: React.FC = () => {
       </div>
       <div className="bg-primary flex items-center justify-center gap-2 py-2 ">
         <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Home</Link>
-        <Link to={`/stores`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Stores</Link>
+        <Link to={`/merchants`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Merchants</Link>
         <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer font-medium '>Deals</Link>
         <Link to={`/services`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer font-medium '>Services</Link>
       </div>
-      {openForm && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white max-h-[90vh] overflow-auto rounded-lg shadow-lg p-8 w-full max-w-md">
-            <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">Add New Store</h2>
-            <p className="text-center mb-6 text-gray-600">To proceed to your dashboard, you need to create at least one store.</p>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Store Name</label>
-                <input  
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={storeData.name}
-                  placeholder='e.g. QBF Software Solutions'
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location</label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  value={storeData.location}
-                  placeholder='Enter exact location for easier accessibility.'
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="store_type" className="block text-sm font-medium text-gray-700">Store Type</label>
-                <input
-                  type="text"
-                  id="store_type"
-                  name="store_type"
-                  value={storeData.store_type}
-                  placeholder='e.g. nail spa, make up. etc...'
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Image</label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  accept="image/*"
-                  className="mt-1 p-3 block w-full rounded border border-gray-300 focus:border-primary focus:outline-none"
-                  onChange={handleImageUpload}
-                />
-              </div>
-              {isLoading && (
-                <div className="flex items-center justify-center mt-2">
-                  <Spinner />
-                  <span className="ml-2">Uploading...</span>
-                </div>
-              )}
-              {imageUrl && (
-                <div>
-                  <img src={imageUrl} alt="Uploaded" className="mt-4 w-full rounded" />
-                </div>
-              )}
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="text-gray-600 mr-4"
-                  onClick={handleCloseAddStore}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-80"
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Adding...' : 'Add Store'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </>
   )
 }

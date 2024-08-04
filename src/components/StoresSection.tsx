@@ -60,7 +60,7 @@ const StoresSection = () => {
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 pb-[2%]'>
       <div className="flex items-center justify-between mt-4">
-        <p className="text-black font-semibold text-[20px]">Top Stores | 2024</p>
+        <p className="text-black font-semibold text-[20px]">Featured Merchants | 2024</p>
         <Link className="text-primary items-center font-medium hover:border-b border-primary text-[15px] flex gap-2" to={'/stores'}>
           More Stores <FaExternalLinkAlt className="font-light" size={18} />
         </Link>
