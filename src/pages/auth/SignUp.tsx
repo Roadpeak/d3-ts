@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import GoogleSignInButton from './GoogleSignInButton';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
