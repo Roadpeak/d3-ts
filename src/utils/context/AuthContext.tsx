@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getCookie } from '../cookiUtils';
 
 interface User {
     id: number;
@@ -31,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const token = localStorage.getItem('access_token');
+                const token = getCookie('access_token'); ;
                 if (token) {
                     const response = await fetch('https://api.discoun3ree.com/api/profile', {
                         headers: {

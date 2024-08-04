@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Payment, Service, WeeklyStats } from '../types';
+import { getCookie } from '../utils/cookiUtils';
 
 const BASE_URL = 'https://api.discoun3ree.com/api';
 
-const getToken = () => localStorage.getItem('access_token');
+const getToken = () => getCookie('access_token');
 
 const getHeaders = (includeAuth: boolean = true) => {
   const headers: { [key: string]: string } = {
@@ -320,7 +321,7 @@ export const unverifyShop = async (shopId: number) => {
 };
 
 export const fetchUserPayments = async (): Promise<Payment[]> => {
-  const token = localStorage.getItem('access_token');
+  const token = getCookie('access_token'); ;
   const response = await axios.get(`${BASE_URL}/payments/by-current-user`, {
     headers: {
       Authorization: `Bearer ${token}`,

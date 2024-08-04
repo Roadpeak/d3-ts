@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { getCookie } from '../utils/cookiUtils';
 
 interface StoreData {
   name: string;
@@ -9,7 +10,7 @@ interface StoreData {
 }
 
 const addStore = async (storeData: StoreData, setLoading: Function, handleCloseAddStore: Function) => {
-  const token = localStorage.getItem('access_token');
+  const token = getCookie('access_token'); ;
   if (!token) {
     console.error('Access token not found in localStorage');
     return;

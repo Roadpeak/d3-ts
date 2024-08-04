@@ -6,6 +6,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { approveBooking } from '../../services/apiService';
 import { Booking } from '../../types';
+import { getCookie } from '../../utils/cookiUtils';
 
 const OwnerBookings: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -19,7 +20,7 @@ const OwnerBookings: React.FC = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const token = localStorage.getItem('access_token');
+                const token = getCookie('access_token'); ;
                 if (!token) {
                     throw new Error('No access token found');
                 }

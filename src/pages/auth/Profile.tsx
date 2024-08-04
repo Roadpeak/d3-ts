@@ -5,6 +5,7 @@ import { useAuth } from '../../utils/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { getCookie } from '../../utils/cookiUtils';
 
 const UserProfileCard: React.FC = () => {
   const { user } = useAuth();
@@ -38,7 +39,7 @@ const UserProfileCard: React.FC = () => {
       phone: profileData.phone,
     };
 
-    const token = localStorage.getItem('access_token');
+    const token = getCookie('access_token'); ;
     try {
       const response = await axios.put('https://api.discoun3ree.com/api/user/profile', updatedData, {
         headers: {

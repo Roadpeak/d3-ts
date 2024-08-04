@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
 import { FiEdit3 } from 'react-icons/fi';
+import { getCookie } from '../../utils/cookiUtils';
 
 interface DiscountData {
     id: number;
@@ -50,7 +51,7 @@ const OwnerDiscounts: React.FC = () => {
     useEffect(() => {
         const fetchDiscounts = async () => {
             try {
-                const token = localStorage.getItem('access_token');
+                const token = getCookie('access_token'); ;
                 const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/discounts`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -102,7 +103,7 @@ const OwnerDiscounts: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('access_token');
+            const token = getCookie('access_token'); ;
             setIsLoading(true);
 
             await axios.post('https://api.discoun3ree.com/api/discounts', {

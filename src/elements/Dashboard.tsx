@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         const fetchDiscounts = async () => {
             try {
-                const token = localStorage.getItem('access_token');
+                const token = getCookie('access_token'); ;
                 const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/discounts`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const token = localStorage.getItem('access_token');
+                const token = getCookie('access_token'); ;
                 if (!token) {
                     throw new Error('No access token found');
                 }

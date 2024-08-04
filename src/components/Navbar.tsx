@@ -12,6 +12,7 @@ import { BsTicketDetailed } from "react-icons/bs";
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { MdOutlineDiscount } from 'react-icons/md';
 import { Shop } from '../types';
+import { getCookie } from '../utils/cookiUtils';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,7 +27,7 @@ const Navbar: React.FC = () => {
     event.preventDefault();
     navigate(`/search?query=${searchQuery}`);
   };
-  const token = localStorage.getItem('access_token');
+  const token = getCookie('access_token'); ;
 
   useEffect(() => {
     if (token) {

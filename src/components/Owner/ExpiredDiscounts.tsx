@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import RepostModal from './RepostModal'; 
 import { toast } from 'react-toastify';
+import { getCookie } from '../../utils/cookiUtils';
 
 interface DiscountData {
     id: number;
@@ -27,7 +28,7 @@ const ExpiredDiscounts: React.FC = () => {
     useEffect(() => {
         const fetchDiscounts = async () => {
             try {
-                const token = localStorage.getItem('access_token');
+                const token = getCookie('access_token'); ;
                 const response = await axios.get(`https://api.discoun3ree.com/api/shops/${id}/discounts/expired`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -51,7 +52,7 @@ const ExpiredDiscounts: React.FC = () => {
         if (!selectedDiscount) return;
 
         try {
-            const token = localStorage.getItem('access_token');
+            const token = getCookie('access_token'); ;
             await axios.post(`https://api.discoun3ree.com/api/discounts/${selectedDiscount.id}/repost`, {
                 new_expiry_date: newExpiryDate,
             }, {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import SellerLayout from '../../elements/SellerLayout';
+import { getCookie } from '../../utils/cookiUtils';
 
 interface Field {
     name: string;
@@ -61,7 +62,7 @@ const CreateCustomForm: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('access_token');
+            const token = getCookie('access_token'); ;
             const response = await axios.post('https://api.discoun3ree.com/api/custom-forms', form, {
                 headers: {
                     Authorization: `Bearer ${token}`,

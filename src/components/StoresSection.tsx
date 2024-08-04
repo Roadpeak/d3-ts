@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SkeletonLoader from "../utils/elements/SkeletonLoader";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Category, Store } from "../types";
+import { getCookie } from "../utils/cookiUtils";
 
 const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 
@@ -14,7 +15,7 @@ const StoresSection = () => {
 
   const fetchStores = async () => {
     try {
-      const token = localStorage.getItem('access_token');
+      const token = getCookie('access_token'); ;
       const response = await axios.get<Store[]>('https://api.discoun3ree.com/api/shops', {
         headers: {
           Authorization: `Bearer ${token}`
