@@ -9,6 +9,7 @@ import moment from 'moment';
 import { Booking, DiscountData, Shop } from '../types';
 import ShopAnalytics from '../components/Owner/ShopAnalytics';
 import PointsModal from './PointsModal';
+import { getCookie } from '../utils/cookiUtils';
 
 const Dashboard: React.FC = () => {
     const [discounts, setDiscounts] = useState<DiscountData[]>([]);
