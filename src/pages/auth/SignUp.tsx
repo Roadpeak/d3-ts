@@ -18,7 +18,6 @@ const SignUp: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
-  const [signupType, setSignupType] = useState('user');
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +32,7 @@ const SignUp: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const endpoint = signupType === 'user' ? 'https://api.discoun3ree.com/api/user/register' : 'https://api.discoun3ree.com/api/seller/register';
+      const endpoint = 'https://api.discoun3ree.com/api/user/register';
       const response = await axios.post(endpoint, formData);
       const token = response.data.access_token;
       localStorage.setItem('token', token);

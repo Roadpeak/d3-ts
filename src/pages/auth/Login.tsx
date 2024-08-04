@@ -11,14 +11,13 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const [loginType, setLoginType] = useState('user');
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const endpoint = loginType === 'user' ? 'https://api.discoun3ree.com/api/user/login' : 'https://api.discoun3ree.com/api/seller/login';
+      const endpoint = 'https://api.discoun3ree.com/api/user/login';
       const response = await axios.post(endpoint, { email, password });
       const token = response.data.access_token;
       localStorage.setItem('access_token', token);
