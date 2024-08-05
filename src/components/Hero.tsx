@@ -210,7 +210,7 @@ const Hero: React.FC = () => {
         <p className='text-black font-semibold text-[20px]'>Trending Categories</p>
         <div className='w-full bg-gray-100 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7'>
             {categories.map((category, index) => (
-              <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full'>
+              <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full mb-3'>
                 <div className='cursor-pointer relative'>
                   <div className='image-container'>
                     <img src={category.image_url} alt={category.name} className='w-[90%] h-fit m-auto rounded-md mt-3 object-cover' />
