@@ -82,18 +82,6 @@ const AppRoutes: React.FC = () => {
       <Route path='/my-bookings' element={<Bookings />} />
       <Route path='/discount/:id/booking' element={<BookingPage />} />
 
-      {/* <Route path='/store/:id/home' element={<OwnerHome />} />
-      <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />
-      <Route path='/store/:id/bookings' element={<OwnerBookings />} />
-      <Route path='/store/:id/reviews' element={<OwnerReviews />} />
-      <Route path='/store/:id/socials' element={<SocialLinksPage />} />
-      <Route path='/store/:id/unverified-discounts' element={<OwnerUnverified />} />
-      <Route path='/discounts/edit/:id' element={<EditableDiscountComponent />} />
-      <Route path='/store/:id/discounts/expired' element={<ExpiredDiscounts />} />
-      <Route path='/store/:id/services' element={<ServicesList />} />
-      <Route path='/store/:id/calendar' element={<ShopCalendar />} />
-      <Route path='/store/:id/custom-appointments' element={<CreateCustomForm />} /> */}
-
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />
       <Route path='/manage/stores' element={<ManageStores />} />

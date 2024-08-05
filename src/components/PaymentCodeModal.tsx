@@ -23,7 +23,7 @@ const PaymentCodeModal: React.FC<PaymentCodeModalProps> = ({ payments, onClose, 
         <h2 className="text-xl font-bold mb-4 text-center">Select Voucher Code</h2>
 
         {payments.length === 0 && (
-          <div className="text-center text-gray-600 mb-4">
+          <div className="text-center font-light text-[14px] text-gray-600 mb-4">
             No Voucher codes available. Please purchase one to continue.
           </div>
         )}
@@ -52,18 +52,18 @@ const PaymentCodeModal: React.FC<PaymentCodeModalProps> = ({ payments, onClose, 
 
         <div className="flex justify-end mt-4 space-x-2">
           <button
-            onClick={handleBookClick}
-            className={`px-4 py-2 rounded-md font-medium ${selectedPaymentCode ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}`}
-            disabled={!selectedPaymentCode || payments.length === 0}
-          >
-            Book Slot
-          </button>
-          <button
             onClick={onClose}
-            className="px-4 py-2 rounded-md font-medium bg-gray-500 text-white hover:bg-gray-600"
+            className="mr-2 text-primary text-[14px] font-medium "
           >
             Close
           </button>
+          <button
+            onClick={handleBookClick}
+            className={`px-6 py-1.5 rounded-md font-medium ${selectedPaymentCode ? 'bg-primary text-white' : 'bg-gray-200 text-gray-600 cursor-not-allowed'}`}
+            disabled={!selectedPaymentCode || payments.length === 0}
+          >
+            Book Slot
+          </button>          
         </div>
       </div>
     </div>

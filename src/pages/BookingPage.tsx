@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Payment } from '../types';
+import { getCookie } from '../utils/cookiUtils';
 
 const BookingPage: React.FC = () => {
   const [timeSlots, setTimeSlots] = useState<any[]>([]);
@@ -40,13 +41,13 @@ const BookingPage: React.FC = () => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const accessToken = localStorage.getItem('access_token');
+        const accessToken = getCookie('access_token');;
         if (!accessToken) {
           console.error('Access token not found in localStorage');
           return;
         }
 
-        const response = await axios.get('https://api.discoun3ree.com/api/payments/by-current-user', {
+        const response = await axios.get(`https://api.discoun3ree.com/api/payments/user/${user?.id}/discount/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
