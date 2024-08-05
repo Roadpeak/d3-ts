@@ -3,13 +3,16 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { fetchDiscounts, fetchRandomDiscounts } from '../services/discountService';
-import { Discount } from '../types';
+import { Category, Discount } from '../types';
 import { FaAngleLeft, FaChevronRight } from 'react-icons/fa';
 import CategorySlider from '../utils/elements/CategorySlider';
 import Banner from '../utils/elements/Banner';
+import axios from 'axios';
 
 const Hero: React.FC = () => {
   const [discounts, setDiscounts] = useState<Discount[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [slidesToShow, setSlidesToShow] = useState(1);
   const placeholderImage = 'https://imgs.search.brave.com/1qOy-0Ymw2K6EdSAI4515c9T4mh-eoIQbDsp-koZkLw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA1Lzk3LzQ3Lzk1/LzM2MF9GXzU5NzQ3/OTU1Nl83YmJRN3Q0/WjhrM3hiQWxvSEZI/VmRaSWl6V0sxUGRP/by5qcGc';
 
@@ -24,6 +27,31 @@ const Hero: React.FC = () => {
     };
 
     fetchDiscountData();
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const storedCategories = localStorage.getItem('cachedCategories');
+        if (storedCategories) {
+          setCategories(JSON.parse(storedCategories));
+        }
+
+        const response = await axios.get<Category[]>('https://api.discoun3ree.com/api/random-categories');
+        setCategories(response.data);
+        localStorage.setItem('cachedCategories', JSON.stringify(response.data));
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+
+    const interval = setInterval(fetchCategories, 180000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -179,8 +207,21 @@ const Hero: React.FC = () => {
         {renderDiscounts()}
       </div>
       <div className="flex mt-3 flex-col">
-        <p className='text-black font-semibold text-[20px]'>Top Categories</p>
-        <CategorySlider />
+        <p className='text-black font-semibold text-[20px]'>Trending Categories</p>
+        <div className='w-full bg-gray-100 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7'>
+            {categories.map((category, index) => (
+              <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full'>
+                <div className='cursor-pointer relative'>
+                  <div className='image-container'>
+                    <img src={category.image_url} alt={category.name} className='w-[90%] h-fit m-auto rounded-md mt-3 object-cover' />
+                  </div>
+                  <div className='absolute bottom-0 left-0 right-0 p-2 text-center font-medium w-fit mx-auto text-[15px] text-white'>
+                    <span className="bg-black bg-opacity-50 px-3 py-1 rounded-md">{category.name}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+        </div>
       </div>
     </div>
   );
