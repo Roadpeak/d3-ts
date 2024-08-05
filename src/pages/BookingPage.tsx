@@ -41,7 +41,7 @@ const BookingPage: React.FC = () => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const accessToken = getCookie('access_token');;
+        const accessToken = getCookie('access_token');
         if (!accessToken) {
           console.error('Access token not found in localStorage');
           return;

@@ -4,6 +4,7 @@ import { useAuth } from '../utils/context/AuthContext';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Booking, Appointment } from '../types';
+import { getCookie } from '../utils/cookiUtils';
 
 const Bookings: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -18,7 +19,7 @@ const Bookings: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accessToken = localStorage.getItem('access_token');
+        const accessToken = getCookie('access_token');
         if (!accessToken) {
           console.error('Access token not found in localStorage');
           return;
