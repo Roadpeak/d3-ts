@@ -1,11 +1,11 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegUser, FaSearch } from "react-icons/fa";
 import { FiUser } from 'react-icons/fi';
 import { CiBookmarkPlus } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
 import logo from '../assets/icon2.png'
-import { IoIosMenu, IoMdAdd } from 'react-icons/io';
+import { IoMdAdd } from 'react-icons/io';
 import fetchOwnerStores from '../services/fetchownerStores';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BsTicketDetailed } from "react-icons/bs";
@@ -130,7 +130,7 @@ const Navbar: React.FC = () => {
                   <></>
                 )}
                 {user && user.user_type === 'seller' && stores.length !== 0 ? (
-                  <Link to={stores.length > 0 ? `/store/${stores[0]?.id}/home` : '#'} className=''>
+                  <Link target='_blank' to={stores.length > 0 ? `https://merchants.discoun3ree.com/merchant/${stores[0]?.id}/dashboard` : '#'} className=''>
                     <button
                       className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
                     >

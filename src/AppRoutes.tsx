@@ -25,35 +25,23 @@ import ManageStores from './components/admin/Stores';
 import ManageDiscounts from './components/admin/ManageDiscounts';
 import Users from './components/admin/Users';
 import Tickets from './components/admin/Tickets';
-import OwnerHome from './components/Owner/OwnerHome';
-import OwnerDiscounts from './components/Owner/OwnerDiscounts';
-import OwnerBookings from './components/Owner/OwnerBookings';
 import BookingPage from './pages/BookingPage';
 import Bookings from './pages/Bookings';
-import OwnerUnverified from './components/Owner/OwnerUnverified';
 import CrmLogin from './pages/auth/CrmLogin';
 import UnverifiedDiscounts from './components/admin/UnverifiedDiscounts';
 import ManagePayments from './components/admin/Payments';
 import Appointments from './components/admin/Appointments';
 import MyTickets from './pages/MyTickets';
-import OwnerReviews from './components/Owner/OwnerReviews';
 import ChatPage from './components/chat/ChatPage';
-import EditableDiscountComponent from './components/Owner/EditableDiscountComponent';
-import ShopDetaisEdit from './pages/ShopDetailsEdit';
 import ResetPassword from './pages/auth/ResetPassword';
 import RequestPasswordReset from './pages/auth/RequestPasswordReset';
 import CategoryList from './components/admin/CategoryList';
 import VerifyOtp from './pages/auth/VerifyOtp';
-import SocialLinksPage from './components/Owner/SocialLinksPage';
 import Vouchers from './pages/Vouchers';
 import EventForm from './components/EventForm';
-import ServicesList from './components/Owner/ServicesList';
 import ServiceDetailsPage from './pages/ServiceDetailsPage';
 import Services from './components/admin/Services';
 import ServicesPage from './pages/ServicesPage';
-import ShopCalendar from './components/ShopCalendar';
-import ExpiredDiscounts from './components/Owner/ExpiredDiscounts';
-import CreateCustomForm from './components/Owner/CreateCustomForm';
 import PressPage from './pages/company/PressPage';
 import BrandGuidelinesPage from './pages/company/BrandGuidelinesPage';
 import FundPage from './pages/company/FundPage';
@@ -65,7 +53,6 @@ const AppRoutes: React.FC = () => {
       <Route path='/' element={<Home />} />
       <Route path='/merchants' element={<Stores />} />
       <Route path='/stores/:id/view' element={<StoreView />} />
-      <Route path='/stores/edit/:id' element={<ShopDetaisEdit />} />
       <Route path='/discount/:slug/:id/see-details' element={<ProductView />} />
       <Route path='/services/:slug/:id/see-details' element={<ServiceDetailsPage />} />
       <Route path='/:slug/:id/checkout' element={<Checkout />} />
@@ -95,7 +82,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/my-bookings' element={<Bookings />} />
       <Route path='/discount/:id/booking' element={<BookingPage />} />
 
-      <Route path='/store/:id/home' element={<OwnerHome />} />
+      {/* <Route path='/store/:id/home' element={<OwnerHome />} />
       <Route path='/store/:id/discounts' element={<OwnerDiscounts />} />
       <Route path='/store/:id/bookings' element={<OwnerBookings />} />
       <Route path='/store/:id/reviews' element={<OwnerReviews />} />
@@ -105,7 +92,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/store/:id/discounts/expired' element={<ExpiredDiscounts />} />
       <Route path='/store/:id/services' element={<ServicesList />} />
       <Route path='/store/:id/calendar' element={<ShopCalendar />} />
-      <Route path='/store/:id/custom-appointments' element={<CreateCustomForm />} />
+      <Route path='/store/:id/custom-appointments' element={<CreateCustomForm />} /> */}
 
       <Route path='/crm/login' element={<CrmLogin />} />
       <Route path='/manage' element={<AdminDash />} />
