@@ -186,12 +186,77 @@ const StoreView: React.FC = () => {
     setShowCalendar(true);
   };
 
+  const colors = ['bg-red-100', 'bg-blue-100', 'bg-green-100', 'bg-yellow-100', 'bg-purple-100'];
+
+  const getRandomColor = () => {
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
   return (
     <div className='w-full h-full scroll-smooth flex bg-gray-100 flex-col'>
       <Navbar />
       <div className="flex flex-col bg-gray-100">
+        <div className="flex flex-col md:flex-row w-full bg-white px-[5%] border-t border-b border-gray-200 py-4 justify-between">
+          <div className="flex gap-2 items-center">
+            <div className="relative w-24 h-24">
+              <img
+                src={store?.image_url || placeholderImage}
+                alt="Profile"
+                className="w-full h-full object-cover rounded-full border-4 border-primary"
+              />
+              <div className="absolute inset-0 border border-black rounded-full z-10" style={{ clipPath: 'polygon(50% 0%, 60% 20%, 75% 20%, 85% 50%, 75% 80%, 60% 80%, 50% 100%, 40% 80%, 25% 80%, 15% 50%, 25% 20%, 40% 20%)' }}></div>
+            </div>
+
+            <div className="flex flex-col">
+              <p className="font-medium text-[20px] text-black">
+                {store?.name}
+              </p>
+              <a href={`tel:${store?.seller_phone}`} className="text-gray-500 font-light text-[13px]">{store?.seller_phone}</a>
+              <p className="text-[15px] font-light text-gray-600">{store?.location}</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap mt-4 md:mt-0 items-center gap-2">
+            <div className="flex flex-col border-r pr-4 border-gray-300">
+              <p className="text-[13px] font-light text-gray-500 capitalize">social media</p>
+              {socialLinks.length === 0 ? (
+                ''
+              ) : (
+                <div className='flex items-center gap-1'>
+                  {socialLinks.map(link => (
+                    <div key={link.id} className="flex flex-col rounded-md">
+                      <div className='flex flex-col'>
+                        <a href={link.url} target='_blank' className={`border-b border-gray-200 ${getRandomColor()} w-8 h-8 flex items-center justify-center text-center rounded-full`}>
+                          {getIcon(link.url) && (
+                            <FontAwesomeIcon icon={getIcon(link.url) as IconDefinition} className="text-black" />
+                          )}
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex gap-2 border-gray-300 h-fit">
+              {isFollowing ? (
+                <button onClick={handleUnfollow} className="bg-primary px-6 py-1.5 text-white font-medium text-[14px] rounded-full">
+                  Unfollow ({followers?.length})
+                </button>
+              ) : (
+                <button onClick={handleFollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
+                    Follow ({followers?.length})
+                </button>
+              )}
+              <button onClick={openModal} className="flex items-center gap-1 text-white font-medium rounded-full px-6 py-1.5 bg-primary text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
+              <SendMessageModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                sellerId={store?.seller_id ?? null}
+              />
+            </div>
+          </div>
+        </div>
         <div className="flex flex-col w-full px-[5%] py-[2%] text-black gap-[2%]">
-          <div className="w-full flex bg-white md:shadow-sm h-auto justify-between p-2 rounded-md">
+          {/* <div className="w-full flex bg-white md:shadow-sm h-auto justify-between p-2 rounded-md">
             <div className="flex flex-col md:flex-row h-full md:items-center gap-4">
               <img
                 src={store?.image_url || placeholderImage}
@@ -211,24 +276,7 @@ const StoreView: React.FC = () => {
                     <MdOutlineLightMode />
                     about store
                   </button>
-                )}
-                {socialLinks.length === 0 ? (
-                  ''
-                ) : (
-                  <div className='flex items-center gap-1'>
-                    {socialLinks.map(link => (
-                      <div key={link.id} className="flex flex-col rounded-md ">
-                        <div className='flex flex-col'>
-                          <a href={link.url} target='_blank' className="border-b border-gray-200">
-                            {getIcon(link.url) && (
-                              <FontAwesomeIcon icon={getIcon(link.url) as IconDefinition} className="mr-1" />
-                            )}
-                          </a>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                )}                
                 <div className='flex md:hidden mt-1'>
                   {isFollowing ? (
                     <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
@@ -242,27 +290,8 @@ const StoreView: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="flex gap-2 items-center ">
-              <button onClick={openModal} className="hidden md:flex items-center gap-1 text-gray-600 text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
-              <SendMessageModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                sellerId={store?.seller_id ?? null}
-              />
-              <span className="hidden md:block">|</span>
-              <div className='hidden md:flex'>
-                {isFollowing ? (
-                  <button onClick={handleUnfollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
-                    Unfollow
-                  </button>
-                ) : (
-                  <button onClick={handleFollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
-                    Follow
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
+            
+          </div> */}
           <div className="w-full mt-4 rounded-md">
             <div className="flex items-center gap-4 border-b border-gray-300 mb-4 gap-4">
               <button

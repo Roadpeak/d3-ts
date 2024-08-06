@@ -36,7 +36,9 @@ const Navbar: React.FC = () => {
   }, [token]);
 
   const logoutUser = () => {
-    localStorage.removeItem('access_token');
+    const domain = window.location.hostname === 'localhost' ? '' : '; domain=.discoun3ree.com';
+    document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;${domain}; secure; SameSite=None`;
+    navigate('/');
     window.location.reload();
   };
 
