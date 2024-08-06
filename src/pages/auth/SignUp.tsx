@@ -82,7 +82,7 @@ const SignUp: React.FC = () => {
             ))}
             <div className="flex w-full gap-[2%] items-center">
               <div className="mb-1 w-full">
-                <label htmlFor="first_name" className="block text-[14px] text-black">First Name <span className='text-primary '>*</span></label>
+                <label htmlFor="first_name" className="text-[14px] text-black">First Name <span className='text-primary '>*</span></label>
                 <input
                   type="text"
                   id="first_name"
@@ -90,12 +90,12 @@ const SignUp: React.FC = () => {
                   placeholder='Enter first name'
                   value={formData.first_name}
                   onChange={handleChange}
-                  className="mt-1 p-2 text-[13px] block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
               </div>
               <div className="mb-1 w-full">
-                <label htmlFor="last_name" className="block text-[14px] text-black">Last name <span className='text-primary '>*</span></label>
+                <label htmlFor="last_name" className="text-[14px] text-black">Last name <span className='text-primary '>*</span></label>
                 <input
                   type="text"
                   id="last_name"
@@ -103,13 +103,13 @@ const SignUp: React.FC = () => {
                   value={formData.last_name}
                   placeholder='Enter last name'
                   onChange={handleChange}
-                  className="mt-1 p-2 text-[13px] block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
               </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-[14px] text-black">Email <span className='text-primary '>*</span></label>
+              <label htmlFor="email" className="text-[14px] text-black">Email <span className='text-primary '>*</span></label>
               <input
                 type="email"
                 id="email"
@@ -117,12 +117,12 @@ const SignUp: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="phone" className="block text-[14px] text-black">Phone <span className='text-primary '>*</span></label>
+              <label htmlFor="phone" className="text-[14px] text-black">Phone <span className='text-primary '>*</span></label>
               <input
                 type="number"
                 id="phone"
@@ -130,13 +130,13 @@ const SignUp: React.FC = () => {
                 placeholder='Enter phone number'
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-1 p-2 block text-[13px] w-full rounded border border-gray-300 focus:border-primary outline-none"
+                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
             <div className="flex items-center w-full gap-2">
               <div className="relative mb-1 w-full">
-                <label htmlFor="password" className="block text-[14px] text-black">
+                <label htmlFor="password" className="text-[14px] text-black">
                   Password <span className="text-primary">*</span>
                 </label>
                 <input
@@ -146,7 +146,7 @@ const SignUp: React.FC = () => {
                   value={formData.password}
                   placeholder="Type your password"
                   onChange={handleChange}
-                  className="mt-1 p-2 block w-full text-[13px] rounded border border-gray-300 focus:border-primary outline-none"
+                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
                 <button
@@ -158,7 +158,7 @@ const SignUp: React.FC = () => {
                 </button>
               </div>
               <div className="relative mb-1 w-full">
-                <label htmlFor="password_confirmation" className="block text-[14px] text-black">
+                <label htmlFor="password_confirmation" className="text-[14px] text-black">
                   Confirm Password <span className="text-primary">*</span>
                 </label>
                 <input
@@ -168,7 +168,7 @@ const SignUp: React.FC = () => {
                   value={formData.password_confirmation}
                   placeholder="Confirm your password"
                   onChange={handleChange}
-                  className="mt-1 p-2 block w-full text-[13px] rounded border border-gray-300 focus:border-primary outline-none"
+                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
                 <button

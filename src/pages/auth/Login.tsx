@@ -71,7 +71,7 @@ const LoginPage: React.FC = () => {
           <form onSubmit={handleSubmit}>
             {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-black">Email</label>
+              <label htmlFor="email" className="text-[14px] text-black">Email</label>
               <input
                 type="email"
                 id="email"
@@ -79,12 +79,12 @@ const LoginPage: React.FC = () => {
                 placeholder='Enter email address'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
             <div className="relative">
-              <label htmlFor="password" className="block text-sm font-medium text-black">Password</label>
+              <label htmlFor="password" className="text-[14px] text-black">Password</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
@@ -92,7 +92,7 @@ const LoginPage: React.FC = () => {
                 placeholder='Enter password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
               <button
@@ -105,7 +105,7 @@ const LoginPage: React.FC = () => {
             </div>
             <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-primary">Sign Up</Link></p>
             <div className="mb-4">
-              <button type="submit" className="w-full bg-primary text-white p-2 rounded hover:bg-primary">
+              <button type="submit" className="w-full bg-primary text-white py-1.5 rounded hover:bg-primary">
                 {loading ? <ClipLoader color="#fff" /> : 'Log in'}
               </button>
             </div>
