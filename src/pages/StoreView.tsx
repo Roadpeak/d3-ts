@@ -242,7 +242,7 @@ const StoreView: React.FC = () => {
                   Unfollow ({followers?.length})
                 </button>
               ) : (
-                <button onClick={handleFollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
+                  <button onClick={handleFollow} className="bg-primary px-6 py-1.5 text-white font-medium text-[14px] rounded-full">
                     Follow ({followers?.length})
                 </button>
               )}
