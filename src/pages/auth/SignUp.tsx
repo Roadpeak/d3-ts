@@ -57,7 +57,7 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="flex flex border bg-gray-100 items-center justify-center min-h-screen">
+    <div className="flex border bg-gray-100 items-center justify-center min-h-screen">
       <div className="w-fit bg-white h-fit rounded-md flex flex-col md:flex-row">
         <div className="bg-white p-8 rounded-lg w-full md:w-1/2">
           <div className="text-center mb-2">
@@ -94,7 +94,7 @@ const SignUp: React.FC = () => {
                   placeholder='Enter first name'
                   value={formData.first_name}
                   onChange={handleChange}
-                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                  className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
               </div>
@@ -107,7 +107,7 @@ const SignUp: React.FC = () => {
                   value={formData.last_name}
                   placeholder='Enter last name'
                   onChange={handleChange}
-                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                  className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
               </div>
@@ -121,7 +121,7 @@ const SignUp: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
@@ -134,7 +134,7 @@ const SignUp: React.FC = () => {
                 placeholder='Enter phone number'
                 value={formData.phone}
                 onChange={handleChange}
-                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
@@ -150,7 +150,7 @@ const SignUp: React.FC = () => {
                   value={formData.password}
                   placeholder="Type your password"
                   onChange={handleChange}
-                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                  className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
                 <button
@@ -172,7 +172,7 @@ const SignUp: React.FC = () => {
                   value={formData.password_confirmation}
                   placeholder="Confirm your password"
                   onChange={handleChange}
-                  className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                  className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                   required
                 />
                 <button
@@ -196,13 +196,13 @@ const SignUp: React.FC = () => {
             <div className="flex items-center w-full gap-2">
               <button
                 type="submit"
-                className="bg-primary w-full text-white py-2 px-4 rounded-md transition duration-300"
+                className="bg-primary w-full text-white py-2 px-4 rounded-full transition duration-300"
               >
                 {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
               </button>
               {/* <GoogleSignInButton /> */}
             </div>
-            <p className="text-[14px] text-gray-700 text-end font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-primary">Sign In</Link></p>
+            <p className="text-[14px] text-gray-700 font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-primary">Sign In</Link></p>
           </form>
         </div>
         <div className="w-1/2 hidden md:flex items-center justify-center">

@@ -31,14 +31,14 @@ const CrmLogin: React.FC = () => {
     }
   };
 
-  const isAuthenticated = () => {
-    const token = localStorage.getItem('access_token');
-    return !!token; 
-  };
+  // const isAuthenticated = () => {
+  //   const token = localStorage.getItem('access_token');
+  //   return !!token; 
+  // };
 
-  if (isAuthenticated()) {
-    return <Navigate to="/manage" />;
-  }
+  // if (isAuthenticated()) {
+  //   return <Navigate to="/merchant/dashboard" />;
+  // }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
@@ -46,12 +46,12 @@ const CrmLogin: React.FC = () => {
         <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
           <div className="text-center mb-8">
             <Link to='/' className="text-primary text-[20px] font-medium lowercase">D-THREE</Link>
-            <h1 className="text-2xl font-semibold text-black">Admin Sign In</h1>
+            <h1 className="text-2xl font-semibold text-black">Manger Log In</h1>
           </div>
           <form onSubmit={handleSubmit}>
             {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-black">Email</label>
+              <label htmlFor="email" className="text-[14px] text-black">Email</label>
               <input
                 type="email"
                 id="email"
@@ -59,12 +59,12 @@ const CrmLogin: React.FC = () => {
                 placeholder='Enter email address'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
             <div className="">
-              <label htmlFor="password" className="block text-sm font-medium text-black">Password</label>
+              <label htmlFor="password" className="text-[14px] text-black">Password</label>
               <input
                 type="password"
                 id="password"
@@ -72,12 +72,12 @@ const CrmLogin: React.FC = () => {
                 placeholder='Enter password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 p-2 block w-full rounded border border-gray-300 focus:border-primary outline-none"
+                className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
             <div className="my-4">
-              <button type="submit" className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600">{loading ? <ClipLoader color="#fff" /> : 'Log in'}</button>
+              <button type="submit" className="w-full bg-primary text-white py-1.5 rounded-full">{loading ? <ClipLoader color="#fff" /> : 'Log in'}</button>
             </div>
           </form>
         </div>

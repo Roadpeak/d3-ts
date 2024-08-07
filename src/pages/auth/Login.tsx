@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex border bg-gray-100 items-center justify-center min-h-screen">
+    <div className="flex border bg-gray-100 items-center justify-center min-h-screen">
       <div className="w-fit bg-white h-fit rounded-md flex flex-col md:flex-row">
         <div className="bg-white p-8 rounded-lg w-full md:w-1/2 ">
           <div className="text-center mb-2">
@@ -79,7 +79,7 @@ const LoginPage: React.FC = () => {
                 placeholder='Enter email address'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
             </div>
@@ -92,7 +92,7 @@ const LoginPage: React.FC = () => {
                 placeholder='Enter password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="p-3 block w-full text-[13px] text-gray-600 font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
+                className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
                 required
               />
               <button
@@ -105,7 +105,7 @@ const LoginPage: React.FC = () => {
             </div>
             <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-primary">Sign Up</Link></p>
             <div className="mb-4">
-              <button type="submit" className="w-full bg-primary text-white py-1.5 rounded hover:bg-primary">
+              <button type="submit" className="w-full bg-primary text-white py-1.5 rounded-full hover:bg-primary">
                 {loading ? <ClipLoader color="#fff" /> : 'Log in'}
               </button>
             </div>
