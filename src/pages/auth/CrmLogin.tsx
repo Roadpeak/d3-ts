@@ -16,7 +16,11 @@ const CrmLogin: React.FC = () => {
     try {
       const response = await axios.post('https://api.discoun3ree.com/api/admin/login', { email, password });
       const token = response.data.access_token;
-      localStorage.setItem('access_token', token);
+      if (window.location.hostname === 'localhost') {
+        document.cookie = `access_token=${token}; path=/`;
+      } else {
+        document.cookie = `access_token=${token}; path=/; domain=.discoun3ree.com; secure; SameSite=None`;
+      }
       setError('');
       navigate('/manage'); 
       window.location.reload();
