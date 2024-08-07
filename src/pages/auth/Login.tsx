@@ -113,7 +113,7 @@ const LoginPage: React.FC = () => {
           <p className="text-sm text-gray-700 text-end -mt-2">Forgot your password? <Link to='/request-password-reset' className="text-primary">Reset it here</Link></p>
         </div>
         <div className="hidden md:flex justify-center items-center ">
-          <img src="https://imgs.search.brave.com/VikpyiN7OTH_xj6mfR6zYxy8_mHlGuCGveLv7wIAg14/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzUzLzMyLzc2/LzM2MF9GXzQ1MzMy/NzYyMF9mbExTaFJD/VU50cW9WTUszTnlm/SmRLSTFVblEzRHhC/eS5qcGc" alt="Illustration" />
+          <img src="https://imgs.search.brave.com/LQmfpZT3v7qLnsekfPnMdGaxq1coIuaz9LJoyiGtpzw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTI4/MTE1MDA2MS92ZWN0/b3IvcmVnaXN0ZXIt/YWNjb3VudC1zdWJt/aXQtYWNjZXNzLWxv/Z2luLXBhc3N3b3Jk/LXVzZXJuYW1lLWlu/dGVybmV0LW9ubGlu/ZS13ZWJzaXRlLWNv/bmNlcHQuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPTlIV1N1/QTlJYVU0by1DSzZm/QUxCUzVlYU8xdWJu/c00wOEVPWXdnYndH/Qm89" alt="Illustration" />
         </div>
       </div>
     </div>
