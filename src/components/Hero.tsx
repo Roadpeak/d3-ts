@@ -208,16 +208,14 @@ const Hero: React.FC = () => {
       </div>
       <div className="flex mt-3 flex-col">
         <p className='text-black font-semibold text-[20px]'>Trending Categories</p>
-        <div className='w-full bg-gray-100 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7'>
+        <div className='w-full bg-gray-100 gap-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7'>
             {categories.map((category, index) => (
-              <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full mb-3'>
-                <div className='cursor-pointer relative'>
-                  <div className='image-container'>
-                    <img src={category.image_url} alt={category.name} className='w-[90%] h-fit m-auto rounded-md mt-3 object-cover' />
+              <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full mb-2 h-full'>
+                <div className='cursor-pointer flex items-center justify-center flex-col bg-gray-50 p-4 rounded-md'>
+                  <div className='image-container bg-gray-50'>
+                    <img src={category.image_url || placeholderImage} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
                   </div>
-                  <div className='absolute bottom-0 left-0 right-0 p-2 text-center font-medium w-fit mx-auto text-[15px] text-white'>
-                    <span className="bg-black bg-opacity-50 px-3 py-1 rounded-md">{category.name}</span>
-                  </div>
+                  <span className="mx-auto w-full text-center text-[14px] text-gray-600 font-light truncate mt-2">{category.name}</span>
                 </div>
               </a>
             ))}

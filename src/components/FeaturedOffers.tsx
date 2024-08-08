@@ -52,16 +52,6 @@ const FeaturedOffers: React.FC = () => {
     }
   };
 
-  const handleGetOffer = (discount: Discount) => {
-    navigate(`/${discount.slug}/${discount.id}/checkout`);
-    window.location.reload();
-  };
-
-  const handleSeeDetails = (discount: Discount) => {
-    navigate(`/discount/${discount.id}/see-details`);
-    window.location.reload();
-  };
-
   return (
     <div className='w-full px-[5%] flex flex-col bg-gray-100 pb-4'>
       <p className="text-black font-semibold mb-2 text-[20px]">

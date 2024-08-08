@@ -116,7 +116,7 @@ const StoresSection = () => {
                 <div className='image-container bg-gray-50'>
                   <img src={category.image_url || placeholderImage} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
                 </div>
-                <span className="text-black mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
+                <span className="mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
               </div>
             </a>
           ))}
