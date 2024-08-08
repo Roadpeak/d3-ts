@@ -256,44 +256,8 @@ const StoreView: React.FC = () => {
           </div>
         </div>
         <div className="flex flex-col w-full px-[5%] py-[2%] text-black gap-[2%]">
-          {/* <div className="w-full flex bg-white md:shadow-sm h-auto justify-between p-2 rounded-md">
-            <div className="flex flex-col md:flex-row h-full md:items-center gap-4">
-              <img
-                src={store?.image_url || placeholderImage}
-                alt="Store logo"
-                className="w-[150px] md:w-[100px] rounded md:rounded-full h-full md:justify-center md:mx-auto flex items-center"
-              />
-              <div className="flex flex-col items-start justify-start">
-                <p className="text-center text-[20px] font-medium">
-                  {store?.name}
-                </p>
-                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><CiLocationOn /> {store?.location}</p>
-                <p className="lowercase text-[14px] flex items-center gap-2 text-gray-600 cursor-pointer" onClick={() => setOpen(!open)}><LuUsers2 /> {followers?.length} followers</p>
-                <a href={`tel:${store?.seller_phone}`} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><MdOutlineLocalPhone /> {store?.seller_phone}</a>
-                <button onClick={openModal} className="lowercase text-[14px] flex items-center gap-2 text-gray-600"><IoChatboxEllipsesOutline />Chat </button>
-                {store?.description !== null && (
-                  <button onClick={() => setDes(!des)} className="lowercase text-[14px] flex items-center gap-2 text-gray-600">
-                    <MdOutlineLightMode />
-                    about store
-                  </button>
-                )}                
-                <div className='flex md:hidden mt-1'>
-                  {isFollowing ? (
-                    <button onClick={handleUnfollow} className="bg-red-500 px-4 py-1.5 text-white rounded-md">
-                      Unfollow
-                    </button>
-                  ) : (
-                    <button onClick={handleFollow} className="bg-primary px-4 py-1.5 text-white rounded-md">
-                      Follow
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-            
-          </div> */}
           <div className="w-full mt-4 rounded-md">
-            <div className="flex items-center gap-4 border-b border-gray-300 mb-4 gap-4">
+            <div className="flex items-center border-b border-gray-300 mb-4 gap-4">
               <button
                 onClick={() => setView('offers')}
                 className={`${view === 'offers' ? 'border-b-[2px] border-primary text-primary font-medium' : 'text-gray-600'}`}

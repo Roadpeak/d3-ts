@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
           <>
             {user ? (
               <button onClick={() => setOpen(!open)} className="flex items-center gap-2 hover:text-primary cursor-pointer">
-                <p className="hidden md:flex">Hi, {user?.first_name}</p> <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+                <p className="hidden md:flex text-gray-600 font-light text-[14px]">Hi, {user?.first_name}</p> <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
               </button>
             ) : (
               <>
