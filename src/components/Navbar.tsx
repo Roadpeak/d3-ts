@@ -44,20 +44,20 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <div className='flex w-full py-2 px-[5%] items-center justify-between items-center bg-gray-50 '>
+      <div className='flex w-full py-2 px-[5%] justify-between items-center bg-gray-50 '>
         <img className='w-[80px] hidden md:flex' src={logo} alt="" />
-        <img className="w-[70px] h-full -mx-6 flex md:hidden" src={logo} />
+        <img className="w-[60px] h-full -mx-6 flex md:hidden" src={logo} />
         <div className="flex items-center gap-[30px] w-fit px-4">
           <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input
               type="text"
               placeholder='Search'
-              className='outline-none py-1 w-fit bg-transparent'
+              className='outline-none py-1 w-fit text-[14px] font-light bg-transparent'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="outline-none" type='submit'>
-              <FaSearch size={20} className='text-gray-600 font-light text-[15px]' />
+              <FaSearch className='text-gray-600 font-light text-[15px]' />
             </button>
           </form>
         </div>
@@ -162,11 +162,11 @@ const Navbar: React.FC = () => {
           </>
         </div>
       </div>
-      <div className="bg-primary flex items-center justify-center gap-2 py-2 ">
-        <Link to={`/`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Home</Link>
-        <Link to={`/merchants`} className='text-gray-50 px-4 hover:text-white cursor-pointer font-medium '>Merchants</Link>
-        <Link to={`/deals`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer font-medium '>Deals</Link>
-        <Link to={`/services`} className='text-gray-50 px-4 hover:text-whitw cursor-pointer font-medium '>Services</Link>
+      <div className="bg-primary flex items-center justify-center gap-1 py-2 ">
+        <Link to={`/`} className='text-gray-50 px-2 cursor-pointer font-medium '>Home</Link>
+        <Link to={`/merchants`} className='text-gray-50 px-2 cursor-pointer font-medium '>Stores</Link>
+        <Link to={`/deals`} className='text-gray-50 px-2 cursor-pointer font-medium '>Deals</Link>
+        <Link to={`/services`} className='text-gray-50 px-2 cursor-pointer font-medium '>Services</Link>
       </div>
     </>
   )
