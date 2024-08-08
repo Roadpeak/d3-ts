@@ -246,7 +246,7 @@ const StoreView: React.FC = () => {
                     Follow ({followers?.length})
                 </button>
               )}
-              <button onClick={openModal} className="flex items-center gap-1 text-white font-medium rounded-full px-6 py-1.5 bg-primary text-[15px]">Chat <IoChatboxEllipsesOutline /></button>
+              <button onClick={openModal} className="flex items-center gap-1 text-white font-medium rounded-full px-6 py-1.5 bg-primary text-[15px]">Chat <IoChatboxEllipsesOutline className='hidden md:flex' /></button>
               <SendMessageModal
                 isOpen={isModalOpen}
                 onClose={closeModal}

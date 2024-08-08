@@ -207,7 +207,7 @@ const Hero: React.FC = () => {
         {renderDiscounts()}
       </div>
       <div className="flex mt-3 flex-col">
-        <p className='text-black font-semibold text-[20px]'>Trending Categories</p>
+        <p className='text-black font-semibold text-[20px]'>Trending searches</p>
         <div className='w-full bg-gray-100 gap-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7'>
             {categories.map((category, index) => (
               <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full mb-2 h-full'>
