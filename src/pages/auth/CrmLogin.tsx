@@ -31,15 +31,6 @@ const CrmLogin: React.FC = () => {
     }
   };
 
-  // const isAuthenticated = () => {
-  //   const token = localStorage.getItem('access_token');
-  //   return !!token; 
-  // };
-
-  // if (isAuthenticated()) {
-  //   return <Navigate to="/merchant/dashboard" />;
-  // }
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="w-fit md:border border-primary md:shadow-md h-fit rounded-md flex flex-col md:flex-row">

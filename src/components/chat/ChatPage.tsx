@@ -7,6 +7,7 @@ import { FaChevronLeft, FaRegUserCircle, FaSearch, FaUser } from 'react-icons/fa
 import { IoFilterSharp, IoHomeOutline, IoSendOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
 import { MdAttachFile } from 'react-icons/md';
+import { getCookie } from '../../utils/cookiUtils';
 
 interface Message {
     id: number;
@@ -38,6 +39,7 @@ const ChatPage: React.FC = () => {
     const messageEndRef = useRef<HTMLDivElement | null>(null);
 
     const [isMobileView, setIsMobileView] = useState<boolean>(window.innerWidth <= 768);
+    const accessToken = getCookie('access_token');
 
     useEffect(() => {
         const handleResize = () => {
@@ -96,14 +98,14 @@ const ChatPage: React.FC = () => {
         try {
             const response = await axios.get('https://api.discoun3ree.com/api/messages/conversations', {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    'Authorization': `Bearer ${accessToken}`,
                 }
             });
 
             const conversationsWithLastMessage = await Promise.all(response.data.map(async (conversation: Conversation) => {
                 const messagesResponse = await axios.get(`https://api.discoun3ree.com/api/messages/${conversation.id}`, {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                        'Authorization': `Bearer ${accessToken}`,
                     }
                 });
 
@@ -131,7 +133,7 @@ const ChatPage: React.FC = () => {
         try {
             const response = await axios.get(`https://api.discoun3ree.com/api/messages/${userId}`, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    'Authorization': `Bearer ${accessToken}`,
                 }
             });
             const sortedMessages = response.data.sort((a: Message, b: Message) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
@@ -154,7 +156,7 @@ const ChatPage: React.FC = () => {
             const response = await axios.post('https://api.discoun3ree.com/api/messages/send', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    'Authorization': `Bearer ${accessToken}`,
                 }
             });
             setNewMessage('');

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AdminLayout from '../../utils/layouts/AdminLayout'
 import axios from 'axios';
+import { getCookie } from '../../utils/cookiUtils';
 
 interface Voucher {
     _id: string;
@@ -22,7 +23,7 @@ const Vouchers: React.FC = () => {
 
     const fetchVouchers = async () => {
         try {
-            const token = localStorage.getItem('token');
+            const token = getCookie('access_token');
             if (!token) {
                 throw new Error('Token not found');
             }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { getCookie } from '../../utils/cookiUtils';
 
 interface Props {
   conversationId: number;
@@ -12,7 +13,7 @@ const SendMessageForm: React.FC<Props> = ({ conversationId, onMessageSent }) => 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = getCookie('access_token');
     if (!accessToken) {
       console.error('Access token not found');
       return;

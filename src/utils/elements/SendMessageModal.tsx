@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FiUpload } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../cookiUtils';
 
 interface SendMessageModalProps {
     isOpen: boolean;
@@ -26,12 +27,13 @@ const SendMessageModal: React.FC<SendMessageModalProps> = ({ isOpen, onClose, se
         if (attachment) {
             formData.append('attachment', attachment);
         }
+        const accessToken = getCookie('access_token');
 
         try {
             const response = await axios.post('https://api.discoun3ree.com/api/messages/send', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+                    'Authorization': `Bearer ${accessToken}`,
                 }
             });
             setNewMessage('');

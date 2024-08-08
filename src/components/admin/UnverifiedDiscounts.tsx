@@ -4,6 +4,7 @@ import { getUnverifiedDiscounts, verifyDiscount } from '../../services/apiServic
 import PopupModal from '../../utils/elements/PopupModal';
 import { toast } from 'react-toastify';
 import SideMenu from './SideMenu';
+import { getCookie } from '../../utils/cookiUtils';
 
 
 const UnverifiedDiscounts:React.FC = () => {
@@ -29,7 +30,7 @@ const UnverifiedDiscounts:React.FC = () => {
     try {
       await verifyDiscount({
         discountId: id,
-        accessToken: localStorage.getItem('access_token') || '',
+        accessToken: getCookie('access_token') || '',
       });
       const updatedDiscounts = discounts.map(discount => {
         if (discount.id === id) {
@@ -69,7 +70,7 @@ const UnverifiedDiscounts:React.FC = () => {
             <div className="w-full rounded-lg">
               <table className="table-auto w-full rounded-md">
                 <thead className=''>
-                  <tr className="bg-gray-100 border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
+                  <tr className=" border-b-[2px] border-gray-200 text-[13px] bg-gray-100 text-[#002A4D] font-medium">
                     <th className="px-4 text-start font-normal pb-2 pt-4">Name</th>
                     <th className="px-4 text-start font-normal pb-2 pt-4">Price</th>
                     <th className="px-4 text-start font-normal pb-2 pt-4">Discount</th>
@@ -77,7 +78,7 @@ const UnverifiedDiscounts:React.FC = () => {
                     <th className="px-4 text-start font-normal pb-2 pt-4">Actions</th>
                   </tr>
                 </thead>
-                <tbody className='text-gray-600 text-[12.04px] text-[#646882]'>
+                <tbody className='text-[12.04px] text-[#646882]'>
                   {discounts.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="text-center py-4">

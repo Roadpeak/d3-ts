@@ -224,10 +224,11 @@ export const getUnverifiedDiscounts = async () => {
 }
 
 export const deleteDiscount = async (id: number) => {
+  const accessToken = getCookie('access_token');
   try {
     const response = await axios.delete(`https://api.discoun3ree.com/api/discounts/${id}`, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        'Authorization': `Bearer ${accessToken}`,
       },
     });
     return response.data;
@@ -432,7 +433,7 @@ export const getShopReviews = async (shopId: number) => {
 };
 
 export const initializeConversation = async (userId: number) => {
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = getCookie('access_token');
 
   if (!accessToken) {
     throw new Error('Access token not found');

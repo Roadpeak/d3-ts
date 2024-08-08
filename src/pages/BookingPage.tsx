@@ -65,12 +65,7 @@ const BookingPage: React.FC = () => {
 
   const handleBooking = async (slotId: number, paymentCode: string | null = null) => {
     try {
-      const accessToken = localStorage.getItem('access_token');
-      if (!accessToken) {
-        console.error('Access token not found.');
-        return;
-      }
-
+      const accessToken = getCookie('access_token');
       const requestBody = {
         time_slot_id: slotId,
         code: paymentCode,

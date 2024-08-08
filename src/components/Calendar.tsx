@@ -7,6 +7,7 @@ import { CheckCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
+import { getCookie } from '../utils/cookiUtils';
 
 interface CalendarProps {
     serviceId: number;
@@ -62,6 +63,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
             }
 
             setLoading(true);
+            const token = getCookie('access_token')
             try {
                 await axios.post(
                     'https://api.discoun3ree.com/api/appointments',
@@ -69,7 +71,7 @@ const Calendar: React.FC<CalendarProps> = ({ serviceId, shopId }) => {
                         service_id: serviceId,
                         appointment_time: appointmentDateTimeStart,
                     },
-                    { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } }
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
                 navigate('/my-bookings');
                 window.location.reload();

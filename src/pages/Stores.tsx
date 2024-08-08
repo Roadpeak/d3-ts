@@ -7,6 +7,7 @@ import { FaExternalLinkAlt } from "react-icons/fa";
 import CategorySlider from "../utils/elements/CategorySlider";
 import { fetchRandomDiscounts } from "../services/discountService";
 import { Discount } from "../types";
+import { getCookie } from "../utils/cookiUtils";
 
 interface Store {
   id: number;
@@ -34,7 +35,7 @@ const Stores: React.FC = () => {
 
  const fetchStores = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = getCookie('access_token');
       const response = await axios.get<Store[]>('https://api.discoun3ree.com/api/shops', {
         headers: {
           Authorization: `Bearer ${token}`
