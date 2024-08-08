@@ -27,7 +27,7 @@ const Navbar: React.FC = () => {
     event.preventDefault();
     navigate(`/search?query=${searchQuery}`);
   };
-  const token = getCookie('access_token'); ;
+  const token = getCookie('access_token');;
 
   useEffect(() => {
     if (token) {
@@ -61,20 +61,20 @@ const Navbar: React.FC = () => {
             </button>
           </form>
         </div>
-          <div className="flex items-center gap-[30px] md:pr-[13%] ">
-            <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300  w-[450px] gap-2 pl-10 pr-4">
-              <input
-                type="text"
-                placeholder='Search'
-                className='outline-none py-2 w-full bg-transparent'
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button className="outline-none" type='submit'>
-                <FaSearch size={20} className='text-gray-500' />
-              </button>
-            </form>
-          </div>
+        <div className="flex items-center gap-[30px] md:pr-[13%] ">
+          <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300  w-[450px] gap-2 pl-10 pr-4">
+            <input
+              type="text"
+              placeholder='Search'
+              className='outline-none py-2 w-full bg-transparent'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="outline-none" type='submit'>
+              <FaSearch size={20} className='text-gray-500' />
+            </button>
+          </form>
+        </div>
         <div className="relative">
           <>
             {user ? (
@@ -86,26 +86,26 @@ const Navbar: React.FC = () => {
                 <div className="flex flex-col items-center relative text-white">
                   <div className="flex relative w-full items-center">
                     <Link to='/accounts/sign-in' className="flex text-black md:hidden">
-                        <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+                      <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
                     </Link>
                     <div className="flex flex-col relative">
-                        <button onClick={() => setLogin(!login)} className='mr-3 hidden md:flex text-primary hover:underline text-[14px] font-medium'>Login</button>
-                        {login && (
-                          <div className="flex flex-col absolute top-full left-0 rounded-md p-4 bg-white gap-2">
-                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-in`}>User</Link>
-                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/login`} target='_blank'>Merchant</Link>
-                          </div>
-                        )}
+                      <button onClick={() => setLogin(!login)} className='mr-3 hidden md:flex text-primary hover:underline text-[14px] font-medium'>Login</button>
+                      {login && (
+                        <div className="flex flex-col absolute top-full left-0 rounded-md p-4 bg-white gap-2">
+                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-in`}>User</Link>
+                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/login`} target='_blank'>Merchant</Link>
+                        </div>
+                      )}
                     </div>
-                      <div className="flex flex-col relative">
-                        <button onClick={() => setRegister(!register)} className='hidden md:flex text-white hover:underline font-medium text-[14px] bg-primary px-6 py-1.5 rounded-md'>Register</button>
-                        {register && (
-                          <div className="flex flex-col absolute top-full right-0 rounded-md p-4 bg-white gap-2">
-                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-up`}>User</Link>
-                            <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/register`} target='_blank'>Merchant</Link>
-                          </div>
-                        )}
-                      </div>
+                    <div className="flex flex-col relative">
+                      <button onClick={() => setRegister(!register)} className='hidden md:flex text-white hover:underline font-medium text-[14px] bg-primary px-6 py-1.5 rounded-md'>Register</button>
+                      {register && (
+                        <div className="flex flex-col absolute top-full right-0 rounded-md p-4 bg-white gap-2">
+                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-up`}>User</Link>
+                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/register`} target='_blank'>Merchant</Link>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </>
@@ -119,14 +119,14 @@ const Navbar: React.FC = () => {
                 <Link to='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</Link>
                 {user && user.user_type === 'admin' ? (
                   <>
-                  <Link to={`/manage`} className=''>
-                    <button
-                      className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
-                    >
-                      <LuLayoutDashboard />
-                      Dashboard
-                    </button>
-                  </Link>
+                    <Link to={`/manage`} className=''>
+                      <button
+                        className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
+                      >
+                        <LuLayoutDashboard />
+                        Dashboard
+                      </button>
+                    </Link>
                   </>
                 ) : (
                   <></>
@@ -143,13 +143,14 @@ const Navbar: React.FC = () => {
                 ) : (
                   <div>
                     {user?.user_type === 'seller' && (
-                      <button
-                        onClick={() => {}}
+                      <Link
+                        to={`https://merchants.discoun3ree.com/merchant/set-up-business`}
+                        target='_blank'
                         className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
                       >
                         <IoMdAdd />
                         Add Store
-                      </button>
+                      </Link>
                     )}
                   </div>
                 )}
