@@ -5,6 +5,7 @@ import { Category, Service } from '../types';
 import axios from 'axios';
 import { fetchServices } from '../services/apiService';
 import Calendar from '../components/Calendar';
+import Loading from '../utils/elements/Loading';
 
 const ServicesPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -75,7 +76,7 @@ const ServicesPage: React.FC = () => {
                   <div className='image-container bg-gray-50'>
                     <img src={category.image_url || placeholderImage} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
                   </div>
-                  <span className="text-black mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
+                  <span className="mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
                 </div>
               </a>
             ))}
@@ -83,10 +84,10 @@ const ServicesPage: React.FC = () => {
         </div>
         <div className="flex flex-col">
           <p className="text-black font-semibold text-[20px] mb-2">Top selling services</p>
-          <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 lg:grid-col-5">
+          <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-4 lg:grid-col-5">
             {
               loading ?
-                <p className="">Loading...</p>
+                <Loading />
                 : (
                   services.length > 0 ? (
                     services.map(service => (

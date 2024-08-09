@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../utils/elements/Loading';
 
 const GoogleCallback: React.FC = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const GoogleCallback: React.FC = () => {
         handleGoogleCallback();
     }, [navigate]);
 
-    return <div>Loading...</div>;
+    return <Loading />;
 };
 
 export default GoogleCallback;
