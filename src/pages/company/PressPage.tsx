@@ -34,7 +34,7 @@ const PressPage: React.FC = () => {
                     <p className="text-lg text-gray-700">
                         For media inquiries, interviews, or additional information, please reach out to our press team.
                     </p>
-                    <a href="mailto:press@discoun3ree.com" className="text-primary font-semibold hover:underline mt-6 inline-block">
+                    <a href="mailto:info@discoun3ree.com" className="text-primary font-semibold hover:underline mt-6 inline-block">
                         Contact Press Team
                     </a>
                 </section>

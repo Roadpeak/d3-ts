@@ -28,7 +28,7 @@ const FundPage: React.FC = () => {
                     <p className="text-lg text-gray-700">
                         Interested in becoming an investor? Please contact us to discuss potential investment opportunities. We offer various investment options tailored to meet the needs of our partners.
                     </p>
-                    <a href="mailto:invest@discoun3ree.com" className="text-primary font-semibold hover:underline mt-6 inline-block">
+                    <a href="mailto:info@discoun3ree.com" className="text-primary font-semibold hover:underline mt-6 inline-block">
                         Contact Us
                     </a>
                 </section>

@@ -33,7 +33,7 @@ const Blog: React.FC = () => {
     return (
         <div className="py-4 px-[5%] bg-gray-100">
             <div className="flex w-full justify-center items-center ">
-                <p className="text-center capitalize font-medium text-center text-[28px] text-gray-800 py-4">
+                <p className="capitalize font-medium text-center text-[28px] text-gray-800 py-4">
                     Latest News
                 </p>
             </div>
