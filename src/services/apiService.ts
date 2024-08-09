@@ -51,6 +51,7 @@ interface Appointment {
 interface ReviewData {
   id?: number;
   body?: string;
+  rating?: number;
   reviewable_type?: 'shop' | 'discount';
   reviewable_id?: number;
 }

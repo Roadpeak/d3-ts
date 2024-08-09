@@ -108,7 +108,10 @@ export interface Shop {
   close_time: string;
   working_days: string[];
   loyalty_points: number;
-};
+  average_rating: number; 
+  total_ratings: number;
+}
+
 
 export interface StoreData {
   name: string;
@@ -129,20 +132,13 @@ export interface Store {
   seller_phone: string;
   store_type: string | null;
   description: string | null;
+  average_rating: number;
+  total_ratings: number;
 }
 
 export interface Category {
   name: string;
   image_url: string;
-}
-
-export interface Review {
-  id: number;
-  body: string;
-  created_at: string;
-  user_id: number;
-  user_name: string;
-  reviewable_type: string;
 }
 
 export interface SocialLink {
@@ -217,4 +213,14 @@ export interface CalendarEvent extends Event {
   start: Date;
   end: Date;
   status: string;
+}
+
+
+export interface Review {
+  id: number;
+  body: string;
+  rating: number;
+  user_id: number;
+  user_name: string;
+  created_at: string;
 }

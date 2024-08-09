@@ -28,6 +28,7 @@ import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { IoMdClose } from 'react-icons/io';
 import { Discount, Follower, Service, SocialLink, Store } from '../types';
 import Calendar from '../components/Calendar';
+import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 
 const getIcon = (url: string): IconDefinition | null => {
   if (url.includes('instagram.com')) return faInstagram;
@@ -57,7 +58,6 @@ const StoreView: React.FC = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [open, setOpen] = useState(false);
   const [des, setDes] = useState(false);
-  const [searchTerm, setSearchTerm] = useState<string>('');
   const [view, setView] = useState<'offers' | 'services'>('offers');
 
   const { user } = useAuth();
@@ -192,6 +192,27 @@ const StoreView: React.FC = () => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const totalStars = 5;
+
+    return (
+      <div className="flex items-center">
+        {Array.from({ length: totalStars }, (_, index) => {
+          if (index < fullStars) {
+            return <FaStar key={index} className="text-yellow-500" />;
+          }
+          if (index === fullStars && hasHalfStar) {
+            return <FaStarHalfAlt key={index} className="text-yellow-500" />;
+          }
+          return <FaRegStar key={index} className="text-gray-300" />;
+        })}
+        <span className="ml-2 text-gray-600 text-[13px] font-light">({rating.toFixed(1)})</span>
+      </div>
+    );
+  };
+
   return (
     <div className='w-full h-full scroll-smooth flex bg-gray-100 flex-col'>
       <Navbar />
@@ -211,6 +232,11 @@ const StoreView: React.FC = () => {
               <p className="font-medium text-[20px] text-black">
                 {store?.name}
               </p>
+              {store?.average_rating != null && (
+                <div className="text-[14px] font-light">
+                  {renderStars(store.average_rating)}
+                </div>
+              )}
               <a href={`tel:${store?.seller_phone}`} className="text-gray-500 font-light text-[13px]">{store?.seller_phone}</a>
               <p className="text-[15px] font-light text-gray-600">{store?.location}</p>
             </div>

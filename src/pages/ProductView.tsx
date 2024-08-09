@@ -201,7 +201,7 @@ const ProductView: React.FC = () => {
                             </div>
                           </InstapaperShareButton>
                           <TwitterShareButton url={window.location.href} className="flex items-center">
-                            <div className="bg-gray-100 p-1 rounded-md items-end rounded-md flex gap-1">
+                            <div className="bg-gray-100 p-1 items-end rounded-md flex gap-1">
                               <FaTwitter size={24} className="bg-gray-200 text-black p-1" />
                               <span className="text-gray-600 text-[14px] font-light">share</span>
                             </div>
@@ -229,7 +229,7 @@ const ProductView: React.FC = () => {
                 </div>
                 {activeTab === 'details' ? (
                   <div className="">
-                    <p className="text-[14px] font-light text-[14px] text-gray-600">
+                    <p className="font-light text-[14px] text-gray-600">
                       {discount?.description}
                     </p>
                   </div>

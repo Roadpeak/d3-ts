@@ -4,14 +4,8 @@ import { Spinner } from '@material-tailwind/react';
 import { useAuth } from '../utils/context/AuthContext';
 import Modal from '../utils/elements/Modal';
 import LoginModal from '../utils/context/LoginModal';
-
-interface Review {
-  id: number;
-  body: string;
-  user_id: number;
-  user_name: string;
-  created_at: string;
-}
+import { Review } from '../types';
+import StarRating from './StarRating';
 
 interface ReviewComponentProps {
   reviewableType: 'shop' | 'discount';
@@ -26,12 +20,17 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
   const [editReview, setEditReview] = useState<Review | null>(null);
   const [deleteReview, setDeleteReview] = useState<Review | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [newRating, setNewRating] = useState<number>(0);
+  const [averageRating, setAverageRating] = useState<number | null>(null);
+  const [totalReviews, setTotalReviews] = useState<number | null>(null);
 
   const fetchReviews = async () => {
     setIsLoading(true);
     try {
-      const data = await getReviewsByReviewable(reviewableType, reviewableId);
-      setReviews(data);
+      const { reviews, average_rating, total_reviews } = await getReviewsByReviewable(reviewableType, reviewableId);
+      setReviews(reviews);
+      setAverageRating(average_rating);
+      setTotalReviews(total_reviews);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     } finally {
@@ -58,7 +57,13 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
 
     setIsLoading(true);
     try {
-      await manageReview('post', { body: newReview, reviewable_type: reviewableType, reviewable_id: reviewableId });
+      await manageReview('post', {
+        body: newReview,
+        rating: newRating,
+        reviewable_type: reviewableType,
+        reviewable_id: reviewableId
+      });
+
       setNewReview('');
       fetchReviews();
     } catch (error) {
@@ -106,7 +111,6 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
 
   const handleLoginSuccess = () => {
     setShowLoginModal(false);
-    // Optionally, you may refresh the reviews or perform other actions after login
   };
 
   const handleCloseLoginModal = () => {
@@ -114,7 +118,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
   };
 
   return (
-    <div className="w-full border borde-gray-200 rounded-md p-4">
+    <div className="w-full border border-gray-200 rounded-md p-4">
       <div className="flex w-full flex-col gap-4 md:flex-row">
         <form onSubmit={handleSubmit} className="w-full md:w-1/2 mb-4">
           <p className="text-gray-600 text-[14px] font-light mb-2">Post a Review</p>
@@ -124,11 +128,10 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
             placeholder="Write your review..."
             className="w-full p-2 bg-white outline-none border text-[14px] border-gray-300 rounded-lg"
           />
-          <button
-            type="submit"
-            className="mt-2 px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-80 flex items-center gap-2"
-            disabled={isLoading}
-          >
+          <div className="mt-2 flex items-center gap-2">
+            <StarRating rating={newRating} onRatingChange={setNewRating} />
+          </div>
+          <button type="submit" className="mt-2 px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-80 flex items-center gap-2" disabled={isLoading}>
             {isLoading ? <Spinner /> : 'Submit'}
           </button>
         </form>
@@ -143,6 +146,13 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
           </div>
         ) : (
           <div className="w-full md:w-1/2 mt-4">
+            <div className="mb-4">
+              <p className="text-gray-700 font-medium">
+                {averageRating != null ? (
+                  <StarRating rating={averageRating} onRatingChange={() => { }} />
+                ) : 'No ratings'}
+              </p>
+            </div>
             {reviews.length === 0 ? (
               <p className='text-gray-600 text-[14px] font-light'>No reviews yet.</p>
             ) : (
@@ -150,6 +160,9 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
                 <div key={review.id} className="w-full border-b py-2">
                   <p className="text-gray-700 font-medium text-[14px]">{review.user_name}</p>
                   <p className="text-gray-600 font-light text-[13px]">{review.body}</p>
+                  <div className="flex items-center gap-1">
+                    <StarRating rating={review.rating} onRatingChange={() => { }} />
+                  </div>
                   <p className="text-gray-600 font-light text-[12px]">
                     {new Date(review.created_at).toLocaleString()}
                   </p>
@@ -174,55 +187,55 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
             )}
           </div>
         )}
+
+        {editReview && (
+          <Modal isOpen={Boolean(editReview)} onClose={() => setEditReview(null)}>
+            <p className="text-[18px] text-gray-700 font-medium mb-2">Edit Review</p>
+            <textarea
+              value={editReview.body}
+              onChange={handleEditChange}
+              className="w-full p-2 bg-white border outline-none border-gray-300 rounded-lg"
+            />
+            <div className="flex justify-end mt-4">
+              <button
+                className="text-primary text-[15px] font-light mr-2"
+                onClick={() => setEditReview(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-6 py-1.5 bg-primary text-white rounded-lg"
+                onClick={handleEditSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <Spinner /> : 'Save'}
+              </button>
+            </div>
+          </Modal>
+        )}
+
+        {deleteReview && (
+          <Modal isOpen={Boolean(deleteReview)} onClose={() => setDeleteReview(null)}>
+            <h2 className="text-lg font-semibold mb-2">Delete Review</h2>
+            <p>Are you sure you want to delete this review?</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-gray-300 rounded-lg mr-2"
+                onClick={() => setDeleteReview(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-6 py-1.5 bg-primary text-white rounded-lg"
+                onClick={handleDeleteSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? <Spinner /> : 'Delete'}
+              </button>
+            </div>
+          </Modal>
+        )}
       </div>
-
-      {editReview && (
-        <Modal isOpen={Boolean(editReview)} onClose={() => setEditReview(null)}>
-          <p className="text-[18px] text-gray-700 font-medium mb-2">Edit Review</p>
-          <textarea
-            value={editReview.body}
-            onChange={handleEditChange}
-            className="w-full p-2 bg-white border  outline-none border-gray-300 rounded-lg"
-          />
-          <div className="flex justify-end mt-4">
-            <button
-              className="text-primary text-[15px] font-light     mr-2"
-              onClick={() => setEditReview(null)}
-            >
-              Cancel
-            </button>
-            <button
-              className="px-6 py-1.5 bg-primary text-white rounded-lg"
-              onClick={handleEditSubmit}
-              disabled={isLoading}
-            >
-              {isLoading ? <Spinner /> : 'Save'}
-            </button>
-          </div>
-        </Modal>
-      )}
-
-      {deleteReview && (
-        <Modal isOpen={Boolean(deleteReview)} onClose={() => setDeleteReview(null)}>
-          <h2 className="text-lg font-semibold mb-2">Delete Review</h2>
-          <p>Are you sure you want to delete this review?</p>
-          <div className="flex justify-end mt-4">
-            <button
-              className="px-4 py-2 bg-gray-300 rounded-lg mr-2"
-              onClick={() => setDeleteReview(null)}
-            >
-              Cancel
-            </button>
-            <button
-              className="px-4 py-2 bg-red-600 text-white rounded-lg"
-              onClick={handleDeleteSubmit}
-              disabled={isLoading}
-            >
-              {isLoading ? <Spinner /> : 'Delete'}
-            </button>
-          </div>
-        </Modal>
-      )}
     </div>
   );
 };
