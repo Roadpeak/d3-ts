@@ -33,7 +33,7 @@ const PaymentCodeModal: React.FC<PaymentCodeModalProps> = ({ payments, onClose, 
             <button
               key={payment.code}
               className={`p-3 border rounded-md w-full flex items-center justify-between
-                ${selectedPaymentCode === payment.code ? 'bg-blue-500 text-white' : 'bg-gray-100 text-black'}
+                ${selectedPaymentCode === payment.code ? 'border border-primary text-primary' : 'bg-gray-100 text-black'}
                 ${payment.used === 1 ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-200'}
               `}
               onClick={() => {
