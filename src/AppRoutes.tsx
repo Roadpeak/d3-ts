@@ -45,6 +45,7 @@ import ServicesPage from './pages/ServicesPage';
 import PressPage from './pages/company/PressPage';
 import BrandGuidelinesPage from './pages/company/BrandGuidelinesPage';
 import FundPage from './pages/company/FundPage';
+import GoogleCallback from './pages/auth/GoogleCallback';
 
 const AppRoutes: React.FC = () => {
 
@@ -77,6 +78,7 @@ const AppRoutes: React.FC = () => {
 
       <Route path='/accounts/seller/sign-up' element={<SellerSignUp />} />
       <Route path='/accounts/seller/sign-in' element={<SellerSignIn />} />
+      <Route path="/auth/google/callback" element={<GoogleCallback />} />
 
       <Route path='/my-vouchers' element={<Vouchers />} />
       <Route path='/my-bookings' element={<Bookings />} />

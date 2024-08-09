@@ -52,7 +52,8 @@ const BookingPage: React.FC = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setPayments(response.data);
+        setPayments(response.data.payments);
+        console.log(payments);
       } catch (err) {
         console.error('Failed to fetch payments', err);
       }
