@@ -147,7 +147,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ reviewableType, revie
         ) : (
           <div className="w-full md:w-1/2 mt-4">
             <div className="mb-4">
-              <p className="text-gray-700 font-medium">
+              <p className="text-gray-600 text-[14px]">
                 {averageRating != null ? (
                   <StarRating rating={averageRating} onRatingChange={() => { }} />
                 ) : 'No ratings'}
