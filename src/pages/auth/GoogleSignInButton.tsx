@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { FcGoogle } from "react-icons/fc";
 
 const GoogleSignInButton: React.FC = () => {
     const handleGoogleSignIn = async () => {
@@ -15,9 +16,10 @@ const GoogleSignInButton: React.FC = () => {
     return (
         <button
             onClick={handleGoogleSignIn}
-            className="bg-red-500 w-full text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300"
+            className="bg-white gap-2 border-2 border-primary text-primary flex items-center justify-center py-1.5 px-4 rounded-full transition duration-300"
         >
-            Sign in with Google
+            <FcGoogle size={20} />
+            Continue with Google
         </button>
     );
 };
