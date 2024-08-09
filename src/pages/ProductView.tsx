@@ -49,6 +49,15 @@ const ProductView: React.FC = () => {
       });
   };
 
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    };
+    return new Date(dateString).toLocaleDateString('en-GB', options);
+  };
+
   return (
     <div>
       <Navbar />
@@ -136,6 +145,9 @@ const ProductView: React.FC = () => {
                         <span className="font-light text-gray-600">now</span>
                         <p className="font-medium text-[18px]">Ksh {discount?.price_after_discount}</p>
                       </div>
+                        <p className="text-[13px] font-light text-gray-600 mt-1.5">
+                          Expires {discount?.expiry_date ? formatDate(discount.expiry_date) : 'N/A'}
+                        </p>
                       <button
                         onClick={() => {
                           if (!user) {
