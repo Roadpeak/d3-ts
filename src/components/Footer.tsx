@@ -9,7 +9,7 @@ const Footer:React.FC = () => {
     const currentYear = new Date().getFullYear();
 
   const handleEmailClick = () => {
-    window.open('mailto:info@dtree.com', '_blank');
+    window.open('mailto:info@discoun3ree.com', '_blank');
   };
   const handleCategoryClick = (category: string) => {
     const searchUrl = `/search?query=${category}`;
