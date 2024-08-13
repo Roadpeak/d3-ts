@@ -10,6 +10,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Payment } from '../types';
 import { getCookie } from '../utils/cookiUtils';
+import Loading from '../utils/elements/Loading';
 
 const BookingPage: React.FC = () => {
   const [timeSlots, setTimeSlots] = useState<any[]>([]);
@@ -99,7 +100,7 @@ const BookingPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="p-4">Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {

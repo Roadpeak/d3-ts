@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Booking, Appointment } from '../types';
 import { getCookie } from '../utils/cookiUtils';
+import Loading from '../utils/elements/Loading';
 
 const Bookings: React.FC = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -71,9 +72,9 @@ const Bookings: React.FC = () => {
     return `${date}, ${startTime} - ${endTime}`;
   };
 
-  // if (loading) {
-  //   return <div className="p-4 text-center">Loading...</div>;
-  // }
+  if (loading) {
+    return <Loading />;
+  }
 
   if (error) {
     return <div className="p-4 text-center text-red-500">{error}</div>;
