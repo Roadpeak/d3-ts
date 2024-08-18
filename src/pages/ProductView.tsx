@@ -158,7 +158,7 @@ const ProductView: React.FC = () => {
                             navigate(`/discount/${discount?.id}/booking`);
                           }
                         }}
-                        className="w-full py-2 bg-primary rounded-md text-white capitalize text-[14px] flex items-center justify-center mb-2"
+                        className="w-full py-1.5 bg-primary rounded-md text-white capitalize text-[13px] font-medium flex items-center justify-center mb-2"
                       >
                         {!user ? (
                           <>
@@ -174,7 +174,7 @@ const ProductView: React.FC = () => {
                       </button>
                       <div className="flex flex-col my-3.5">
                         <span className="text-[15px]">Save this for later</span>
-                        <button className="flex border rounded-md border-gray-300 px-2 py-1.5 w-fit items-center gap-2">
+                        <button className="flex border rounded-md border-gray-300 px-6 py-1.5 w-fit items-center gap-2">
                           <FaRegHeart />
                           Favorite
                         </button>
