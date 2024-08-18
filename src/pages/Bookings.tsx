@@ -166,24 +166,42 @@ const Bookings: React.FC = () => {
               </button>
               <h2 className="text-2xl font-semibold mb-4 text-center text-primary">Booking Details</h2>
               <div className="space-y-2">
-                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Code</span> {selectedBooking.code}</p>
-                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Discount</span> {selectedBooking.discount_name}</p>
-                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Shop</span> {selectedBooking.shop_name}</p>
-                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Time Slot</span>{formatDateTime(selectedBooking.time_slot_start, selectedBooking.time_slot_end)}</p>
-                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'><span>Fulfilled</span>{selectedBooking.approved ? 'Yes' : 'No'}</p>
+                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'>
+                  <span>Code</span> {selectedBooking.code}
+                </p>
+                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'>
+                  <span>Discount</span> {selectedBooking.discount_name}
+                </p>
+                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'>
+                  <span>Shop</span> {selectedBooking.shop_name}
+                </p>
+                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'>
+                  <span>Time Slot</span>{formatDateTime(selectedBooking.time_slot_start, selectedBooking.time_slot_end)}
+                </p>
+                <p className='flex items-center w-full justify-between border-b border-gray-100 text-[14px] text-gray-600'>
+                  <span>Fulfilled</span>{selectedBooking.approved ? 'Yes' : 'No'}
+                </p>
+                {selectedBooking.qr_code_url && (
+                  <div className="text-center">
+                    <img src={selectedBooking.qr_code_url} alt="QR Code" className="mx-auto my-4" style={{ maxWidth: '150px', maxHeight: '150px' }} />
+                  </div>
+                )}
               </div>
-              <p className="text-center text-[13px] font-light text-gray-600 my-2">{selectedBooking.approved ? (
-                <p>
-                  Thank You, we hope you enjoyed the service. you could take a moment and submit a review about this service.
-                </p>
-              ) : (
-                <p>
-                  For great service delivery, after your service is fulfilled, you will provide this code <span className='font-medium text-[15px]'>{selectedBooking.code}</span> to the service provider, to mark it as fulfilled, please keep it safe.
-                </p>
-              )}</p>
+              <p className="text-center text-[13px] font-light text-gray-600 my-2">
+                {selectedBooking.approved ? (
+                  <p>
+                    Thank You, we hope you enjoyed the service. you could take a moment and submit a review about this service.
+                  </p>
+                ) : (
+                  <p>
+                    For great service delivery, after your service is fulfilled, you will provide this code <span className='font-medium text-[15px]'>{selectedBooking.code}</span> to the service provider, to mark it as fulfilled, please keep it safe.
+                  </p>
+                )}
+              </p>
             </div>
           </div>
         )}
+
         {selectedAppointment && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">

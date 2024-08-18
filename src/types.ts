@@ -75,6 +75,7 @@ export interface Booking {
         start_time: string;
         end_time: string;
     };
+    qr_code_url: string,
     created_at: string;
     approved: number;
 }
