@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FaRegUser, FaSearch } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { FiUser } from 'react-icons/fi';
 import { CiBookmarkPlus } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
-import logo from '../assets/icon2.png'
-import { IoMdAdd } from 'react-icons/io';
 import fetchOwnerStores from '../services/fetchownerStores';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BsTicketDetailed } from "react-icons/bs";
@@ -13,6 +11,7 @@ import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { MdOutlineDiscount } from 'react-icons/md';
 import { Shop } from '../types';
 import { getCookie } from '../utils/cookiUtils';
+import { IoIosSearch } from 'react-icons/io';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,23 +40,46 @@ const Navbar: React.FC = () => {
     navigate('/');
     window.location.reload();
   };
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleUserIconClick = () => {
+    if (user) {
+      if (isMobile) {
+        setOpen(!open);
+      } else {
+        navigate('/accounts/profile');
+      }
+    } else {
+      navigate('/accounts/sign-in');
+    }
+  };
+
 
   return (
     <>
       <div className='flex w-full py-2 px-[5%] justify-between items-center bg-gray-50 '>
-        <img className='w-[80px] hidden md:flex' src={logo} alt="" />
-        <img className="w-[60px] h-full -mx-6 flex md:hidden" src={logo} />
+        <p className="text-[20px] font-medium italic text-primary tracking-wider">d3</p>
         <div className="flex items-center gap-[30px] w-fit px-4">
           <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
             <input
               type="text"
               placeholder='Search'
-              className='outline-none py-1 w-fit text-[14px] font-light bg-transparent'
+              className='outline-none py-1 w-fit text-[13px] font-light bg-transparent'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="outline-none" type='submit'>
-              <FaSearch className='text-gray-600 font-light text-[15px]' />
+              <IoIosSearch className='text-gray-600 font-light text-[14px]' />
             </button>
           </form>
         </div>
@@ -66,20 +88,24 @@ const Navbar: React.FC = () => {
             <input
               type="text"
               placeholder='Search'
-              className='outline-none py-2 w-full bg-transparent'
+              className='outline-none py-2 w-full text-[13px] bg-transparent'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="outline-none" type='submit'>
-              <FaSearch size={20} className='text-gray-500' />
+              <IoIosSearch size={20} className='text-gray-500' />
             </button>
           </form>
         </div>
         <div className="relative">
           <>
             {user ? (
-              <button onClick={() => setOpen(!open)} className="flex items-center gap-2 hover:text-primary cursor-pointer">
-                <p className="hidden md:flex text-gray-600 font-light text-[14px]">Hi, {user?.first_name}</p> <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+              <button
+                onClick={handleUserIconClick}
+                className="flex items-center gap-2 hover:text-primary cursor-pointer"
+              >
+                <p className="hidden md:flex text-gray-600 font-light text-[14px]">Hi, {user?.first_name}</p>
+                <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
               </button>
             ) : (
               <>
@@ -118,42 +144,13 @@ const Navbar: React.FC = () => {
                 <Link to='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</Link>
                 <Link to='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</Link>
                 {user && user.user_type === 'admin' ? (
-                  <>
-                    <Link to={`/manage`} className=''>
-                      <button
-                        className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
-                      >
-                        <LuLayoutDashboard />
-                        Dashboard
-                      </button>
-                    </Link>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {user && user.user_type === 'seller' && stores.length !== 0 ? (
-                  <Link target='_blank' to={stores.length > 0 ? `https://merchants.discoun3ree.com/merchant/${stores[0]?.id}/dashboard` : '#'} className=''>
-                    <button
-                      className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
-                    >
+                  <Link to={`/manage`} className=''>
+                    <button className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2">
                       <LuLayoutDashboard />
                       Dashboard
                     </button>
                   </Link>
-                ) : (
-                  <div>
-                    {user?.user_type === 'seller' && (
-                      <Link
-                        to={`https://merchants.discoun3ree.com/merchant/set-up-business`}
-                        target='_blank'
-                        className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
-                      >
-                        <IoMdAdd />
-                        Add Store
-                      </Link>
-                    )}
-                  </div>
-                )}
+                ) : null}
                 <button className="bg-primary text-white rounded-md py-1.5" onClick={logoutUser}>
                   Log Out
                 </button>
@@ -162,11 +159,54 @@ const Navbar: React.FC = () => {
           </>
         </div>
       </div>
-      <div className="bg-primary flex items-center justify-center gap-1 py-2 ">
-        <Link to={`/`} className='text-gray-50 px-2 cursor-pointer font-medium '>Home</Link>
-        <Link to={`/merchants`} className='text-gray-50 px-2 cursor-pointer font-medium '>Stores</Link>
-        <Link to={`/deals`} className='text-gray-50 px-2 cursor-pointer font-medium '>Deals</Link>
-        <Link to={`/services`} className='text-gray-50 px-2 cursor-pointer font-medium '>Services</Link>
+      <div className="bg-primary flex items-center justify-between gap-1 px-[5%] py-2 ">
+        <div className="flex items-center gap-4 ">
+          <Link to={`/`} className='text-white text-[13px] font-medium'>Home</Link>
+          <Link to={`/merchants`} className='text-white text-[13px] font-medium'>Stores</Link>
+          <Link to={`/deals`} className='text-white text-[13px] font-medium'>Deals</Link>
+          <Link to={`/services`} className='text-white text-[13px] font-medium'>Services</Link>
+        </div>
+        <div className="hidden md:flex items-center gap-4 text-white text-[13px] font-medium ">
+          <Link to='/my-vouchers'>Vouchers</Link>
+          <Link to='/chat'>Chat</Link>
+          <Link to='/my-bookings'>Bookings</Link>
+          <Link to='/my-tickets'>Tickets</Link>
+          {user && user.user_type === 'admin' ? (
+            <>
+              <Link to={`/manage`} className=''>
+                <button
+                  className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
+                >
+                  <LuLayoutDashboard />
+                  Dashboard
+                </button>
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
+          {user && user.user_type === 'seller' && stores.length !== 0 ? (
+            <Link target='_blank' to={stores.length > 0 ? `https://merchants.discoun3ree.com/merchant/${stores[0]?.id}/dashboard` : '#'} className=''>
+              <button
+                className="bg-white text-primary text-[13px] px-6 py-1.5 rounded-md font-medium "
+              >
+                Dashboard
+              </button>
+            </Link>
+          ) : (
+            <div>
+              {user?.user_type === 'seller' && (
+                <Link
+                  to={`https://merchants.discoun3ree.com/merchant/set-up-business`}
+                  target='_blank'
+                    className="bg-white text-primary text-[13px] px-6 py-1.5 rounded-md font-medium "
+                >
+                  Add Store
+                </Link>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </>
   )

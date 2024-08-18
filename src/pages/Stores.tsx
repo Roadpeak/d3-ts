@@ -3,23 +3,11 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SkeletonLoader from "../utils/elements/SkeletonLoader";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import CategorySlider from "../utils/elements/CategorySlider";
 import { fetchRandomDiscounts } from "../services/discountService";
-import { Discount } from "../types";
+import { Discount, Store } from "../types";
 import { getCookie } from "../utils/cookiUtils";
-
-interface Store {
-  id: number;
-  name: string;
-  location: string;
-  image_url: string;
-  verified: boolean;
-  seller_id: number;
-  created_at: string;
-  updated_at: string;
-  store_type: string | null;
-}
 
 interface Category {
   name: string;
@@ -91,6 +79,27 @@ const Stores: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const totalStars = 5;
+
+    return (
+      <div className="flex items-center">
+        {Array.from({ length: totalStars }, (_, index) => {
+          if (index < fullStars) {
+            return <FaStar key={index} className="text-yellow-500" />;
+          }
+          if (index === fullStars && hasHalfStar) {
+            return <FaStarHalfAlt key={index} className="text-yellow-500" />;
+          }
+          return <FaRegStar key={index} className="text-gray-300" />;
+        })}
+        <span className="ml-2 text-gray-600 text-[13px] font-light">({rating.toFixed(1)})</span>
+      </div>
+    );
+  };  
+
   return (
     <div className='flex flex-col w-full bg-gray-100'>
       <Navbar />
@@ -135,6 +144,11 @@ const Stores: React.FC = () => {
                     <p className="text-center text-[13px] font-medium text-[#FF9021] line-clamp-2 w-full">
                       {store.store_type}
                     </p>
+                    {store?.average_rating != null && (
+                      <div className="text-[14px] font-light">
+                        {renderStars(store.average_rating)}
+                      </div>
+                    )}
                   </div>
                   <div className="text-[#FF9021] border border-[#FF9021] p-1 hover:border-primary hover:text-primary absolute top-0 right-0 rounded-md">
                     <FaExternalLinkAlt />
@@ -146,14 +160,14 @@ const Stores: React.FC = () => {
         </div>
         <div className="flex flex-col my-6 h-full w-full">
           <p className="text-black font-semibold text-[20px] mb-2">Top searched</p>
-          <div className="w-full h-full grid grid-cols-2 md:grid-cols-7 w-full lg:grid-cols-6 gap-4">
+          <div className="h-full grid grid-cols-2 md:grid-cols-7 w-full lg:grid-cols-6 gap-4">
             {categories.slice(0,6).map((category, index) => (
               <a href={`/search?query=${category.name.toLowerCase()}`} key={index} className='w-full'>
                   <div className='cursor-pointer flex items-center justify-center flex-col bg-gray-50 p-4 rounded-md'>
                     <div className='image-container'>
                       <img src={category.image_url} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
                     </div>
-                    <span className="text-black mx-auto w-full text-center text-[14px] text-gray-600 font-light mt-2">{category.name}</span>
+                    <span className="text-black mx-auto w-full text-center text-[14px] font-light mt-2">{category.name}</span>
                   </div>
                 </a>
             ))}

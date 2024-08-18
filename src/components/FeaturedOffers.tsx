@@ -65,11 +65,11 @@ const FeaturedOffers: React.FC = () => {
             <div key={item.id} className="bg-white flex flex-col justify-between rounded-md p-4">
               <img src={item.image_url || placeholderImage} className='rounded-md' alt="" />
               <div className="flex flex-col">
-                <p className="text-black md:my-2 font-medium text-[16px] truncate-2-lines">{item.name}</p>
+                <p className="text-black md:my-2 font-medium text-[14px] truncate-2-lines">{item.name}</p>
                 <div className="flex mt-2 items-center justify-between w-full">
                   <div className="flex flex-col md:flex-row md:gap-1">
-                    <p className="text-gray-500 text-[14px] line-through">{`${item.initial_price}`}</p>
-                    <p className="text-primary font-semibold text-[14px] md:ml-2">
+                    <p className="text-gray-600 text-[13px] line-through">{`${item.initial_price}`}</p>
+                    <p className="text-primary text-[14px] font-medium md:ml-2">
                       {`Ksh. ${item.price_after_discount}`}
                     </p>
                   </div>
@@ -77,31 +77,15 @@ const FeaturedOffers: React.FC = () => {
                 <p className="text-[13px] text-gray-600"><span className=''>{formatExpiryDate(item.expiry_date)}</span></p>
                 <div className="flex flex-col md:flex-row gap-2 w-full">
                   {new Date(item.expiry_date) > new Date() ? (
-                    <>
-                      <a
-                        href={`/${item.slug}/${item.id}/checkout`}
-                        className="w-full hidden md:block rounded-md text-center border text-[14px] border-third text-third px-2 items-center py-1"
-                        title="Get offer"
-                      >
-                        Get offer
-                      </a>
-                      <a
-                        href={`/discount/${item.slug}/${item.id}/see-details`}
-                        className="w-full rounded-md text-center text-[14px] bg-primary text-white px-2 items-center py-1"
-                        title="See Details"
-                      >
-                        See Details
-                      </a>
-                    </>
+                    <button
+                      onClick={() => { navigate(`/discount/${item.slug}/${item.id}/see-details`)}}
+                      className="w-full rounded-md text-center text-[12px] bg-primary text-white px-2 items-center py-1.5 font-medium mt-2"
+                      title="Details"
+                    >
+                      Details
+                    </button>
                   ) : (
                     <>
-                      <button
-                        className="w-full rounded-md border border-third text-third py-1"
-                        disabled
-                        title="Expired"
-                      >
-                        Expired
-                      </button>
                       <button
                         className="w-full rounded-md bg-primary text-white py-1"
                         disabled

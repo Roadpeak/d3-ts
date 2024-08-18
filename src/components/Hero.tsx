@@ -184,12 +184,12 @@ const Hero: React.FC = () => {
             </div>
             <div className='max-w-sm rounded overflow-hidden bg-white'>
               <img src={discount.image_url || placeholderImage} alt={discount.name} className='w-full p-2 object-cover' />
-              <div className='text-[14px] font-medium p-2 truncate-2-lines'>{discount.name}</div>
+              <div className='text-[14px] font-medium text-black p-2 truncate-2-lines'>{discount.name}</div>
               <div className='flex flex-col gap-2 justify-between w-full p-2'>
                 <span className='text-[13px] text-gray-600 font-light'>
                   in {discount.category}
                 </span>
-                <span className='text-primary font-medium text-[16px]'>
+                <span className='text-primary font-medium text-[15px]'>
                   ksh. {discount.price_after_discount}
                 </span>
               </div>
@@ -215,7 +215,7 @@ const Hero: React.FC = () => {
                   <div className='image-container bg-gray-50'>
                     <img src={category.image_url || placeholderImage} alt={category.name} className='w-full h-fit m-auto rounded-md mt-3 object-cover' />
                   </div>
-                  <span className="mx-auto w-full text-center text-[14px] text-gray-600 font-light truncate mt-2">{category.name}</span>
+                  <span className="mx-auto w-full text-center text-[13px] text-black truncate mt-2">{category.name}</span>
                 </div>
               </a>
             ))}
