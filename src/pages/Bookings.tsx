@@ -35,9 +35,9 @@ const Bookings: React.FC = () => {
           }),
         ]);
 
-        setBookings(bookingsResponse.data.data);
+        setBookings(bookingsResponse.data);
         setAppointments(appointmentsResponse.data);
-        console.log(appointmentsResponse.data);
+        console.log(bookingsResponse.data);
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch data');

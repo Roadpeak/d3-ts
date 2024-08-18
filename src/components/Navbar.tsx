@@ -175,9 +175,8 @@ const Navbar: React.FC = () => {
             <>
               <Link to={`/manage`} className=''>
                 <button
-                  className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2"
+                  className="bg-white text-primary text-[13px] px-6 py-1.5 rounded-md font-medium "
                 >
-                  <LuLayoutDashboard />
                   Dashboard
                 </button>
               </Link>
