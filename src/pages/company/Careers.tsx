@@ -25,7 +25,7 @@ const CareersPage: React.FC = () => {
                     <p className="">
                         We are hiring upto 150 new part time and full time employees on different job categories. Get to work remotely or in our office after submitting your application. Submit application below to get started!                    
                     </p>
-                    <a className='text-primary text-[14px] font-medium' href="/company/careers/opportunities">See open roles</a>
+                    <a className='text-primary text-[20px] font-semibold' href="/company/careers/opportunities">See open roles</a>
                     <p className="text-lg mt-4">
                         If you're passionate about innovation and eager to make a difference, we would love to hear from you as we prepare for future opportunities!
                     </p>
