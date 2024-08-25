@@ -201,8 +201,12 @@ const SignUp: React.FC = () => {
               >
                 {loading ? <ClipLoader color="#fff" /> : 'Sign Up'}
               </button>
-              {/* <p className="text-center text-gray-600 font-light text-[14px]">or</p>
-              <GoogleSignInButton /> */}
+              <div className="flex items-center gap-2 w-full">
+                <hr className='w-full bg-gray-500' />
+                <p className="text-center text-gray-600 font-light text-[14px]">or</p>
+                <hr className='w-full bg-gray-500' />
+              </div>
+              <GoogleSignInButton />
             </div>
             <p className="text-[14px] text-gray-700 font-light text-start mt-2 mb-1">Already have an account? <Link to='/accounts/sign-in' className="text-primary">Sign In</Link></p>
           </form>

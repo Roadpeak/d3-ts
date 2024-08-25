@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import logo from '../../assets/icon.png';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import GoogleSignInButton from './GoogleSignInButton';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -104,13 +105,22 @@ const LoginPage: React.FC = () => {
                 </button>
             </div>
             <p className="text-sm text-gray-700 text-start mt-4 mb-1">Don't have an account? <Link to='/accounts/sign-up' className="text-primary">Sign Up</Link></p>
-            <div className="mb-4">
-              <button type="submit" className="w-full bg-primary text-white py-1.5 rounded-full hover:bg-primary">
+            <div className="flex flex-col w-full gap-1">
+              <button
+                type="submit"
+                className="bg-primary w-full text-white py-2 px-4 rounded-full transition duration-300"
+              >
                 {loading ? <ClipLoader color="#fff" /> : 'Log in'}
               </button>
+              <div className="flex items-center gap-2 w-full">
+                <hr className='w-full bg-gray-500' />
+                <p className="text-center text-gray-600 font-light text-[14px]">or</p>
+                <hr className='w-full bg-gray-500' />
+              </div>
+              <GoogleSignInButton />
             </div>
           </form>
-          <p className="text-sm text-gray-700 text-end -mt-2">Forgot your password? <Link to='/request-password-reset' className="text-primary">Reset it here</Link></p>
+          <p className="text-sm text-gray-700 text-end mt-1">Forgot your password? <Link to='/request-password-reset' className="text-primary">Reset it here</Link></p>
         </div>
         <div className="hidden md:flex justify-center items-center ">
           <img src="https://imgs.search.brave.com/LQmfpZT3v7qLnsekfPnMdGaxq1coIuaz9LJoyiGtpzw/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTI4/MTE1MDA2MS92ZWN0/b3IvcmVnaXN0ZXIt/YWNjb3VudC1zdWJt/aXQtYWNjZXNzLWxv/Z2luLXBhc3N3b3Jk/LXVzZXJuYW1lLWlu/dGVybmV0LW9ubGlu/ZS13ZWJzaXRlLWNv/bmNlcHQuanBnP3M9/NjEyeDYxMiZ3PTAm/az0yMCZjPTlIV1N1/QTlJYVU0by1DSzZm/QUxCUzVlYU8xdWJu/c00wOEVPWXdnYndH/Qm89" alt="Illustration" />
