@@ -3,11 +3,15 @@ import JobApplicationModal from './JobApplicationModal';
 import JobDescription from './JobDescription';
 import { Job } from '../../types';
 import axiosInstance from '../../services/axiosInstance';
+import { useAuth } from '../../utils/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const JobList: React.FC = () => {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { user } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axiosInstance.get('/jobs')
@@ -20,8 +24,12 @@ const JobList: React.FC = () => {
     }, []);
 
     const handleApplyClick = (jobId: number) => {
-        setSelectedJobId(jobId);
-        setIsModalOpen(true);
+        if (user) {
+            setSelectedJobId(jobId);
+            setIsModalOpen(true);
+        } else {
+            navigate('/accounts/sign-in');
+        }
     };
 
     const handleCloseModal = () => {

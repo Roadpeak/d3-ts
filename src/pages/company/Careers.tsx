@@ -28,9 +28,9 @@ const CareersPage: React.FC = () => {
                     <p className="text-lg mt-4">
                         If you're passionate about innovation and eager to make a difference, we would love to hear from you as we prepare for future opportunities!
                     </p>
-                    <a href="#application-form" className="text-primary font-semibold hover:underline mt-6 inline-block">
+                    {/* <a href="#application-form" className="text-primary font-semibold hover:underline mt-6 inline-block">
                         Get In Touch
-                    </a>
+                    </a> */}
                 </section>
 
                 <section className="mb-12">
