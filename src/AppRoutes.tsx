@@ -46,6 +46,8 @@ import PressPage from './pages/company/PressPage';
 import BrandGuidelinesPage from './pages/company/BrandGuidelinesPage';
 import FundPage from './pages/company/FundPage';
 import GoogleCallback from './pages/auth/GoogleCallback';
+import JobCreateForm from './components/admin/JobCreateForm';
+import Jobs from './pages/company/Jobs';
 
 const AppRoutes: React.FC = () => {
 
@@ -97,8 +99,10 @@ const AppRoutes: React.FC = () => {
       <Route path='/manage/categories' element={<CategoryList />} />
       <Route path='/manage/:id/create-event' element={<EventForm />} />
       <Route path='/manage/services' element={<Services />} />
+      <Route path='/manage/jobs' element={<JobCreateForm />} />
 
       <Route path='/company/careers' element={<CareersPage />} />
+      <Route path='/company/careers/opportunities' element={<Jobs />} />
       <Route path='/company/vision' element={<Vision />} />
       <Route path='/company/press' element={<PressPage />} />
       <Route path='/company/brand-guidelines' element={<BrandGuidelinesPage />} />

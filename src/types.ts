@@ -225,3 +225,14 @@ export interface Review {
   user_name: string;
   created_at: string;
 }
+
+export interface Job {
+    id: number;
+    title: string;
+    description: string;
+    salary: number;
+    created_at: string;
+    user: {
+        name: string;
+    };
+}

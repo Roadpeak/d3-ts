@@ -39,13 +39,13 @@ const MainApp = () => {
 
   return (
     <div className="font-montserrat bg-gray-50">
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <VerificationModal
           onClose={() => setModalOpen(false)}
           onVerify={handleVerify}
           phone={phone}
         />
-      )}
+      )} */}
       <BrevoConversations />
       <AppRoutes />
     </div>

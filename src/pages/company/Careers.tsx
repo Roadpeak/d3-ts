@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
+import JobList from './JobList';
 
 const CareersPage: React.FC = () => {
     return (
@@ -18,9 +19,13 @@ const CareersPage: React.FC = () => {
 
                 <section className="mb-12">
                     <h2 className="text-2xl font-semibold mb-4">Join Our Growing Team</h2>
-                    <p className="text-lg text-gray-700">
+                    {/* <p className="text-lg text-gray-700">
                         While we are not currently hiring, we are excited about the future and are eager to build a huge, talented team as we grow. We are focused on increasing revenue and seeking investment to drive our mission forward. If you are a creative and motivated individual who wants to be part of a dynamic team, we encourage you to stay connected.
+                    </p> */}
+                    <p className="">
+                        We are hiring upto 150 new part time and full time employees on different job categories. Get to work remotely or in our office after submitting your application. Submit application below to get started!                    
                     </p>
+                    <a className='text-primary text-[14px] font-medium' href="/company/careers/opportunities">See open roles</a>
                     <p className="text-lg mt-4">
                         If you're passionate about innovation and eager to make a difference, we would love to hear from you as we prepare for future opportunities!
                     </p>

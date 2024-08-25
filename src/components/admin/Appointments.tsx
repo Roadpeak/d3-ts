@@ -65,7 +65,7 @@ const Appointments: React.FC = () => {
                   <th className="px-4 py-3 text-start">Fullfilled</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600 text-[12.04px] text-[#646882]">
+              <tbody className="text-[12.04px] text-[#646882]">
                 {loading ? (
                   <tr>
                     <td colSpan={9} className="text-center py-4">Loading, please wait...</td>
