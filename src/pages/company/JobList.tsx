@@ -42,7 +42,7 @@ const JobList: React.FC = () => {
                     <div key={job.id} className="bg-white p-5 rounded shadow">
                         <h2 className="text-xl font-semibold">{job.title}</h2>
                         <JobDescription description={job.description} />
-                        <p className="text-gray-800 font-bold">Salary: ${job.salary}</p>
+                        <p className="text-gray-800 font-bold">Salary: Kes. {job.salary}</p>
                         <p className="text-gray-500">Posted: {formatDate(job.created_at)}</p>
                         <button
                             onClick={() => handleApplyClick(job.id)}
