@@ -27,7 +27,6 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Redirect to the sign-in page if the user is not authenticated
       window.location.href = '/accounts/sign-in';
     }
     return Promise.reject(error);
