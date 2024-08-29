@@ -81,7 +81,6 @@ const LoginPage: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
-                required
               />
             </div>
             <div className="relative">
@@ -94,7 +93,6 @@ const LoginPage: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="p-3 block w-full text-[13px] font-light text-primary border-b border-gray-300 focus:border-primary focus:outline-none"
-                required
               />
               <button
                   type="button"
