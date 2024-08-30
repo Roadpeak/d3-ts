@@ -82,7 +82,7 @@ const Footer:React.FC = () => {
               Le'Mac, Nairobi
             </p>
             <p className="mb-2" onClick={handleEmailClick} style={{ cursor: 'pointer' }}>
-              info@discoun3.com
+              info@discoun3ree.com
             </p>
             <p className="mb-2">
               <a href="tel:+1 929-460-9580">+1 929-460-9580</a>
