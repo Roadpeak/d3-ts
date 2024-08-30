@@ -67,11 +67,11 @@ const Navbar: React.FC = () => {
               <span>Kenya</span>
             </div>
             <div className="flex items-center gap-1">
-              <span>Categories</span>
+              {/* <span>Categories</span> */}
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Link to='/accounts/profile'>English</Link>
+            <p>English</p>
           </div>
         </div>
         {openSearch && (
@@ -109,7 +109,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center">
           <p className="text-2xl font-bold text-primary">d3</p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 md:px-6">
           <Link to='/' className="text-gray-700 text-[15px] font-semibold">Home</Link>
           <Link to='/merchants' className='text-gray-700 text-[15px] font-semibold'>Stores</Link>
           <Link to='/deals' className="text-gray-700 text-[15px] font-semibold">Deals</Link>

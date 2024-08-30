@@ -39,8 +39,8 @@ const ContactUsPage: React.FC = () => {
               <FaRegEnvelope /> 
               <a href="mailto:info@dthree.com">info@dthree.com</a>
             </p>
-            <a href='tel:+254743007000' className="flex items-center gap-2">
-              <MdAddCall /> +254 743 007000
+            <a href='tel:+1 929-460-9580' className="flex items-center gap-2">
+              <MdAddCall /> +1 929-460-9580
             </a>
           </div>
           <div className='bg-white p-4 rounded-md'>

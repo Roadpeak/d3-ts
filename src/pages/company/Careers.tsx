@@ -7,7 +7,10 @@ const CareersPage: React.FC = () => {
         <div className="bg-gray-50">
             <Navbar />
             <div className="px-[5%] w-full mx-auto py-12">
-                <h1 className="text-[24px] font-semibold text-center mb-8">Join Our Dynamic Team</h1>
+                <div className="flex w-full justify-between items-center mb-4">
+                    <h1 className="text-[24px] font-semibold text-center flex items-center">Join Our <span className="hidden md:flex px-2">Dynamic</span> Team</h1>
+                    <a className='bg-primary px-6 py-1.5 text-white text-[15px] font-medium rounded-md' href="/company/careers/opportunities">See open roles</a>
+                </div>
 
                 <section className="mb-12">
                     <h2 className="text-2xl font-semibold mb-4">Who We Are</h2>
@@ -24,7 +27,7 @@ const CareersPage: React.FC = () => {
                     <p className="">
                         We are hiring upto 150 new part time and full time employees on different job categories. Get to work remotely or in our office after submitting your application. Submit application below to get started!                    
                     </p>
-                    <a className='text-primary text-[20px] font-semibold' href="/company/careers/opportunities">See open roles</a>
+                    
                     <p className="text-lg mt-4">
                         If you're passionate about innovation and eager to make a difference, we would love to hear from you as we prepare for future opportunities!
                     </p>
