@@ -4,35 +4,28 @@ import { FiUser } from 'react-icons/fi';
 import { CiBookmarkPlus } from "react-icons/ci";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/context/AuthContext';
-import fetchOwnerStores from '../services/fetchownerStores';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BsTicketDetailed } from "react-icons/bs";
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { MdOutlineDiscount } from 'react-icons/md';
-import { Shop } from '../types';
 import { getCookie } from '../utils/cookiUtils';
-import { IoIosSearch } from 'react-icons/io';
+import { IoIosSearch, IoMdClose } from 'react-icons/io';
+import { BsGlobe } from 'react-icons/bs';
+import { FaCircleUser } from 'react-icons/fa6';
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
   const [open, setOpen] = useState(false);
-  const [stores, setStores] = useState<Shop[]>([]);
+  const [openSearch, setOpenSearch] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
     navigate(`/search?query=${searchQuery}`);
   };
-  const token = getCookie('access_token');;
-
-  useEffect(() => {
-    if (token) {
-      fetchOwnerStores(token, setStores);
-    }
-  }, [token]);
 
   const logoutUser = () => {
     const domain = window.location.hostname === 'localhost' ? '' : '; domain=.discoun3ree.com';
@@ -40,13 +33,13 @@ const Navbar: React.FC = () => {
     navigate('/');
     window.location.reload();
   };
+
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -55,7 +48,7 @@ const Navbar: React.FC = () => {
   const handleUserIconClick = () => {
     if (user) {
       if (isMobile) {
-        setOpen(!open);
+        setOpen(true);
       } else {
         navigate('/accounts/profile');
       }
@@ -64,151 +57,161 @@ const Navbar: React.FC = () => {
     }
   };
 
-
   return (
     <>
-      <div className='flex w-full py-2 px-[5%] justify-between items-center bg-gray-50 '>
-        <p className="text-[20px] font-medium text-primary tracking-wider">d3</p>
-        <div className="flex items-center gap-[30px] w-fit px-4">
-          <form onSubmit={handleSearch} className="active:border-primary md:hidden flex items-center bg-transparent rounded-full border border-gray-300 w-fit gap-2 pl-2 md:pl-10 pr-2 md:pr-4">
-            <input
-              type="text"
-              placeholder='Search'
-              className='outline-none py-1 w-fit text-[14px] font-light bg-transparent'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="outline-none" type='submit'>
-              <IoIosSearch className='text-gray-600 font-light text-[14px]' />
-            </button>
-          </form>
+      <div className="bg-black py-2 relative">
+        <div className="flex items-center justify-between w-full px-[5%] text-white text-[15px]">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
+              <BsGlobe size={16} />
+              <span>Kenya</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <span>Categories</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <Link to='/accounts/profile'>English</Link>
+          </div>
         </div>
-        <div className="flex items-center gap-[30px] md:pr-[13%] ">
-          <form onSubmit={handleSearch} className="hidden active:border-primary md:flex items-center bg-transparent rounded-full border border-gray-300  w-[450px] gap-2 pl-10 pr-4">
-            <input
-              type="text"
-              placeholder='Search'
-              className='outline-none py-2 w-full text-[14px] bg-transparent'
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button className="outline-none" type='submit'>
-              <IoIosSearch size={20} className='text-gray-500' />
-            </button>
-          </form>
-        </div>
-        <div className="relative">
-          <>
-            {user ? (
-              <button
-                onClick={handleUserIconClick}
-                className="flex items-center gap-2 hover:text-primary cursor-pointer"
-              >
-                <p className="hidden md:flex text-gray-600 font-light text-[14px]">Hi, {user?.first_name}</p>
-                <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+        {openSearch && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+            <div className='w-full px-[5%] bg-gray-50 absolute top-11 flex items-center gap-2 left-0'>
+              <form onSubmit={handleSearch} className="flex items-center border rounded-full w-full px-3 py-2 bg-gray-50">
+                <input
+                  type="text"
+                  placeholder='Search products...'
+                  className='flex-grow outline-none bg-transparent text-[15px] text-gray-700'
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSearch(e);
+                      setOpenSearch(false);
+                      setSearchQuery("");
+                    }
+                  }}
+                />
+                <button type='submit' className="text-gray-600">
+                  <IoIosSearch size={20} />
+                </button>
+              </form>
+              <button onClick={() => setOpenSearch(false)} className="">
+                <IoMdClose size={20} />
               </button>
-            ) : (
-              <>
-                <div className="flex flex-col items-center relative text-white">
-                  <div className="flex relative w-full items-center">
-                    <Link to='/accounts/sign-in' className="flex text-black md:hidden">
-                      <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
-                    </Link>
-                    <div className="flex flex-col relative">
-                      <button onClick={() => setLogin(!login)} className='mr-3 hidden md:flex text-primary hover:underline text-[14px] font-medium'>Login</button>
-                      {login && (
-                        <div className="flex flex-col absolute top-full left-0 rounded-md p-4 bg-white gap-2">
-                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-in`}>User</Link>
-                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/login`} target='_blank'>Merchant</Link>
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex flex-col relative">
-                      <button onClick={() => setRegister(!register)} className='hidden md:flex text-white hover:underline font-medium text-[14px] bg-primary px-6 py-1.5 rounded-md'>Register</button>
-                      {register && (
-                        <div className="flex flex-col absolute top-full right-0 rounded-md p-4 bg-white gap-2">
-                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`/accounts/sign-up`}>User</Link>
-                          <Link className='text-primary text-[14px] font-medium hover:underline' to={`https://merchants.discoun3ree.com/accounts/register`} target='_blank'>Merchant</Link>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            {open && (
-              <div className="absolute z-20 top-[100%] mt-4 right-0 w-[150px] bg-white shadow-md rounded-md flex flex-col p-4 gap-2">
-                <Link to='/accounts/profile' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><FaRegUser /> Account</Link>
-                <Link to='/my-vouchers' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><MdOutlineDiscount /> Vouchers</Link>
-                <Link to='/chat' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><IoChatboxEllipsesOutline /> Chat</Link>
-                <Link to='/my-bookings' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><CiBookmarkPlus />Bookings</Link>
-                <Link to='/my-tickets' className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2 "><BsTicketDetailed /> Tickets</Link>
-                {user && user.user_type === 'admin' ? (
-                  <Link to={`/manage`} className=''>
-                    <button className="text-[16px] text-gray-600 hover:text-primary flex items-center gap-2">
-                      <LuLayoutDashboard />
-                      Dashboard
-                    </button>
-                  </Link>
-                ) : null}
-                <button className="bg-primary text-white rounded-md py-1.5" onClick={logoutUser}>
-                  Log Out
-                </button>
-              </div>
-            )}
-          </>
-        </div>
+            </div>
+          </div>
+        )}
       </div>
-      <div className="bg-primary flex items-center justify-between gap-1 px-[5%] py-2 ">
-        <div className="flex items-center gap-4 ">
-          <Link to={`/`} className='text-white text-[14px] font-medium'>Home</Link>
-          <Link to={`/merchants`} className='text-white text-[14px] font-medium'>Stores</Link>
-          <Link to={`/deals`} className='text-white text-[14px] font-medium'>Deals</Link>
-          <Link to={`/services`} className='text-white text-[14px] font-medium'>Services</Link>
+
+      <div className='flex items-center justify-between w-full py-2 px-[5%] bg-white shadow-sm'>
+        <div className="flex items-center">
+          <p className="text-2xl font-bold text-primary">d3</p>
         </div>
-        <div className="hidden md:flex items-center gap-4 text-white text-[14px] font-medium ">
-          <Link to='/my-vouchers'>Vouchers</Link>
-          <Link to='/chat'>Chat</Link>
-          <Link to='/my-bookings'>Bookings</Link>
-          <Link to='/my-tickets'>Tickets</Link>
-          {user && user.user_type === 'admin' ? (
+        <div className="flex items-center gap-4">
+          <Link to='/' className="text-gray-700 text-[15px] font-semibold">Home</Link>
+          <Link to='/merchants' className='text-gray-700 text-[15px] font-semibold'>Stores</Link>
+          <Link to='/deals' className="text-gray-700 text-[15px] font-semibold">Deals</Link>
+        </div>
+
+        <div className="flex-grow hidden md:flex items-center">
+          <form onSubmit={handleSearch} className="flex items-center border rounded-full w-full px-3 py-2 bg-gray-50">
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="flex-grow outline-none bg-transparent text-[15px] text-gray-700"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSearch(e);
+                }
+              }}
+            />
+            <button type="submit" className="text-gray-600">
+              <IoIosSearch size={20} />
+            </button>
+          </form>
+
+
+          {user && (
+            <div className="flex items-center gap-4 ml-8">
+              <Link to='/my-vouchers' className="text-gray-700 text-[15px] font-semibold">Vouchers</Link>
+              <Link to='/chat' className="text-gray-700 text-[15px] font-semibold">Chat</Link>
+              <Link to='/my-bookings' className="text-gray-700 text-[15px] font-semibold">Bookings</Link>
+              <Link to='/my-tickets' className="text-gray-700 text-[15px] font-semibold">Tickets</Link>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-6">
+          {user ? (
             <>
-              <Link to={`/manage`} className=''>
-                <button
-                  className="bg-white text-primary text-[14px] px-6 py-1.5 rounded-md font-medium "
-                >
-                  Dashboard
-                </button>
-              </Link>
+              <button onClick={() =>  setOpenSearch(true)} className="flex md:hidden">
+                <IoIosSearch size={20} />
+              </button>
+              <button onClick={handleUserIconClick} className="md:ml-4 flex items-center gap-2 text-black hover:text-primary">
+                <FaCircleUser size={24} className="text-black" />
+              </button>
+              {user?.user_type === 'admin' && (
+                <Link to='/manage' className="bg-white text-primary text-[15px] font-semibold px-4 py-2 rounded-full">Dashboard</Link>
+              )}
             </>
           ) : (
-            <></>
-          )}
-          {user && user.user_type === 'seller' && stores.length !== 0 ? (
-            <Link target='_blank' to={stores.length > 0 ? `https://merchants.discoun3ree.com/merchant/${stores[0]?.id}/dashboard` : '#'} className=''>
-              <button
-                className="bg-white text-primary text-[14px] px-6 py-1.5 rounded-md font-medium "
-              >
-                Dashboard
-              </button>
-            </Link>
-          ) : (
-            <div>
-              {user?.user_type === 'seller' && (
-                <Link
-                  to={`https://merchants.discoun3ree.com/merchant/set-up-business`}
-                  target='_blank'
-                    className="bg-white text-primary text-[14px] px-6 py-1.5 rounded-md font-medium "
-                >
-                  Add Store
-                </Link>
-              )}
+            <div className="flex items-center gap-2">
+              <div className="flex flex-col items-center relative text-white">
+                <div className="flex relative w-full items-center">
+                    <button className="text-gray-700 mr-3 flex md:hidden">
+                      <IoIosSearch size={20} />
+                    </button>
+                  <Link to='/accounts/sign-in' className="flex text-black md:hidden">
+                    <FiUser size={24} className='text-gray-500 border rounded-full border-gray-400 p-1' />
+                  </Link>
+                  <div className="flex flex-col relative">
+                    <button onClick={() => setLogin(!login)} className='mr-3 hidden md:flex text-primary hover:underline text-[15px] font-medium'>Login</button>
+                    {login && (
+                      <div className="flex flex-col absolute top-full left-0 rounded-md p-4 bg-white gap-2">
+                        <Link className='text-primary text-[15px] font-medium hover:underline' to='/accounts/sign-in'>User</Link>
+                        <Link className='text-primary text-[15px] font-medium hover:underline' to='https://merchants.discoun3ree.com/accounts/login' target='_blank'>Merchant</Link>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col relative">
+                    <button onClick={() => setRegister(!register)} className='hidden md:flex text-white hover:underline font-medium text-[15px] bg-primary px-6 py-1.5 rounded-md'>Register</button>
+                    {register && (
+                      <div className="flex flex-col absolute top-full right-0 rounded-md p-4 bg-white gap-2">
+                        <Link className='text-primary text-[15px] font-medium hover:underline' to='/accounts/sign-up'>User</Link>
+                        <Link className='text-primary text-[15px] font-medium hover:underline' to='https://merchants.discoun3ree.com/accounts/register' target='_blank'>Merchant</Link>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
       </div>
+      {open && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+          <div className="absolute z-40 mt-4 right-0 top-5 bg-white w-[250px] h-[55vh] flex flex-col gap-4 rounded-lg p-6 ">
+            <p className="border-b mb-4 w-full text-[18px] font-medium border-gray-300">Manage Account</p>
+            <Link to='/accounts/profile' className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><FaRegUser /> Account</Link>
+            <Link to='/my-vouchers' className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><MdOutlineDiscount /> Vouchers</Link>
+            <Link to='/chat' className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><IoChatboxEllipsesOutline /> Chat</Link>
+            <Link to='/my-bookings' className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><CiBookmarkPlus /> Bookings</Link>
+            <Link to='/my-tickets' className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><BsTicketDetailed /> Tickets</Link>
+            {user?.user_type === 'admin' && (
+              <Link to='/manage' className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><LuLayoutDashboard /> Dashboard</Link>
+            )}
+            <button onClick={logoutUser} className="text-[15px] text-gray-600 hover:text-primary flex items-center gap-2"><FiUser /> Logout</button>
+            <button onClick={() => setOpen(false)} className="bg-primary rounded-md text-[15px] font-medium text-white py-1.5 z-40">Close</button>
+          </div>
+        </div>        
+      )}
     </>
-  )
-}
+  );
+};
 
 export default Navbar;
+
