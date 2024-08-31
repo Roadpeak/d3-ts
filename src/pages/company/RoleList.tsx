@@ -15,17 +15,9 @@ const RoleList: React.FC = () => {
     }, []);
 
     const fetchRoles = async () => {
-        const token = getCookie('access_token');
 
         try {
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json' 
-                }
-            };
-
-            const response = await axios.get('https://api.discoun3ree.com/api/open-roles', config);
+            const response = await axios.get('https://api.discoun3ree.com/api/open-roles');
             setRoles(response.data);
         } catch (error) {
             console.error('Error fetching roles:', error);
