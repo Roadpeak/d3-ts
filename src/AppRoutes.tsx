@@ -48,6 +48,13 @@ import FundPage from './pages/company/FundPage';
 import GoogleCallback from './pages/auth/GoogleCallback';
 import JobCreateForm from './components/admin/JobCreateForm';
 import Jobs from './pages/company/Jobs';
+import RoleList from './pages/company/RoleList';
+import RoleDetails from './pages/company/RoleDetails';
+import RoleForm from './pages/company/RoleForm';
+import ApplicationList from './pages/company/ApplicationList';
+import ApplicationForm from './pages/company/ApplicationForm';
+import ApplicationDetails from './pages/company/ApplicationDetails';
+import EditApplication from './pages/company/EditApplication';
 
 const AppRoutes: React.FC = () => {
 
@@ -107,6 +114,17 @@ const AppRoutes: React.FC = () => {
       <Route path='/company/press' element={<PressPage />} />
       <Route path='/company/brand-guidelines' element={<BrandGuidelinesPage />} />
       <Route path='/company/fund' element={<FundPage />} />
+
+
+      <Route path="/roles" element={<RoleList />} />
+      <Route path="/roles/:id" element={<RoleDetails />} />
+      <Route path="/manage/roles" element={<RoleForm />} />
+
+      {/* Application Routes */}
+      <Route path="/roles/:roleId/applications" element={<ApplicationList />} />
+      <Route path="/roles/:roleId/applications/create" element={<ApplicationForm />} />
+      <Route path="/applications/:id" element={<ApplicationDetails />} />
+      <Route path="/applications/:id/edit" element={<EditApplication />} />
 
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

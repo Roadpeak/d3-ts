@@ -9,7 +9,7 @@ const CareersPage: React.FC = () => {
             <div className="px-[5%] w-full mx-auto py-12">
                 <div className="flex w-full justify-between items-center mb-4">
                     <h1 className="text-[24px] font-semibold text-center flex items-center">Join Our <span className="hidden md:flex px-2">Dynamic</span> Team</h1>
-                    <a className='bg-primary px-6 py-1.5 text-white text-[15px] font-medium rounded-md' href="/company/careers/opportunities">See open roles</a>
+                    <a className='bg-primary px-6 py-1.5 text-white text-[15px] font-medium rounded-md' href="/roles">See open roles</a>
                 </div>
 
                 <section className="mb-12">

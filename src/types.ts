@@ -236,3 +236,21 @@ export interface Job {
         name: string;
     };
 }
+
+export interface Role {
+    id: number;
+    title: string;
+    description: string;
+    salary: number;
+    start_date: string;
+}
+
+export interface Application {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    position: string;
+    status: string;
+}
