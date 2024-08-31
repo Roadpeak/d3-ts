@@ -5,11 +5,13 @@ import { useAuth } from '../../utils/context/AuthContext';
 import { getCookie } from '../../utils/cookiUtils';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { toast } from 'react-toastify';
 
 const ApplicationForm: React.FC = () => {
     const [coverLetter, setCoverLetter] = useState<string>('');
     const [cv, setCv] = useState<File | null>(null);
     const [userId, setUserId] = useState<number | null>(null);
+    const [loading, setLoading] = useState<boolean>(false); // Loading state
     const { roleId } = useParams<{ roleId: string }>();
     const navigate = useNavigate();
     const { user } = useAuth();
@@ -32,10 +34,12 @@ const ApplicationForm: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true); 
         const token = getCookie('access_token');
 
         if (userId === null) {
             console.error('User ID is not available. Cannot submit application.');
+            setLoading(false); 
             return;
         }
 
@@ -57,16 +61,19 @@ const ApplicationForm: React.FC = () => {
                     }
                 }
             );
+            toast.success("Application sent.")
             navigate(`/`);
         } catch (error) {
             console.error('Error applying for role:', error);
+        } finally {
+            setLoading(false); 
         }
     };
 
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow py-6 px-4 md:px-8 lg:px-12 bg-gray-100">                
+            <main className="flex-grow py-6 px-4 md:px-8 lg:px-12 bg-gray-100">
                 <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md space-y-6 max-w-3xl mx-auto">
                     <h1 className="text-[22px] font-medium text-gray-800 mb-6">Submit Your Application</h1>
                     <div>
@@ -77,6 +84,7 @@ const ApplicationForm: React.FC = () => {
                             onChange={handleChange}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition"
                             rows={6}
+                            disabled={loading} 
                         />
                     </div>
                     <div>
@@ -86,13 +94,15 @@ const ApplicationForm: React.FC = () => {
                             name="cv"
                             onChange={handleChange}
                             className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-lg file:text-sm file:font-semibold file:bg-yellow-100 file:text-yellow-700 hover:file:bg-yellow-200 transition"
+                            disabled={loading} 
                         />
                     </div>
                     <button
                         type="submit"
                         className="bg-primary text-white px-6 py-1.5 rounded-lg shadow transition"
+                        disabled={loading} 
                     >
-                        Apply
+                        {loading ? 'Submitting...' : 'Apply'}  
                     </button>
                 </form>
             </main>
