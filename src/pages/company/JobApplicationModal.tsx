@@ -22,7 +22,6 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ jobId, isOpen
         setSuccess(null);
         setError(null);
 
-        // Check for cover letter word limit (e.g., 300 words)
         const wordLimit = 300;
         const wordCount = coverLetter.trim().split(/\s+/).length;
         if (wordCount > wordLimit) {
@@ -52,23 +51,23 @@ const JobApplicationModal: React.FC<JobApplicationModalProps> = ({ jobId, isOpen
         if (cv) formData.append('cv', cv);
 
         try {
-            const response = await axiosInstance.post(`/jobs/${jobId}/apply`, formData, {
+            const response = await axiosInstance.post(`/job-postings/${jobId}/apply`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             console.log('Application submitted successfully', response.data);
             setSuccess('Your application has been submitted successfully.');
-            setCoverLetter('');
-            setEducation('');
-            setExperience('');
-            setCv(null);
+            // setCoverLetter('');
+            // setEducation('');
+            // setExperience('');
+            // setCv(null);
         } catch (error) {
             console.error("There was an error submitting the application!", error);
             setError('There was an error submitting your application. Please try again.');
         } finally {
-            setLoading(false);
-            setTimeout(() => onClose(), 2000);
+            // setLoading(false);
+            // setTimeout(() => onClose(), 2000);
         }
     };
 
