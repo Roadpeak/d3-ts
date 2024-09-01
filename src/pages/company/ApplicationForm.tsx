@@ -104,9 +104,9 @@ const ApplicationForm: React.FC = () => {
                     >
                         {loading ? 'Submitting...' : 'Apply'}  
                     </button>
-                    <p className="mt-4">
+                    <p className="mt-4 text-[14px]">
                         Having trouble applying? Send us an email at
-                        <a href="mailto:info@discoun3ree.com" className="text-primary underline">
+                        <a href="mailto:info@discoun3ree.com" className="px-2 text-primary underline">
                             info@discoun3ree.com
                         </a>
                         with a cover letter and CV. The email subject should be the position you are applying for.
