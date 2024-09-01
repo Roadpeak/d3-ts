@@ -120,7 +120,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/roles/:id" element={<RoleDetails />} />
       <Route path="/manage/roles" element={<RoleForm />} />
 
-      <Route path="/roles/:roleId/applications" element={<ApplicationList />} />
+      <Route path="/roles/applications" element={<ApplicationList />} />
       <Route path="/roles/:roleId/applications/create" element={<ApplicationForm />} />
       <Route path="/applications/:id" element={<ApplicationDetails />} />
       <Route path="/applications/:id/edit" element={<EditApplication />} />

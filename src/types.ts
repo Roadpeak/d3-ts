@@ -247,10 +247,39 @@ export interface Role {
 
 export interface Application {
     id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-    phone: string;
-    position: string;
+    open_role_id: number;
+    user_id: number;
+    cover_letter: string;
+    cv: string;
     status: string;
+    created_at: string;
+    updated_at: string;
+    open_role: {
+        id: number;
+        title: string;
+        description: string;
+        salary: string;
+        start_date: string;
+        created_at: string;
+        updated_at: string;
+    };
+    user: {
+        id: number;
+        email: string;
+        google_id?: string;
+        email_verified_at?: string | null;
+        created_at: string;
+        updated_at: string;
+        first_name: string;
+        last_name: string;
+        phone?: string | null;
+        user_type: string;
+        active: boolean;
+        first_discount: number;
+        active_status: number;
+        avatar: string;
+        dark_mode: boolean;
+        otp?: string | null;
+    };
 }
+
