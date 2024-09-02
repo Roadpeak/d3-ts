@@ -8,7 +8,6 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { BsTicketDetailed } from "react-icons/bs";
 import { IoChatboxEllipsesOutline } from 'react-icons/io5';
 import { MdOutlineDiscount } from 'react-icons/md';
-import { getCookie } from '../utils/cookiUtils';
 import { IoIosSearch, IoMdClose } from 'react-icons/io';
 import { BsGlobe } from 'react-icons/bs';
 import { FaCircleUser } from 'react-icons/fa6';
@@ -67,7 +66,6 @@ const Navbar: React.FC = () => {
               <span>Kenya</span>
             </div>
             <div className="flex items-center gap-1">
-              {/* <span>Categories</span> */}
             </div>
           </div>
           <div className="flex items-center gap-4">

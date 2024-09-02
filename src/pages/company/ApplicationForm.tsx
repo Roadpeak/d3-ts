@@ -11,7 +11,7 @@ const ApplicationForm: React.FC = () => {
     const [coverLetter, setCoverLetter] = useState<string>('');
     const [cv, setCv] = useState<File | null>(null);
     const [userId, setUserId] = useState<number | null>(null);
-    const [loading, setLoading] = useState<boolean>(false); // Loading state
+    const [loading, setLoading] = useState<boolean>(false);
     const { roleId } = useParams<{ roleId: string }>();
     const navigate = useNavigate();
     const { user } = useAuth();
@@ -94,7 +94,7 @@ const ApplicationForm: React.FC = () => {
                             name="cv"
                             onChange={handleChange}
                             className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-lg file:text-sm file:font-semibold file:bg-yellow-100 file:text-yellow-700 hover:file:bg-yellow-200 transition"
-                            disabled={loading} 
+                            disabled={loading}
                         />
                     </div>
                     <button
